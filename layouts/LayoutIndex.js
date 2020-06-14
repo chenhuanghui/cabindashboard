@@ -3,6 +3,8 @@ import Head from 'next/head'
 
 import NavChildGroup from '../components/nav/nav_child_group'
 import DropUpWithImage from '../components/nav/drop_up_with_image'
+import CardItemText from '../components/card/card_item_text'
+import CardItemTextChart from '../components/card/card_item_text_chart'
 
 export default class LayoutBundleDeliveryRight extends React.Component {
     render () {
@@ -66,14 +68,41 @@ export default class LayoutBundleDeliveryRight extends React.Component {
                                 </a>
 
                             </div>
-
-
                         </div> 
                         {/* end .navbar-collapse */}
-                        
-
                     </div>
                 </nav>
+
+                <div className="main-content">
+                    {/* header */}
+                    <div className="header">
+                        <div className="container-fluid">
+                            <div className="header-body">
+                                <div className="row align-items-end">
+                                    <div className="col">
+                                        <h6 className="header-pretitle">Overview</h6>
+                                        <h1 className="header-title">Dashboard</h1>
+                                    </div>
+                                    <div className="col-auto">
+                                        <a href="#!" className="btn btn-primary lift">Create Report</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* end header */}
+
+                    <div className="container-fluid">
+                        <div className="row">
+                            
+                            <CardItemText title={'Value'} value={'$24,500'} value_up_down={'+3,5%'} icon_class={'.fe-dollar-sign'}/>
+                            <CardItemText title={'TOTAL HOURS'} value={'763.5'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
+                            <CardItemTextChart title={'EXIT %'} value={'35.5%'}/>
+                            <CardItemText title={'AVG. TIME'} value={'2:37'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
+                            
+                            </div>
+                    </div>
+                </div>
             </div>
         )
     }
