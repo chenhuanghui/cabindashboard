@@ -5,6 +5,7 @@ import NavChildGroup from '../components/nav/nav_child_group'
 import DropUpWithImage from '../components/nav/drop_up_with_image'
 import CardItemText from '../components/card/card_item_text'
 import CardItemTextChart from '../components/card/card_item_text_chart'
+import TableRich from '../components/table/table_rich'
 
 export default class LayoutBundleDeliveryRight extends React.Component {
     render () {
@@ -94,13 +95,29 @@ export default class LayoutBundleDeliveryRight extends React.Component {
 
                     <div className="container-fluid">
                         <div className="row">
-                            
-                            <CardItemText title={'Value'} value={'$24,500'} value_up_down={'+3,5%'} icon_class={'.fe-dollar-sign'}/>
-                            <CardItemText title={'TOTAL HOURS'} value={'763.5'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
-                            <CardItemTextChart title={'EXIT %'} value={'35.5%'}/>
-                            <CardItemText title={'AVG. TIME'} value={'2:37'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
-                            
+
+                            <div className="col-12 col-lg-6 col-xl">
+                                <CardItemText title={'Value'} value={'$24,500'} value_up_down={'+3,5%'} icon_class={'.fe-dollar-sign'}/>
                             </div>
+                            
+                            <div className="col-12 col-lg-6 col-xl">
+                                <CardItemText title={'TOTAL HOURS'} value={'763.5'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
+                            </div>
+                            
+                            <div className="col-12 col-lg-6 col-xl">
+                                <CardItemTextChart title={'EXIT %'} value={'35.5%'}/>
+                            </div>
+
+                            <div className="col-12 col-lg-6 col-xl">
+                                <CardItemText title={'AVG. TIME'} value={'2:37'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
+                            </div>    
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12 col-xl-8">
+                                <TableRich />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
