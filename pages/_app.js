@@ -1,4 +1,4 @@
-import '../public/assets/css/theme.css'
+import '../public/assets/css/theme.min.css'
 
 import '../public/assets/fonts/feather/feather.css'
 import '../public/assets/libs/flatpickr/dist/flatpickr.min.css'
