@@ -1,6 +1,9 @@
 import React from 'react';
 import Head from 'next/head'
 
+import NavChildGroup from '../components/nav/nav_child_group'
+import DropUpWithImage from '../components/nav/drop_up_with_image'
+
 export default class LayoutBundleDeliveryRight extends React.Component {
     render () {
         return (
@@ -30,48 +33,18 @@ export default class LayoutBundleDeliveryRight extends React.Component {
                             
                             {/* menu group block */}
                             <ul className="navbar-nav">
-                                {/* menu child group */}
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#sidebarDashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
-                                        <i className="fe fe-home"></i> Dashboards
-                                    </a>
-                                    <div className="collapse show" id="sidebarDashboards">
-                                        <ul className="nav nav-sm flex-column">
-                                            <li className="nav-item">
-                                                <a href="./index.html" className="nav-link active">Default</a>
-                                            </li>
-                                            <li className="nav-item">
-                                                <a href="./dashboard-project-management.html" className="nav-link ">Project Management</a>
-                                            </li>
-                                            <li className="nav-item">
-                                                <a href="./dashboard-ecommerce.html" className="nav-link ">E-Commerce</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
+                                <NavChildGroup />
+                                <NavChildGroup />
+                                <NavChildGroup />
                             </ul>
 
                             <hr className="navbar-divider my-3"/>
+                            
                             {/* menu group header */}
                             <h6 className="navbar-heading">Documentation</h6>
                             {/* menu group block */}
                             <ul className="navbar-nav">
-                                {/* menu child group */}
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#sidebarBasics" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBasics">
-                                        <i className="fe fe-clipboard"></i> Basics
-                                    </a>
-                                    <div className="collapse show" id="sidebarBasics">
-                                        <ul className="nav nav-sm flex-column">
-                                            <li className="nav-item ">
-                                                <a href="./docs/getting-started.html" className="nav-link">Getting Started</a>
-                                            </li>
-                                            <li className="nav-item ">
-                                                <a href="./docs/design-file.html" className="nav-link">Design File</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
+                                <NavChildGroup />                                
                             </ul>   
 
                             {/* Push content down */}
@@ -83,29 +56,13 @@ export default class LayoutBundleDeliveryRight extends React.Component {
                                     <span className="icon"><i className="fe fe-bell"></i></span>
                                 </a>
 
-                                <div className="dropup">
-
-                                <a href="#" id="sidebarIconCopy" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div className="avatar avatar-sm avatar-online">
-                                        <img src="./assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
-                                    </div>
-                                </a>
-
-                                {/* Menu */}
-                                <div className="dropdown-menu" aria-labelledby="sidebarIconCopy">
-                                    <a href="./profile-posts.html" className="dropdown-item">Profile</a>
-                                    <a href="./account-general.html" className="dropdown-item">Settings</a>
-                                    <hr className="dropdown-divider"/>
-                                    <a href="./sign-in.html" className="dropdown-item">Logout</a>
-                                </div>
-
-                                </div>
+                                <DropUpWithImage />
 
                                 {/* Icon */}
                                 <a href="#sidebarModalSearch" className="navbar-user-link" data-toggle="modal">
-                                <span className="icon">
-                                    <i className="fe fe-search"></i>
-                                </span>
+                                    <span className="icon">
+                                        <i className="fe fe-search"></i>
+                                    </span>
                                 </a>
 
                             </div>
