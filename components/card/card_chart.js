@@ -15,7 +15,7 @@ export default class CardChart extends React.Component {
       labels: ['Thg1', 'Thg2', 'Thg3', 'Thg4', 'Thg5', 'Thg6', 'Thg7', 'Thg8', 'Thg9', 'Thg10', 'Thg11', 'Thg12'],
       datasets: [{
         label: 'Điện năng tiêu thụ',
-        data: [0, 10, 20, 15, 10, 20, 15, 25, 20, 30, 25, 40],
+        data: [0, 10, 20, 15, 30, 20, 20, 15, 30, 10, 15, 50],
 
         fill: false,
         // lineTension: 0.1,
@@ -45,7 +45,15 @@ export default class CardChart extends React.Component {
         display: false // hide title
       },
       scales: {
+        xAxes: [{
+          gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+          }
+        }],
         yAxes: [{
+          gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          },
           ticks: {
             callback: function(value) {
               return value + ' kwh';
