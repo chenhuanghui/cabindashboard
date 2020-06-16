@@ -5,6 +5,11 @@ import NavChildGroup from '../components/nav/nav_child_group'
 import DropUpWithImage from '../components/nav/drop_up_with_image'
 import HeaderArrow from '../components/header/header_arrow'
 import CardBody from '../components/card/card_body'
+import CardChart from '../components/card/card_chart'
+
+import CardItemText from '../components/card/card_item_text'
+import CardItemTextChart from '../components/card/card_item_text_chart'
+
 
 export default class LayoutCabinDetail extends React.Component {
     render () {
@@ -76,8 +81,20 @@ export default class LayoutCabinDetail extends React.Component {
                 <div className="main-content">
                     <div className="row justify-content-center">
                         <div className="col-12 col-lg-10 col-xl-8">
-                            <HeaderArrow />
-                            <CardBody />
+                                <HeaderArrow />
+                                <CardBody />
+                                <CardChart />
+                                <div className="row">
+                                    <div className="col-12 col-lg-6">
+                                        <CardItemTextChart title={`Điện tiêu thụ`}  value={`234 Kwh`} value_up_down={`3,5%`}/>
+                                        <CardItemTextChart title={`Nước tiêu thụ`}  value={`234 m3`} value_up_down={`3,5%`}/>
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <CardItemTextChart title={`Nền nhiệt độ`}  value={`29 C`} value_up_down={`3,5%`}/>
+                                        <CardItemTextChart title={`Ngày làm việc`}  value={`29 ngày`}/>
+                                    </div>
+                                </div>
+                            
                             
                         </div>
                     </div>
