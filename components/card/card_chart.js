@@ -41,18 +41,22 @@ export default class CardChart extends React.Component {
 
     var optionsdata = [];
     optionsdata =  {
+      responsive: true,
+      // tooltips: {
+      //   mode: 'label'
+      // },
       legend: {
         display: false // hide title
       },
       scales: {
         xAxes: [{
           gridLines: {
-              color: "rgba(0, 0, 0, 0)",
+            display: false
           }
         }],
         yAxes: [{
           gridLines: {
-            color: "rgba(0, 0, 0, 0)",
+            display: false
           },
           ticks: {
             callback: function(value) {
