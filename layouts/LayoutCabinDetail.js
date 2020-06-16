@@ -22,15 +22,26 @@ export default class LayoutCabinDetail extends React.Component {
     componentDidMount() {
         var table1Data = [];
         table1Data.title = `Danh sách nhân viên`;
+        
         table1Data.col = [];
         table1Data.col.push(`Tên`);
         table1Data.col.push(`Trạng thái`);
         table1Data.col.push(`Chấm công`);
         table1Data.col.push(`Chứng chỉ`);
-        // table1Data.col = [`Tên`,`Trạng thái`,`Chấm công`,`Chứng chỉ`];
-        this.setState({table1:table1Data})
         
+        table1Data.content = [];
+        table1Data.content.push({name:`Cashey Fei1`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
+        table1Data.content.push({name:`Cashey Fei2`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
+        table1Data.content.push({name:`Cashey Fei3`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
+        table1Data.content.push({name:`Cashey Fei4`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
+        table1Data.content.push({name:`Cashey Fei5`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
+        
+        this.setState({table1:table1Data})
+        console.log(`table1`,table1Data);
     }
+
+    
+    
 
     render () {
         const {table1} = this.state;
