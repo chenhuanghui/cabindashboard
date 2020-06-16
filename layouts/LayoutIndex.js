@@ -75,47 +75,34 @@ export default class LayoutBundleDeliveryRight extends React.Component {
                 </nav>
 
                 <div className="main-content">
-                    {/* header */}
-                    <div className="header">
-                        <div className="container-fluid">
-                            <div className="header-body">
-                                <div className="row align-items-end">
-                                    <div className="col">
-                                        <h6 className="header-pretitle">Overview</h6>
-                                        <h1 className="header-title">Dashboard</h1>
-                                    </div>
-                                    <div className="col-auto">
-                                        <a href="#!" className="btn btn-primary lift">Create Report</a>
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-lg-10 col-xl-8">
+                            {/* header */}
+                            <div className="header">
+                                <div className="container-fluid">
+                                    <div className="header-body">
+                                        <div className="row align-items-end">
+                                            <div className="col">
+                                                <h6 className="header-pretitle">Overview</h6>
+                                                <h1 className="header-title">Dashboard</h1>
+                                            </div>
+                                            <div className="col-auto">
+                                                <a href="#!" className="btn btn-primary lift">Create Report</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {/* end header */}
+                            {/* end header */}
 
-                    <div className="container-fluid">
-                        <div className="row">
+                            <div className="container-fluid">
+                                <div className="row">
+                                    
+                                </div>
 
-                            <div className="col-12 col-lg-6 col-xl">
-                                <CardItemText title={'Value'} value={'$24,500'} value_up_down={'+3,5%'} icon_class={'.fe-dollar-sign'}/>
-                            </div>
-                            
-                            <div className="col-12 col-lg-6 col-xl">
-                                <CardItemText title={'TOTAL HOURS'} value={'763.5'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
-                            </div>
-                            
-                            <div className="col-12 col-lg-6 col-xl">
-                                <CardItemTextChart title={'EXIT %'} value={'35.5%'}/>
-                            </div>
-
-                            <div className="col-12 col-lg-6 col-xl">
-                                <CardItemText title={'AVG. TIME'} value={'2:37'} value_up_down={''} icon_class={'.fe-dollar-sign'}/>
-                            </div>    
-                        </div>
-
-                        <div className="row">
-                            <div className="col-12 col-xl-8">
-                                <TableRich />
+                                <div className="row">
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
