@@ -11,7 +11,7 @@ export default class HeaderArrow extends React.Component {
                     <div className="header-body">
                         <div className="row align-items-end">
                             <div className="col-auto">
-                                <button class="btn btn-lg btn-rounded-circle btn-white"> + </button>    
+                                <button className="btn btn-lg btn-rounded-circle btn-white"> + </button>    
                             </div>
                             
                             <div className="col">

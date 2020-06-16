@@ -16,7 +16,9 @@ export default class LayoutCabinDetail extends React.Component {
         super(props);
     
         this.state = {
-            table1: []
+            staffData: [],
+            assetData: [],
+            productData: []
         }
     }
     componentDidMount() {
@@ -30,21 +32,56 @@ export default class LayoutCabinDetail extends React.Component {
         table1Data.col.push(`Chứng chỉ`);
         
         table1Data.content = [];
-        table1Data.content.push({name:`Cashey Fei1`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
-        table1Data.content.push({name:`Cashey Fei2`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
-        table1Data.content.push({name:`Cashey Fei3`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
-        table1Data.content.push({name:`Cashey Fei4`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
-        table1Data.content.push({name:`Cashey Fei5`,email:`casheyfei@gmail.com`, status:`Available`,date:`07/24/18`, cer:`2/5`})
+        table1Data.content.push({data1:`Cashey Fei1`,data2:`casheyfei@gmail.com`, data3:`Available`,data4:`07/24/18`, data5:`2/5`})
+        table1Data.content.push({data1:`Cashey Fei2`,data2:`casheyfei@gmail.com`, data3:`Available`,data4:`07/24/18`, data5:`2/5`})
+        table1Data.content.push({data1:`Cashey Fei3`,data2:`casheyfei@gmail.com`, data3:`Available`,data4:`07/24/18`, data5:`2/5`})
+        table1Data.content.push({data1:`Cashey Fei4`,data2:`casheyfei@gmail.com`, data3:`Available`,data4:`07/24/18`, data5:`2/5`})
+        table1Data.content.push({data1:`Cashey Fei5`,data2:`casheyfei@gmail.com`, data3:`Available`,data4:`07/24/18`, data5:`2/5`})
         
-        this.setState({table1:table1Data})
-        console.log(`table1`,table1Data);
+        this.setState({staffData:table1Data})
+        
+
+        var table2Data = [];
+        table2Data.title = `Danh sách tài sản`;
+        
+        table2Data.col = [];
+        table2Data.col.push(`Tên`);
+        table2Data.col.push(`Số lượng`);
+        table2Data.col.push(`Sở hữu`);
+        table2Data.col.push(`Giá trị`);
+        table2Data
+        table2Data.content = [];
+        table2Data.content.push({data1:`Bộ quầy kệ1`,data2:`Kích thước: 1m x 2m x3m`, data3:`3`, data4:`CabinFood`, data5:`15.000.000`})
+        table2Data.content.push({data1:`Bộ quầy kệ2`,data2:`Kích thước: 1m x 2m x3m`, data3:`3`, data4:`CabinFood`, data5:`15.000.000`})
+        table2Data.content.push({data1:`Bộ quầy kệ3`,data2:`Kích thước: 1m x 2m x3m`, data3:`3`, data4:`CabinFood`, data5:`15.000.000`})
+        table2Data.content.push({data1:`Bộ quầy kệ4`,data2:`Kích thước: 1m x 2m x3m`, data3:`3`, data4:`CabinFood`, data5:`15.000.000`})
+        table2Data.content.push({data1:`Bộ quầy kệ5`,data2:`Kích thước: 1m x 2m x3m`, data3:`3`, data4:`CabinFood`, data5:`15.000.000`})
+        this.setState({assetData:table2Data});
+
+
+        var table3Data = [];
+        table3Data.title = `Danh mục sản phẩm`;
+        table3Data
+        table3Data.col = [];
+        table3Data.col.push(`Tên`);
+        table3Data.col.push(`Trạng thái`);
+        table3Data.col.push(`Danh Mục`);
+        table3Data.col.push(`Giá bán`);
+        table3Data
+        table3Data.content = [];
+        table3Data.content.push({data1:`Bún`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
+        table3Data.content.push({data1:`Mì`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
+        table3Data.content.push({data1:`Phở`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
+        table3Data.content.push({data1:`Miến`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
+        table3Data.content.push({data1:`Hủ tiếu`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
+        this.setState({productData:table3Data});
     }
 
     
     
 
     render () {
-        const {table1} = this.state;
+        const {staffData, assetData, productData} = this.state;
         return (
             <div>
                 <Head>
@@ -126,7 +163,11 @@ export default class LayoutCabinDetail extends React.Component {
                                         <CardItemTextChart title={`Ngày làm việc`}  value={`29 ngày`}/>
                                     </div>
                                 </div>
-                                <TableRich tableSetup={table1}/>
+                                
+                                <TableRich tableSetup={staffData}/>
+                                <TableRich tableSetup={assetData}/>
+                                <TableRich tableSetup={productData}/>
+                                
                             
                             
                         </div>
