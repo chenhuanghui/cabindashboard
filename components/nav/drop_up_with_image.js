@@ -6,7 +6,7 @@ export default class DropUpWithImage extends React.Component {
             <div className="dropup">
                 <a href="#" id="sidebarIconCopy" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div className="avatar avatar-sm avatar-online">
-                        <img src="./assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                        <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
                     </div>
                 </a>
 
