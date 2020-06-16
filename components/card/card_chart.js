@@ -41,6 +41,9 @@ export default class CardChart extends React.Component {
 
     var optionsdata = [];
     optionsdata =  {
+      legend: {
+        display: false // hide title
+      },
       scales: {
         yAxes: [{
           ticks: {
