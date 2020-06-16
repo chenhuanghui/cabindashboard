@@ -89,10 +89,10 @@ export default class CardChart extends React.Component {
                   </ul>
               </div>
               {/* end card header */}
+
               <div className="card-body">
                 <div className="chart">
-                  {/* <canvas id="overviewChart" className="chart-canvas"></canvas> */}
-                  <Line id="overviewChart" className="chart-canvas" data = {data} options={options} width={'687px'} height= {'300px'}/>
+                  <Line id="overviewChart" className="chart-canvas chartjs-render-monitor" data = {data} options={options} width={'687px'} height= {'300px'}/>
                   
                 </div>
               </div>      
