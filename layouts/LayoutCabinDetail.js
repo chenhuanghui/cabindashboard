@@ -9,10 +9,31 @@ import CardChart from '../components/card/card_chart'
 
 import CardItemText from '../components/card/card_item_text'
 import CardItemTextChart from '../components/card/card_item_text_chart'
-
+import TableRich from '../components/table/table_rich'
 
 export default class LayoutCabinDetail extends React.Component {
+    constructor(props){
+        super(props);
+    
+        this.state = {
+            table1: []
+        }
+    }
+    componentDidMount() {
+        var table1Data = [];
+        table1Data.title = `Danh sách nhân viên`;
+        table1Data.col = [];
+        table1Data.col.push(`Tên`);
+        table1Data.col.push(`Trạng thái`);
+        table1Data.col.push(`Chấm công`);
+        table1Data.col.push(`Chứng chỉ`);
+        // table1Data.col = [`Tên`,`Trạng thái`,`Chấm công`,`Chứng chỉ`];
+        this.setState({table1:table1Data})
+        
+    }
+
     render () {
+        const {table1} = this.state;
         return (
             <div>
                 <Head>
@@ -94,6 +115,7 @@ export default class LayoutCabinDetail extends React.Component {
                                         <CardItemTextChart title={`Ngày làm việc`}  value={`29 ngày`}/>
                                     </div>
                                 </div>
+                                <TableRich tableSetup={table1}/>
                             
                             
                         </div>
