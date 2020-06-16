@@ -3,10 +3,8 @@ import Head from 'next/head'
 
 import NavChildGroup from '../components/nav/nav_child_group'
 import DropUpWithImage from '../components/nav/drop_up_with_image'
-import CardItemText from '../components/card/card_item_text'
-import CardItemTextChart from '../components/card/card_item_text_chart'
-import TableRich from '../components/table/table_rich'
-import HeaderArrow from '../components/header/header_arrow.js'
+import HeaderArrow from '../components/header/header_arrow'
+import CardBody from '../components/card/card_body'
 
 export default class LayoutCabinDetail extends React.Component {
     render () {
@@ -79,7 +77,7 @@ export default class LayoutCabinDetail extends React.Component {
                     <div className="row justify-content-center">
                         <div className="col-12 col-lg-10 col-xl-8">
                             <HeaderArrow />
-                            
+                            <CardBody />
                             
                         </div>
                     </div>
