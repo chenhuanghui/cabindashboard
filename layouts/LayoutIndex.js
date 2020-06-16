@@ -7,7 +7,7 @@ import CardItemText from '../components/card/card_item_text'
 import CardItemTextChart from '../components/card/card_item_text_chart'
 import TableRich from '../components/table/table_rich'
 
-export default class LayoutBundleDeliveryRight extends React.Component {
+export default class LayoutIndex extends React.Component {
     render () {
         return (
             <div>
