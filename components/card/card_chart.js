@@ -12,10 +12,10 @@ export default class CardChart extends React.Component {
   componentDidMount() {
     var temp = [];
     temp = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      labels: ['Thg1', 'Thg2', 'Thg3', 'Thg4', 'Thg5', 'Thg6', 'Thg7', 'Thg8', 'Thg9', 'Thg10', 'Thg11', 'Thg12'],
       datasets: [{
-        label: 'Số điện',
-        data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25, 40],
+        label: 'Điện năng tiêu thụ',
+        data: [0, 10, 20, 15, 10, 20, 15, 25, 20, 30, 25, 40],
 
         fill: false,
         // lineTension: 0.1,
@@ -45,7 +45,7 @@ export default class CardChart extends React.Component {
         yAxes: [{
           ticks: {
             callback: function(value) {
-              return '$' + value + 'k';
+              return value + ' kwh';
             }
           }
         }]
@@ -59,6 +59,25 @@ export default class CardChart extends React.Component {
       return (
           // card body
           <div className="card">
+              <div className="card-header">
+                  {/* title */}
+                  <h4 className="card-header-title">Năng lượng tiêu thụ</h4>
+                  {/* button */}
+                  <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#" data-toggle="tab">
+                        Điện
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#" data-toggle="tab">
+                        Nước
+                      </a>
+                    </li>
+                    
+                  </ul>
+              </div>
+              {/* end card header */}
               <div className="card-body">
                 <div className="chart">
                   {/* <canvas id="overviewChart" className="chart-canvas"></canvas> */}
