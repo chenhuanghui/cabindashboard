@@ -5,7 +5,7 @@ import NavChildGroup from '../components/nav/nav_child_group'
 import DropUpWithImage from '../components/nav/drop_up_with_image'
 import HeaderArrow from '../components/header/header_arrow'
 import TableRich from '../components/table/table_rich'
-import ModalLeft from '../components/modal/modal_left'
+import ModalProductEdit from '../components/modal/modal_product_edit'
 
 export default class LayoutProduct extends React.Component {
     constructor(props){
@@ -51,6 +51,9 @@ export default class LayoutProduct extends React.Component {
                     <title>Cabin Food Admin</title>
 
                 </Head>
+
+                <ModalProductEdit />
+
                 <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
                     <div className="container-fluid">
 
@@ -110,7 +113,6 @@ export default class LayoutProduct extends React.Component {
                 <div className="main-content">
                     <div className="row justify-content-center">
                         <div className="col-12 col-lg-10 col-xl-8">
-                            <ModalLeft />
                             <HeaderArrow />
                             <TableRich tableSetup={productData}/>
                         </div>

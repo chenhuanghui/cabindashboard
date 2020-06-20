@@ -27,7 +27,7 @@ export default class TableRich extends React.Component {
                     {/* title */}
                     <h4 className="card-header-title">{data.title}</h4>
                     {/* button */}
-                    <a href="#!" className="btn btn-sm btn-white">Export</a> 
+                    <a href="#!" className="btn btn-sm btn-white btn-modal" id='modal_product_edit'>Export</a> 
                 </div>
                 {/* end card header */}
 
