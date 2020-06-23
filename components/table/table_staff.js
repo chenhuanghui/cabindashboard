@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class TableRich extends React.Component {
+export default class TableStaff extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -50,32 +50,25 @@ export default class TableRich extends React.Component {
                             {/* table item */}
                             {data && data.content && data.content.map((item) => (
                                 <tr>
-                                    <td className="text-right">
-                                        <div className="avatar-group">
-                                            <a href="profile-posts.html" className="avatar avatar-xs">
-                                                <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
-                                            </a>
-                                        </div>
-                                    </td>
+                                   
                                     
                                     <td className="project-project">
                                         <h4 className="font-weight-normal mb-1">{item.data1}</h4>
-                                      
+                                        {/* <small className="text-muted">{item.data2}</small> */}
                                     </td>
                                     <td className="project-status">
-                                        <span className="badge badge-soft-warning">{item.data2}</span>
+                                        <span className=""> <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">{item.data2}</input></span>
                                     </td>
-                                    <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data3}</h4>
-                                    </td>
-                                  
-
-                                    <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data4}</h4>
+                                    <td className="project-status">
+                                        <span className="badge badge-soft-danger">{item.data3}</span>
                                     </td>
 
-                                    <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data5}</h4>
+                                    <td className="project-date">
+                                        <time dateTime="2018-10-24">{item.data4}</time>
+                                    </td>
+
+                                    <td className="project-status">
+                                        <span className="badge badge-soft-danger">{item.data5}</span>
                                     </td>
                                 
                                     <td className="text-right">
