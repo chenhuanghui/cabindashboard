@@ -27,7 +27,7 @@ export default class TableRich extends React.Component {
                     {/* title */}
                     <h4 className="card-header-title">{data.title}</h4>
                     {/* button */}
-                    <a href="#!" className="btn btn-sm btn-white btn-modal" id='modal_product_edit'>Export</a> 
+                    <a href="#!" className="btn btn-sm btn-white btn-modal" id='modal_product_edit'>Thêm sản phẩm</a> 
                 </div>
                 {/* end card header */}
 
@@ -83,7 +83,7 @@ export default class TableRich extends React.Component {
                                             <a href="#" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fe fe-more-vertical"></i>
                                             </a>
-                                            <div className="dropdown-menu dropdown-menu-right">
+                                            <div className="dropdown-menu dropdown-menu-right ">
                                                 <a href="#!" className="dropdown-item">Action</a>
                                                 <a href="#!" className="dropdown-item">Another action</a>
                                                 <a href="#!" className="dropdown-item">Something else here</a>

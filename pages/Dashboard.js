@@ -99,8 +99,7 @@ export default class Dashboard extends React.Component {
               {/* menu group block */}
               <ul className="navbar-nav">
                 <NavChildGroup />
-                <NavChildGroup />
-                <NavChildGroup />
+              
               </ul>
 
               <hr className="navbar-divider my-3" />
@@ -108,6 +107,7 @@ export default class Dashboard extends React.Component {
               {/* menu group header */}
               <h6 className="navbar-heading">Documentation</h6>
               {/* menu group block */}
+              
               <ul className="navbar-nav">
                 <NavChildGroup />
               </ul>
@@ -155,7 +155,7 @@ export default class Dashboard extends React.Component {
                         <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="fe fe-more-vertical"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right" id="dropdown">
                           <a href="#!" class="dropdown-item">
                             Action
                         </a>
@@ -804,6 +804,7 @@ export default class Dashboard extends React.Component {
             </div>
 
 <div class="row">
+<div class="col-12 col-lg-12 col-xl-12">
 <div class="card">
               <div class="card-header">
 
@@ -900,6 +901,7 @@ export default class Dashboard extends React.Component {
           
 
               </div>
+            </div>
             </div>
 </div>
 

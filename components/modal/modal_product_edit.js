@@ -51,31 +51,54 @@ export default class ModalProductEdit extends React.Component {
                             <div className="my-n3">
                                 <form>
                                     <div className="form-group">
-                                        <label for="exampleInputEmail1">Tên sản phẩm</label>
+                                        <label for="addName">Tên sản phẩm</label>
                                         <input className="form-control"/>
                                     </div>
                                     <div className="form-group">
-                                        <label for="exampleInputEmail1">Mô tả</label>
+                                        <label for="addDescription">Mô tả</label>
                                         <input className="form-control"/>
                                     </div>
                                     <div className="form-group">
-                                        <label for="exampleInputEmail1">Giá bán</label>
+                                        <label for="addPrice">Giá bán</label>
                                         <input className="form-control"/>
                                     </div>
+                                    <div className="form-group">
+                                        <label for="addSaleOff">Giá khuyến mãi</label>
+                                        <input className="form-control"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label for="addCategory">Danh mục</label>
+                                        <input className="form-control"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label for="addSize">Size</label>
+                                        <input className="form-control"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label for="addOption">Option</label>
+                                        <input className="form-control"/>
+                                    </div>
+                                    </form>
+                                    </div>
+                                    <div className="col-12 col-lg-12 col-xl-12"></div>
+                                    <div class="card">
+              <div class="card-body">
 
+          
+                <div class="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
+                
+                  <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
 
-                                    
+                <div class="dz-default dz-message">
+                    <button class="dz-button" type="button">Drop files here to upload</button></div></div>
 
-
-                                    <button type="submit" className="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-
-                        </div>
+               
                     </div>
                 </div>
+             
             </div>
-
+</div>
+</div></div>
         )
     }
 }

@@ -7,7 +7,10 @@ import HeaderArrow from '../components/header/header_arrow'
 import TableRich from '../components/table/table_rich'
 import ModalProductEdit from '../components/modal/modal_product_edit'
 
+
+
 export default class LayoutProduct extends React.Component {
+    
     constructor(props){
         super(props);
     
@@ -15,6 +18,7 @@ export default class LayoutProduct extends React.Component {
             productData: []
         }
     }
+    
     componentDidMount() {
         var table3Data = [];
         table3Data.title = `Danh mục sản phẩm`;
@@ -49,6 +53,16 @@ export default class LayoutProduct extends React.Component {
                     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
                     {/* <script src="../assets/js/theme.min.js"></script> */}
                     <title>Cabin Food Admin</title>
+                    <link rel="stylesheet" href="./assets/fonts/feather/feather.css" />
+<link rel="stylesheet" href="./assets/libs/flatpickr/dist/flatpickr.min.css" />
+<link rel="stylesheet" href="./assets/libs/quill/dist/quill.core.css" />
+<link rel="stylesheet" href="./assets/libs/highlightjs/styles/vs2015.css" />
+
+
+<link href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" rel="stylesheet" />
+
+
+<link rel="stylesheet" href="./assets/css/theme.min.css"/>
 
                 </Head>
 
@@ -114,6 +128,8 @@ export default class LayoutProduct extends React.Component {
                     <div className="row justify-content-center">
                         <div className="col-12 col-lg-10 col-xl-8">
                             <HeaderArrow />
+                            <a href="#!" className="btn btn-sm btn-white btn-modal" id='modal_product_edit'>Add</a> 
+               
                             <TableRich tableSetup={productData}/>
                         </div>
                     </div>
