@@ -16,6 +16,7 @@ export default class TableRich extends React.Component {
         if (this.props.tableSetup !== prevProps.tableSetup) {
             console.log('props update');
             this.setState({data:this.props.tableSetup})
+            // console.log('data table', this.props.tableSetup);
         }        
     }
     
@@ -36,8 +37,8 @@ export default class TableRich extends React.Component {
                         <thead>
                             <tr>
                                 <th></th>
-                                {data && data.col && data.col.map((c) => {
-                                    <th>
+                                {data && data.col && data.col.map((c, index) => (
+                                    <th key={index}>
                                         <a href="#" className="text-muted list-sort">{c}</a>
                                     </th>
                                 })
@@ -49,25 +50,14 @@ export default class TableRich extends React.Component {
                         <tbody className="list">
                             {/* table item */}
                             {data && data.content && data.content.map((item) => (
-                                    <tr>
-                                        <td className="text-right">
-                                            <div className="avatar-group">
-                                                <a href="profile-posts.html" className="avatar avatar-xs">
-                                                    <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        
-                                        <td className="project-project">
-                                            <h4 className="font-weight-normal mb-1">{item.data1}</h4>
-                                        
-                                        </td>
-                                        <td className="project-status">
-                                            <span className="badge badge-soft-warning">{item.data2}</span>
-                                        </td>
-                                        <td className="project-project">
-                                        <h4 className="font-weight-normal mb-1">{item.data3}</h4>
-                                        </td>
+                                <tr>
+                                    <td className="text-right">
+                                        <div className="avatar-group">
+                                            <a href="profile-posts.html" className="avatar avatar-xs">
+                                                <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                                            </a>
+                                        </div>
+                                    </td>
                                     
 
                                         <td className="project-project">

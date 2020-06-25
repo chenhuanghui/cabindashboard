@@ -78,14 +78,14 @@ export default class CardChart extends React.Component {
                   {/* title */}
                   <h4 className="card-header-title">Năng lượng tiêu thụ</h4>
                   {/* button */}
-                  <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#" data-toggle="tab">
+                  <ul className="nav nav-tabs nav-tabs-sm card-header-tabs">
+                    <li className="nav-item">
+                      <a className="nav-link active" href="#" data-toggle="tab">
                         Điện
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#" data-toggle="tab">
+                    <li className="nav-item">
+                      <a className="nav-link" href="#" data-toggle="tab">
                         Nước
                       </a>
                     </li>
