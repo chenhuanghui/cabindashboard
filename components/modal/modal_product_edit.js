@@ -51,15 +51,15 @@ export default class ModalProductEdit extends React.Component {
                             <div className="my-n3">
                                 <form>
                                     <div className="form-group">
-                                        <label for="exampleInputEmail1">Tên sản phẩm</label>
+                                        <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
                                         <input className="form-control"/>
                                     </div>
                                     <div className="form-group">
-                                        <label for="exampleInputEmail1">Mô tả</label>
+                                        <label htmlFor="exampleInputEmail1">Mô tả</label>
                                         <input className="form-control"/>
                                     </div>
                                     <div className="form-group">
-                                        <label for="exampleInputEmail1">Giá bán</label>
+                                        <label htmlFor="exampleInputEmail1">Giá bán</label>
                                         <input className="form-control"/>
                                     </div>
 
