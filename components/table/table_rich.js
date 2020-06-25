@@ -27,7 +27,7 @@ export default class TableRich extends React.Component {
                     {/* title */}
                     <h4 className="card-header-title">{data.title}</h4>
                     {/* button */}
-                    <a href="#!" className="btn btn-sm btn-white btn-modal" id='modal_product_edit'>Export</a> 
+                    <a href="#!" className="btn btn-sm btn-white btn-modal" id='modal_product_edit'>Thêm sản phẩm</a> 
                 </div>
                 {/* end card header */}
 
@@ -60,19 +60,22 @@ export default class TableRich extends React.Component {
                                     
                                     <td className="project-project">
                                         <h4 className="font-weight-normal mb-1">{item.data1}</h4>
-                                        <small className="text-muted">{item.data2}</small>
+                                      
                                     </td>
-
                                     <td className="project-status">
-                                        <span className="badge badge-soft-warning">{item.data3}</span>
+                                        <span className="badge badge-soft-warning">{item.data2}</span>
+                                    </td>
+                                    <td className="project-project">
+                                    <h4 className="font-weight-normal mb-1">{item.data3}</h4>
+                                    </td>
+                                  
+
+                                    <td className="project-project">
+                                    <h4 className="font-weight-normal mb-1">{item.data4}</h4>
                                     </td>
 
-                                    <td className="project-date">
-                                        <time dateTime="2018-10-24">{item.data4}</time>
-                                    </td>
-
-                                    <td className="project-date">
-                                        <span> {item.data5}</span>
+                                    <td className="project-project">
+                                    <h4 className="font-weight-normal mb-1">{item.data5}</h4>
                                     </td>
                                 
                                     <td className="text-right">
@@ -80,7 +83,7 @@ export default class TableRich extends React.Component {
                                             <a href="#" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fe fe-more-vertical"></i>
                                             </a>
-                                            <div className="dropdown-menu dropdown-menu-right">
+                                            <div className="dropdown-menu dropdown-menu-right ">
                                                 <a href="#!" className="dropdown-item">Action</a>
                                                 <a href="#!" className="dropdown-item">Another action</a>
                                                 <a href="#!" className="dropdown-item">Something else here</a>
