@@ -11,14 +11,14 @@ export default class NavChildGroup extends React.Component {
                 <div className="collapse show" id="sidebarDashboards">
                     <ul className="nav nav-sm flex-column">
                         <li className="nav-item">
-                            <a href="./index.html" className="nav-link active">Default</a>
+                            <a href="../Dashboard" className="nav-link active">Tổng quan</a>
                         </li>
                         <li className="nav-item">
-                            <a href="./dashboard-project-management.html" className="nav-link ">Project Management</a>
+                            <a href="../product" className="nav-link ">Sản phẩm</a>
                         </li>
                       
                         <li className="nav-item">
-                            <a href="./dashboard-ecommerce.html" className="nav-link ">E-Commerce</a>
+                            <a href="../Staff" className="nav-link ">Nhân sư</a>
                         </li>
                     </ul>
                 </div>

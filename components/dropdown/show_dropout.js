@@ -1,34 +1,36 @@
 import React from 'react';
 import $ from 'jquery';
 
-export default class ModalProductEdit extends React.Component {
+export default class ShowDropDown extends React.Component {
     componentDidMount() {
-        $(document).on('click', `.btn-modal` , function() {
-            if (!$('body').hasClass('modal-open')) {
-                $('#modalProductEdit').addClass('show');
-                $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
+        $(document).on('click', `.dropdown-a` , function() {
+            if (!$('body').hasClass('dropdown-open')) {
+                $('#dropdown-container').addClass('show');
+                $('dropdown-a').attr("aria-expanded","true");
+                $('#dropdown-container').addClass('show');
+                $('#dropdown-menu').addClass('show');
             }
-            console.log('modal opened');
+           
         });
 
         
-        $(document).on('click', function() {
-            if ( 
-                $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
-                &&
-                $('.modal-body').is(event.target) //checks if the modal itself was clicked
-              ){
-                console.log('clicked inside');
-              } else {
-                if ($(event.target).hasClass('modal')) {
-                    $('#modalProductEdit').removeClass('show');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    console.log('modal close finished');
-                }
-              }
+        // $(document).on('click', function() {
+        //     if ( 
+        //         $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
+        //         &&
+        //         $('.modal-body').is(event.target) //checks if the modal itself was clicked
+        //       ){
+        //         console.log('clicked inside');
+        //       } else {
+        //         if ($(event.target).hasClass('modal')) {
+        //             $('#modalProductEdit').removeClass('show');
+        //             $('body').removeClass('modal-open');
+        //             $('.modal-backdrop').remove();
+        //             console.log('modal close finished');
+        //         }
+        //       }
             
-        });
+        // });
 
 
     }

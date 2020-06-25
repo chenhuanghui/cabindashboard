@@ -64,7 +64,7 @@ export default class LayoutProduct extends React.Component {
                         </button>
 
                         {/* logo */}
-                        <a className="navbar-brand" href="#"> 
+                        <a className="navbar-brand" href="../Dashboard"> 
                             <img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" />
                             
                         </a>
@@ -74,8 +74,7 @@ export default class LayoutProduct extends React.Component {
                             {/* menu group block */}
                             <ul className="navbar-nav">
                                 <NavChildGroup />
-                                <NavChildGroup />
-                                <NavChildGroup />
+                               
                             </ul>
 
                             <hr className="navbar-divider my-3"/>

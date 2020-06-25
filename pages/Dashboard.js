@@ -143,75 +143,75 @@ export default class Dashboard extends React.Component {
             <div className="col-12 col-lg-10 col-xl-8">
               <HeaderArrow />
 
-              <div class="row">
+              <div className="row">
 
-                <div class="col-12 col-lg-6">
+                <div className="col-12 col-lg-6">
 
 
-                  <div class="card card-fill-lg">
-                    <div class="card-body text-center">
+                  <div className="card card-fill-lg">
+                    <div className="card-body text-center">
 
-                      <div class="dropdown card-dropdown">
-                        <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe fe-more-vertical"></i>
+                      <div className="dropdown card-dropdown">
+                        <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i className="fe fe-more-vertical"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" id="dropdown">
-                          <a href="#!" class="dropdown-item">
+                        <div className="dropdown-menu dropdown-menu-right" id="dropdown">
+                          <a href="#!" className="dropdown-item">
                             Action
                         </a>
-                          <a href="#!" class="dropdown-item">
+                          <a href="#!" className="dropdown-item">
                             Another action
                         </a>
-                          <a href="#!" class="dropdown-item">
+                          <a href="#!" className="dropdown-item">
                             Something else here
                         </a>
                         </div>
                       </div>
 
 
-                      <a href="team-overview.html" class="card-avatar avatar avatar-lg mx-auto">
-                        <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="" class="avatar-img rounded" />
+                      <a href="team-overview.html" className="card-avatar avatar avatar-lg mx-auto">
+                        <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="" className="avatar-img rounded" />
                       </a>
 
 
-                      <h2 class="mb-3">
+                      <h2 className="mb-3">
                         <a href="team-overview.html">Brand 01</a>
                       </h2>
 
 
-                      <p class="card-text text-muted">
+                      <p className="card-text text-muted">
                         Launchday is a SaaS website builder with a focus on quality, easy to build product sites.
                     </p>
 
                     </div>
-                    <div class="card-footer card-footer-boxed">
-                      <div class="row align-items-center">
-                        <div class="col">
+                    <div className="card-footer card-footer-boxed">
+                      <div className="row align-items-center">
+                        <div className="col">
 
 
-                          <small class="text-muted">
-                            <i class="fe fe-clock"></i> Updated 2hr ago
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
                         </small>
 
                         </div>
-                        <div class="col-auto">
+                        <div className="col-auto">
 
 
-                          <div class="avatar-group">
-                            <a href="profile-posts.html" class="avatar avatar-xs">
-                              <img src="../assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="..." />
+                          <div className="avatar-group">
+                            <a href="profile-posts.html" className="avatar avatar-xs">
+                              <img src="../assets/img/avatars/profiles/avatar-2.jpg" className="avatar-img rounded-circle" alt="..." />
                             </a>
-                            <a href="profile-posts.html" class="avatar avatar-xs">
-                              <img src="../assets/img/avatars/profiles/avatar-3.jpg" class="avatar-img rounded-circle" alt="..." />
+                            <a href="profile-posts.html" className="avatar avatar-xs">
+                              <img src="../assets/img/avatars/profiles/avatar-3.jpg" className="avatar-img rounded-circle" alt="..." />
                             </a>
-                            <a href="profile-posts.html" class="avatar avatar-xs">
-                              <img src="../assets/img/avatars/profiles/avatar-4.jpg" class="avatar-img rounded-circle" alt="..." />
+                            <a href="profile-posts.html" className="avatar avatar-xs">
+                              <img src="../assets/img/avatars/profiles/avatar-4.jpg" className="avatar-img rounded-circle" alt="..." />
                             </a>
-                            <a href="profile-posts.html" class="avatar avatar-xs">
-                              <img src="../assets/img/avatars/profiles/avatar-5.jpg" class="avatar-img rounded-circle" alt="..." />
+                            <a href="profile-posts.html" className="avatar avatar-xs">
+                              <img src="../assets/img/avatars/profiles/avatar-5.jpg" className="avatar-img rounded-circle" alt="..." />
                             </a>
-                            <div class="avatar avatar-xs">
-                              <div class="avatar-title rounded-circle">+7</div>
+                            <div className="avatar avatar-xs">
+                              <div className="avatar-title rounded-circle">+7</div>
                             </div>
                           </div>
 
@@ -221,48 +221,48 @@ export default class Dashboard extends React.Component {
                   </div>
 
                 </div>
-                <div class="col-12 col-lg-6">
+                <div className="col-12 col-lg-6">
 
 
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-auto">
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-auto">
 
 
-                          <a href="project-team-overview.html" class="avatar">
-                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+                          <a href="project-team-overview.html" className="avatar">
+                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
                           </a>
 
                         </div>
-                        <div class="col ml-n2">
+                        <div className="col ml-n2">
 
 
-                          <h4 class="mb-1">
+                          <h4 className="mb-1">
                             <a href="team-overview.html">Bắt đầu tại đây</a>
                           </h4>
 
 
-                          <small class="text-muted">
-                            <i class="fe fe-clock"></i> Updated 2hr ago
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
         </small>
 
                         </div>
-                        <div class="col-auto">
+                        <div className="col-auto">
 
 
-                          <div class="dropdown">
-                            <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
+                          <div className="dropdown">
+                            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fe fe-more-vertical"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="#!" class="dropdown-item">
+                            <div className="dropdown-menu dropdown-menu-right">
+                              <a href="#!" className="dropdown-item">
                                 Action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Another action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Something else here
             </a>
                             </div>
@@ -274,49 +274,49 @@ export default class Dashboard extends React.Component {
                   </div>
 
 
-                  <div class="card">
-                    <div class="card-body">
+                  <div className="card">
+                    <div className="card-body">
 
 
-                      <div class="list-group list-group-flush my-n3">
-                        <div class="list-group-item">
-                          <div class="row align-items-center">
-                            <div class="col-auto">
+                      <div className="list-group list-group-flush my-n3">
+                        <div className="list-group-item">
+                          <div className="row align-items-center">
+                            <div className="col-auto">
 
 
-                              <a href="project-team-overview.html" class="avatar">
-                                <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+                              <a href="project-team-overview.html" className="avatar">
+                                <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
                               </a>
 
                             </div>
-                            <div class="col ml-n2">
+                            <div className="col ml-n2">
 
 
-                              <h4 class="mb-1">
+                              <h4 className="mb-1">
                                 <a href="team-overview.html">Kênh food delivery</a>
                               </h4>
 
 
-                              <small class="text-muted">
-                                <i class="fe fe-clock"></i> Updated 2hr ago
+                              <small className="text-muted">
+                                <i className="fe fe-clock"></i> Updated 2hr ago
             </small>
 
                             </div>
-                            <div class="col-auto">
+                            <div className="col-auto">
 
 
-                              <div class="dropdown">
-                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fe fe-more-vertical"></i>
+                              <div className="dropdown">
+                                <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i className="fe fe-more-vertical"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a href="#!" class="dropdown-item">
+                                <div className="dropdown-menu dropdown-menu-right">
+                                  <a href="#!" className="dropdown-item">
                                     Action
                 </a>
-                                  <a href="#!" class="dropdown-item">
+                                  <a href="#!" className="dropdown-item">
                                     Another action
                 </a>
-                                  <a href="#!" class="dropdown-item">
+                                  <a href="#!" className="dropdown-item">
                                     Something else here
                 </a>
                                 </div>
@@ -325,44 +325,44 @@ export default class Dashboard extends React.Component {
                             </div>
                           </div>
                         </div>
-                        <div class="list-group-item">
-                          <div class="row align-items-center">
-                            <div class="col-auto">
+                        <div className="list-group-item">
+                          <div className="row align-items-center">
+                            <div className="col-auto">
 
 
-                              <a href="project-team-overview.html" class="avatar">
-                                <img src="../assets/img/avatars/teams/team-logo-2.jpg" alt="..." class="avatar-img rounded" />
+                              <a href="project-team-overview.html" className="avatar">
+                                <img src="../assets/img/avatars/teams/team-logo-2.jpg" alt="..." className="avatar-img rounded" />
                               </a>
 
                             </div>
-                            <div class="col ml-n2">
+                            <div className="col ml-n2">
 
 
-                              <h4 class="mb-1">
+                              <h4 className="mb-1">
                                 <a href="team-overview.html">On boarding</a>
                               </h4>
 
 
-                              <small class="text-muted">
-                                <i class="fe fe-clock"></i> Updated 2hr ago
+                              <small className="text-muted">
+                                <i className="fe fe-clock"></i> Updated 2hr ago
             </small>
 
                             </div>
-                            <div class="col-auto">
+                            <div className="col-auto">
 
 
-                              <div class="dropdown">
-                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fe fe-more-vertical"></i>
+                              <div className="dropdown">
+                                <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i className="fe fe-more-vertical"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a href="#!" class="dropdown-item">
+                                <div className="dropdown-menu dropdown-menu-right">
+                                  <a href="#!" className="dropdown-item">
                                     Action
                 </a>
-                                  <a href="#!" class="dropdown-item">
+                                  <a href="#!" className="dropdown-item">
                                     Another action
                 </a>
-                                  <a href="#!" class="dropdown-item">
+                                  <a href="#!" className="dropdown-item">
                                     Something else here
                 </a>
                                 </div>
@@ -371,44 +371,44 @@ export default class Dashboard extends React.Component {
                             </div>
                           </div>
                         </div>
-                        <div class="list-group-item">
-                          <div class="row align-items-center">
-                            <div class="col-auto">
+                        <div className="list-group-item">
+                          <div className="row align-items-center">
+                            <div className="col-auto">
 
 
-                              <a href="project-team-overview.html" class="avatar">
-                                <img src="../assets/img/avatars/teams/team-logo-3.jpg" alt="..." class="avatar-img rounded" />
+                              <a href="project-team-overview.html" className="avatar">
+                                <img src="../assets/img/avatars/teams/team-logo-3.jpg" alt="..." className="avatar-img rounded" />
                               </a>
 
                             </div>
-                            <div class="col ml-n2">
+                            <div className="col ml-n2">
 
 
-                              <h4 class="mb-1">
+                              <h4 className="mb-1">
                                 <a href="team-overview.html">Giấy phép  </a>
                               </h4>
 
 
-                              <small class="text-muted">
-                                <i class="fe fe-clock"></i> Updated 4hr ago
+                              <small className="text-muted">
+                                <i className="fe fe-clock"></i> Updated 4hr ago
             </small>
 
                             </div>
-                            <div class="col-auto">
+                            <div className="col-auto">
 
 
-                              <div class="dropdown">
-                                <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fe fe-more-vertical"></i>
+                              <div className="dropdown">
+                                <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i className="fe fe-more-vertical"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a href="#!" class="dropdown-item">
+                                <div className="dropdown-menu dropdown-menu-right">
+                                  <a href="#!" className="dropdown-item">
                                     Action
                 </a>
-                                  <a href="#!" class="dropdown-item">
+                                  <a href="#!" className="dropdown-item">
                                     Another action
                 </a>
-                                  <a href="#!" class="dropdown-item">
+                                  <a href="#!" className="dropdown-item">
                                     Something else here
                 </a>
                                 </div>
@@ -425,50 +425,50 @@ export default class Dashboard extends React.Component {
                 </div>
               </div>
               <TableChecklist tableSetup={cabinData}/>
-              <div class="row">
+              <div className="row">
              
 
-<div class="col-12 col-lg-6">
+<div className="col-12 col-lg-6">
 
-<div class="card">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-auto">
+<div className="card">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-auto">
 
 
-                          <a href="project-team-overview.html" class="avatar">
-                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+                          <a href="project-team-overview.html" className="avatar">
+                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
                           </a>
 
                         </div>
-                        <div class="col ml-n2">
+                        <div className="col ml-n2">
 
 
-                          <h4 class="mb-1">
+                          <h4 className="mb-1">
                             <a href="team-overview.html">Bắt đầu tại đây</a>
                           </h4>
 
 
-                          <small class="text-muted">
-                            <i class="fe fe-clock"></i> Updated 2hr ago
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
         </small>
 
                         </div>
-                        <div class="col-auto">
+                        <div className="col-auto">
 
 
-                          <div class="dropdown">
-                            <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
+                          <div className="dropdown">
+                            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fe fe-more-vertical"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="#!" class="dropdown-item">
+                            <div className="dropdown-menu dropdown-menu-right">
+                              <a href="#!" className="dropdown-item">
                                 Action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Another action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Something else here
             </a>
                             </div>
@@ -478,45 +478,45 @@ export default class Dashboard extends React.Component {
                       </div>
                     </div>
                   </div>
-  <div class="card">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-auto">
+  <div className="card">
+    <div className="card-body">
+      <div className="row align-items-center">
+        <div className="col-auto">
 
 
-          <a href="project-team-overview.html" class="avatar">
-            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+          <a href="project-team-overview.html" className="avatar">
+            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
           </a>
 
         </div>
-        <div class="col ml-n2">
+        <div className="col ml-n2">
 
 
-          <h4 class="mb-1">
+          <h4 className="mb-1">
             <a href="team-overview.html">Bắt đầu tại đây</a>
           </h4>
 
 
-          <small class="text-muted">
-            <i class="fe fe-clock"></i> Updated 2hr ago
+          <small className="text-muted">
+            <i className="fe fe-clock"></i> Updated 2hr ago
 </small>
 
         </div>
-        <div class="col-auto">
+        <div className="col-auto">
 
 
-          <div class="dropdown">
-            <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fe fe-more-vertical"></i>
+          <div className="dropdown">
+            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i className="fe fe-more-vertical"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a href="#!" class="dropdown-item">
+            <div className="dropdown-menu dropdown-menu-right">
+              <a href="#!" className="dropdown-item">
                 Action
 </a>
-              <a href="#!" class="dropdown-item">
+              <a href="#!" className="dropdown-item">
                 Another action
 </a>
-              <a href="#!" class="dropdown-item">
+              <a href="#!" className="dropdown-item">
                 Something else here
 </a>
             </div>
@@ -526,45 +526,45 @@ export default class Dashboard extends React.Component {
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-auto">
+  <div className="card">
+    <div className="card-body">
+      <div className="row align-items-center">
+        <div className="col-auto">
 
 
-          <a href="project-team-overview.html" class="avatar">
-            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+          <a href="project-team-overview.html" className="avatar">
+            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
           </a>
 
         </div>
-        <div class="col ml-n2">
+        <div className="col ml-n2">
 
 
-          <h4 class="mb-1">
+          <h4 className="mb-1">
             <a href="team-overview.html">Bắt đầu tại đây</a>
           </h4>
 
 
-          <small class="text-muted">
-            <i class="fe fe-clock"></i> Updated 2hr ago
+          <small className="text-muted">
+            <i className="fe fe-clock"></i> Updated 2hr ago
 </small>
 
         </div>
-        <div class="col-auto">
+        <div className="col-auto">
 
 
-          <div class="dropdown">
-            <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fe fe-more-vertical"></i>
+          <div className="dropdown">
+            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i className="fe fe-more-vertical"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a href="#!" class="dropdown-item">
+            <div className="dropdown-menu dropdown-menu-right">
+              <a href="#!" className="dropdown-item">
                 Action
 </a>
-              <a href="#!" class="dropdown-item">
+              <a href="#!" className="dropdown-item">
                 Another action
 </a>
-              <a href="#!" class="dropdown-item">
+              <a href="#!" className="dropdown-item">
                 Something else here
 </a>
             </div>
@@ -576,48 +576,48 @@ export default class Dashboard extends React.Component {
   </div>
 
 </div>
-<div class="col-12 col-lg-6">
+<div className="col-12 col-lg-6">
 
 
-<div class="card">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-auto">
+<div className="card">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-auto">
 
 
-                          <a href="project-team-overview.html" class="avatar">
-                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+                          <a href="project-team-overview.html" className="avatar">
+                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
                           </a>
 
                         </div>
-                        <div class="col ml-n2">
+                        <div className="col ml-n2">
 
 
-                          <h4 class="mb-1">
+                          <h4 className="mb-1">
                             <a href="team-overview.html">Bắt đầu tại đây</a>
                           </h4>
 
 
-                          <small class="text-muted">
-                            <i class="fe fe-clock"></i> Updated 2hr ago
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
         </small>
 
                         </div>
-                        <div class="col-auto">
+                        <div className="col-auto">
 
 
-                          <div class="dropdown">
-                            <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
+                          <div className="dropdown">
+                            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fe fe-more-vertical"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="#!" class="dropdown-item">
+                            <div className="dropdown-menu dropdown-menu-right">
+                              <a href="#!" className="dropdown-item">
                                 Action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Another action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Something else here
             </a>
                             </div>
@@ -627,45 +627,45 @@ export default class Dashboard extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-auto">
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-auto">
 
 
-                          <a href="project-team-overview.html" class="avatar">
-                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+                          <a href="project-team-overview.html" className="avatar">
+                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
                           </a>
 
                         </div>
-                        <div class="col ml-n2">
+                        <div className="col ml-n2">
 
 
-                          <h4 class="mb-1">
+                          <h4 className="mb-1">
                             <a href="team-overview.html">Bắt đầu tại đây</a>
                           </h4>
 
 
-                          <small class="text-muted">
-                            <i class="fe fe-clock"></i> Updated 2hr ago
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
         </small>
 
                         </div>
-                        <div class="col-auto">
+                        <div className="col-auto">
 
 
-                          <div class="dropdown">
-                            <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
+                          <div className="dropdown">
+                            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fe fe-more-vertical"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="#!" class="dropdown-item">
+                            <div className="dropdown-menu dropdown-menu-right">
+                              <a href="#!" className="dropdown-item">
                                 Action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Another action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Something else here
             </a>
                             </div>
@@ -675,45 +675,45 @@ export default class Dashboard extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-auto">
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-auto">
 
 
-                          <a href="project-team-overview.html" class="avatar">
-                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." class="avatar-img rounded" />
+                          <a href="project-team-overview.html" className="avatar">
+                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
                           </a>
 
                         </div>
-                        <div class="col ml-n2">
+                        <div className="col ml-n2">
 
 
-                          <h4 class="mb-1">
+                          <h4 className="mb-1">
                             <a href="team-overview.html">Bắt đầu tại đây</a>
                           </h4>
 
 
-                          <small class="text-muted">
-                            <i class="fe fe-clock"></i> Updated 2hr ago
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
         </small>
 
                         </div>
-                        <div class="col-auto">
+                        <div className="col-auto">
 
 
-                          <div class="dropdown">
-                            <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
+                          <div className="dropdown">
+                            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fe fe-more-vertical"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="#!" class="dropdown-item">
+                            <div className="dropdown-menu dropdown-menu-right">
+                              <a href="#!" className="dropdown-item">
                                 Action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Another action
             </a>
-                              <a href="#!" class="dropdown-item">
+                              <a href="#!" className="dropdown-item">
                                 Something else here
             </a>
                             </div>
@@ -727,55 +727,55 @@ export default class Dashboard extends React.Component {
 </div>
 </div>
 </div>
-<div class="row">
-  <div class="col-12 col-lg-12 col-xl-12">
-<div class="card">
-              <div class="card-header">
+<div className="row">
+  <div className="col-12 col-lg-12 col-xl-12">
+<div className="card">
+              <div className="card-header">
                
-                <h4 class="card-header-title">
+                <h4 className="card-header-title">
                   On boarding list
                 </h4>
 
               
-                <span class="badge badge-soft-secondary">
+                <span className="badge badge-soft-secondary">
                   23 Complete Items
                 </span>
               </div>
-              <div class="card-body">
+              <div className="card-body">
                
-                <div class="checklist" tabindex="0">
-                  <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                    <input class="custom-control-input" id="checklistTwo" type="checkbox" />
-                    <label class="custom-control-label" for="checklistTwo"></label>
-                    <span class="custom-control-caption">
+                <div className="checklist" tabIndex="0">
+                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                    <input className="custom-control-input" id="checklistTwo" type="checkbox" />
+                    <label className="custom-control-label" htmlFor="checklistTwo"></label>
+                    <span className="custom-control-caption">
                       Delete the old mess in functions files.
                     </span>
                   </div>
-                  <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                    <input class="custom-control-input" id="checklistThree" type="checkbox" />
-                    <label class="custom-control-label" for="checklistThree"></label>
-                    <span class="custom-control-caption">
+                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                    <input className="custom-control-input" id="checklistThree" type="checkbox" />
+                    <label className="custom-control-label" htmlFor="checklistThree"></label>
+                    <span className="custom-control-caption">
                       Create the release notes for the new pages so customers get psyched.
                     </span>
                   </div>
-                  <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                    <input class="custom-control-input" id="checklistFour" type="checkbox" />
-                    <label class="custom-control-label" for="checklistFour"></label>
-                    <span class="custom-control-caption">
+                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                    <input className="custom-control-input" id="checklistFour" type="checkbox" />
+                    <label className="custom-control-label" htmlFor="checklistFour"></label>
+                    <span className="custom-control-caption">
                       Send Dianna those meeting notes
                     </span>
                   </div>
-                  <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                    <input class="custom-control-input" id="checklistFive" type="checkbox" />
-                    <label class="custom-control-label" for="checklistFive"></label>
-                    <span class="custom-control-caption">
+                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                    <input className="custom-control-input" id="checklistFive" type="checkbox" />
+                    <label className="custom-control-label" htmlFor="checklistFive"></label>
+                    <span className="custom-control-caption">
                       Share the documentation for the new unified API
                     </span>
                   </div>
-                  <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                    <input class="custom-control-input" id="checklistSix" type="checkbox" checked="" />
-                    <label class="custom-control-label" for="checklistSix"></label>
-                    <span class="custom-control-caption">
+                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                    <input className="custom-control-input" id="checklistSix" type="checkbox"  />
+                    <label className="custom-control-label" htmlFor="checklistSix"></label>
+                    <span className="custom-control-caption">
                       Clean up the Figma file with all of the avatars, buttons, and other
                       components.
                     </span>
@@ -783,16 +783,16 @@ export default class Dashboard extends React.Component {
                 </div>
               </div>
             
-              <div class="card-footer">
-                <div class="row align-items-center">
-                  <div class="col">
+              <div className="card-footer">
+                <div className="row align-items-center">
+                  <div className="col">
                   
-                    <textarea class="form-control form-control-flush form-control-auto" data-toggle="autosize" rows="1" placeholder="Create a task" ></textarea>
+                    <textarea className="form-control form-control-flush form-control-auto" data-toggle="autosize" rows="1" placeholder="Create a task" ></textarea>
                   </div>
-                  <div class="col-auto">
+                  <div className="col-auto">
                    
-                    <button class="btn btn-sm btn-primary">
-                      Add
+                    <button className="btn btn-sm btn-primary">
+                      
                     </button>
                   </div>
                 </div>
@@ -803,38 +803,38 @@ export default class Dashboard extends React.Component {
             </div>
             </div>
 
-<div class="row">
-<div class="col-12 col-lg-12 col-xl-12">
-<div class="card">
-              <div class="card-header">
+<div className="row">
+<div className="col-12 col-lg-12 col-xl-12">
+<div className="card">
+              <div className="card-header">
 
                
-                <h4 class="card-header-title">
+                <h4 className="card-header-title">
                  Các loại giấy phép
                 </h4>
 
-              </div>
-              <div class="card-body">
+              </div>classNameclassName
+              <div className="card-body">
 
                
-                <div class="kanban-category" tabindex="0">
+                <div className="kanban-category" tabIndex="0">
 
                
-                  <div class="kanban-item" tabindex="0">
-                    <div class="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col">
+                  <div className="kanban-item" tabIndex="0">
+                    <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col">
 
                            
-                            <p class="mb-0">
+                            <p className="mb-0">
                              Giấy phép kinh doanh
                             </p>
 
                           </div>
-                          <div class="col-auto">
+                          <div className="col-auto">
                             
-                            <div class="small text-danger" >
+                            <div className="small text-danger" >
                               Chưa có
                            </div>
 
@@ -845,22 +845,22 @@ export default class Dashboard extends React.Component {
                   </div>
 
                  
-                  <div class="kanban-item" tabindex="0">
-                    <div class="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col">
+                  <div className="kanban-item" tabIndex="0">
+                    <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col">
 
                            
-                            <p class="mb-0">
+                            <p className="mb-0">
                               This is a todo with an attachment, comments, and a due date.
                             </p>
 
                           </div>
-                          <div class="col-auto">
+                          <div className="col-auto">
 
                            
-                          <div class="small text-danger" >
+                          <div className="small text-danger" >
                               Chưa có
                            </div>
 
@@ -871,22 +871,22 @@ export default class Dashboard extends React.Component {
                   </div>
 
                 
-                  <div class="kanban-item" tabindex="0">
-                    <div class="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col">
+                  <div className="kanban-item" tabIndex="0">
+                    <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col">
 
                            
-                            <p class="mb-0">
+                            <p className="mb-0">
                               This is an extremely long todo to show wrapping. This is an extremely long todo to show wrapping.This is an extremely long todo to show wrapping.
                             </p>
 
                           </div>
-                          <div class="col-auto">
+                          <div className="col-auto">
 
                           
-                          <div class="small text-danger" >
+                          <div className="small text-danger" >
                               Chưa có
                            </div>
 

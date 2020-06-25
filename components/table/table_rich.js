@@ -1,5 +1,5 @@
 import React from 'react';
-
+import DropUpWithImage from '../../components/nav/drop_up_with_image'
 export default class TableRich extends React.Component {
     constructor(props){
         super(props);
@@ -36,11 +36,11 @@ export default class TableRich extends React.Component {
                         <thead>
                             <tr>
                                 <th></th>
-                                {data && data.col && data.col.map((c) => (
+                                {data && data.col && data.col.map((c) => {
                                     <th>
                                         <a href="#" className="text-muted list-sort">{c}</a>
                                     </th>
-                                ))
+                                })
                                 }
                                 <th></th>
                             </tr>
@@ -49,48 +49,39 @@ export default class TableRich extends React.Component {
                         <tbody className="list">
                             {/* table item */}
                             {data && data.content && data.content.map((item) => (
-                                <tr>
-                                    <td className="text-right">
-                                        <div className="avatar-group">
-                                            <a href="profile-posts.html" className="avatar avatar-xs">
-                                                <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    
-                                    <td className="project-project">
-                                        <h4 className="font-weight-normal mb-1">{item.data1}</h4>
-                                      
-                                    </td>
-                                    <td className="project-status">
-                                        <span className="badge badge-soft-warning">{item.data2}</span>
-                                    </td>
-                                    <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data3}</h4>
-                                    </td>
-                                  
-
-                                    <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data4}</h4>
-                                    </td>
-
-                                    <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data5}</h4>
-                                    </td>
-                                
-                                    <td className="text-right">
-                                        <div className="dropdown">
-                                            <a href="#" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i className="fe fe-more-vertical"></i>
-                                            </a>
-                                            <div className="dropdown-menu dropdown-menu-right ">
-                                                <a href="#!" className="dropdown-item">Action</a>
-                                                <a href="#!" className="dropdown-item">Another action</a>
-                                                <a href="#!" className="dropdown-item">Something else here</a>
+                                    <tr>
+                                        <td className="text-right">
+                                            <div className="avatar-group">
+                                                <a href="profile-posts.html" className="avatar avatar-xs">
+                                                    <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                                                </a>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        
+                                        <td className="project-project">
+                                            <h4 className="font-weight-normal mb-1">{item.data1}</h4>
+                                        
+                                        </td>
+                                        <td className="project-status">
+                                            <span className="badge badge-soft-warning">{item.data2}</span>
+                                        </td>
+                                        <td className="project-project">
+                                        <h4 className="font-weight-normal mb-1">{item.data3}</h4>
+                                        </td>
+                                    
+
+                                        <td className="project-project">
+                                        <h4 className="font-weight-normal mb-1">{item.data4}</h4>
+                                        </td>
+
+                                        <td className="project-project">
+                                        <h4 className="font-weight-normal mb-1">{item.data5}</h4>
+                                        </td>
+                                    
+                                        <td className="text-right">
+                                        <DropUpWithImage />
+                                        </td>
+                                    </tr>
                             ))}
                         </tbody>
                     </table>

@@ -12,8 +12,8 @@ export default class DropUpWithImage extends React.Component {
 
                 {/* Menu */}
                 <div className="dropdown-menu" aria-labelledby="sidebarIconCopy">
-                    <a href="./profile-posts.html" className="dropdown-item">Profile</a>
-                    <a href="./account-general.html" className="dropdown-item">Settings</a>
+                    <a href="../Account" className="dropdown-item">Tài khoản</a>
+                    <a href="../Billing" className="dropdown-item">Hóa đơn</a>
                     <hr className="dropdown-divider"/>
                     <a href="./sign-in.html" className="dropdown-item">Logout</a>
                 </div>

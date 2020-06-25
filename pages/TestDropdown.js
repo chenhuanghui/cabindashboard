@@ -5,12 +5,9 @@ import NavChildGroup from '../components/nav/nav_child_group'
 import DropUpWithImage from '../components/nav/drop_up_with_image'
 import HeaderArrow from '../components/header/header_arrow'
 import TableRich from '../components/table/table_rich'
-import ModalProductEdit from '../components/modal/modal_product_edit'
-
-
+import ShowDropdown from '../components/dropdown/show_dropout'
 
 export default class LayoutProduct extends React.Component {
-    
     constructor(props){
         super(props);
     
@@ -18,23 +15,23 @@ export default class LayoutProduct extends React.Component {
             productData: []
         }
     }
-    
     componentDidMount() {
         var table3Data = [];
-        table3Data.title = `Danh mục sản phẩm`;
+        table3Data.title = `Hiệu suất`;
         
         table3Data.col = [];
-        table3Data.col.push(`Tên`);
+        table3Data.col.push(`Nhân viên`);
         table3Data.col.push(`Trạng thái`);
-        table3Data.col.push(`Danh Mục`);
-        table3Data.col.push(`Giá bán`);
-        
+        table3Data.col.push(`Số giờ`);
+        table3Data.col.push(`Loại`);
+        table3Data.col.push(`Lương`);
+
         table3Data.content = [];
-        table3Data.content.push({data1:`Bún`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
-        table3Data.content.push({data1:`Mì`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
-        table3Data.content.push({data1:`Phở`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
-        table3Data.content.push({data1:`Miến`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
-        table3Data.content.push({data1:`Hủ tiếu`,data2:`Khô với bò`, data3:`available`, data4:`Món nước`, data5:`35.000`})
+        table3Data.content.push({data1:`Casey Fyfe`,data2:`Đang làm`, data3:`271`, data4:`Part-time`, data5:`235.000`})
+        table3Data.content.push({data1:`Casey Fyfe`,data2:`Đang làm`, data3:`271`, data4:`Part-time`, data5:`235.000`})
+        table3Data.content.push({data1:`Casey Fyfe`,data2:`Đang làm`, data3:`271`, data4:`Part-time`, data5:`235.000`})
+        table3Data.content.push({data1:`Casey Fyfe`,data2:`Đang làm`, data3:`271`, data4:`Part-time`, data5:`235.000`})
+        table3Data.content.push({data1:`Casey Fyfe`,data2:`Đang làm`, data3:`271`, data4:`Part-time`, data5:`235.000`})
 
         table3Data.actionBtn = 'Thêm sản phẩm'
         this.setState({productData:table3Data});
@@ -53,20 +50,10 @@ export default class LayoutProduct extends React.Component {
                     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
                     {/* <script src="../assets/js/theme.min.js"></script> */}
                     <title>Cabin Food Admin</title>
-                    <link rel="stylesheet" href="./assets/fonts/feather/feather.css" />
-                    <link rel="stylesheet" href="./assets/libs/flatpickr/dist/flatpickr.min.css" />
-                    <link rel="stylesheet" href="./assets/libs/quill/dist/quill.core.css" />
-                    <link rel="stylesheet" href="./assets/libs/highlightjs/styles/vs2015.css" />
-
-
-<link href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" rel="stylesheet" />
-
-
-<link rel="stylesheet" href="./assets/css/theme.min.css"/>
 
                 </Head>
 
-                <ModalProductEdit />
+                <ShowDropdown />
 
                 <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
                     <div className="container-fluid">
@@ -77,7 +64,7 @@ export default class LayoutProduct extends React.Component {
                         </button>
 
                         {/* logo */}
-                        <a className="navbar-brand" href="../Dashboard"> 
+                        <a className="navbar-brand" href="#"> 
                             <img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" />
                             
                         </a>
@@ -87,7 +74,8 @@ export default class LayoutProduct extends React.Component {
                             {/* menu group block */}
                             <ul className="navbar-nav">
                                 <NavChildGroup />
-                             
+                                <NavChildGroup />
+                                <NavChildGroup />
                             </ul>
 
                             <hr className="navbar-divider my-3"/>
@@ -108,7 +96,7 @@ export default class LayoutProduct extends React.Component {
                                     <span className="icon"><i className="fe fe-bell"></i></span>
                                 </a>
 
-                               
+                                <DropUpWithImage />
 
                                 {/* Icon */}
                                 <a href="#sidebarModalSearch" className="navbar-user-link" data-toggle="modal">
@@ -125,9 +113,8 @@ export default class LayoutProduct extends React.Component {
 
                 <div className="main-content">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-lg-10 col-xl-8"> <DropUpWithImage />
+                        <div className="col-12 col-lg-10 col-xl-8">
                             <HeaderArrow />
-                         
                             <TableRich tableSetup={productData}/>
                         </div>
                     </div>
