@@ -16,6 +16,7 @@ export default class TableRich extends React.Component {
         if (this.props.tableSetup !== prevProps.tableSetup) {
             console.log('props update');
             this.setState({data:this.props.tableSetup})
+            // console.log('data table', this.props.tableSetup);
         }        
     }
     
@@ -36,8 +37,8 @@ export default class TableRich extends React.Component {
                         <thead>
                             <tr>
                                 <th></th>
-                                {data && data.col && data.col.map((c) => (
-                                    <th>
+                                {data && data.col && data.col.map((c, index) => (
+                                    <th key={index}>
                                         <a href="#" className="text-muted list-sort">{c}</a>
                                     </th>
                                 ))
@@ -48,8 +49,8 @@ export default class TableRich extends React.Component {
 
                         <tbody className="list">
                             {/* table item */}
-                            {data && data.content && data.content.map((item) => (
-                                <tr>
+                            {data && data.content && data.content.map((item, index) => (
+                                <tr key={index}>
                                     <td className="text-right">
                                         <div className="avatar-group">
                                             <a href="profile-posts.html" className="avatar avatar-xs">

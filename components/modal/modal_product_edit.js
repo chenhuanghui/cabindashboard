@@ -29,8 +29,6 @@ export default class ModalProductEdit extends React.Component {
               }
             
         });
-
-
     }
 
     render () {
