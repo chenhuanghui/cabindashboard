@@ -35,8 +35,8 @@ export default class LayoutProduct extends React.Component {
         tableData.col.push(`Giá bán`);
         {DataJson.map((data,index)=>{
             tableData.content = [];
-            tableData.content.push({ data1: data.data1, data2: data.data2,data3:data.data3,data4:data.data4,data5:data.data5 });
-            tableData.content.push({ data1: data.data1, data2: data.data2,data3:data.data3,data4:data.data4,data5:data.data5 })
+            tableData.content.push({ data1: data.data1, data2: data.data2,data3:data.data3,data4:data.data4,data5:data.data5,data6:data.data6 });
+            tableData.content.push({ data1: data.data1, data2: data.data2,data3:data.data3,data4:data.data4,data5:data.data5,data6:data.data6 })
         })}
         
        

@@ -1,20 +1,20 @@
 [
     { "data1": "Bún",
         "data2": "Khô với bò",
-        "data3": "available",
-        "data4": "Món nước",
-        "data5": 35.000
+        "data3": "Món nước",
+        "data4": "available",
+        "data5": 35.000,
+        "data6": "Bún"
      },
-     { "data1": "Bánh",
-        "data2": "Flan",
-        "data3": "available",
-        "data4": "Món nước",
-        "data5": 35.000
-     },
-     { "data1": "Mì",
+     { "data1": "Bún",
         "data2": "Khô với bò",
-        "data3": "available",
-        "data4": "Món nước",
+        "data3": "Món nước",
+        "data4": "available",
+        "data5": 35.000
+     },{ "data1": "Bún",
+        "data2": "Khô với bò",
+        "data3": "Món nước",
+        "data4": "available",
         "data5": 35.000
      }
 ]

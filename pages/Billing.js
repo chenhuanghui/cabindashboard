@@ -141,22 +141,21 @@ export default class Billing extends React.Component {
          
             <ul class="nav nav-tabs nav-overflow header-tabs">
                 <li class="nav-item">
-                  <a href="account-general.html" class="nav-link">
-                    Thông tin
-                  </a>
-                </li>
-            
-                <li class="nav-item">
-                  <a href="account-members.html" class="nav-link">
-                   Nhãn hiệu
+                  <a href="../Account" class="nav-link active">
+                  Thông tin
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="account-security.html" class="nav-link  active">
-                   Hóa đơn
+                  <a href="../Brand" class="nav-link">
+                Nhãn hiệu
                   </a>
                 </li>
-             
+                <li class="nav-item">
+                  <a href="../Billing" class="nav-link">
+                    Hóa đơn
+                  </a>
+                </li>
+
               </ul>
 
 

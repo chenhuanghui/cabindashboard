@@ -74,8 +74,7 @@ export default class Brand extends React.Component {
                             {/* menu group block */}
                             <ul className="navbar-nav">
                                 <NavChildGroup />
-                                <NavChildGroup />
-                                <NavChildGroup />
+                             
                             </ul>
 
                             <hr className="navbar-divider my-3"/>
@@ -136,25 +135,23 @@ export default class Brand extends React.Component {
           <div class="row align-items-center">
             <div class="col">
 
-           
-              <ul class="nav nav-tabs nav-overflow header-tabs">
+            <ul class="nav nav-tabs nav-overflow header-tabs">
                 <li class="nav-item">
-                  <a href="account-general.html" class="nav-link">
-                    Thông tin
-                  </a>
-                </li>
-            
-                <li class="nav-item">
-                  <a href="account-members.html" class="nav-link active">
-                   Nhãn hiệu
+                  <a href="../Account" class="nav-link active">
+                  Thông tin
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="account-security.html" class="nav-link">
-                   Hóa đơn
+                  <a href="../Brand" class="nav-link">
+                Nhãn hiệu
                   </a>
                 </li>
-             
+                <li class="nav-item">
+                  <a href="../Billing" class="nav-link">
+                    Hóa đơn
+                  </a>
+                </li>
+
               </ul>
 
             </div>
