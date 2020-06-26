@@ -36,10 +36,10 @@ export default class Dashboard extends React.Component {
     table1Data.col.push(`Nhân sự`);
 
     table1Data.content = [];
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`,data5:'3m3' })
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`,data5:'3m3' })
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`,data5:'3m3' })
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`,data5:'3m3' })
+    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
+    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
+    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
+    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
 
     var table2Data = [];
     table2Data.title = `On-boarding checklist`;
@@ -99,7 +99,7 @@ export default class Dashboard extends React.Component {
               {/* menu group block */}
               <ul className="navbar-nav">
                 <NavChildGroup />
-              
+
               </ul>
 
               <hr className="navbar-divider my-3" />
@@ -107,7 +107,7 @@ export default class Dashboard extends React.Component {
               {/* menu group header */}
               <h6 className="navbar-heading">Documentation</h6>
               {/* menu group block */}
-              
+
               <ul className="navbar-nav">
                 <NavChildGroup />
               </ul>
@@ -424,13 +424,13 @@ export default class Dashboard extends React.Component {
 
                 </div>
               </div>
-              <TableChecklist tableSetup={cabinData}/>
+              <TableChecklist tableSetup={cabinData} />
               <div className="row">
-             
 
-<div className="col-12 col-lg-6">
 
-<div className="card">
+                <div className="col-12 col-lg-6">
+
+                  <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
                         <div className="col-auto">
@@ -478,108 +478,7 @@ export default class Dashboard extends React.Component {
                       </div>
                     </div>
                   </div>
-  <div className="card">
-    <div className="card-body">
-      <div className="row align-items-center">
-        <div className="col-auto">
-
-
-          <a href="project-team-overview.html" className="avatar">
-            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
-          </a>
-
-        </div>
-        <div className="col ml-n2">
-
-
-          <h4 className="mb-1">
-            <a href="team-overview.html">Bắt đầu tại đây</a>
-          </h4>
-
-
-          <small className="text-muted">
-            <i className="fe fe-clock"></i> Updated 2hr ago
-</small>
-
-        </div>
-        <div className="col-auto">
-
-
-          <div className="dropdown">
-            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i className="fe fe-more-vertical"></i>
-            </a>
-            <div className="dropdown-menu dropdown-menu-right">
-              <a href="#!" className="dropdown-item">
-                Action
-</a>
-              <a href="#!" className="dropdown-item">
-                Another action
-</a>
-              <a href="#!" className="dropdown-item">
-                Something else here
-</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <div className="card">
-    <div className="card-body">
-      <div className="row align-items-center">
-        <div className="col-auto">
-
-
-          <a href="project-team-overview.html" className="avatar">
-            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
-          </a>
-
-        </div>
-        <div className="col ml-n2">
-
-
-          <h4 className="mb-1">
-            <a href="team-overview.html">Bắt đầu tại đây</a>
-          </h4>
-
-
-          <small className="text-muted">
-            <i className="fe fe-clock"></i> Updated 2hr ago
-</small>
-
-        </div>
-        <div className="col-auto">
-
-
-          <div className="dropdown">
-            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i className="fe fe-more-vertical"></i>
-            </a>
-            <div className="dropdown-menu dropdown-menu-right">
-              <a href="#!" className="dropdown-item">
-                Action
-</a>
-              <a href="#!" className="dropdown-item">
-                Another action
-</a>
-              <a href="#!" className="dropdown-item">
-                Something else here
-</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-<div className="col-12 col-lg-6">
-
-
-<div className="card">
+                  <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
                         <div className="col-auto">
@@ -600,7 +499,7 @@ export default class Dashboard extends React.Component {
 
                           <small className="text-muted">
                             <i className="fe fe-clock"></i> Updated 2hr ago
-        </small>
+</small>
 
                         </div>
                         <div className="col-auto">
@@ -613,13 +512,13 @@ export default class Dashboard extends React.Component {
                             <div className="dropdown-menu dropdown-menu-right">
                               <a href="#!" className="dropdown-item">
                                 Action
-            </a>
+</a>
                               <a href="#!" className="dropdown-item">
                                 Another action
-            </a>
+</a>
                               <a href="#!" className="dropdown-item">
                                 Something else here
-            </a>
+</a>
                             </div>
                           </div>
 
@@ -627,6 +526,59 @@ export default class Dashboard extends React.Component {
                       </div>
                     </div>
                   </div>
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-auto">
+
+
+                          <a href="project-team-overview.html" className="avatar">
+                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
+                          </a>
+
+                        </div>
+                        <div className="col ml-n2">
+
+
+                          <h4 className="mb-1">
+                            <a href="team-overview.html">Bắt đầu tại đây</a>
+                          </h4>
+
+
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
+</small>
+
+                        </div>
+                        <div className="col-auto">
+
+
+                          <div className="dropdown">
+                            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fe fe-more-vertical"></i>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                              <a href="#!" className="dropdown-item">
+                                Action
+</a>
+                              <a href="#!" className="dropdown-item">
+                                Another action
+</a>
+                              <a href="#!" className="dropdown-item">
+                                Something else here
+</a>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div className="col-12 col-lg-6">
+
+
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
@@ -722,193 +674,261 @@ export default class Dashboard extends React.Component {
                         </div>
                       </div>
                     </div>
-                 
-  
-</div>
-</div>
-</div>
-<div className="row">
-  <div className="col-12 col-lg-12 col-xl-12">
-<div className="card">
-              <div className="card-header">
-               
-                <h4 className="card-header-title">
-                  On boarding list
+                  </div>
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="row align-items-center">
+                        <div className="col-auto">
+
+
+                          <a href="project-team-overview.html" className="avatar">
+                            <img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" />
+                          </a>
+
+                        </div>
+                        <div className="col ml-n2">
+
+
+                          <h4 className="mb-1">
+                            <a href="team-overview.html">Bắt đầu tại đây</a>
+                          </h4>
+
+
+                          <small className="text-muted">
+                            <i className="fe fe-clock"></i> Updated 2hr ago
+        </small>
+
+                        </div>
+                        <div className="col-auto">
+
+
+                          <div className="dropdown">
+                            <a href="#!" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fe fe-more-vertical"></i>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                              <a href="#!" className="dropdown-item">
+                                Action
+            </a>
+                              <a href="#!" className="dropdown-item">
+                                Another action
+            </a>
+                              <a href="#!" className="dropdown-item">
+                                Something else here
+            </a>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12 col-lg-12 col-xl-12">
+                  <div className="card">
+                    <div className="card-header">
+
+                      <h4 className="card-header-title">
+                        On boarding list
                 </h4>
 
-              
-                <span className="badge badge-soft-secondary">
-                  23 Complete Items
+
+                      <span className="badge badge-soft-secondary">
+                        23 Complete Items
                 </span>
-              </div>
-              <div className="card-body">
-               
-                <div className="checklist" tabIndex="0">
-                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                    <input className="custom-control-input" id="checklistTwo" type="checkbox" />
-                    <label className="custom-control-label" htmlFor="checklistTwo"></label>
-                    <span className="custom-control-caption">
-                      Delete the old mess in functions files.
+                    </div>
+                    <div className="card-body">
+
+                      <div className="checklist" tabIndex="0">
+                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                          <input className="custom-control-input" id="checklistTwo" type="checkbox" />
+                          <label className="custom-control-label" htmlFor="checklistTwo"></label>
+                          <span className="custom-control-caption">
+                            Delete the old mess in functions files.
                     </span>
-                  </div>
-                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                    <input className="custom-control-input" id="checklistThree" type="checkbox" />
-                    <label className="custom-control-label" htmlFor="checklistThree"></label>
-                    <span className="custom-control-caption">
-                      Create the release notes for the new pages so customers get psyched.
+                        </div>
+                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                          <input className="custom-control-input" id="checklistThree" type="checkbox" />
+                          <label className="custom-control-label" htmlFor="checklistThree"></label>
+                          <span className="custom-control-caption">
+                            Create the release notes for the new pages so customers get psyched.
                     </span>
-                  </div>
-                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                    <input className="custom-control-input" id="checklistFour" type="checkbox" />
-                    <label className="custom-control-label" htmlFor="checklistFour"></label>
-                    <span className="custom-control-caption">
-                      Send Dianna those meeting notes
+                        </div>
+                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                          <input className="custom-control-input" id="checklistFour" type="checkbox" />
+                          <label className="custom-control-label" htmlFor="checklistFour"></label>
+                          <span className="custom-control-caption">
+                            Send Dianna those meeting notes
                     </span>
-                  </div>
-                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                    <input className="custom-control-input" id="checklistFive" type="checkbox" />
-                    <label className="custom-control-label" htmlFor="checklistFive"></label>
-                    <span className="custom-control-caption">
-                      Share the documentation for the new unified API
+                        </div>
+                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                          <input className="custom-control-input" id="checklistFive" type="checkbox" />
+                          <label className="custom-control-label" htmlFor="checklistFive"></label>
+                          <span className="custom-control-caption">
+                            Share the documentation for the new unified API
                     </span>
-                  </div>
-                  <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                    <input className="custom-control-input" id="checklistSix" type="checkbox"  />
-                    <label className="custom-control-label" htmlFor="checklistSix"></label>
-                    <span className="custom-control-caption">
-                      Clean up the Figma file with all of the avatars, buttons, and other
-                      components.
+                        </div>
+                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
+                          <input className="custom-control-input" id="checklistSix" type="checkbox" />
+                          <label className="custom-control-label" htmlFor="checklistSix"></label>
+                          <span className="custom-control-caption">
+                            Clean up the Figma file with all of the avatars, buttons, and other
+                            components.
                     </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="card-footer">
+                      <div className="row align-items-center">
+                        <div className="col">
+
+                          <textarea className="form-control form-control-flush form-control-auto" data-toggle="autosize" rows="1" placeholder="Create a task" ></textarea>
+                        </div>
+                        <div className="col-auto">
+
+                          <button className="btn btn-sm btn-primary">
+
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+
                   </div>
                 </div>
               </div>
-            
-              <div className="card-footer">
-                <div className="row align-items-center">
-                  <div className="col">
-                  
-                    <textarea className="form-control form-control-flush form-control-auto" data-toggle="autosize" rows="1" placeholder="Create a task" ></textarea>
-                  </div>
-                  <div className="col-auto">
-                   
-                    <button className="btn btn-sm btn-primary">
-                      
-                    </button>
-                  </div>
-                </div>
-              
-              </div>
-            
-            </div>
-            </div>
-            </div>
 
-<div className="row">
-<div className="col-12 col-lg-12 col-xl-12">
-<div className="card">
-              <div className="card-header">
+              <div className="row">
+                <div className="col-12 col-lg-12 col-xl-12">
+                  <div className="card">
+                    <div className="card-header">
 
-               
-                <h4 className="card-header-title">
-                 Các loại giấy phép
+
+                      <h4 className="card-header-title">
+                        Các loại giấy phép
                 </h4>
 
-              </div>classNameclassName
+                    </div>
               <div className="card-body">
 
-               
-                <div className="kanban-category" tabIndex="0">
 
-               
-                  <div className="kanban-item" tabIndex="0">
-                    <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col">
+                      <div className="kanban-category" tabIndex="0">
 
-                           
-                            <p className="mb-0">
-                             Giấy phép kinh doanh
+
+                        <div className="kanban-item" tabIndex="0">
+                          <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
+                            <div className="card-body">
+                              <div className="row">
+                                <div className="col">
+
+
+                                  <p className="mb-0">
+                                    Giấy phép kinh doanh
                             </p>
 
-                          </div>
-                          <div className="col-auto">
-                            
-                            <div className="small text-danger" >
-                              Chưa có
+                                </div>
+                                <div className="col-auto">
+
+                                  <div className="small text-danger" >
+                                    Chưa có
                            </div>
 
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
 
-                 
-                  <div className="kanban-item" tabIndex="0">
-                    <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col">
 
-                           
-                            <p className="mb-0">
-                              This is a todo with an attachment, comments, and a due date.
+                        <div className="kanban-item" tabIndex="0">
+                          <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
+                            <div className="card-body">
+                              <div className="row">
+                                <div className="col">
+
+
+                                  <p className="mb-0">
+                                    This is a todo with an attachment, comments, and a due date.
                             </p>
 
-                          </div>
-                          <div className="col-auto">
+                                </div>
+                                <div className="col-auto">
 
-                           
-                          <div className="small text-danger" >
-                              Chưa có
+
+                                  <div className="small text-danger" >
+                                    Chưa có
                            </div>
 
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
 
-                
-                  <div className="kanban-item" tabIndex="0">
-                    <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col">
 
-                           
-                            <p className="mb-0">
-                              This is an extremely long todo to show wrapping. This is an extremely long todo to show wrapping.This is an extremely long todo to show wrapping.
+                        <div className="kanban-item" tabIndex="0">
+                          <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
+                            <div className="card-body">
+                              <div className="row">
+                                <div className="col">
+
+
+                                  <p className="mb-0">
+                                    This is an extremely long todo to show wrapping. This is an extremely long todo to show wrapping.This is an extremely long todo to show wrapping.
                             </p>
 
-                          </div>
-                          <div className="col-auto">
+                                </div>
+                                <div className="col-auto">
 
-                          
-                          <div className="small text-danger" >
-                              Chưa có
+
+                                  <div className="small text-danger" >
+                                    Chưa có
                            </div>
 
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
+
                       </div>
+
+
+
                     </div>
                   </div>
-
                 </div>
-
-          
-
               </div>
-            </div>
-            </div>
-</div>
 
 
+            </div>
           </div>
+          <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+                <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="./assets/libs/@shopify/draggable/lib/es5/draggable.bundle.legacy.js"></script>
+                <script src="./assets/libs/autosize/dist/autosize.min.js"></script>
+                <script src="./assets/libs/chart.js/dist/Chart.min.js"></script>
+                <script src="./assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+                <script src="./assets/libs/flatpickr/dist/flatpickr.min.js"></script>
+                <script src="./assets/libs/highlightjs/highlight.pack.min.js"></script>
+                <script src="./assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+                <script src="./assets/libs/list.js/dist/list.min.js"></script>
+                <script src="./assets/libs/quill/dist/quill.min.js"></script>
+                <script src="./assets/libs/select2/dist/js/select2.full.min.js"></script>
+                <script src="./assets/libs/chart.js/Chart.extension.js"></script>
+
+
+                <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+
+
+                <script src="./assets/js/theme.min.js"></script>
+                <script src="./assets/js/dashkit.min.js"></script>
         </div>
-      </div>
       </div>
 
 

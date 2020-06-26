@@ -297,7 +297,7 @@ export default class Account extends React.Component {
                   <tbody class="font-size-base">
                     <tr>
                       <td>
-                        Direct messages
+                        Thông báo từ hệ thống
                       </td>
                       <td class="text-center"></td>
                       <td class="text-center">
@@ -321,7 +321,7 @@ export default class Account extends React.Component {
                     </tr>
                     <tr>
                       <td>
-                        Reminders
+                      Thông báo đơn hàng
                       </td>
                       <td class="text-center"></td>
                       <td class="text-center">
@@ -345,7 +345,7 @@ export default class Account extends React.Component {
                     </tr>
                     <tr>
                       <td>
-                        API Limits
+                      Thông báo từ cửa hàng
                       </td>
                       <td class="text-center">
 
@@ -376,7 +376,7 @@ export default class Account extends React.Component {
                     </tr>
                     <tr>
                       <td>
-                        Policy &amp; Community
+                        Tư vấn 24/7
                       </td>
                       <td class="text-center">
 

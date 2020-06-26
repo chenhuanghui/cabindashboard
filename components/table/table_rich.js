@@ -51,35 +51,29 @@ export default class TableRich extends React.Component {
                             {/* table item */}
                             {data && data.content && data.content.map((item) => (
                                 <tr>
-                                    <td className="text-right">
-                                        <div className="avatar-group">
-                                            <a href="profile-posts.html" className="avatar avatar-xs">
-                                                <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    
+                                 
 
                                     <td className="project-project">
                                         <h4 className="font-weight-normal mb-1">{item.data1}</h4>
-                                      
+                                               { <small className="text-muted">{item.data2}</small> }
                                     </td>
                                     <td className="project-status">
-                                        <span className="badge badge-soft-warning">{item.data2}</span>
+                                        <span className="badge badge-soft-warning">{item.data3}</span>
                                     </td>
                                     <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data3}</h4>
+                                    <h4 className="font-weight-normal mb-1">{item.data4}</h4>
                                     </td>
                                   
 
                                     <td className="project-project">
-                                    <h4 className="font-weight-normal mb-1">{item.data4}</h4>
-                                    </td>
-
-                                    <td className="project-project">
                                     <h4 className="font-weight-normal mb-1">{item.data5}</h4>
                                     </td>
+
                                 
+                                    <td className="project-project">
+                                    <h4 className="font-weight-normal mb-1">{item.data6}</h4>
+                                    </td>
+
                                         <td className="text-right">
                                         <div id='dropdown-containter' className="dropdown ">
                                                 <a id='dropdown-a 'href="#" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
