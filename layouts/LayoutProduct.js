@@ -6,6 +6,8 @@ import DropUpWithImage from '../components/nav/drop_up_with_image'
 import HeaderArrow from '../components/header/header_arrow'
 import TableRich from '../components/table/table_rich'
 import ModalProductEdit from '../components/modal/modal_product_edit'
+import ShowDropDown from '../components/dropdown/show_dropout'
+
 
 
 
@@ -67,7 +69,26 @@ export default class LayoutProduct extends React.Component {
                 </Head>
 
                 <ModalProductEdit />
+                <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/libs/@shopify/draggable/lib/es5/draggable.bundle.legacy.js"></script>
+    <script src="./assets/libs/autosize/dist/autosize.min.js"></script>
+    <script src="./assets/libs/chart.js/dist/Chart.min.js"></script>
+    <script src="./assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+    <script src="./assets/libs/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="./assets/libs/highlightjs/highlight.pack.min.js"></script>
+    <script src="./assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+    <script src="./assets/libs/list.js/dist/list.min.js"></script>
+    <script src="./assets/libs/quill/dist/quill.min.js"></script>
+    <script src="./assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="./assets/libs/chart.js/Chart.extension.js"></script>
 
+   
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+
+    
+    <script src="./assets/js/theme.min.js"></script>
+    <script src="./assets/js/dashkit.min.js"></script>
                 <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
                     <div className="container-fluid">
 
@@ -75,30 +96,22 @@ export default class LayoutProduct extends React.Component {
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                         </button>
-
                         {/* logo */}
                         <a className="navbar-brand" href="../Dashboard"> 
-                            <img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" />
-                            
+                            <img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" />                           
                         </a>
-
-                        <div className="collapse navbar-collapse" id="sidebarCollapse">
-                            
+                        <div className="collapse navbar-collapse" id="sidebarCollapse">         
                             {/* menu group block */}
                             <ul className="navbar-nav">
-                                <NavChildGroup />
-                             
+                                <NavChildGroup />                     
                             </ul>
-
-                            <hr className="navbar-divider my-3"/>
-                            
+                            <hr className="navbar-divider my-3"/>                           
                             {/* menu group header */}
                             <h6 className="navbar-heading">Documentation</h6>
                             {/* menu group block */}
                             <ul className="navbar-nav">
                                 <NavChildGroup />                                
                             </ul>   
-
                             {/* Push content down */}
                             <div className="mt-auto"></div>
 
@@ -108,8 +121,7 @@ export default class LayoutProduct extends React.Component {
                                     <span className="icon"><i className="fe fe-bell"></i></span>
                                 </a>
 
-                               
-
+                                <DropUpWithImage />
                                 {/* Icon */}
                                 <a href="#sidebarModalSearch" className="navbar-user-link" data-toggle="modal">
                                     <span className="icon">
@@ -125,7 +137,7 @@ export default class LayoutProduct extends React.Component {
 
                 <div className="main-content">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-lg-10 col-xl-8"> <DropUpWithImage />
+                        <div className="col-12 col-lg-10 col-xl-8">
                             <HeaderArrow />
                          
                             <TableRich tableSetup={productData}/>

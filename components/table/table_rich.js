@@ -41,7 +41,7 @@ export default class TableRich extends React.Component {
                                     <th key={index}>
                                         <a href="#" className="text-muted list-sort">{c}</a>
                                     </th>
-                                })
+                                 ))
                                 }
                                 <th></th>
                             </tr>
@@ -60,16 +60,37 @@ export default class TableRich extends React.Component {
                                     </td>
                                     
 
-                                        <td className="project-project">
-                                        <h4 className="font-weight-normal mb-1">{item.data4}</h4>
-                                        </td>
+                                    <td className="project-project">
+                                        <h4 className="font-weight-normal mb-1">{item.data1}</h4>
+                                      
+                                    </td>
+                                    <td className="project-status">
+                                        <span className="badge badge-soft-warning">{item.data2}</span>
+                                    </td>
+                                    <td className="project-project">
+                                    <h4 className="font-weight-normal mb-1">{item.data3}</h4>
+                                    </td>
+                                  
 
-                                        <td className="project-project">
-                                        <h4 className="font-weight-normal mb-1">{item.data5}</h4>
-                                        </td>
-                                    
+                                    <td className="project-project">
+                                    <h4 className="font-weight-normal mb-1">{item.data4}</h4>
+                                    </td>
+
+                                    <td className="project-project">
+                                    <h4 className="font-weight-normal mb-1">{item.data5}</h4>
+                                    </td>
+                                
                                         <td className="text-right">
-                                        <DropUpWithImage />
+                                        <div id='dropdown-containter' className="dropdown ">
+                                                <a id='dropdown-a 'href="#" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i className="fe fe-more-vertical"></i>
+                                                </a>
+                                                <div id='dropdown-menu' className="dropdown-menu dropdown-menu-right  ">
+                                                  <a href="#!" className="dropdown-item btn-modal" id='modal_product_edit'>Chỉnh sửa</a>
+                                                    <a href="#!" className="dropdown-item">Xóa</a>
+                                                   
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                             ))}

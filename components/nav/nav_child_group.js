@@ -18,7 +18,7 @@ export default class NavChildGroup extends React.Component {
                         </li>
                       
                         <li className="nav-item">
-                            <a href="../Staff" className="nav-link ">Nhân sư</a>
+                            <a href="../Staff" className="nav-link ">Nhân sự</a>
                         </li>
                     </ul>
                 </div>

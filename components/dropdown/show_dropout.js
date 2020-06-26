@@ -3,14 +3,8 @@ import $ from 'jquery';
 
 export default class ShowDropDown extends React.Component {
     componentDidMount() {
-        $(document).on('click', `.dropdown-a` , function() {
-            if (!$('body').hasClass('dropdown-open')) {
-                $('#dropdown-container').addClass('show');
-                $('dropdown-a').attr("aria-expanded","true");
-                $('#dropdown-container').addClass('show');
-                $('#dropdown-menu').addClass('show');
-            }
-           
+        $(document).on('click', '#dropdown-a' , function() {
+       console.log("-=========ASDSAD")        
         });
 
         
@@ -38,70 +32,25 @@ export default class ShowDropDown extends React.Component {
     render () {
         return (
             // Modal Product Edit
-            <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1">
-                <div className="modal-dialog modal-dialog-vertical">
-                    <div className="modal-content">
-                        <div className="modal-body">
+<table>
+            <tbody>
 
-                            <div className="header">
-                                <div className="header-body">
-                                    <h6 className="header-pretitle">Thêm / Sửa</h6>
-                                    <h1 className="header-title">Sản phẩm</h1>
-                                </div>
-                            </div>
-
-                            <div className="my-n3">
-                                <form>
-                                    <div className="form-group">
-                                        <label for="addName">Tên sản phẩm</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addDescription">Mô tả</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addPrice">Giá bán</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addSaleOff">Giá khuyến mãi</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addCategory">Danh mục</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addSize">Size</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addOption">Option</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    </form>
-                                    </div>
-                                  
-                                    <div class="card">
-         
-          
-                <div class="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
-                
-                  <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-
-                <div class="dz-default dz-message">
-                    <button class="dz-button" type="button">Drop files here to upload</button></div></div>
-   
+       <tr>
+            <td className="text-right">
+            <div id='dropdown-containter' className="dropdown ">
+                    <a id='dropdown-a 'href="#" className="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className="fe fe-more-vertical">dsadsads</i>
+                    </a>
+                    <div id='dropdown-menu' className="dropdown-menu dropdown-menu-right  ">
+                        <a href="#!" className="dropdown-item">Action</a>
+                        <a href="#!" className="dropdown-item">Another action</a>
+                        <a href="#!" className="dropdown-item">Something else here</a>
+                    </div>
                 </div>
-              
-                <button className="btn btn-lg btn-block btn-primary mb-3">
-                                   Lưu
-            </button>
-               
-            </div>
-</div>
-</div></div>
+            </td>
+            </tr>
+      </tbody>
+      </table>
         )
-    }
+}
 }
