@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Link from 'next/link'
 export default class NavChildGroup extends React.Component {
     render () {
         return (
@@ -11,15 +11,19 @@ export default class NavChildGroup extends React.Component {
                 <div className="collapse show" id="sidebarDashboards">
                     <ul className="nav nav-sm flex-column">
                         <li className="nav-item">
-                            <a href="../Dashboard" className="nav-link active">Tổng quan</a>
+                            <Link href="../Dashboard" >
+                            <a className="nav-link active">Tổng quan</a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a href="../product" className="nav-link ">Sản phẩm</a>
+                        <Link href="../product" >
+                            <a className="nav-link active">Sản phẩm</a>
+                            </Link>
                         </li>
+                        <Link href="../Staff" >
+                            <a className="nav-link active">Nhân sự</a>
+                            </Link>
                       
-                        <li className="nav-item">
-                            <a href="../Staff" className="nav-link ">Nhân sự</a>
-                        </li>
                     </ul>
                 </div>
             </li>

@@ -13,7 +13,7 @@ import CardItemTextGrid from '../components/card/card_item_text_grid'
 import TableRich from '../components/table/table_rich'
 import TableChecklist from '../components/table/table_checklist';
 import TableStaff from '../components/table/table_staff';
-
+import Link from 'next/link'
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -89,10 +89,13 @@ export default class Dashboard extends React.Component {
             </button>
 
             {/* logo */}
-            <a className="navbar-brand" href="#">
-              <img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" />
+            <Link href="../Dashboard" >
+              <a className="navbar-brand">
+                <img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" />
 
-            </a>
+              </a>
+
+            </Link>
 
             <div className="collapse navbar-collapse" id="sidebarCollapse">
 
@@ -814,7 +817,7 @@ export default class Dashboard extends React.Component {
                 </h4>
 
                     </div>
-              <div className="card-body">
+                    <div className="card-body">
 
 
                       <div className="kanban-category" tabIndex="0">
@@ -909,25 +912,25 @@ export default class Dashboard extends React.Component {
             </div>
           </div>
           <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
-                <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-                <script src="./assets/libs/@shopify/draggable/lib/es5/draggable.bundle.legacy.js"></script>
-                <script src="./assets/libs/autosize/dist/autosize.min.js"></script>
-                <script src="./assets/libs/chart.js/dist/Chart.min.js"></script>
-                <script src="./assets/libs/dropzone/dist/min/dropzone.min.js"></script>
-                <script src="./assets/libs/flatpickr/dist/flatpickr.min.js"></script>
-                <script src="./assets/libs/highlightjs/highlight.pack.min.js"></script>
-                <script src="./assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-                <script src="./assets/libs/list.js/dist/list.min.js"></script>
-                <script src="./assets/libs/quill/dist/quill.min.js"></script>
-                <script src="./assets/libs/select2/dist/js/select2.full.min.js"></script>
-                <script src="./assets/libs/chart.js/Chart.extension.js"></script>
+          <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+          <script src="./assets/libs/@shopify/draggable/lib/es5/draggable.bundle.legacy.js"></script>
+          <script src="./assets/libs/autosize/dist/autosize.min.js"></script>
+          <script src="./assets/libs/chart.js/dist/Chart.min.js"></script>
+          <script src="./assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+          <script src="./assets/libs/flatpickr/dist/flatpickr.min.js"></script>
+          <script src="./assets/libs/highlightjs/highlight.pack.min.js"></script>
+          <script src="./assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+          <script src="./assets/libs/list.js/dist/list.min.js"></script>
+          <script src="./assets/libs/quill/dist/quill.min.js"></script>
+          <script src="./assets/libs/select2/dist/js/select2.full.min.js"></script>
+          <script src="./assets/libs/chart.js/Chart.extension.js"></script>
 
 
-                <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+          <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 
 
-                <script src="./assets/js/theme.min.js"></script>
-                <script src="./assets/js/dashkit.min.js"></script>
+          <script src="./assets/js/theme.min.js"></script>
+          <script src="./assets/js/dashkit.min.js"></script>
         </div>
       </div>
 
