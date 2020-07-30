@@ -220,7 +220,12 @@ export default class Dashboard extends React.Component {
                           {brand && brand.cabinList && brand.cabinList.map((item,index) => (
                             <tr key={item.toString()}> 
                               <td className="project-project">
-                                <h4 className="font-weight-normal mb-1">{brand.cabinName[index]}</h4>
+                                <h4 className="font-weight-normal mb-1">
+                                  <Link href='#'>
+                                    <a>{brand.cabinName[index]}</a>
+                                  </Link>
+                                  
+                                </h4>
                                 <small className="text-muted">{brand.cabinAddress[index]}</small>
                               </td>
                               <td className="project-status"><span className="badge badge-success">Hoạt động</span></td>
@@ -360,15 +365,15 @@ export default class Dashboard extends React.Component {
                 <div className="col-12 col-lg-12 col-xl-12">
                   <div className="card">
                     <div className="card-header">
-                      <h4 className="card-header-title">On boarding list</h4>
-                      <span className="badge badge-soft-secondary">23 Complete Items</span>
+                      <h4 className="card-header-title">On-Boarding Checklist</h4>
+                      <span className="badge badge-soft-secondary">23 hạng mục hoàn thành</span>
                     </div>
 
                     <div className="card-body">
                       <div className="checklist" tabIndex="0">
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistTwo" type="checkbox" />
-                          <label className="custom-control-label" htmlFor="checklistTwo"></label>
+                          <input className="custom-control-input" id="checklistTwo" type="checkbox" checked />
+                          <label className="custom-control-label" ></label>
                           <span className="custom-control-caption">Delete the old mess in functions files.</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
