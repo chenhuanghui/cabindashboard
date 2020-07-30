@@ -1,4 +1,5 @@
 import React from 'react';
+import { data } from 'jquery';
 
 export default class HeaderArrow extends React.Component {
     
@@ -15,8 +16,8 @@ export default class HeaderArrow extends React.Component {
                             </div>
                             
                             <div className="col">
-                                <h6 className="header-pretitle">BRAND 01 - 31 PHAN NGỮ, ĐAKAO, QUẬN 1, HCM</h6>
-                                <h1 className="header-title">CABIN 05</h1>
+                                <h6 className="header-pretitle">{this.props.cabinAddr}</h6>
+                                <h1 className="header-title">{this.props.cabinName}</h1>
                             </div>
                             
                         </div>

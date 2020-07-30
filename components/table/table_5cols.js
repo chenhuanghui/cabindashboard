@@ -1,30 +1,18 @@
 import React from 'react';
 
-export default class TableChecklist extends React.Component {
+export default class Table5Cols extends React.Component {
     constructor(props){
-        super(props);
-        this.state = {
-            data: []
-        }
     }
     
     componentDidMount() {
 
     }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.tableSetup !== prevProps.tableSetup) {
-            console.log('props update');
-            this.setState({data:this.props.tableSetup})
-        }        
-    }
-    
+        
     render () {
-        const {data} = this.state;
         return (
             <div className="card">
                 <div className="card-header">
-                    <h4 className="card-header-title">{data.title}</h4>
+                    <h4 className="card-header-title">{this.props.title}</h4>
                     {/* <a href="#!" className="btn btn-sm btn-white btn-modal" id='modal_product_edit'>Export</a>  */}
                 </div>
 
@@ -33,7 +21,7 @@ export default class TableChecklist extends React.Component {
                         <thead>
                             <tr>
                                 <th></th>
-                                {data && data.col && data.col.map((c) => (
+                                {this.props.theadData && data.col.map((c) => (
                                     <th><a href="#" className="text-muted list-sort">{c}</a></th>
                                 ))
                                 }
