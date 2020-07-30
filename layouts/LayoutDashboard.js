@@ -377,22 +377,22 @@ export default class Dashboard extends React.Component {
                           <span className="custom-control-caption">Delete the old mess in functions files.</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistThree" type="checkbox" />
+                          <input className="custom-control-input" id="checklistThree" />
                           <label className="custom-control-label" htmlFor="checklistThree"></label>
                           <span className="custom-control-caption">Create the release notes for the new pages so customers get psyched.</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistFour" type="checkbox" />
+                          <input className="custom-control-input" id="checklistFour"/>
                           <label className="custom-control-label" htmlFor="checklistFour"></label>
                           <span className="custom-control-caption">Send Dianna those meeting notes</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistFive" type="checkbox" />
+                          <input className="custom-control-input" id="checklistFive" />
                           <label className="custom-control-label" htmlFor="checklistFive"></label>
                           <span className="custom-control-caption">Share the documentation for the new unified API</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistSix" type="checkbox" />
+                          <input className="custom-control-input" id="checklistSix"/>
                           <label className="custom-control-label" htmlFor="checklistSix"></label>
                           <span className="custom-control-caption">Clean up the Figma file with all of the avatars, buttons, and other components.</span>
                         </div>
