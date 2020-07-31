@@ -1,8 +1,11 @@
 import Head from 'next/head'
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link'
 import NavBar from '../components/nav/nav_bar';
 import { useRouter } from 'next/router'
-import React, { useState, useEffect, useRef } from 'react';
+import Router from 'next/router';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+
 
 export default function Dashboard () {
   const router = useRouter();
@@ -10,12 +13,14 @@ export default function Dashboard () {
   const [brand, setBrand] = useState(null);
   var Airtable = require('airtable');
   var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
+  const cookies = parseCookies();
 
   useEffect(() => {
-    console.log('brand id:',router.query.id);
-    
+    // if not loggined yet 
+    console.log('cookie list', cookies)
+    if (!cookies.isLoggedIn) Router.push('/signin');
+
     setBrandID(router.query.id);
-    
     if(brandID === router.query.id) {
       base('Brand').find(brandID, function(err, record) {
           if (err) { console.error(err); return; }
