@@ -1,4 +1,5 @@
-import Dashboard from "../layouts/LayoutDashboard"
+import Dashboard from "../layouts/LayoutIndex"
+
 const Index = props => (
     <Dashboard/>
 );

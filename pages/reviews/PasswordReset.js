@@ -1,11 +1,11 @@
 import React from 'react';
 import Head from 'next/head'
 
-import NavChildGroup from '../components/nav/nav_child_group'
-import DropUpWithImage from '../components/nav/drop_up_with_image'
-import CardItemText from '../components/card/card_item_text'
-import CardItemTextChart from '../components/card/card_item_text_chart'
-import TableRich from '../components/table/table_rich'
+import NavChildGroup from '../../components/nav/nav_child_group'
+import DropUpWithImage from '../../components/nav/drop_up_with_image'
+import CardItemText from '../../components/card/card_item_text'
+import CardItemTextChart from '../../components/card/card_item_text_chart'
+import TableRich from '../../components/table/table_rich'
 
 export default class PasswordReset extends React.Component {
     render() {
