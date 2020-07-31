@@ -9,10 +9,7 @@ export default class Dashboard extends React.Component {
 
     this.state = {
       brand:[],
-      
-      cabinData: [],
-      onBoardingChecklist: [],
-      license: [],
+      data:[]
     }
   }
   componentDidMount() {
@@ -20,60 +17,43 @@ export default class Dashboard extends React.Component {
     var Airtable = require('airtable');
     var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
 
-    base('Brand').find('rec3WpeNWz5IW9E3e', function(err, record) {
+    base('Brand').find('rec5gBYbW7XQylxoF', function(err, record) {
         if (err) { console.error(err); return; }
-        console.log('Retrieved', record);
-        currentComponent.setState({brand:record.fields})
-        
+        console.log('Retrieved', record.fields);
+        currentComponent.setState({brand:record.fields})        
     });
 
+  }
 
-    var table1Data = [];
-    table1Data.title = `Cabin list`;
+  checkStatusFoodDelivery(grab,loship,now,beamin,goJek) {
+    var count = 0;
+    if (grab=='Thành công') count++;
+    if (loship=='Thành công') count++;
+    if (now=='Thành công') count++;
+    if (beamin=='Thành công') count++;
+    if (goJek=='Thành công') count++;
+    return count;
+  }
 
-    table1Data.col = [];
+  checkOnBoarding(data) {
+    var count = 0;
+    for (var i=0; i < data.length; i++) {
+      if (data[i] == 1) count ++
+    }
+    return count
+  }
 
-    table1Data.col.push(`Trạng thái`);
-    table1Data.col.push(`Điện`);
-    table1Data.col.push(`Nước`);
-    table1Data.col.push(`Nhân sự`);
-
-    table1Data.content = [];
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
-    table1Data.content.push({ data1: `Cabin3`, data2: `31 Phan Ngữ `, data3: `Available`, data4: `10kw`, data5: '3m3' })
-
-    var table2Data = [];
-    table2Data.title = `On-boarding checklist`;
-
-    table2Data.col = [];
-
-
-    table2Data.content = [];
-    table2Data.content.push({ data1: `Hướng dẫn sử dụng quy tắc ứng xử` })
-    table2Data.content.push({ data1: `Hướng dẫn sử dụng quy tắc ứng xử` })
-    table2Data.content.push({ data1: `Hướng dẫn sử dụng quy tắc ứng xử` })
-    table2Data.content.push({ data1: `Hướng dẫn sử dụng quy tắc ứng xử` })
-    table2Data.content.push({ data1: `Hướng dẫn sử dụng quy tắc ứng xử` })
-    table2Data.content.push({ data1: `Hướng dẫn sử dụng quy tắc ứng xử` })
-
-    var table3Data = [];
-    table3Data.title = `Các loại giấy phép`;
-    table3Data.col = [];
-
-    table3Data.content = [];
-    table3Data.content.push({ data1: `Giấy phép kinh doanh`, data5: 'Chưa có' })
-    table3Data.content.push({ data1: `Giấy phép kinh doanh`, data5: 'Chưa có' })
-    table3Data.content.push({ data1: `Giấy phép kinh doanh`, data5: 'Chưa có' })
-    this.setState({ onBoardingChecklist: table2Data, cabinData: table1Data, license: table3Data })
+  checkLicense(data) {
+    var count = 0;
+    for (var i=0; i < data.length; i++) {
+      if (data[i] == 'Hoàn thành') count ++
+    }
+    return count
   }
 
 
-
-
   render() {
-    const { brand } = this.state;
+    const { brand,data } = this.state;
     return (
       <div>
         <Head>
@@ -87,9 +67,7 @@ export default class Dashboard extends React.Component {
 
         <div className="main-content">
           <div className="row justify-content-center">
-
             <div className="col-12 col-lg-10 col-xl-8">
-              {/* <HeaderArrow cabinAddr={brand && brand.address ? brand.address[0] : ''} cabinName={brand && brand.cabinName ? brand.cabinName[0] : ''}/> */}
               <div className="header">
                 <div className="container-fluid">
                     <div className="header-body">
@@ -119,22 +97,21 @@ export default class Dashboard extends React.Component {
                     <div className="card-footer card-footer-boxed">
                       <div className="row align-items-center">
                         <div className="col"><small className="text-muted"><i className="fe fe-clock"></i> Updated 2hr ago</small></div>
-
                       </div>
                     </div>
                   </div>
-
                 </div>
+
                 <div className="col-12 col-lg-6">
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
                         <div className="col-auto">
-                          <img src="../assets/img/start.png" className="avatar-img rounded" />
+                          <img src={brand && brand.notificationImage ? brand.notificationImage[0].url :''} className="avatar-img rounded" />
                         </div>
                         <div className="col ml-n2">
-                          <h4 className="mb-1">Bắt đầu tại đây !</h4>
-                          <small className="text-muted">Từng bước giúp bạn thành công</small>
+                          <h4 className="mb-1">{brand.notificationTitle}</h4>
+                          <small className="text-muted">{brand.notificationDesc}</small>
                         </div>
                       </div>
                     </div>
@@ -151,8 +128,13 @@ export default class Dashboard extends React.Component {
                             </div>
                             <div className="col ml-n2">
                               <h4 className="mb-1">Kênh food delivery</h4>
-                              <small className="text-muted"> Đã kết nối</small>
-                            </div>                            
+                                { this.checkStatusFoodDelivery(brand.grab, brand.loship, brand.now, brand.baemin, brand.goJek) == 4
+                                ? <span className="text-success">● <small className="text-muted"> Kết nối thành công </small></span>
+                                : <span className="text-warning">● <small className="text-muted">Đang kết nối</small></span>
+                                }
+                                
+                            </div>   
+                              <button className="btn btn-sm btn-outline-dard">{this.checkStatusFoodDelivery(brand.grab, brand.loship, brand.now, brand.baemin, brand.goJek)}/5</button>                         
                           </div>
                         </div>
 
@@ -163,10 +145,15 @@ export default class Dashboard extends React.Component {
                             </div>
                             <div className="col ml-n2">
                               <h4 className="mb-1">On boarding</h4>
-                              <span className="text-success">● <small className="text-muted">Hoàn thành</small></span>
-                              {/* <span className="text-warning">● <small className="text-muted">Hoàn thành</small></span>
-                              <span className="text-danger">● <small className="text-muted">Hoàn thành</small></span> */}
+                              {brand && brand.onboardingStatus && (this.checkOnBoarding(brand.onboardingStatus) == brand.onboardingStatus.length)
+                              ? <span className="text-success">● <small className="text-muted">Hoàn thành</small></span>
+                              : <span className="text-warning">● <small className="text-muted">Đang thực hiện</small></span>
+                              }
+
                             </div>                          
+                            <button className="btn btn-sm btn-outline-dard">
+                              {brand && brand.onboardingStatus && this.checkOnBoarding(brand.onboardingStatus)}/{brand && brand.onboardingStatus && brand.onboardingStatus.length}
+                            </button>
                           </div>
                         </div>
                         
@@ -177,8 +164,15 @@ export default class Dashboard extends React.Component {
                             </div>
                             <div className="col ml-n2">
                               <h4 className="mb-1">Giấy phép</h4>
-                              <span className="text-success">● <small className="text-muted">Đang cập nhật</small></span>
+                              {brand && brand.licenseStatus && (this.checkLicense(brand.licenseStatus) == brand.licenseStatus.length)
+                              ? <span className="text-success">● <small className="text-muted">Hoàn thành</small></span>
+                              : <span className="text-warning">● <small className="text-muted">Đang thực hiện</small></span>
+                              }
+                              
                             </div>                          
+                            <button className="btn btn-sm btn-outline-dard">
+                            {brand && brand.licenseStatus && this.checkLicense(brand.licenseStatus)}/{brand && brand.licenseStatus && brand.licenseStatus.length}
+                            </button>                         
                           </div>
                         </div>
 
@@ -190,7 +184,7 @@ export default class Dashboard extends React.Component {
 
               {/* <TableChecklist tableSetup={cabinData} /> */}
               <div className="card">
-                <div className="card-header"><h4 className="card-header-title">CABIN</h4></div>
+                <div className="card-header"><h4 className="card-header-title">ĐIỂM KINH DOANH</h4></div>
                 <div className="table-responsive mb-0">
                     <table className="table table-sm table-nowrap card-table table-hover">
                         <thead>
@@ -204,7 +198,7 @@ export default class Dashboard extends React.Component {
                         </thead>
 
                         <tbody className="list">
-                          {brand && brand.cabinList && brand.cabinList.map((item,index) => (
+                          {brand && brand.CabinList && brand.CabinList.map((item,index) => (
                             <tr key={item.toString()}> 
                               <td className="project-project">
                                 <h4 className="font-weight-normal mb-1">
@@ -220,13 +214,11 @@ export default class Dashboard extends React.Component {
                               <td className="project-water"><h4 className="font-weight-normal mb-1">25m3</h4></td>
                               <td className="text-right">
                                   <div className="avatar-group">
-                                      {brand && brand.staff
-                                        ? brand.staff.map((s,index) => (
-                                          <Link href="/staffs/{staffID}" as={`/staffs/${brand.staffID[index]}`} key={s.toString()}>
-                                            <a className="avatar avatar-xs">
-                                              <img src= {brand.staffAvatar[index].url} className="avatar-img rounded-circle" alt={brand.staffName[index]} />
-                                            </a>
-                                          </Link>    
+                                      {brand && brand.staffAvatar
+                                        ? brand.staffAvatar.map((s,index) => (
+                                          <span className="avatar avatar-xs" key={index}>
+                                            <img src= {brand.staffAvatar[index].url} className="avatar-img rounded-circle"/>
+                                          </span>
                                         ))
                                         :''
                                       }
@@ -333,106 +325,74 @@ export default class Dashboard extends React.Component {
                 </div>
               </div>
 
-              <hr className="navbar-divider my-3"/>                                      
+              {/* <hr className="navbar-divider my-3"/>                                       */}
 
               <div className="row">
-                <h6 className="header-pretitle col-12 head-block">KÊNH FOOD DELIVERY</h6>
+                {/* <h6 className="header-pretitle col-12 head-block">NHẬP MÔN CABINFOOD</h6> */}
                 <div className="col-12 col-lg-12 col-xl-12">
                   <div className="card">
                     <div className="card-header">
-                      <h4 className="card-header-title">On-Boarding Checklist</h4>
-                      <span className="badge badge-soft-secondary">23 hạng mục hoàn thành</span>
+                      <h4 className="card-header-title">NHẬP MÔN CABINFOOD</h4>
+                      
+                      <span className="badge badge-soft-secondary">{brand && brand.onboardingStatus && this.checkOnBoarding(brand.onboardingStatus)} hạng mục hoàn thành</span>
                     </div>
 
                     <div className="card-body">
                       <div className="checklist" tabIndex="0">
-                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistTwo" type="checkbox" checked />
-                          <label className="custom-control-label" ></label>
-                          <span className="custom-control-caption">Delete the old mess in functions files.</span>
-                        </div>
-                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistThree" type="checkbox"/>
-                          <label className="custom-control-label" htmlFor="checklistThree"></label>
-                          <span className="custom-control-caption">Create the release notes for the new pages so customers get psyched.</span>
-                        </div>
-                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistFour" type="checkbox"/>
-                          <label className="custom-control-label" htmlFor="checklistFour"></label>
-                          <span className="custom-control-caption">Send Dianna those meeting notes</span>
-                        </div>
-                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistFive" type="checkbox"/>
-                          <label className="custom-control-label" htmlFor="checklistFive"></label>
-                          <span className="custom-control-caption">Share the documentation for the new unified API</span>
-                        </div>
-                        <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistSix" type="checkbox"/>
-                          <label className="custom-control-label" htmlFor="checklistSix"></label>
-                          <span className="custom-control-caption">Clean up the Figma file with all of the avatars, buttons, and other components.</span>
-                        </div>
+                        {
+                          brand && brand.onboardingTitle && brand.onboardingTitle.map((item,index) => (
+                            <div className="custom-control custom-checkbox checklist-control" tabIndex="0" key={item.toString()}>
+                              {brand.onboardingStatus[index] == true 
+                              ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked/>
+                              : <input className="custom-control-input" id="checklistTwo" type="checkbox"/>
+                              }
+                              
+                              <label className="custom-control-label" ></label>
+                              <span className="custom-control-caption">{item}</span>
+                            </div>    
+                          ))
+                        }
+                        
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <hr className="navbar-divider my-3"/>                                      
+              {/* <hr className="navbar-divider my-3"/>                                       */}
 
               <div className="row">
                 <div className="col-12 col-lg-12 col-xl-12">
                   <div className="card">
                     <div className="card-header">
-                      <h4 className="card-header-title">GIẤY PHÉP</h4>
+                      <h4 className="card-header-title">THỦ TỤC PHÁP LÝ</h4>
                     </div>
                     <div className="card-body">
                       <div className="kanban-category" tabIndex="0">
-                        <div className="kanban-item" tabIndex="0">
-                          <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                            <div className="card-body">
-                              <div className="row">
-                                <div className="col"><p className="mb-0">Giấy phép kinh doanh</p></div>
-                                <div className="col-auto"><div className="small text-warning" >Đang thực hiện</div></div>
+                        {
+                          brand && brand.licenseTitle && brand.licenseTitle.map((item,index) => (
+                            <div className="kanban-item" tabIndex="0" key={item.toString()}>
+                              <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
+                                <div className="card-body">
+                                  <div className="row">
+                                    <div className="col"><p className="mb-0">{item}</p></div>
+                                    { brand.licenseStatus[index] == 'Hoàn thành'
+                                    ? <div className="col-auto"><div className="small text-success" >{brand.licenseStatus[index]}</div></div>
+                                    : <div className="col-auto"><div className="small text-warning" >{brand.licenseStatus[index]}</div></div>
+                                    }
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-
-                        <div className="kanban-item" tabIndex="0">
-                          <div className="card card-sm mb-3" data-toggle="modal" data-target="#modalKanbanTask">
-                            <div className="card-body">
-                              <div className="row">
-                                <div className="col"><p className="mb-0">Chứng chỉ vệ sinh an toàn thực phẩm</p></div>
-                                <div className="col-auto"><div className="small text-warning" >Đang thực hiện</div></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                          ))
+                        }
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
-          {/* <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
-          <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-          <script src="./assets/libs/@shopify/draggable/lib/es5/draggable.bundle.legacy.js"></script>
-          <script src="./assets/libs/autosize/dist/autosize.min.js"></script>
-          <script src="./assets/libs/chart.js/dist/Chart.min.js"></script>
-          <script src="./assets/libs/dropzone/dist/min/dropzone.min.js"></script>
-          <script src="./assets/libs/flatpickr/dist/flatpickr.min.js"></script>
-          <script src="./assets/libs/highlightjs/highlight.pack.min.js"></script>
-          <script src="./assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-          <script src="./assets/libs/list.js/dist/list.min.js"></script>
-          <script src="./assets/libs/quill/dist/quill.min.js"></script>
-          <script src="./assets/libs/select2/dist/js/select2.full.min.js"></script>
-          <script src="./assets/libs/chart.js/Chart.extension.js"></script>
-          <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-          <script src="./assets/js/theme.min.js"></script>
-          <script src="./assets/js/dashkit.min.js"></script> */}
         </div>
         <style jsx>{`
           .fe-modify {font-size: 1.5em;}
