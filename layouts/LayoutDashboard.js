@@ -1,18 +1,5 @@
 import React from 'react';
 import Head from 'next/head'
-
-import NavChildGroup from '../components/nav/nav_child_group'
-import DropUpWithImage from '../components/nav/drop_up_with_image'
-import HeaderArrow from '../components/header/header_arrow'
-import CardUser from '../components/card/card_user'
-import CardChart from '../components/card/card_chart'
-import CardItemText from '../components/card/card_item_text'
-import CardItemTextChart from '../components/card/card_item_text_chart'
-import CardItemTextDelivery from '../components/card/card_item_text_delivery'
-import CardItemTextGrid from '../components/card/card_item_text_grid'
-import TableRich from '../components/table/table_rich'
-import TableChecklist from '../components/table/table_checklist';
-import TableStaff from '../components/table/table_staff';
 import Link from 'next/link'
 import NavBar from '../components/nav/nav_bar';
 
@@ -86,14 +73,14 @@ export default class Dashboard extends React.Component {
 
 
   render() {
-    const { brand, cabinData, onBoardingChecklist, license } = this.state;
+    const { brand } = this.state;
     return (
       <div>
         <Head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
           <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
-          <title>{brand ? brand.brandName :''} | CabinFood Admin</title>
+          <title>{brand ? brand.brandName :''} | CabinFood Dashboard</title>
         </Head>
 
         <NavBar />
@@ -271,9 +258,7 @@ export default class Dashboard extends React.Component {
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
-                        <div className="col-auto">
-                          <span href="#" className="avatar"><img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" /></span>
-                        </div>
+                        <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
                         
                         <div className="col ml-n2">
                           <h4 className="mb-1">Grab</h4>
@@ -286,9 +271,7 @@ export default class Dashboard extends React.Component {
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
-                        <div className="col-auto">
-                        <span href="#" className="avatar"><img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" /></span>
-                        </div>
+                        <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
                         <div className="col ml-n2">
                           <h4 className="mb-1">Now</h4>
                           <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
@@ -300,9 +283,7 @@ export default class Dashboard extends React.Component {
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
-                        <div className="col-auto">
-                          <span href="#" className="avatar"><img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" /></span>
-                        </div>
+                        <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
                         <div className="col ml-n2">
                           <h4 className="mb-1">Loship</h4>
                           <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
@@ -316,9 +297,7 @@ export default class Dashboard extends React.Component {
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
-                        <div className="col-auto">
-                          <span href="#" className="avatar"><img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" /></span>
-                        </div>
+                        <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
                         
                         <div className="col ml-n2">
                           <h4 className="mb-1">Baemin</h4>
@@ -331,9 +310,7 @@ export default class Dashboard extends React.Component {
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
-                        <div className="col-auto">
-                        <span href="#" className="avatar"><img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" /></span>
-                        </div>
+                        <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
                         <div className="col ml-n2">
                           <h4 className="mb-1">GoJek</h4>
                           <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
@@ -345,9 +322,7 @@ export default class Dashboard extends React.Component {
                   <div className="card">
                     <div className="card-body">
                       <div className="row align-items-center">
-                        <div className="col-auto">
-                          <span href="#" className="avatar"><img src="../assets/img/avatars/teams/team-logo-1.jpg" alt="..." className="avatar-img rounded" /></span>
-                        </div>
+                        <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
                         <div className="col ml-n2">
                           <h4 className="mb-1">Hotline</h4>
                           <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
@@ -377,22 +352,22 @@ export default class Dashboard extends React.Component {
                           <span className="custom-control-caption">Delete the old mess in functions files.</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistThree" />
+                          <input className="custom-control-input" id="checklistThree" type="checkbox"/>
                           <label className="custom-control-label" htmlFor="checklistThree"></label>
                           <span className="custom-control-caption">Create the release notes for the new pages so customers get psyched.</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistFour"/>
+                          <input className="custom-control-input" id="checklistFour" type="checkbox"/>
                           <label className="custom-control-label" htmlFor="checklistFour"></label>
                           <span className="custom-control-caption">Send Dianna those meeting notes</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistFive" />
+                          <input className="custom-control-input" id="checklistFive" type="checkbox"/>
                           <label className="custom-control-label" htmlFor="checklistFive"></label>
                           <span className="custom-control-caption">Share the documentation for the new unified API</span>
                         </div>
                         <div className="custom-control custom-checkbox checklist-control" tabIndex="0">
-                          <input className="custom-control-input" id="checklistSix"/>
+                          <input className="custom-control-input" id="checklistSix" type="checkbox"/>
                           <label className="custom-control-label" htmlFor="checklistSix"></label>
                           <span className="custom-control-caption">Clean up the Figma file with all of the avatars, buttons, and other components.</span>
                         </div>
@@ -442,7 +417,7 @@ export default class Dashboard extends React.Component {
 
             </div>
           </div>
-          <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+          {/* <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
           <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
           <script src="./assets/libs/@shopify/draggable/lib/es5/draggable.bundle.legacy.js"></script>
           <script src="./assets/libs/autosize/dist/autosize.min.js"></script>
@@ -455,17 +430,14 @@ export default class Dashboard extends React.Component {
           <script src="./assets/libs/quill/dist/quill.min.js"></script>
           <script src="./assets/libs/select2/dist/js/select2.full.min.js"></script>
           <script src="./assets/libs/chart.js/Chart.extension.js"></script>
-
-
           <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-
-
           <script src="./assets/js/theme.min.js"></script>
-          <script src="./assets/js/dashkit.min.js"></script>
+          <script src="./assets/js/dashkit.min.js"></script> */}
         </div>
         <style jsx>{`
           .fe-modify {font-size: 1.5em;}
           .head-block {margin-top: 1.5rem;}
+          .card {margin-bottom: 1rem !important}
         `}</style>
       </div>
 

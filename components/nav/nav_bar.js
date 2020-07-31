@@ -14,7 +14,7 @@ export default class NavBar extends React.Component {
             </button>
 
             {/* logo */}
-            <Link href="../Dashboard" >
+            <Link href="#" >
               <a className="navbar-brand"><img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" /></a>
             </Link>
 
@@ -22,17 +22,17 @@ export default class NavBar extends React.Component {
               {/* menu group block */}
               <ul className="navbar-nav">
                 <li className="nav-item">
-                    <a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a>
-                    <a className="nav-link"><i className="fe fe-file"></i> Sản phẩm</a>
-                    <a className="nav-link"><i className="fe fe-user"></i> Nhân sự</a>
+                  <Link href="#"><a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a></Link>
+                  <Link href="#"><a className="nav-link"><i className="fe fe-file"></i> Sản phẩm</a></Link>
+                  <Link href="#"><a className="nav-link"><i className="fe fe-user"></i> Nhân sự</a></Link>  
                 </li>
               </ul>
 
               <hr className="navbar-divider my-3" />
               <h6 className="navbar-heading">Ứng dụng</h6>
               <ul className="navbar-nav">
-                <li className="nav-item"><a className="nav-link"><i className="fe fe-clipboard"></i> CRM</a></li>
-                <li className="nav-item"><a className="nav-link"><i className="fe fe-book-open"></i> Học viện</a></li>
+                <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> CRM</a></Link></li>
+                <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-book-open"></i> Học viện</a></Link></li>
               </ul>
 
               {/* Push content down */}
