@@ -19,10 +19,7 @@ export default function Dashboard () {
   const [brandID, setBrandID] = useState(null);
   const [brand, setBrand] = useState(null);
   const [brandCabin, setBrandCabin] = useState([]);
-  
-  // var Airtable = require('airtable');
-  // var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
-  // var brandCabinData = []
+  const [brandPartner, setBrandPartner] = useState([]);
 
   async function retrieveData(formular,tbName) {
     try {
@@ -41,8 +38,9 @@ export default function Dashboard () {
     setBrandID(router.query.id);
     
     if(brandID === router.query.id) {
+      // retrieve data of brand
       retrieveData({
-        filterByFormula: 'ID = "rec3WpeNWz5IW9E3e"',
+        filterByFormula: `ID = "${brandID}"`,
         maxRecords: 1
       }, 'Brand')
       .then(result => {
@@ -70,6 +68,23 @@ export default function Dashboard () {
           setBrandCabin(temp)
         })
       })
+
+      var partnerListing = ['Grab','Now','Baemin','Loship','GoJek','Hotline']
+      var partnerPromises = []
+      for (var i=0; i<6; i++) {
+        partnerPromises.push(
+          retrieveData({
+            filterByFormula: `AND(brandID = "${brandID}",partnerName="${partnerListing[i]}")`
+          }, 'DeliveryPartner_Brand_Cabin')
+        )
+      }
+      Promise.all(partnerPromises)
+      .then (partnerData => {
+        console.log('partnerData:', partnerData)      
+        setBrandPartner(partnerData);
+      })
+      
+      
     }
   },[brandID])
 
@@ -295,84 +310,37 @@ export default function Dashboard () {
             
             <div className="row">
               <h6 className="header-pretitle col-12 head-block">KÊNH FOOD DELIVERY</h6>
+
               
-              <div className="col-12 col-lg-6">  
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
-                      
-                      <div className="col ml-n2">
-                        <h4 className="mb-1">Grab</h4>
-                        <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
+              {/* theo đúng layout gốc thì bộ .card sẽ được chia ra 2 bên, mỗi bên 3 block .card, và mỗi bên nằm trong bộ div col-12 col-lg-6 */}
+              {/* <div className="col-12 col-lg-6">   */}
+              <div className="col-12">  
+                {brandPartner && brandPartner.length > 0 && brandPartner.map((p,index) => (
+                    <div className="card col-lg-6 _cardPartner">
+                      <div className="card-body">
+                        <div className="row align-items-center">
+                          <div className="col-auto">
+                            <span href="#" className="avatar"><img src={p[0].fields.photo[0].url} alt="..." className="avatar-img rounded" /></span>
+                          </div>                      
+                          <div className="col ml-n2">
+                            <h4 className="mb-1">{p[0].fields.partnerName}</h4>
+                            {p.map((partner) => {
+                              return partner.fields.status === true
+                              ? <span className="text-success _partnerItem">●
+                                  <small className="text-muted"> {partner.fields.cabinName}</small>
+                                </span>
+                              : <span className="text-warning _partnerItem">●
+                                  <small className="text-muted"> {partner.fields.cabinName}</small>
+                                </span>
+                              
+                            })
+                            }
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
-                      <div className="col ml-n2">
-                        <h4 className="mb-1">Now</h4>
-                        <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
-                      <div className="col ml-n2">
-                        <h4 className="mb-1">Loship</h4>
-                        <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-lg-6">                  
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
-                      
-                      <div className="col ml-n2">
-                        <h4 className="mb-1">Baemin</h4>
-                        <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
-                      <div className="col ml-n2">
-                        <h4 className="mb-1">GoJek</h4>
-                        <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-auto"><span href="#" className="avatar"><img src="../assets/img/avatar-square.png" alt="..." className="avatar-img rounded" /></span></div>
-                      <div className="col ml-n2">
-                        <h4 className="mb-1">Hotline</h4>
-                        <small className="text-muted"><i className="fe fe-clock"></i> Đã kết nối</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                ))}
+              </div> 
             </div>
 
             {/* <hr className="navbar-divider my-3"/>                                       */}
@@ -448,6 +416,8 @@ export default function Dashboard () {
         .fe-modify {font-size: 1.5em;}
         .head-block {margin-top: 1.5rem;}
         .card {margin-bottom: 1rem !important}
+        ._partnerItem {margin-right: 5px}
+        ._cardPartner {float:left}
       `}</style>
     </div>
   )
