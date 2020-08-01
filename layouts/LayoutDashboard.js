@@ -12,10 +12,12 @@ export default function Dashboard () {
   const cookies = parseCookies();
   const [brandID, setBrandID] = useState(null);
   const [brand, setBrand] = useState(null);
+  const [brandCabin, setBrandCabin] = useState([]);
   
   var Airtable = require('airtable');
   var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
-
+  var brandCabinData = []
+  
   useEffect(() => {
     // if not loggined yet 
     if (!cookies.isLoggedIn) Router.push('/signin');
@@ -25,7 +27,18 @@ export default function Dashboard () {
     if(brandID === router.query.id) {
       base('Brand').find(brandID, function(err, record) {
           if (err) { console.error(err); return; }
-          setBrand(record.fields)        
+
+          for(var i=0; i<record.fields.Brand_Cabin.length; i++) {
+            base('Brand-Cabin').find(record.fields.Brand_Cabin[i], function(err,recordBrandCabin) {
+              if (err) { console.error(err); return; }
+
+              // vẫn còn lỗi chưa đồng bộ được dữ liệu trên brandCabinData-State , nguyên nhân do gặp bất đồng bộ
+              brandCabinData.push(recordBrandCabin.fields)
+              setBrandCabin(brandCabinData);
+            })
+          }
+
+          setBrand(record.fields)
       });
     }
 
@@ -56,6 +69,7 @@ export default function Dashboard () {
     }
     return count
   }
+
   return (
     <div>
       <Head>
@@ -200,35 +214,40 @@ export default function Dashboard () {
                       </thead>
 
                       <tbody className="list">
-                        {brand && brand.CabinList && brand.CabinList.map((item,index) => (
-                          <tr key={item.toString()}> 
+                        {brandCabin && brandCabin.map((item,index) => (
+                          <tr key={index}> 
                             <td className="project-project">
                               <h4 className="font-weight-normal mb-1">
                                 <Link href='#'>
-                                  <a>{brand.cabinName[index]}</a>
+                                  <a>{item.cabinName}</a>
                                 </Link>
                                 
                               </h4>
-                              <small className="text-muted">{brand.cabinAddress[index]}</small>
+                              <small className="text-muted">{item.cabinName}</small>
                             </td>
-                            <td className="project-status"><span className="badge badge-success">Hoạt động</span></td>
-                            <td className="project-electric"><h4 className="font-weight-normal mb-1">10Kwh</h4></td>
-                            <td className="project-water"><h4 className="font-weight-normal mb-1">25m3</h4></td>
+
+                            <td className="project-status">
+                              {item.status == true
+                              ? <span className="badge badge-success">Hoạt động</span>
+                              : <span className="badge badge-warning">Đang thiết lập</span>
+                              }
+                            </td>
+
+                            <td className="project-electric"><h4 className="font-weight-normal mb-1">{item.electricUsedByCurrentMonth} kwh</h4></td>
+                            <td className="project-water"><h4 className="font-weight-normal mb-1">{ item.waterUsedByCurrentMonth} m3</h4></td>
                             <td className="text-right">
                                 <div className="avatar-group">
-                                    {brand && brand.staffAvatar
-                                      ? brand.staffAvatar.map((s,index) => (
+                                    {item && item.staffPhotos && item.staffPhotos.map((s,index) => (
                                         <span className="avatar avatar-xs" key={index}>
-                                          <img src= {brand.staffAvatar[index].url} className="avatar-img rounded-circle"/>
+                                          <img src= {s.url} className="avatar-img rounded-circle"/>
                                         </span>
                                       ))
-                                      :''
                                     }
                                 </div>
                             </td>
                             <td className="text-right">
                               <div className="dropdown">
-                                <a href="#" className="dropdown-ellipses dropdown-toggle"><i className="fe fe-more-vertical"></i></a>
+                                <span href="#" className="dropdown-ellipses dropdown-toggle"><i className="fe fe-more-vertical"></i></span>
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <a href="#!" className="dropdown-item">Action</a>
                                     <a href="#!" className="dropdown-item">Another action</a>
