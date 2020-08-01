@@ -12,26 +12,26 @@ export default class Signin extends React.Component {
     }
 
     componentDidMount() {
+        const cookies = parseCookies()
+        if (cookies.isLoggedIn) Router.push(`/brands/${cookies.isLoggedIn}`)
+
         let currentComponent = this;
         var Airtable = require('airtable');
         var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
-        const cookies = parseCookies()
-        // destroyCookie(null, 'isLoggedIn')
-        console.log({cookies});
+
         $('#tryToLoggin').click(function(){
             base('Owner').select({
                 view: 'Grid view',
                 filterByFormula:`email="${$('#username').val()}"`
             })
             .eachPage(function page(records, fetchNextPage) {
-                console.log('data:', records)
                 if (records.length > 0) {
                     // currentComponent.setState({account:records})
                     if ($('#password').val() == records[0].fields.password) {
                         $('#notice').removeClass('show').addClass('hide')
-                        
-                        setCookie(null, 'isLoggedIn', 'true', {
+                        setCookie(null, 'isLoggedIn', records[0].fields.Brand, {
                             maxAge: 30 * 24 * 60 * 60,
+                            path: '/',
                         })
                         Router.push(`/brands/${records[0].fields.Brand[0]}`)
                     } else {

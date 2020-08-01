@@ -9,22 +9,22 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 export default function Dashboard () {
   const router = useRouter();
+  const cookies = parseCookies();
   const [brandID, setBrandID] = useState(null);
   const [brand, setBrand] = useState(null);
+  
   var Airtable = require('airtable');
   var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
-  const cookies = parseCookies();
 
   useEffect(() => {
     // if not loggined yet 
-    console.log('cookie list', cookies)
     if (!cookies.isLoggedIn) Router.push('/signin');
 
     setBrandID(router.query.id);
+    
     if(brandID === router.query.id) {
       base('Brand').find(brandID, function(err, record) {
           if (err) { console.error(err); return; }
-          console.log('Retrieved', record.fields);
           setBrand(record.fields)        
       });
     }
