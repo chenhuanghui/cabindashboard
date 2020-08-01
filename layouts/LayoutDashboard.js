@@ -29,7 +29,7 @@ export default function Dashboard () {
           if (err) { console.error(err); return; }
 
           for(var i=0; i<record.fields.Brand_Cabin.length; i++) {
-            base('Brand-Cabin').find(record.fields.Brand_Cabin[i], function(err,recordBrandCabin) {
+            base('Brand_Cabin').find(record.fields.Brand_Cabin[i], function(err,recordBrandCabin) {
               if (err) { console.error(err); return; }
 
               // vẫn còn lỗi chưa đồng bộ được dữ liệu trên brandCabinData-State , nguyên nhân do gặp bất đồng bộ
