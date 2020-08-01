@@ -6,6 +6,12 @@ import { useRouter } from 'next/router'
 import Router from 'next/router';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
+const AirtablePlus = require('airtable-plus');  
+const airtable = new AirtablePlus({
+  baseID: 'appmREe03n1MQ6ydq',
+  apiKey: 'keyLNupG6zOmmokND',
+  tableName: 'Brand',
+});
 
 export default function Dashboard () {
   const router = useRouter();
@@ -14,10 +20,20 @@ export default function Dashboard () {
   const [brand, setBrand] = useState(null);
   const [brandCabin, setBrandCabin] = useState([]);
   
-  var Airtable = require('airtable');
-  var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
-  var brandCabinData = []
-  
+  // var Airtable = require('airtable');
+  // var base = new Airtable({apiKey: 'keyLNupG6zOmmokND'}).base('appmREe03n1MQ6ydq');
+  // var brandCabinData = []
+
+  async function retrieveData(formular,tbName) {
+    try {
+      const readRes = await airtable.read(formular,{tableName:tbName});
+      return readRes
+    } catch(e) {
+      console.error(e);
+    }
+
+  }
+
   useEffect(() => {
     // if not loggined yet 
     if (!cookies.isLoggedIn) Router.push('/signin');
@@ -25,23 +41,36 @@ export default function Dashboard () {
     setBrandID(router.query.id);
     
     if(brandID === router.query.id) {
-      base('Brand').find(brandID, function(err, record) {
-          if (err) { console.error(err); return; }
+      retrieveData({
+        filterByFormula: 'ID = "rec3WpeNWz5IW9E3e"',
+        maxRecords: 1
+      }, 'Brand')
+      .then(result => {
+        setBrand(result[0].fields);
+        console.log('promise result',result[0])
 
-          for(var i=0; i<record.fields.Brand_Cabin.length; i++) {
-            base('Brand_Cabin').find(record.fields.Brand_Cabin[i], function(err,recordBrandCabin) {
-              if (err) { console.error(err); return; }
+        // query data Brand_Cabin
+        var promises = []
+        for(var i=0; i<result[0].fields.Brand_Cabin.length; i++) {
+          promises.push(
+            retrieveData({
+              filterByFormula: `ID = "${result[0].fields.Brand_Cabin[i]}"`,
+            },'Brand_Cabin')
+          )
+        }
 
-              // vẫn còn lỗi chưa đồng bộ được dữ liệu trên brandCabinData-State , nguyên nhân do gặp bất đồng bộ
-              brandCabinData.push(recordBrandCabin.fields)
-              setBrandCabin(brandCabinData);
-            })
+        Promise.all(promises)
+        .then(brandCabinData => {
+          // re-structure data response to save to BrandCabin-state
+          var temp = []
+          for (var i=0; i<brandCabinData.length; i++) {
+            temp.push(brandCabinData[i][0].fields)
           }
-
-          setBrand(record.fields)
-      });
+          console.log('read again:', temp);
+          setBrandCabin(temp)
+        })
+      })
     }
-
   },[brandID])
 
   function checkStatusFoodDelivery(grab,loship,now,beamin,goJek) {
@@ -223,7 +252,7 @@ export default function Dashboard () {
                                 </Link>
                                 
                               </h4>
-                              <small className="text-muted">{item.cabinName}</small>
+                              <small className="text-muted">{item.cabinAddr}</small>
                             </td>
 
                             <td className="project-status">
