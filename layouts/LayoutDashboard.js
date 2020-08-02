@@ -117,10 +117,7 @@ export default function Dashboard () {
   return (
     <div>
       <Head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
-        <title>{brand ? brand.brandName :''} | CabinFood Dashboard</title>
+        <title>{brand ? brand.brandName :''} | CabinFood Business</title>
       </Head>
 
       <NavBar />
