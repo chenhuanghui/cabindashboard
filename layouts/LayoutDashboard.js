@@ -331,8 +331,7 @@ export default function Dashboard () {
                                 </span>
                               : <span className="text-warning _partnerItem">●
                                   <small className="text-muted"> {partner.fields.cabinName}</small>
-                                </span>
-                              
+                                </span>                              
                             })
                             }
                           </div>
