@@ -29,7 +29,9 @@ export default class NavBar extends React.Component {
     
     // logout
     $('.logout').click(function(){
-      destroyCookie(null, 'isLoggedIn')
+      destroyCookie(null, 'isLoggedIn', {
+        path:'/'
+      })
       Router.push(`/signin`)
     })
   }
