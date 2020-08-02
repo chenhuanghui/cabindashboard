@@ -38,6 +38,14 @@ export default function Dashboard () {
     setBrandID(router.query.id);
     
     if(brandID === router.query.id) {
+      
+      // save current brandID to cookie
+      setCookie(null,'brandID', brandID, {
+        maxAge: 30 * 24 * 60 * 60,
+        path:'/'
+      })
+      // =======================================
+
       // retrieve data of brand
       retrieveData({
         filterByFormula: `ID = "${brandID}"`,
@@ -125,6 +133,7 @@ export default function Dashboard () {
       <div className="main-content">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-10 col-xl-8">
+            
             <div className="header">
               <div className="container-fluid">
                   <div className="header-body">
@@ -137,7 +146,7 @@ export default function Dashboard () {
                       </div>
                   </div>
               </div>
-          </div>
+            </div>
 
             <div className="row">
 
@@ -403,6 +412,7 @@ export default function Dashboard () {
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import LayoutProduct from "../../../layouts/LayoutProduct"
+import LayoutProduct from "../../layouts/LayoutProduct"
 const Index = props => (
     <LayoutProduct />
 );

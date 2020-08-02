@@ -1,4 +1,4 @@
-import LayoutCabinDetail from "../../../layouts/LayoutCabinDetail"
+import LayoutCabinDetail from "../../layouts/LayoutCabinDetail"
 const Index = props => (
     <LayoutCabinDetail />
 );

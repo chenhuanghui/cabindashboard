@@ -41,63 +41,57 @@ export default class ModalProductEdit extends React.Component {
 
                             <div className="header">
                                 <div className="header-body">
-                                    <h6 className="header-pretitle">Thêm / Sửa</h6>
-                                    <h1 className="header-title">Sản phẩm</h1>
+                                    <h1 className="header-title">Thêm sản phẩm</h1>
+                                    <p className='text-muted'>Set preferences that will be cookied for your live preview desmonstration.</p>                                    
                                 </div>
                             </div>
 
                             <div className="my-n3">
-                                <form>
-                                    <div className="form-group">
-                                        <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="exampleInputEmail1">Mô tả</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="exampleInputEmail1">Giá bán</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addSaleOff">Giá khuyến mãi</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addCategory">Danh mục</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addSize">Size</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label for="addOption">Option</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                    </form>
-                                    </div>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
+                                    <input className="form-control"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1">Mô tả</label>
+                                    <input className="form-control"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1">Giá bán</label>
+                                    <input className="form-control"/>
+                                </div>
+                                <div className="form-group">
+                                    <label for="addSaleOff">Giá khuyến mãi</label>
+                                    <input className="form-control"/>
+                                </div>
+                                <div className="form-group">
+                                    <label for="addCategory">Danh mục</label>
+                                    <input className="form-control"/>
+                                </div>
+                                <div className="form-group">
+                                    <label for="addSize">Size</label>
+                                    <input className="form-control"/>
+                                </div>
+                                <div className="form-group">
+                                    <label for="addOption">Option</label>
+                                    <input className="form-control"/>
+                                </div>
+                            </div>
                                   
-                                    <div class="card">
-         
-          
-                <div class="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
-                
-                  <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-
-                <div class="dz-default dz-message">
-                    <button class="dz-button" type="button">Drop files here to upload</button></div></div>
-   
+                            <div class="card">
+                                <div class="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
+                                    <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                    <div class="dz-default dz-message">
+                                        <button class="dz-button" type="button">Drop files here to upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button className="btn btn-lg btn-block btn-primary mb-3">Lưu</button>
+                            
+                        </div>
+                    </div>
                 </div>
-              
-                <button className="btn btn-lg btn-block btn-primary mb-3">
-                                   Lưu
-            </button>
-               
             </div>
-</div>
-</div></div>
         )
     }
 }

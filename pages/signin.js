@@ -29,7 +29,13 @@ export default class Signin extends React.Component {
     componentDidMount() {
         let currentComponent = this;
         const cookies = parseCookies()
-        if (cookies.isLoggedIn) Router.push(`/`)
+        if (cookies.isLoggedIn && cookies.userID && cookies.brandID) Router.push(`/`)
+
+        // reset all cookies
+        destroyCookie(null,'isLoggedIn',{path:'/'})
+        destroyCookie(null,'userID',{path:'/'})
+        destroyCookie(null,'brandID',{path:'/'})
+        // ========================
 
         $('#tryToLoggin').click(function(){
             retrieveData({
@@ -42,14 +48,11 @@ export default class Signin extends React.Component {
                     if ($('#password').val() === result[0].fields.password) {
                         $('#notice').removeClass('show').addClass('hide')
                         console.log('.... success');
-                        setCookie(null, 'isLoggedIn', true, {
-                            maxAge: 30 * 24 * 60 * 60,
-                            path: '/',
-                        })
-                        setCookie(null, 'userID',result[0].fields.ID , {
-                            maxAge: 30 * 24 * 60 * 60,
-                            path: '/',
-                        })
+                        
+                        setCookie(null, 'isLoggedIn', true, {maxAge: 30 * 24 * 60 * 60,path: '/',})
+                        setCookie(null, 'userID',result[0].fields.ID , {maxAge: 30 * 24 * 60 * 60,path: '/',})
+                        setCookie(null,'brandID', result[0].fields.brandID[0], {maxAge: 30 * 24 * 60 * 60,path:'/'})
+
                         Router.push(`/brands/${result[0].fields.brandID[0]}`)
                     } else {
                         $('#notice').removeClass('hide').addClass('show')   

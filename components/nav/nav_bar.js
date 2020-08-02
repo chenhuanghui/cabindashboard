@@ -68,12 +68,9 @@ export default class NavBar extends React.Component {
     
     // logout
     $('.logout').click(function(){
-      destroyCookie(null, 'isLoggedIn', {
-        path:'/'
-      })
-      destroyCookie(null, 'userID', {
-        path:'/'
-      })
+      destroyCookie(null, 'isLoggedIn', {path:'/'})
+      destroyCookie(null, 'userID', {path:'/'})
+      destroyCookie(null, 'brandID', {path:'/'})
       Router.push(`/signin`)
     })
 
@@ -126,9 +123,15 @@ export default class NavBar extends React.Component {
             {/* menu group block */}
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link href="#"><a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a></Link>
-                <Link href="#"><a className="nav-link"><i className="fe fe-file"></i> Sản phẩm</a></Link>
-                <Link href="#"><a className="nav-link"><i className="fe fe-user"></i> Nhân sự</a></Link>  
+                <Link href="/">
+                  <a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a>
+                </Link>
+                <Link href="/products">
+                  <a className="nav-link"><i className="fe fe-file"></i> Sản phẩm</a>
+                </Link>
+                <Link href="#">
+                  <a className="nav-link"><i className="fe fe-user"></i> Nhân sự</a>
+                </Link>  
               </li>
             </ul>
 
