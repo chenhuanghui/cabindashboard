@@ -1,5 +1,5 @@
 import React from 'react';
-import DropUpWithImage from '../../components/nav/drop_up_with_image'
+// import DropUpWithImage from '../../components/nav/drop_up_with_image'
 export default class TableRich extends React.Component {
     constructor(props){
         super(props);
