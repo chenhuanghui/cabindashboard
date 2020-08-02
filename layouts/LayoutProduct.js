@@ -3,7 +3,7 @@ import Head from 'next/head'
 import NavBar from '../components/nav/nav_bar';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
-import $ from 'jquery'
+import $, { data } from 'jquery'
 import ModalProductEdit from '../components/modal/modal_product_edit';
 
 const AirtablePlus = require('airtable-plus');  
@@ -12,6 +12,7 @@ const airtable = new AirtablePlus({
   apiKey: 'keyLNupG6zOmmokND',
   tableName: 'Brand',
 });
+
 async function retrieveData(formular,tbName) {
     try {
       const readRes = await airtable.read(formular,{tableName:tbName});
@@ -21,8 +22,16 @@ async function retrieveData(formular,tbName) {
     }
 }
 
-export default class LayoutProduct extends React.Component {
+async function createData(formular,tbName) {
+    try {
+      const readRes = await airtable.create(formular,{tableName:tbName});
+      return readRes
+    } catch(e) {
+      console.error(e);
+    }
+}
 
+export default class LayoutProduct extends React.Component {
     constructor(props) {
         super(props);
 
@@ -61,7 +70,6 @@ export default class LayoutProduct extends React.Component {
             }
             console.log('modal opened');
         });
-
         
         $(document).on('click', function() {
             if ( 
@@ -71,14 +79,47 @@ export default class LayoutProduct extends React.Component {
             ){ console.log('clicked inside');} 
             else {
                 if ($(event.target).hasClass('modal')) {
-                    $('#modalProductEdit').removeClass('show');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    console.log('modal close finished');
+                    $('#modalProductEdit').removeClass('show')
+                    $('body').removeClass('modal-open')
+                    $('.modal-backdrop').remove()
+                    console.log('modal close finished')
                 }
-            }
-            
+            } 
         });
+        
+        /* action on per product item */
+        $(document).on('click', '.dropdown-toggle', function(){
+            // $(this).parent().find('.dropdown-menu-right').addClass('show')
+        })
+
+        $(document).on('click', '#product-action', function() {
+            console.log('name:', $('#product-name').val())
+            console.log('desc:', $('#product-desc').val())
+            console.log('price:', $('#product-price').val())
+            if ($('#product-name').val() === '' | $('#product-desc').val() === '' | $('#product-price').val() === '') return;
+
+            createData({
+                name: $('#product-name').val(),
+                desc: $('#product-desc').val(),
+                price4Sell: parseInt($('#product-price').val()),
+                status: true,
+            },'Product')
+            .then(result => {
+                console.log('create res:', result)
+                if (result) {
+                    createData({
+                        Brand: [cookies.brandID],
+                        Product: [result.id]
+                    },'Brand_Product')
+                }   
+            })
+            .finally( () => {
+                $('#modalProductEdit').removeClass('show')
+                $('body').removeClass('modal-open')
+                $('.modal-backdrop').remove()
+                console.log('modal close finished')
+            })
+        })
 
     }
 
@@ -145,7 +186,7 @@ export default class LayoutProduct extends React.Component {
                                             {data && data.length > 0 && data.map((item, index) => (
                                                 <tr key={item.id}>
                                                     <td className="col-auto">
-                                                        { item.fields.productImage.length > 0
+                                                        { item.fields.productImage && item.fields.productImage.length > 0
                                                         ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded"/></div>
                                                         : ''
                                                         }
@@ -156,20 +197,20 @@ export default class LayoutProduct extends React.Component {
                                                         <small className="text-muted">{item.fields.productDesc}</small>
                                                     </td>
                                                     <td>
-                                                        { item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
+                                                        { item.fields.productStatus && item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
                                                         ? <span className="badge badge-success">Đang kinh doanh</span>
                                                         : <span className="badge badge-danger">Ngừng bán</span>
                                                         }
                                                         
                                                     </td>
                                                     <td> 
-                                                        { item.fields.productCategory.length > 0 
+                                                        { item.fields.productCategory && item.fields.productCategory.length > 0 
                                                         ? <h4 className="font-weight-normal mb-1">{item.fields.productCategory[0]}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
                                                     <td>
-                                                        { item.fields.productPrice4Sell.length > 0 
+                                                        { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
                                                         ? <h4 className="font-weight-normal mb-1">{item.fields.productPrice4Sell[0]}</h4>
                                                         : ''
                                                         }                                                        
@@ -206,36 +247,36 @@ export default class LayoutProduct extends React.Component {
                                             <div className="my-n3">
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
-                                                    <input className="form-control"/>
+                                                    <input className="form-control" id='product-name'/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Mô tả</label>
-                                                    <input className="form-control"/>
+                                                    <input className="form-control" id='product-desc'/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Giá bán</label>
-                                                    <input className="form-control"/>
+                                                    <input className="form-control" id='product-price'/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="addSaleOff">Giá khuyến mãi</label>
-                                                    <input className="form-control"/>
+                                                    <label htmlFor="addSaleOff">Giá khuyến mãi</label>
+                                                    <input className="form-control" id='product-promotion'/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="addCategory">Danh mục</label>
-                                                    <input className="form-control"/>
+                                                    <label htmlFor="addCategory">Danh mục</label>
+                                                    <input className="form-control" id='product-cat'/>
                                                 </div>
                                             </div>
                                                 
-                                            <div class="card">
-                                                <div class="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
-                                                    <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                    <div class="dz-default dz-message">
-                                                        <button class="dz-button" type="button">Drop files here to upload</button>
+                                            <div className="card">
+                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
+                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                    <div className="dz-default dz-message">
+                                                        <button className="dz-button" type="button">Drop files here to upload</button>
                                                     </div>
                                                 </div>
                                             </div>
                                             
-                                            <button className="btn btn-lg btn-block btn-primary mb-3">Lưu</button>
+                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="product-action">Lưu</button>
                                             
                                         </div>
                                     </div>
