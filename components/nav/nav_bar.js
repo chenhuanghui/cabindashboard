@@ -30,7 +30,7 @@ export default class NavBar extends React.Component {
     // logout
     $('.logout').click(function(){
       destroyCookie(null, 'isLoggedIn')
-      Router.push(`/`)
+      Router.push(`/signin`)
     })
   }
 
@@ -44,9 +44,7 @@ export default class NavBar extends React.Component {
           </button>
 
           {/* logo */}
-          <Link href="#" >
-            <a className="navbar-brand"><img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" /></a>
-          </Link>
+          <div className="navbar-brand"><img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" /></div>
           
           {/* menu user xs */}
           <div className="navbar-user d-md-none">
@@ -65,10 +63,7 @@ export default class NavBar extends React.Component {
                 </Link>
 
                 <hr className="dropdown-divider" />
-
-                <Link href="#" >
-                  <a className="dropdown-item logout">Logout</a>
-                </Link>
+                <span className="dropdown-item logout">Logout</span>
               </div>
             </div>
           </div>
@@ -114,12 +109,9 @@ export default class NavBar extends React.Component {
                   <Link href="#" >
                     <a className="dropdown-item">Hóa đơn</a>
                   </Link>
-                  
-                  <hr className="dropdown-divider" />
 
-                  <Link href="#" >
-                    <a className="dropdown-item logout">Logout</a>
-                  </Link>
+                  <hr className="dropdown-divider" />
+                  <span className="dropdown-item logout">Logout</span>
                 </div>
             </div>
 
@@ -134,6 +126,11 @@ export default class NavBar extends React.Component {
           </div>
           {/* end .navbar-collapse */}
         </div>
+    <style jsx>{`
+    .logout{
+      cursor: pointer;
+    }
+    `}</style>
       </nav>
       )
     }
