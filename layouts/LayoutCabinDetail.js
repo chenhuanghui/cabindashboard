@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head'
 
 import NavChildGroup from '../components/nav/nav_child_group'
-import DropUpWithImage from '../components/nav/drop_up_with_image'
+// import DropUpWithImage from '../components/nav/drop_up_with_image'
 import HeaderArrow from '../components/header/header_arrow'
 import CardUser from '../components/card/card_user'
 import CardChart from '../components/card/card_chart'
@@ -132,7 +132,7 @@ export default class LayoutCabinDetail extends React.Component {
                                     <span className="icon"><i className="fe fe-bell"></i></span>
                                 </a>
 
-                                <DropUpWithImage />
+                                {/* <DropUpWithImage /> */}
 
                                 {/* Icon */}
                                 <a href="#sidebarModalSearch" className="navbar-user-link" data-toggle="modal">

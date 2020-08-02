@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head'
 
 import NavChildGroup from '../../components/nav/nav_child_group'
-import DropUpWithImage from '../../components/nav/drop_up_with_image'
+// import DropUpWithImage from '../../components/nav/drop_up_with_image'
 import HeaderArrow from '../../components/header/header_arrow'
 import TableRich from '../../components/table/table_rich'
 import ModalProductEdit from '../../components/modal/modal_product_edit'
@@ -95,7 +95,7 @@ export default class LayoutProduct extends React.Component {
                                     <span className="icon"><i className="fe fe-bell"></i></span>
                                 </a>
 
-                                <DropUpWithImage />
+                                {/* <DropUpWithImage /> */}
 
                                 {/* Icon */}
                                 <a href="#sidebarModalSearch" className="navbar-user-link" data-toggle="modal">

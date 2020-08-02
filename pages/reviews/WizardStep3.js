@@ -2,17 +2,8 @@ import React from 'react';
 import Head from 'next/head'
 
 import NavChildGroup from '../../components/nav/nav_child_group'
-import DropUpWithImage from '../../components/nav/drop_up_with_image'
+// import DropUpWithImage from '../../components/nav/drop_up_with_image'
 import HeaderArrow from '../../components/header/header_arrow'
-import CardUser from '../../components/card/card_user'
-import CardChart from '../../components/card/card_chart'
-import CardItemText from '../../components/card/card_item_text'
-import CardItemTextChart from '../../components/card/card_item_text_chart'
-import CardItemTextDelivery from '../../components/card/card_item_text_delivery'
-import CardItemTextGrid from '../../components/card/card_item_text_grid'
-import TableRich from '../../components/table/table_rich'
-import TableChecklist from '../../components/table/table_checklist';
-import TableStaff from '../../components/table/table_staff';
 
 export default class WizardStep3 extends React.Component {
   constructor(props) {
@@ -121,7 +112,7 @@ export default class WizardStep3 extends React.Component {
                   <span className="icon"><i className="fe fe-bell"></i></span>
                 </a>
 
-                <DropUpWithImage />
+                {/* <DropUpWithImage /> */}
 
                 {/* Icon */}
                 <a href="#sidebarModalSearch" className="navbar-user-link" data-toggle="modal">
