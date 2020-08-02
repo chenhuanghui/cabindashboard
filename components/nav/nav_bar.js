@@ -4,9 +4,48 @@ import Link from 'next/link'
 import Router from 'next/router';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
+const AirtablePlus = require('airtable-plus');  
+const airtable = new AirtablePlus({
+  baseID: 'appmREe03n1MQ6ydq',
+  apiKey: 'keyLNupG6zOmmokND',
+  tableName: 'Brand',
+});
+
+async function retrieveData(formular,tbName) {
+  try {
+    const readRes = await airtable.read(formular,{tableName:tbName});
+    return readRes
+  } catch(e) {
+    console.error(e);
+  }
+}
+
 export default class NavBar extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data: []
+    }
+  }
+
   componentDidMount() {
+    let currentComponent = this;
     const cookies = parseCookies()
+    
+    if(cookies.userID) {
+      retrieveData({
+        view: 'Grid view',
+        filterByFormula:`ID="${cookies.userID}"`
+      },'Account')
+      .then (result => {
+        console.log('nav data:',result);
+        currentComponent.setState({data:result[0].fields})
+      })  
+    }
+    
+    // ==========================================
+    // javascript action
+    // ==========================================
 
     //toggle main menu xs
     $('.navbar-toggler').click(function(){
@@ -34,9 +73,12 @@ export default class NavBar extends React.Component {
       })
       Router.push(`/signin`)
     })
+
+
   }
 
   render () {
+    const {data} = this.state;
     return (
       <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
         <div className="container-fluid">
@@ -57,6 +99,13 @@ export default class NavBar extends React.Component {
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon"> 
+                {data && data.brandName && data.brandName.map((b,index) => (
+                  <Link href="/brands/{ID}" as={`/brands/${data.brandID[index]}`} key={b.toString()}>
+                    <a className="dropdown-item">{b}</a>
+                  </Link>
+                ))}
+
+                <hr className="dropdown-divider" />
                 <Link href="#" >
                   <a className="dropdown-item">Tài khoản</a>
                 </Link>
@@ -105,6 +154,13 @@ export default class NavBar extends React.Component {
                 </a>
                 {/* Menu */}
                 <div className="dropdown-menu" aria-labelledby="sidebarIconCopy">
+                  {data && data.brandName && data.brandName.map((b,index) => (
+                    <Link href="/brands/{ID}" as={`/brands/${data.brandID[index]}`} key={b.toString()}>
+                      <a className="dropdown-item">{b}</a>
+                    </Link>
+                  ))}
+
+                  <hr className="dropdown-divider" />
                   <Link href="#" >
                     <a className="dropdown-item">Tài khoản</a>
                   </Link>

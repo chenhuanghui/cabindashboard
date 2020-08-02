@@ -308,8 +308,6 @@ export default function Dashboard () {
             
             <div className="row">
               <h6 className="header-pretitle col-12 head-block">KÊNH FOOD DELIVERY</h6>
-
-              
               {/* theo đúng layout gốc thì bộ .card sẽ được chia ra 2 bên, mỗi bên 3 block .card, và mỗi bên nằm trong bộ div col-12 col-lg-6 */}
               {/* <div className="col-12 col-lg-6">   */}
               <div className="col-12">  
