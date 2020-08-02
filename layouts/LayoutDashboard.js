@@ -316,7 +316,9 @@ export default function Dashboard () {
                       <div className="card-body">
                         <div className="row align-items-center">
                           <div className="col-auto">
-                            <span href="#" className="avatar"><img src={p[0].fields.photo[0].url} alt="..." className="avatar-img rounded" /></span>
+                            <span href="#" className="avatar">
+                              <img src={p[0].fields.photo[0].url} alt="..." className="avatar-img rounded" />
+                            </span>
                           </div>                      
                           <div className="col ml-n2">
                             <h4 className="mb-1">{p[0].fields.partnerName}</h4>

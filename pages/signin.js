@@ -50,7 +50,7 @@ export default class Signin extends React.Component {
                             maxAge: 30 * 24 * 60 * 60,
                             path: '/',
                         })
-                        Router.push(`/brands/${result[0].fields.brandID}`)
+                        Router.push(`/brands/${result[0].fields.brandID[0]}`)
                     } else {
                         $('#notice').removeClass('hide').addClass('show')   
                     }
