@@ -21,31 +21,9 @@ async function retrieveData(formular,tbName) {
 export default class LayoutIndex extends React.Component {
     componentDidMount() {
         const cookies = parseCookies()
-
-        if(cookies.userID && cookies.isLoggedIn) {
-            retrieveData({
-              view: 'Grid view',
-              filterByFormula:`ID="${cookies.userID}"`
-            },'Account')
-            .then (result => {
-              console.log('nav data:',result);
-              currentComponent.setState({data:result[0].fields})
-              Router.push(`/brands/${result[0].fields.brandID[0]}`)
-            })  
-        } else Router.push('/signin')
-        
-        
-        // console.log('read cookie: ',cookies.loggedin)
-        // destroyCookie(null, 'loggedin')
-
-        // setCookie(null, 'loggedin', 'true', {
-        //     maxAge: 30 * 24 * 60 * 60,
-        //     path: '/brands/rec5gBYbW7XQylxoF',
-        // })
-
-        // const {pathname} = Router;
-        // console.log('pathname:', pathname);
-        // Router.push('/brands/rec5gBYbW7XQylxoF')
+        if(cookies.userID && cookies.isLoggedIn && cookies.brandID) {
+            Router.push(`/brands/${cookies.brandID}`)
+        } else Router.push('/signin')                
     }
 
     render () {
@@ -53,7 +31,7 @@ export default class LayoutIndex extends React.Component {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-5 col-xl-4 my-5">
-                        <h1> WELCOME TO CABINFOOD ECO-SYSTEM </h1>
+                        <h1> WELCOME TO CABINFOOD FOR BUSINESS </h1>
                     </div>                    
                 </div>
                 <style jsx>{`

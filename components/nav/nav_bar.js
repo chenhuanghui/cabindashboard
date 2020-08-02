@@ -88,14 +88,17 @@ export default class NavBar extends React.Component {
           </button>
 
           {/* logo */}
-          <div className="navbar-brand"><img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" /></div>
+          <div className="navbar-brand"><img src="/assets/img/logo.png" className="navbar-brand-img mx-auto" /></div>
           
           {/* menu user xs */}
           <div className="navbar-user d-md-none">
             <div className="dropdown">
               <a href="#" id="sidebarIcon" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div className="avatar avatar-sm avatar-online">
-                  <img src="../assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                  {data && data.avatar
+                  ? <img src={data.avatar[0].url} className="avatar-img rounded-circle" alt="..."/>
+                  : <img src="../assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                  }
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon"> 
@@ -155,7 +158,10 @@ export default class NavBar extends React.Component {
               <div className="dropup">
                 <a href="#" id="sidebarIconCopy" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div className="avatar avatar-sm avatar-online">
-                        <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..." />
+                      {data && data.avatar
+                      ? <img src={data.avatar[0].url} className="avatar-img rounded-circle" alt="..."/>
+                      : <img src="../assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                      }
                     </div>
                 </a>
                 {/* Menu */}
