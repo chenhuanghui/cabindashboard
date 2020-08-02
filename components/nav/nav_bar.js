@@ -32,7 +32,7 @@ export default class NavBar extends React.Component {
     let currentComponent = this;
     const cookies = parseCookies()
     
-    if(cookies.userID) {
+    if(cookies.userID && cookies.isLoggedIn) {
       retrieveData({
         view: 'Grid view',
         filterByFormula:`ID="${cookies.userID}"`
@@ -69,6 +69,9 @@ export default class NavBar extends React.Component {
     // logout
     $('.logout').click(function(){
       destroyCookie(null, 'isLoggedIn', {
+        path:'/'
+      })
+      destroyCookie(null, 'userID', {
         path:'/'
       })
       Router.push(`/signin`)

@@ -2,12 +2,38 @@ import React from 'react';
 import Router from 'next/router';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
+const AirtablePlus = require('airtable-plus');  
+const airtable = new AirtablePlus({
+  baseID: 'appmREe03n1MQ6ydq',
+  apiKey: 'keyLNupG6zOmmokND',
+  tableName: 'Brand',
+});
+
+async function retrieveData(formular,tbName) {
+    try {
+        const readRes = await airtable.read(formular,{tableName:tbName});
+        return readRes
+    } catch(e) {
+        console.error(e);
+    }
+}
+
 export default class LayoutIndex extends React.Component {
     componentDidMount() {
         const cookies = parseCookies()
-        if (cookies.isLoggedIn) 
-            Router.push(`/brands/${cookies.isLoggedIn}`)
-        else Router.push('/signin')
+
+        if(cookies.userID && cookies.isLoggedIn) {
+            retrieveData({
+              view: 'Grid view',
+              filterByFormula:`ID="${cookies.userID}"`
+            },'Account')
+            .then (result => {
+              console.log('nav data:',result);
+              currentComponent.setState({data:result[0].fields})
+              Router.push(`/brands/${result[0].fields.brandID[0]}`)
+            })  
+        } else Router.push('/signin')
+        
         
         // console.log('read cookie: ',cookies.loggedin)
         // destroyCookie(null, 'loggedin')

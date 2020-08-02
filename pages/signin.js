@@ -29,7 +29,7 @@ export default class Signin extends React.Component {
     componentDidMount() {
         let currentComponent = this;
         const cookies = parseCookies()
-        if (cookies.isLoggedIn) Router.push(`/brands/${cookies.isLoggedIn}`)
+        if (cookies.isLoggedIn) Router.push(`/`)
 
         $('#tryToLoggin').click(function(){
             retrieveData({

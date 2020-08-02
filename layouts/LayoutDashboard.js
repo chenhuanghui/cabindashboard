@@ -33,7 +33,7 @@ export default function Dashboard () {
 
   useEffect(() => {
     // if not loggined yet 
-    if (!cookies.isLoggedIn) Router.push('/signin');
+    if (!cookies.isLoggedIn | !cookies.userID) Router.push('/signin');
 
     setBrandID(router.query.id);
     
