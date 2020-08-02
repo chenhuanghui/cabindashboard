@@ -264,8 +264,7 @@ export default function Dashboard () {
                               <h4 className="font-weight-normal mb-1">
                                 <Link href='#'>
                                   <a>{item.cabinName}</a>
-                                </Link>
-                                
+                                </Link>                                
                               </h4>
                               <small className="text-muted">{item.cabinAddr}</small>
                             </td>
@@ -280,14 +279,13 @@ export default function Dashboard () {
                             <td className="project-electric"><h4 className="font-weight-normal mb-1">{item.electricUsedByCurrentMonth} kwh</h4></td>
                             <td className="project-water"><h4 className="font-weight-normal mb-1">{ item.waterUsedByCurrentMonth} m3</h4></td>
                             <td className="text-right">
-                                <div className="avatar-group">
-                                    {item && item.staffPhotos && item.staffPhotos.map((s,index) => (
-                                        <span className="avatar avatar-xs" key={index}>
-                                          <img src= {s.url} className="avatar-img rounded-circle"/>
-                                        </span>
-                                      ))
-                                    }
-                                </div>
+                              <div className="avatar-group">
+                                {item && item.staffPhotos && item.staffPhotos.map((s,index) => (
+                                  <span className="avatar avatar-xs" key={index}>
+                                    <img src= {s.url} className="avatar-img rounded-circle"/>
+                                  </span>
+                                ))}
+                              </div>
                             </td>
                             <td className="text-right">
                               <div className="dropdown">
@@ -316,7 +314,7 @@ export default function Dashboard () {
               {/* <div className="col-12 col-lg-6">   */}
               <div className="col-12">  
                 {brandPartner && brandPartner.length > 0 && brandPartner.map((p,index) => (
-                    <div className="card col-lg-6 _cardPartner">
+                    <div className="card col-lg-6 _cardPartner" key={index}>
                       <div className="card-body">
                         <div className="row align-items-center">
                           <div className="col-auto">
@@ -326,10 +324,10 @@ export default function Dashboard () {
                             <h4 className="mb-1">{p[0].fields.partnerName}</h4>
                             {p.map((partner) => {
                               return partner.fields.status === true
-                              ? <span className="text-success _partnerItem">●
+                              ? <span className="text-success _partnerItem" key={partner.toString()}>●
                                   <small className="text-muted"> {partner.fields.cabinName}</small>
                                 </span>
-                              : <span className="text-warning _partnerItem">●
+                              : <span className="text-warning _partnerItem" key={partner.toString()}>●
                                   <small className="text-muted"> {partner.fields.cabinName}</small>
                                 </span>                              
                             })
