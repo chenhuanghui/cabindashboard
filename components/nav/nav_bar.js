@@ -1,16 +1,36 @@
 import $ from 'jquery'
 import React from 'react';
 import Link from 'next/link'
-import DropUpWithImage from './drop_up_with_image';
+import Router from 'next/router';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+
 export default class NavBar extends React.Component {
   componentDidMount() {
+    const cookies = parseCookies()
+
+    //toggle main menu xs
     $('.navbar-toggler').click(function(){
       if (!$('.navbar-collapse').hasClass('show')) {
         $('.navbar-collapse').addClass('show')
       } else {
         $('.navbar-collapse').removeClass('show')
-        // $(this).removeClass('collapse')
       }
+    })
+    //toggle account menu xs
+    $('.navbar-user').click(function(){
+      if (!$('.dropdown').hasClass('show')) {
+        $('.dropdown').addClass('show')
+        $('.dropdown-menu-right').addClass('show')
+      } else {
+        $('.dropdown').removeClass('show')
+        $('.dropdown-menu-right').removeClass('show')
+      }
+    })
+    
+    // logout
+    $('.logout').click(function(){
+      destroyCookie(null, 'isLoggedIn')
+      Router.push(`/`)
     })
   }
 
@@ -27,6 +47,31 @@ export default class NavBar extends React.Component {
           <Link href="#" >
             <a className="navbar-brand"><img src="/assets/img/logo.svg" className="navbar-brand-img mx-auto" /></a>
           </Link>
+          
+          {/* menu user xs */}
+          <div className="navbar-user d-md-none">
+            <div className="dropdown">
+              <a href="#" id="sidebarIcon" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div className="avatar avatar-sm avatar-online">
+                  <img src="../assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                </div>
+              </a>
+              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon"> 
+                <Link href="#" >
+                  <a className="dropdown-item">Tài khoản</a>
+                </Link>
+                <Link href="#" >
+                  <a className="dropdown-item">Hóa đơn</a>
+                </Link>
+
+                <hr className="dropdown-divider" />
+
+                <Link href="#" >
+                  <a className="dropdown-item logout">Logout</a>
+                </Link>
+              </div>
+            </div>
+          </div>
 
           <div className="collapse navbar-collapse" id="sidebarCollapse">
             {/* menu group block */}
@@ -54,7 +99,29 @@ export default class NavBar extends React.Component {
                 <span className="icon"><i className="fe fe-bell"></i></span>
               </a>
 
-              <DropUpWithImage />
+              {/* <DropUpWithImage /> */}
+              <div className="dropup">
+                <a href="#" id="sidebarIconCopy" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div className="avatar avatar-sm avatar-online">
+                        <img src="/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..." />
+                    </div>
+                </a>
+                {/* Menu */}
+                <div className="dropdown-menu" aria-labelledby="sidebarIconCopy">
+                  <Link href="#" >
+                    <a className="dropdown-item">Tài khoản</a>
+                  </Link>
+                  <Link href="#" >
+                    <a className="dropdown-item">Hóa đơn</a>
+                  </Link>
+                  
+                  <hr className="dropdown-divider" />
+
+                  <Link href="#" >
+                    <a className="dropdown-item logout">Logout</a>
+                  </Link>
+                </div>
+            </div>
 
               {/* Icon */}
               <a href="#sidebarModalSearch" className="navbar-user-link" data-toggle="modal">
