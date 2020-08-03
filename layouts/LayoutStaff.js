@@ -136,7 +136,7 @@ export default class LayoutStaff extends React.Component {
                 <div className="main-content">
                     <div className="row justify-content-center">
                         <div className="col-12 col-lg-10 col-xl-8">
-
+                            
                             <div className="header mt-md-5">
                                 <div className="header-body">
                                     
