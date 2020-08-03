@@ -331,11 +331,11 @@ export default function Dashboard () {
                         <div className="row align-items-center">
                           <div className="col-auto">
                             <span href="#" className="avatar">
-                              <img src={p[0].fields.photo[0].url} alt="..." className="avatar-img rounded" />
+                              <img src={p.length > 0 && p[0].fields.photo[0].url} alt="..." className="avatar-img rounded" />
                             </span>
                           </div>                      
                           <div className="col ml-n2">
-                            <h4 className="mb-1">{p[0].fields.partnerName}</h4>
+                            <h4 className="mb-1">{p.length > 0 && p[0].fields.partnerName}</h4>
                             {p.map((partner) => {
                               return partner.fields.status === true
                               ? <span className="text-success _partnerItem" key={partner.toString()}>●
