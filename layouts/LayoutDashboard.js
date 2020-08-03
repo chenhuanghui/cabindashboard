@@ -193,12 +193,14 @@ export default function Dashboard () {
                               <span className="fe fe-briefcase fe-modify"></span>
                           </div>
                           <div className="col ml-n2">
-                            <h4 className="mb-1">Kênh food delivery</h4>
-                              { brand && (checkStatusFoodDelivery(brand.grab, brand.loship, brand.now, brand.baemin, brand.goJek) == 4)
-                              ? <span className="text-success">● <small className="text-muted"> Kết nối thành công </small></span>
-                              : <span className="text-warning">● <small className="text-muted">Đang kết nối</small></span>
-                              }
-                              
+                            <a href='#food-delivery'>
+                              <h4 className="mb-1">Kênh food delivery</h4>
+                            </a>
+                            
+                            { brand && (checkStatusFoodDelivery(brand.grab, brand.loship, brand.now, brand.baemin, brand.goJek) == 4)
+                            ? <span className="text-success">● <small className="text-muted"> Kết nối thành công </small></span>
+                            : <span className="text-warning">● <small className="text-muted">Đang kết nối</small></span>
+                            }
                           </div>   
                             <button className="btn btn-sm btn-outline-dard">{brand && checkStatusFoodDelivery(brand.grab, brand.loship, brand.now, brand.baemin, brand.goJek)}/5</button>                         
                         </div>
@@ -210,7 +212,10 @@ export default function Dashboard () {
                             <span className="fe fe-briefcase fe-modify"></span>
                           </div>
                           <div className="col ml-n2">
-                            <h4 className="mb-1">On boarding</h4>
+                            <a href='#onboarding'>
+                              <h4 className="mb-1">On boarding</h4>
+                            </a>
+
                             {brand && brand.onboardingStatus && (checkOnBoarding(brand.onboardingStatus) == brand.onboardingStatus.length)
                             ? <span className="text-success">● <small className="text-muted">Hoàn thành</small></span>
                             : <span className="text-warning">● <small className="text-muted">Đang thực hiện</small></span>
@@ -229,7 +234,10 @@ export default function Dashboard () {
                             <span className="fe fe-briefcase fe-modify"></span>
                           </div>
                           <div className="col ml-n2">
-                            <h4 className="mb-1">Giấy phép</h4>
+                            <a href='#license'>
+                              <h4 className="mb-1">Giấy phép</h4>
+                            </a>
+                            
                             {brand && brand.licenseStatus && (checkLicense(brand.licenseStatus) == brand.licenseStatus.length)
                             ? <span className="text-success">● <small className="text-muted">Hoàn thành</small></span>
                             : <span className="text-warning">● <small className="text-muted">Đang thực hiện</small></span>
@@ -312,7 +320,7 @@ export default function Dashboard () {
             
             <hr className="navbar-divider my-3"/>                                      
             
-            <div className="row">
+            <div className="row" id='food-delivery'>
               <h6 className="header-pretitle col-12 head-block">KÊNH FOOD DELIVERY</h6>
               {/* theo đúng layout gốc thì bộ .card sẽ được chia ra 2 bên, mỗi bên 3 block .card, và mỗi bên nằm trong bộ div col-12 col-lg-6 */}
               {/* <div className="col-12 col-lg-6">   */}
@@ -348,7 +356,7 @@ export default function Dashboard () {
 
             {/* <hr className="navbar-divider my-3"/>                                       */}
 
-            <div className="row">
+            <div className="row" id='onboarding'>
               {/* <h6 className="header-pretitle col-12 head-block">NHẬP MÔN CABINFOOD</h6> */}
               <div className="col-12 col-lg-12 col-xl-12">
                 <div className="card">
@@ -382,7 +390,7 @@ export default function Dashboard () {
             
             {/* <hr className="navbar-divider my-3"/>                                       */}
 
-            <div className="row">
+            <div className="row" id='license'>
               <div className="col-12 col-lg-12 col-xl-12">
                 <div className="card">
                   <div className="card-header">
