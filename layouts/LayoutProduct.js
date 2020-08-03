@@ -157,9 +157,9 @@ export default class LayoutProduct extends React.Component {
                                     <div className="row align-items-center">
                                         <div className="col">
                                             <ul className="nav nav-tabs nav-overflow header-tabs">
-                                                <li className="nav-item"><a className="nav-link active" href="#!">Thông tin</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Nhãn hiệu</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Hóa đơn</a></li>
+                                                <li className="nav-item"><a className="nav-link active" href="#!">Sản phẩm</a></li>
+                                                <li className="nav-item"><a className="nav-link" href="#!">Danh mục</a></li>
+                                                <li className="nav-item"><a className="nav-link" href="#!">Kho</a></li>
                                             </ul>            
                                         </div>
                                     </div> {/* row align-items-center */}
