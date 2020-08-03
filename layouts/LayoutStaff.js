@@ -126,6 +126,21 @@ export default class LayoutStaff extends React.Component {
             })
         })
 
+        $('.input-number').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+          
+            // format number
+            $(this).val(function(index, value) {
+              return value
+              .replace(/\D/g, "")
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              ;
+            });
+            
+            $(this).attr('data',$(this).val().replace(/,/g,''));
+        });
+
     }
 
     render() {
@@ -215,7 +230,7 @@ export default class LayoutStaff extends React.Component {
                                                     </td>
                                                     <td className="text-right">
                                                         { item.fields.staffSalary && item.fields.staffSalary.length > 0 
-                                                        ? <h4 className="mb-1">{item.fields.staffSalary[0]}</h4>
+                                                        ? <h4 className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
@@ -246,7 +261,7 @@ export default class LayoutStaff extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Mức lương</label>
-                                                    <input className="form-control" id='staff-salary'/>
+                                                    <input className="form-control input-number" id='staff-salary'/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Hình thức làm việc</label>

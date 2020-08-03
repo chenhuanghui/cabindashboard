@@ -126,6 +126,21 @@ export default class LayoutProduct extends React.Component {
                 console.log('modal close finished')
             })
         })
+
+        $('.input-number').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+          
+            // format number
+            $(this).val(function(index, value) {
+              return value
+              .replace(/\D/g, "")
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              ;
+            });
+            
+            $(this).attr('data',$(this).val().replace(/,/g,''));
+        });
     }
 
     render() {
@@ -215,7 +230,7 @@ export default class LayoutProduct extends React.Component {
                                                     </td>
                                                     <td>
                                                         { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1">{item.fields.productPrice4Sell[0]}</h4>
+                                                        ? <h4 className="font-weight-normal mb-1">{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
@@ -259,16 +274,12 @@ export default class LayoutProduct extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Giá bán</label>
-                                                    <input className="form-control" id='product-price'/>
+                                                    <input className="form-control input-number" id='product-price'/>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="addSaleOff">Giá khuyến mãi</label>
-                                                    <input className="form-control" id='product-promotion'/>
-                                                </div>
-                                                <div className="form-group">
+                                                {/* <div className="form-group">
                                                     <label htmlFor="addCategory">Danh mục</label>
                                                     <input className="form-control" id='product-cat'/>
-                                                </div>
+                                                </div> */}
                                             </div>
                                                 
                                             <div className="card">
