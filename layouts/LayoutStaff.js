@@ -137,26 +137,25 @@ export default class LayoutStaff extends React.Component {
                     <div className="row justify-content-center">
                         <div className="col-12 col-lg-10 col-xl-8">
 
-                            <div className="header">
-                                <div className="container-fluid">
-                                    <div className="header-body">
-                                        <div className="row align-items-end">
-                                            <div className="col">
-                                                <h6 className="header-pretitle">QUẢN LÝ</h6>
-                                                <h1 className="header-title">Nhân sự</h1>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div className="header mt-md-5">
+                                <div className="header-body">
+                                    
+                                    <div className="row align-items-center">
+                                        <div className="col">
+                                            <h6 className="header-pretitle">QUẢN LÝ</h6>
+                                            <h1 className="header-title">Tài khoản</h1>
+                                        </div>                                            
+                                    </div> {/* row align-items-center */}
 
-                            <div className='row'>
-                                <div className='col-12'>
-                                    <ul className="nav nav-tabs mb-4">
-                                        <li className="nav-item"><span className="nav-link active" href="#!">Tất cả</span></li>
-                                        <li className="nav-item"><span className="nav-link" href="#!">Xếp ca</span></li>
-                                        <li className="nav-item"><span className="nav-link" href="#!">Xin nghỉ</span></li>
-                                    </ul>
+                                    <div className="row align-items-center">
+                                        <div className="col">
+                                            <ul className="nav nav-tabs nav-overflow header-tabs">
+                                                <li className="nav-item"><a className="nav-link active" href="#!">Thông tin</a></li>
+                                                <li className="nav-item"><a className="nav-link" href="#!">Nhãn hiệu</a></li>
+                                                <li className="nav-item"><a className="nav-link" href="#!">Hóa đơn</a></li>
+                                            </ul>            
+                                        </div>
+                                    </div> {/* row align-items-center */}
                                 </div>
                             </div>
 

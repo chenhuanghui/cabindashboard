@@ -109,7 +109,7 @@ export default class NavBar extends React.Component {
                 ))}
 
                 <hr className="dropdown-divider" />
-                <Link href="#" >
+                <Link href="/account" >
                   <a className="dropdown-item">Tài khoản</a>
                 </Link>
                 <Link href="#" >
@@ -173,7 +173,7 @@ export default class NavBar extends React.Component {
                   ))}
 
                   <hr className="dropdown-divider" />
-                  <Link href="#" >
+                  <Link href="/account" >
                     <a className="dropdown-item">Tài khoản</a>
                   </Link>
                   <Link href="#" >
