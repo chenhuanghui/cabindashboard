@@ -8,10 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@loadable/component": "^5.13.1",
     "airtable": "^0.8.1",
     "airtable-plus": "^1.0.4",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
+    "filestack-react": "^3.2.1",
     "jquery": "^3.5.1",
     "next": "9.4.4",
     "nookies": "^2.3.2",

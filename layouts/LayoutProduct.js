@@ -4,7 +4,9 @@ import NavBar from '../components/nav/nav_bar';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
 import $, { data } from 'jquery'
-import ModalProductEdit from '../components/modal/modal_product_edit';
+
+import loadable from '@loadable/component';
+const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
@@ -96,12 +98,16 @@ export default class LayoutProduct extends React.Component {
             console.log('name:', $('#product-name').val())
             console.log('desc:', $('#product-desc').val())
             console.log('price:', $('#product-price').val())
-            if ($('#product-name').val() === '' | $('#product-desc').val() === '' | $('#product-price').val() === '') return;
+            console.log('image-url:', $('#product-image').attr('image-url'))
+            if ($('#product-name').val() === '' | $('#product-desc').val() === '' | $('#product-price').val() === '' | $('#product-image').attr('image-url') === '') return;
 
             createData({
                 name: $('#product-name').val(),
                 desc: $('#product-desc').val(),
                 price4Sell: parseInt($('#product-price').val()),
+                images:[{
+                    url: $('#product-image').attr('image-url')
+                }],
                 status: true,
             },'Product')
             .then(result => {
@@ -120,7 +126,6 @@ export default class LayoutProduct extends React.Component {
                 console.log('modal close finished')
             })
         })
-
     }
 
     render() {
@@ -267,12 +272,21 @@ export default class LayoutProduct extends React.Component {
                                             </div>
                                                 
                                             <div className="card">
-                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
-                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                    <div className="dz-default dz-message">
-                                                        <button className="dz-button" type="button">Drop files here to upload</button>
-                                                    </div>
-                                                </div>
+                                                <ReactFilestack
+                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                    customRender={({ onPick }) => (
+                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image' image-url=''>
+                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                            <div className="dz-default dz-message">
+                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    onSuccess={(res) => {
+                                                        $('#product-image').attr('image-url',res.filesUploaded[0].url);
+                                                        console.log('add file url to element:', $('#product-image').attr('image-url'))
+                                                    }}
+                                                />
                                             </div>
                                             
                                             <button className="btn btn-lg btn-block btn-primary mb-3" id="product-action">Lưu</button>
