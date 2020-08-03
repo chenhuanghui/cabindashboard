@@ -4,7 +4,9 @@ import NavBar from '../components/nav/nav_bar';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
 import $, { data } from 'jquery'
+import loadable from '@loadable/component';
 
+const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
   baseID: 'appmREe03n1MQ6ydq',
@@ -91,14 +93,19 @@ export default class LayoutStaff extends React.Component {
             // $(this).parent().find('.dropdown-menu-right').addClass('show')
         })
 
-        $(document).on('click', '#product-action', function() {
+        $(document).on('click', '#staff-action', function() {
             console.log('name:', $('#staff-name').val())
             console.log('salary:', $('#staff-salary').val())
-            if ($('#staff-name').val() === '' | $('#staff-salary').val() === '') return;
+            console.log('image-url-staff:', $('#staff-image').attr('image-url'))
+
+            if ($('#staff-name').val() === '' | $('#staff-salary').val() === '' | $('#staff-image').attr('image-url') === '') return;
 
             createData({
                 name: $('#staff-name').val(),
                 salary: parseInt($('#staff-salary').val()),
+                photos:[{
+                    url: $('#staff-image').attr('image-url')
+                }],
                 status: true,
             },'Staff')
             .then(result => {
@@ -252,25 +259,31 @@ export default class LayoutStaff extends React.Component {
                                             </div>
                                                 
                                             <div className="card">
-                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" data-options="{&quot;url&quot;: &quot;https://&quot;}">
-                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                    <div className="dz-default dz-message">
-                                                        <button className="dz-button" type="button">Drop files here to upload</button>
-                                                    </div>
-                                                </div>
+                                                <ReactFilestack
+                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                    customRender={({ onPick }) => (
+                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-image' image-url=''>
+                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                            <div className="dz-default dz-message">
+                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    onSuccess={(res) => {
+                                                        console.log('filestack:',res)
+                                                        $('#staff-image').attr('image-url',res.filesUploaded[0].url);
+                                                        $('.dz-preview').text(res.filesUploaded[0].filename);
+                                                        console.log('add file url to element:', $('#staff-image').attr('image-url'))
+                                                    }}
+                                                />
                                             </div>
                                             
-                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="product-action">Lưu</button>
+                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="staff-action">Lưu</button>
                                             
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            
-                            
-                            
-                            
+                            </div>                                                                                                                                
                         </div>
                     </div>
                 </div>
