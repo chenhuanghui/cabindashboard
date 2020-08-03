@@ -97,14 +97,14 @@ export default class LayoutProduct extends React.Component {
         $(document).on('click', '#product-action', function() {
             console.log('name:', $('#product-name').val())
             console.log('desc:', $('#product-desc').val())
-            console.log('price:', $('#product-price').val())
+            console.log('price:', $('#product-price').attr('data'))
             console.log('image-url:', $('#product-image').attr('image-url'))
             if ($('#product-name').val() === '' | $('#product-desc').val() === '' | $('#product-price').val() === '' | $('#product-image').attr('image-url') === '') return;
 
             createData({
                 name: $('#product-name').val(),
                 desc: $('#product-desc').val(),
-                price4Sell: parseInt($('#product-price').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+                price4Sell: parseInt($('#product-price').attr('data')),
                 images:[{
                     url: $('#product-image').attr('image-url')
                 }],
@@ -211,7 +211,7 @@ export default class LayoutProduct extends React.Component {
                                                         }
                                                         
                                                     </td>        
-                                                    <td className="project-project">
+                                                    <td className="col-auto">
                                                         <h4 className="font-weight-normal mb-1">{item.fields.productName}</h4>
                                                         <small className="text-muted">{item.fields.productDesc}</small>
                                                     </td>

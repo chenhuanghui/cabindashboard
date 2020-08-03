@@ -102,7 +102,7 @@ export default class LayoutStaff extends React.Component {
 
             createData({
                 name: $('#staff-name').val(),
-                salary: parseInt($('#staff-salary').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+                salary: parseInt($('#staff-salary').val().replace(/,/g,'')),
                 photos:[{
                     url: $('#staff-image').attr('image-url')
                 }],
