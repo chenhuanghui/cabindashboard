@@ -61,63 +61,8 @@ export default class LayoutStaff extends React.Component {
         })
 
         // ===============================================
-        // FRONT-END ENGAGEMENT
-        $(document).on('click', `.btn-modal` , function() {
-            if (!$('body').hasClass('modal-open')) {
-                $('#modalProductEdit').addClass('show');
-                $('body').addClass('modal-open').append('<div className="modal-backdrop fade show"></div>');
-            }
-            console.log('modal opened');
-        });
+        // FRONT-END ENGAGEMENT        
         
-        $(document).on('click', function() {
-            if ( 
-                $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
-                &&
-                $('.modal-body').is(event.target) //checks if the modal itself was clicked
-            ){ console.log('clicked inside');} 
-            else {
-                if ($(event.target).hasClass('modal')) {
-                    $('#modalProductEdit').removeClass('show')
-                    $('body').removeClass('modal-open')
-                    $('.modal-backdrop').remove()
-                    console.log('modal close finished')
-                }
-            } 
-        });
-        
-        /* action on per product item */
-        $(document).on('click', '.dropdown-toggle', function(){
-            // $(this).parent().find('.dropdown-menu-right').addClass('show')
-        })
-
-        $(document).on('click', '#product-action', function() {
-            console.log('name:', $('#staff-name').val())
-            console.log('salary:', $('#staff-salary').val())
-            if ($('#staff-name').val() === '' | $('#staff-salary').val() === '') return;
-
-            createData({
-                name: $('#staff-name').val(),
-                salary: parseInt($('#staff-salary').val()),
-                status: true,
-            },'Staff')
-            .then(result => {
-                console.log('create res:', result)
-                if (result) {
-                    createData({
-                        Brand: [cookies.brandID],
-                        Staff: [result.id],
-                        timeStaffWorkingByCurrentMonth:0                        
-                    },'Brand_Staff')
-                }   
-            })
-            .finally( () => {
-                $('#modalProductEdit').removeClass('show')
-                $('body').removeClass('modal-open')
-                $('.modal-backdrop').remove()
-                console.log('modal close finished')
-            })
-        })
 
     }
 
