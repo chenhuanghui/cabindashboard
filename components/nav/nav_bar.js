@@ -24,7 +24,8 @@ export default class NavBar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      data: []
+      data: [],
+      brand:[]
     }
   }
 
@@ -40,7 +41,17 @@ export default class NavBar extends React.Component {
       .then (result => {
         console.log('nav data:',result);
         currentComponent.setState({data:result[0].fields})
-      })  
+      })
+      
+      retrieveData({
+        view: 'Grid view',
+        filterByFormula:`ID="${cookies.brandID}"`
+      },'Brand')
+      .then(res => {
+        console.log('brand data:', res);
+        currentComponent.setState({brand:res[0].fields})
+      })
+      
     }
     
     // ==========================================
@@ -78,7 +89,7 @@ export default class NavBar extends React.Component {
   }
 
   render () {
-    const {data} = this.state;
+    const {data, brand} = this.state;
     return (
       <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
         <div className="container-fluid">
@@ -88,7 +99,12 @@ export default class NavBar extends React.Component {
           </button>
 
           {/* logo */}
-          <div className="navbar-brand"><img src="/assets/img/logo.png" className="navbar-brand-img mx-auto" /></div>
+          <div className="navbar-brand">
+          { brand && brand.logo
+          ? <img src={brand.logo[0].url} className="navbar-brand-img mx-auto" />
+          : <img src="/assets/img/logo.png" className="navbar-brand-img mx-auto" />
+          }
+          </div>
           
           {/* menu user xs */}
           <div className="navbar-user d-md-none">
@@ -200,6 +216,12 @@ export default class NavBar extends React.Component {
     .logout{
       cursor: pointer;
     }
+    @media (min-width: 768px) {
+      .navbar-vertical.navbar-expand-md .navbar-brand-img {
+        max-height: 4rem;
+      }
+    }
+
     `}</style>
       </nav>
       )
