@@ -111,7 +111,7 @@ export default class NavBar extends React.Component {
             <div className="dropdown">
               <a href="#" id="sidebarIcon" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div className="avatar avatar-sm avatar-online">
-                  {data && data.avatar
+                  {data && data.avatar && data.avatar.length > 0
                   ? <img src={data.avatar[0].url} className="avatar-img rounded-circle" alt="..."/>
                   : <img src="../assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..."/>
                   }
