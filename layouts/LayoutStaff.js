@@ -191,7 +191,7 @@ export default class LayoutStaff extends React.Component {
                                                         
                                                     </td>        
                                                     <td className="project-project">
-                                                        <h4 className="font-weight-normal mb-1">{item.fields.staffName}</h4>
+                                                        <h4 className="mb-1">{item.fields.staffName}</h4>
                                                     </td>
                                                     <td>
                                                         { item.fields.staffStatus && item.fields.staffStatus.length > 0 && item.fields.staffStatus[0] === true
@@ -200,16 +200,16 @@ export default class LayoutStaff extends React.Component {
                                                         }
                                                         
                                                     </td>
-                                                    <td> <h4 className="font-weight-normal mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
+                                                    <td> <h4 className="mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
                                                     <td>                                           
                                                         { item.fields.staffType && item.fields.staffType.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1">{item.fields.staffType[0]}</h4>
+                                                        ? <h4 className="mb-1">{item.fields.staffType[0]}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
                                                     <td className="text-right">
                                                         { item.fields.staffSalary && item.fields.staffSalary.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1">{item.fields.staffSalary[0]}</h4>
+                                                        ? <h4 className="mb-1">{item.fields.staffSalary[0]}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
