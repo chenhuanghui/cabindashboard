@@ -104,7 +104,7 @@ export default class LayoutProduct extends React.Component {
             createData({
                 name: $('#product-name').val(),
                 desc: $('#product-desc').val(),
-                price4Sell: parseInt($('#product-price').val()),
+                price4Sell: parseInt($('#product-price').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
                 images:[{
                     url: $('#product-image').attr('image-url')
                 }],
