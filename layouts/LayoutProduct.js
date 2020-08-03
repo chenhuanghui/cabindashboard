@@ -276,14 +276,16 @@ export default class LayoutProduct extends React.Component {
                                                     apikey={'A88NrCjOoTtq2X3RiYyvSz'}
                                                     customRender={({ onPick }) => (
                                                         <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image' image-url=''>
-                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
                                                             <div className="dz-default dz-message">
                                                                 <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
                                                             </div>
                                                         </div>
                                                     )}
                                                     onSuccess={(res) => {
+                                                        console.log('filestack:',res)
                                                         $('#product-image').attr('image-url',res.filesUploaded[0].url);
+                                                        $('.dz-preview').text(res.filesUploaded[0].filename);
                                                         console.log('add file url to element:', $('#product-image').attr('image-url'))
                                                     }}
                                                 />
