@@ -302,6 +302,7 @@ export default class LayoutStaff extends React.Component {
                         </div>
                     </div>
                 </div>
+                
                 <style jsx>{`
                     .dropdown-toggle {cursor: pointer}
                 `}</style>

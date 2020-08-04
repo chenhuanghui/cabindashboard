@@ -95,9 +95,21 @@ export default class LayoutStaff extends React.Component {
                                     <div className="row align-items-center">
                                         <div className="col">
                                             <ul className="nav nav-tabs nav-overflow header-tabs">
-                                                <li className="nav-item"><a className="nav-link active" href="#!">Thông tin</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Nhãn hiệu</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Hóa đơn</a></li>
+                                                <li className="nav-item ">
+                                                    <Link href='/account'>
+                                                        <a className="nav-link active">Thông tin</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href='/account/brand'>
+                                                        <a className="nav-link">Nhãn hiệu</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href='/account/invoice'>
+                                                        <a className="nav-link">Hóa đơn</a>
+                                                    </Link>
+                                                </li>
                                             </ul>            
                                         </div>
                                     </div> {/* row align-items-center */}
