@@ -124,7 +124,7 @@ export default class LayoutAccountBrand extends React.Component {
                             <div className="card">
                                 <div className="card-header">
                                     <h4 className="card-header-title">Nhãn hiệu</h4>
-                                    <Link href='/brands/create/step1'>
+                                    <Link href='/account/brandnew'>
                                         <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhãn hiệu</a> 
                                     </Link>                                    
                                 </div>{/* end card header */}
