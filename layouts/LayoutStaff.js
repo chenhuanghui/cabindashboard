@@ -153,7 +153,6 @@ export default class LayoutStaff extends React.Component {
                 </Head>
 
                 <NavBar />
-                {/* <ModalProductEdit /> */}
 
                 <div className="main-content">
                     <div className="row justify-content-center">
