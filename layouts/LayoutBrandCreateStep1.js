@@ -92,12 +92,12 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                             
                             <div className="tab-content py-6" id="wizardSteps">
 
-                                <div className="tab-pane fade show active" id="wizardStep1" role="tabpanel" aria-labelledby="wizardTabOne">
+                                <div className="tab-pane fade show active" id="wizardStep1" role="tabpanel">
                                     
                                     <div className="row justify-content-center">
                                         <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                             <h6 className="mb-4 text-uppercase text-muted">Bước 1 / 3</h6>
-                                            <h1 className="mb-3">Cùng bắt đầu với thông tin cơ bản</h1>
+                                            <h1 className="mb-3">Bắt đầu với thông tin cơ bản</h1>
                                             <p className="mb-5 text-muted">Cung cấp các thông tin về thương hiệu của bạn để đăng ký với các đối tác bán hàng.</p>
                                         </div>
                                     </div>
@@ -106,22 +106,38 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             <div className="form-group">
                                                 <label>Tên nhãn hiệu</label>
                                                 <small className="form-text text-muted">Tên trên GPKD (nếu có GPKD là Công ty/Hộ kinh doanh) thì điền chính xác tên in trên GPKD, nếu không GPKD thì ghi tên chính xác trên biển hiệu</small>
-                                                <input type="text" className="form-control"/>
+                                                <input type="text" className="form-control" id="brandName"/>
                                             </div>
                                             <div className="form-group">
                                                 <label className="mb-1">Mô tả</label>
                                                 <small className="form-text text-muted">Giới thiệu chi tiết về thương hiệu của bạn giúp khách hàng hiểu bạn đang bán món ăn thức uống nào, có phù hợp với nhu cầu của khách hàng không</small>
-                                                <textarea className="form-control" data-toggle="autosize" rows="1" placeholder="Không quá 80 từ..."></textarea>
+                                                <textarea className="form-control" id='brandIntro' data-toggle="autosize" rows="1" placeholder="Không quá 80 từ..."></textarea>
                                             </div>
+                                            <div className="form-group">
+                                                <label>Logo</label>
+                                                <ReactFilestack
+                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                    customRender={({ onPick }) => (
+                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='logo' image-url=''>
+                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                            <div className="dz-default dz-message">
+                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    onSuccess={(res) => {
+                                                        console.log('filestack:',res)
+                                                        $('#logo').attr('image-url',res.filesUploaded[0].url);
+                                                        $('.dz-preview').text(res.filesUploaded[0].filename);
+                                                        console.log('add file url to element:', $('#logo').attr('image-url'))
+                                                    }}
+                                                />
+                                            </div>
+                                            
                                             <div className="form-group">
                                                 <label>Mã số doanh nghiệp</label>
                                                 <small className="form-text text-muted"> VD : nếu là HKD 41A... , 41X... - nếu là công ty : 0311..... ) Không có GPKD điền " Không có "</small>
-                                                <input type="text" className="form-control"/>
-                                            </div>
-                                            <div className="form-group">
-                                                <label>Ngày đăng ký kinh doanh</label>
-                                                <small className="form-text text-muted">Điền chính xác trên GPKD nếu có - không có ghi " Không có </small>
-                                                <input type="text" className="form-control"/>
+                                                <input type="text" className="form-control" id='businessLicense'/>
                                             </div>
                                             
                                             <hr className="my-5" />
@@ -131,7 +147,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                 <ReactFilestack
                                                     apikey={'A88NrCjOoTtq2X3RiYyvSz'}
                                                     customRender={({ onPick }) => (
-                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-image' image-url=''>
+                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='businessLicensePhoto' image-url=''>
                                                             <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
                                                             <div className="dz-default dz-message">
                                                                 <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
@@ -140,9 +156,9 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                     )}
                                                     onSuccess={(res) => {
                                                         console.log('filestack:',res)
-                                                        $('#staff-image').attr('image-url',res.filesUploaded[0].url);
+                                                        $('#businessLicensePhoto').attr('image-url',res.filesUploaded[0].url);
                                                         $('.dz-preview').text(res.filesUploaded[0].filename);
-                                                        console.log('add file url to element:', $('#staff-image').attr('image-url'))
+                                                        console.log('add file url to element:', $('#businessLicensePhoto').attr('image-url'))
                                                     }}
                                                 />
                                             </div>
@@ -154,7 +170,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                     <button className="btn btn-lg btn-white cancle-btn" type="reset">Cancel</button>
                                                 </div>
                                                 <div className="col text-center">
-                                                    <h6 className="text-uppercase text-muted mb-0">Step 1 of 3</h6>
+                                                    <h6 className="text-uppercase text-muted mb-0">Bước 1 / 3</h6>
                                                 </div>
                                                 <div className="col-auto">
                                                     <span className="btn btn-lg btn-primary next-btn" pane-id='1' data-toggle="wizard">Continue</span>
@@ -165,7 +181,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                     
                                 </div> {/* .wizard step */}
 
-                                <div className="tab-pane fade show" id="wizardStep2" role="tabpanel" aria-labelledby="wizardTabOne">
+                                <div className="tab-pane fade show" id="wizardStep2" role="tabpanel">
                                     <div className="row justify-content-center">
                                         <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                             <h6 className="mb-4 text-uppercase text-muted">Bước 2 / 3</h6>
@@ -260,12 +276,28 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                     <input type="text" className="form-control"/>
                                                 </div>
 
+                                                {/* group brank information */}
+                                                <hr className="my-5" />    
+                                                <div className='form-group'>
+                                                    <h2>Thông tin tài khoản của nhãn hàng truy cập vào "CabinFood for Business"</h2>
+                                                </div>                                                
+
+                                                <div className="form-group">
+                                                    <label>Email 1: (*)</label>
+                                                    <input type="text" className="form-control"/>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label>Email 2: (*)</label>
+                                                    <input type="text" className="form-control"/>
+                                                </div>
+
                                                 {/* group navigate button */}
                                                 <hr className="my-5" />    
 
                                                 <div className="row align-items-center">
                                                     <div className="col-auto">
-                                                        <button className="btn btn-lg btn-white back-btn" type="back">Quay lại</button>
+                                                        <button className="btn btn-lg btn-white back-btn" pane-id='2' type="back">Quay lại</button>
                                                     </div>
                                                     <div className="col text-center">
                                                         <h6 className="text-uppercase text-muted mb-0">Bước 2 / 3</h6>
@@ -279,7 +311,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                     </div> {/* .row */}
                                 </div> {/* .wizard step */}
 
-                                <div className="tab-pane fade show" id="wizardStep3" role="tabpanel" aria-labelledby="wizardTabOne">
+                                <div className="tab-pane fade show" id="wizardStep3" role="tabpanel">
                                     <div className="row justify-content-center">
                                         <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
                                             <h6 className="mb-4 text-uppercase text-muted">Bước 3 / 3</h6>
@@ -287,14 +319,54 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             <p className="mb-5 text-muted">Cung cấp các thông tin về chủ sở hữu để hoàn thiện đăng ký với các đối tác bán hàng.</p>
                                         </div>
                                         
-                                        <div className='card'>
+                                        <div className='card col-12'>
                                             <div className='card-body'>
                                                 {/* group owner general informatoin */}
                                                 <div className="form-group">
-                                                    <label>Họ và tên (*)</label>
-                                                    <small className="form-text text-muted">Tên trên GPKD (nếu có GPKD là Công ty/Hộ kinh doanh) thì điền chính xác tên in trên GPKD, nếu không GPKD thì ghi tên chính xác trên biển hiệu</small>
-                                                    <input type="text" className="form-control"/>
+                                                    <h2>Kích hoạt On-boarding</h2>
+                                                    <small className='text-muted'> Chọn các hạng mục onboarding mà nhãn hàng cần được kết nối</small>
+
+                                                    <div className="table-responsive mb-0">
+                                                        <table className="table table-sm table-nowrap card-table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Loại</th>
+                                                                    <th>Điện thoại</th>
+                                                                    <th>Email</th>
+                                                                    <th>SMS</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody className="list">{/* table item */} 
+                                                                <tr>
+                                                                    <td><h4 className='font-weight-normal'>Thông báo từ hệ thống</h4></td>        
+                                                                    <td><input id='call' type="checkbox" checked/></td>
+                                                                    <td><input id='email' type="checkbox" checked/></td>
+                                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                                </tr>        
+                                                                <tr>
+                                                                    <td><h4 className='font-weight-normal'>Thông báo đơn hàng</h4></td>        
+                                                                    <td><input id='call' type="checkbox" checked/></td>
+                                                                    <td><input id='email' type="checkbox" checked/></td>
+                                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                                </tr>        
+                                                                <tr>
+                                                                    <td><h4 className='font-weight-normal'>Thông báo từ cửa hàng</h4></td>        
+                                                                    <td><input id='call' type="checkbox" checked/></td>
+                                                                    <td><input id='email' type="checkbox" checked/></td>
+                                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                                </tr>   
+                                                                <tr>
+                                                                    <td><h4 className='font-weight-normal'>Tư vấn 24/7</h4></td>        
+                                                                    <td><input id='call' type="checkbox" checked/></td>
+                                                                    <td><input id='email' type="checkbox" checked/></td>
+                                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                                </tr>             
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
+
+
 
 
                                                 {/* group navigate button */}
@@ -302,7 +374,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
                                                 <div className="row align-items-center">
                                                     <div className="col-auto">
-                                                        <button className="btn btn-lg btn-white back-btn" type="back">Quay lại</button>
+                                                        <button className="btn btn-lg btn-white back-btn" pane-id='3' type="back">Quay lại</button>
                                                     </div>
                                                     <div className="col text-center">
                                                         <h6 className="text-uppercase text-muted mb-0">Bước 3 / 3</h6>
