@@ -49,7 +49,8 @@ export default class NavBar extends React.Component {
       },'Brand')
       .then(res => {
         console.log('brand data:', res);
-        currentComponent.setState({brand:res[0].fields})
+        if (res.length > 0) currentComponent.setState({brand:res[0].fields})
+        console.log('brand empty');
       })
       
     }

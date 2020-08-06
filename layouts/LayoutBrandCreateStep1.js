@@ -293,7 +293,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             <h1 className="mb-3">Bắt đầu với thông tin cơ bản</h1>
                                             <p className="mb-5 text-muted">Cung cấp các thông tin về thương hiệu của bạn để đăng ký với các đối tác bán hàng.</p>
                                         </div>
-                                    </div>
+                                    </div> 
                                     <div className='card'>
                                         <div className='card-body'>
                                             <div className="form-group">
@@ -381,133 +381,132 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             <h1 className="mb-3">Thông tin Chủ sở hữu</h1>
                                             <p className="mb-5 text-muted">Cung cấp các thông tin về chủ sở hữu để hoàn thiện đăng ký với các đối tác bán hàng.</p>
                                         </div>
-                                        
-                                        <div className='card'>
-                                            <div className='card-body'>
-                                                {/* group owner general informatoin */}
-                                                <div className="form-group">
-                                                    <label>Họ và tên (*)</label>
-                                                    <small className="form-text text-muted">Tên trên GPKD (nếu có GPKD là Công ty/Hộ kinh doanh) thì điền chính xác tên in trên GPKD, nếu không GPKD thì ghi tên chính xác trên biển hiệu</small>
-                                                    <input type="text" className="form-control" id='name'/>
-                                                </div>
+                                    </div>    
+                                    <div className='card'>
+                                        <div className='card-body'>
+                                            {/* group owner general informatoin */}
+                                            <div className="form-group">
+                                                <label>Họ và tên (*)</label>
+                                                <small className="form-text text-muted">Tên trên GPKD (nếu có GPKD là Công ty/Hộ kinh doanh) thì điền chính xác tên in trên GPKD, nếu không GPKD thì ghi tên chính xác trên biển hiệu</small>
+                                                <input type="text" className="form-control" id='name'/>
+                                            </div>
 
-                                                <div className="form-group">
-                                                    <label>Số CMND/CCCD/Hộ chiếu (*)</label>
-                                                    <input type="text" className="form-control" id='ownerPersonalID'/>
-                                                </div>
+                                            <div className="form-group">
+                                                <label>Số CMND/CCCD/Hộ chiếu (*)</label>
+                                                <input type="text" className="form-control" id='ownerPersonalID'/>
+                                            </div>
 
-                                                <div className="form-group">
-                                                    <label>Ngày sinh (*)</label>
-                                                    <Flatpickr className="form-control" id='DOB'
-                                                        // value={date}
-                                                        onChange={date => {
-                                                            console.log('new date:', date)
-                                                        // this.setState({ date });
-                                                        }}
-                                                    />
-                                                </div>
+                                            <div className="form-group">
+                                                <label>Ngày sinh (*)</label>
+                                                <Flatpickr className="form-control" id='DOB'
+                                                    // value={date}
+                                                    onChange={date => {
+                                                        console.log('new date:', date)
+                                                    // this.setState({ date });
+                                                    }}
+                                                />
+                                            </div>
 
-                                                <div className="form-group">
-                                                    <label>Số điện thoại (*)</label>
-                                                    <input type="text" className="form-control" id='tel'/>
-                                                </div>
+                                            <div className="form-group">
+                                                <label>Số điện thoại (*)</label>
+                                                <input type="text" className="form-control" id='tel'/>
+                                            </div>
 
-                                                <div className="form-group">
-                                                    <label>Email (*)</label>
-                                                    <input type="email" className="form-control" id='email'/>
-                                                </div>
+                                            <div className="form-group">
+                                                <label>Email (*)</label>
+                                                <input type="email" className="form-control" id='email'/>
+                                            </div>
 
-                                                <div className="form-group">
-                                                    <label>Hình ảnh CMND/CCCD/Hộ chiếu (*)</label>
-                                                    <small className="form-text text-muted">Sử dụng trong việc hoàn thiện thủ tục triển khai cùng các đối tác bán hàng. </small>
-                                                    <ReactFilestack
-                                                        apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                        customRender={({ onPick }) => (
-                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image' image-url=''>
-                                                                <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
-                                                                <div className="dz-default dz-message">
-                                                                    <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                                </div>
+                                            <div className="form-group">
+                                                <label>Hình ảnh CMND/CCCD/Hộ chiếu (*)</label>
+                                                <small className="form-text text-muted">Sử dụng trong việc hoàn thiện thủ tục triển khai cùng các đối tác bán hàng. </small>
+                                                <ReactFilestack
+                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                    customRender={({ onPick }) => (
+                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image' image-url=''>
+                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
+                                                            <div className="dz-default dz-message">
+                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
                                                             </div>
-                                                        )}
-                                                        onSuccess={(res) => {
-                                                            console.log('filestack:',res)
-                                                            $('#personalIDPhoto-image').attr('image-url',res.filesUploaded[0].url);
-                                                            $('.personal-ID-file-name').text(res.filesUploaded[0].filename);
-                                                            console.log('add file url to element:', $('#personalIDPhoto-image').attr('image-url'))
-                                                        }}
-                                                    />
+                                                        </div>
+                                                    )}
+                                                    onSuccess={(res) => {
+                                                        console.log('filestack:',res)
+                                                        $('#personalIDPhoto-image').attr('image-url',res.filesUploaded[0].url);
+                                                        $('.personal-ID-file-name').text(res.filesUploaded[0].filename);
+                                                        console.log('add file url to element:', $('#personalIDPhoto-image').attr('image-url'))
+                                                    }}
+                                                />
+                                            </div>
+
+                                            {/* group brank information */}
+                                            <hr className="my-5" />    
+                                            <div className='form-group'>
+                                                <h2>Thông tin tài khoản ngân hàng</h2>
+                                                <small className='text-muted'> Thông tin này được sử dụng cho việc nhận thanh toán từ các đối tác bán hàng</small>
+                                            </div>                                                
+
+                                            <div className="form-group">
+                                                <label>Tên ngân hàng (*)</label>
+                                                <input type="text" className="form-control" id='bankName'/>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Số tài khoản (*)</label>
+                                                <input type="text" className="form-control" id='brandAccNo'/>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Tên chủ tài khoản (*)</label>
+                                                <input type="text" className="form-control" id='brandAccName'/>
+                                            </div>
+
+                                            {/* group brank information */}
+                                            <hr className="my-5" />    
+                                            <div className='form-group'>
+                                                <h2>Thông tin hợp đồng cùng CabinFood</h2>
+                                            </div>                                                
+
+                                            <div className="form-group">
+                                                <label>Mã hợp đồng (*)</label>
+                                                <input type="text" className="form-control"/>
+                                            </div>
+
+                                            {/* group account information */}
+                                            <hr className="my-5" />    
+                                            <div className='form-group'>
+                                                <h2>Thông tin tài khoản của nhãn hàng truy cập vào "CabinFood for Business"</h2>
+                                            </div>                                                
+
+                                            <div className="form-group">
+                                                <label>Tên tài khoản: (*)</label>
+                                                <input type="text" className="form-control"/>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <label>Email: (*)</label>
+                                                <input type="text" className="form-control"/>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <label>Số điện thoại: (*)</label>
+                                                <input type="text" className="form-control"/>
+                                            </div>
+
+                                            {/* group navigate button */}
+                                            <hr className="my-5" />    
+
+                                            <div className="row align-items-center">
+                                                <div className="col-auto">
+                                                    <button className="btn btn-lg btn-white back-btn" pane-id='2' type="back">Quay lại</button>
                                                 </div>
-
-                                                {/* group brank information */}
-                                                <hr className="my-5" />    
-                                                <div className='form-group'>
-                                                    <h2>Thông tin tài khoản ngân hàng</h2>
-                                                    <small className='text-muted'> Thông tin này được sử dụng cho việc nhận thanh toán từ các đối tác bán hàng</small>
-                                                </div>                                                
-
-                                                <div className="form-group">
-                                                    <label>Tên ngân hàng (*)</label>
-                                                    <input type="text" className="form-control" id='bankName'/>
+                                                <div className="col text-center">
+                                                    <h6 className="text-uppercase text-muted mb-0">Bước 2 / 3</h6>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label>Số tài khoản (*)</label>
-                                                    <input type="text" className="form-control" id='brandAccNo'/>
+                                                <div className="col-auto">
+                                                    <button className="btn btn-lg btn-primary next-btn" pane-id='2' data-toggle="wizard" id='step2'>Tiếp theo</button>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label>Tên chủ tài khoản (*)</label>
-                                                    <input type="text" className="form-control" id='brandAccName'/>
-                                                </div>
-
-                                                {/* group brank information */}
-                                                <hr className="my-5" />    
-                                                <div className='form-group'>
-                                                    <h2>Thông tin hợp đồng cùng CabinFood</h2>
-                                                </div>                                                
-
-                                                <div className="form-group">
-                                                    <label>Mã hợp đồng (*)</label>
-                                                    <input type="text" className="form-control"/>
-                                                </div>
-
-                                                {/* group account information */}
-                                                <hr className="my-5" />    
-                                                <div className='form-group'>
-                                                    <h2>Thông tin tài khoản của nhãn hàng truy cập vào "CabinFood for Business"</h2>
-                                                </div>                                                
-
-                                                <div className="form-group">
-                                                    <label>Tên tài khoản: (*)</label>
-                                                    <input type="text" className="form-control"/>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label>Email: (*)</label>
-                                                    <input type="text" className="form-control"/>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label>Số điện thoại: (*)</label>
-                                                    <input type="text" className="form-control"/>
-                                                </div>
-
-                                                {/* group navigate button */}
-                                                <hr className="my-5" />    
-
-                                                <div className="row align-items-center">
-                                                    <div className="col-auto">
-                                                        <button className="btn btn-lg btn-white back-btn" pane-id='2' type="back">Quay lại</button>
-                                                    </div>
-                                                    <div className="col text-center">
-                                                        <h6 className="text-uppercase text-muted mb-0">Bước 2 / 3</h6>
-                                                    </div>
-                                                    <div className="col-auto">
-                                                        <button className="btn btn-lg btn-primary next-btn" pane-id='2' data-toggle="wizard" id='step2'>Tiếp theo</button>
-                                                    </div>
-                                                </div> {/* .row */}
-                                            </div> {/* .card-body */}
-                                        </div> {/* .card */}                                                                            
-                                    </div> {/* .row */}
+                                            </div> {/* .row */}
+                                        </div> {/* .card-body */}
+                                    </div> {/* .card */}                                                                            
                                 </div> {/* .wizard step */}
 
                                 <div className="tab-pane fade show" id="wizardStep3" role="tabpanel">
@@ -517,66 +516,65 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             <h1 className="mb-3">Kích hoạt </h1>
                                             <p className="mb-5 text-muted">Cung cấp các thông tin về chủ sở hữu để hoàn thiện đăng ký với các đối tác bán hàng.</p>
                                         </div>
-                                        
-                                        <div className='card col-12'>
-                                            <div className='card-body'>
-                                                {/* group owner general informatoin */}
-                                                <div className="form-group">
-                                                    <h2>Kích hoạt On-boarding</h2>
-                                                    <small className='text-muted'> Chọn các hạng mục onboarding mà nhãn hàng cần được kết nối</small>
+                                    </div>    
+                                    <div className='card col-12'>
+                                        <div className='card-body'>
+                                            {/* group owner general informatoin */}
+                                            <div className="form-group">
+                                                <h2>Kích hoạt On-boarding</h2>
+                                                <small className='text-muted'> Chọn các hạng mục onboarding mà nhãn hàng cần được kết nối</small>
 
-                                                    <div className="table-responsive mb-0">
-                                                        <table className="table table-sm table-nowrap card-table table-hover">
-                                                            <tbody className="list">{/* table item */} 
-                                                                <tr>
-                                                                    <td><h4 className='font-weight-normal'>Thông báo từ hệ thống</h4></td>        
-                                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                                    <td><input id='sms' type="checkbox" checked/></td>
-                                                                </tr>        
-                                                                <tr>
-                                                                    <td><h4 className='font-weight-normal'>Thông báo đơn hàng</h4></td>        
-                                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                                    <td><input id='sms' type="checkbox" checked/></td>
-                                                                </tr>        
-                                                                <tr>
-                                                                    <td><h4 className='font-weight-normal'>Thông báo từ cửa hàng</h4></td>        
-                                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                                    <td><input id='sms' type="checkbox" checked/></td>
-                                                                </tr>   
-                                                                <tr>
-                                                                    <td><h4 className='font-weight-normal'>Tư vấn 24/7</h4></td>        
-                                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                                    <td><input id='sms' type="checkbox" checked/></td>
-                                                                </tr>             
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                <div className="table-responsive mb-0">
+                                                    <table className="table table-sm table-nowrap card-table table-hover">
+                                                        <tbody className="list">{/* table item */} 
+                                                            <tr>
+                                                                <td><h4 className='font-weight-normal'>Thông báo từ hệ thống</h4></td>        
+                                                                <td><input id='call' type="checkbox" checked/></td>
+                                                                <td><input id='email' type="checkbox" checked/></td>
+                                                                <td><input id='sms' type="checkbox" checked/></td>
+                                                            </tr>        
+                                                            <tr>
+                                                                <td><h4 className='font-weight-normal'>Thông báo đơn hàng</h4></td>        
+                                                                <td><input id='call' type="checkbox" checked/></td>
+                                                                <td><input id='email' type="checkbox" checked/></td>
+                                                                <td><input id='sms' type="checkbox" checked/></td>
+                                                            </tr>        
+                                                            <tr>
+                                                                <td><h4 className='font-weight-normal'>Thông báo từ cửa hàng</h4></td>        
+                                                                <td><input id='call' type="checkbox" checked/></td>
+                                                                <td><input id='email' type="checkbox" checked/></td>
+                                                                <td><input id='sms' type="checkbox" checked/></td>
+                                                            </tr>   
+                                                            <tr>
+                                                                <td><h4 className='font-weight-normal'>Tư vấn 24/7</h4></td>        
+                                                                <td><input id='call' type="checkbox" checked/></td>
+                                                                <td><input id='email' type="checkbox" checked/></td>
+                                                                <td><input id='sms' type="checkbox" checked/></td>
+                                                            </tr>             
+                                                        </tbody>
+                                                    </table>
                                                 </div>
+                                            </div>
 
 
 
 
-                                                {/* group navigate button */}
-                                                <hr className="my-5" />    
+                                            {/* group navigate button */}
+                                            <hr className="my-5" />    
 
-                                                <div className="row align-items-center">
-                                                    <div className="col-auto">
-                                                        <button className="btn btn-lg btn-white back-btn" pane-id='3' type="back">Quay lại</button>
-                                                    </div>
-                                                    <div className="col text-center">
-                                                        <h6 className="text-uppercase text-muted mb-0">Bước 3 / 3</h6>
-                                                    </div>
-                                                    <div className="col-auto">
-                                                        <button className="btn btn-lg btn-primary next-btn" pane-id='3' data-toggle="wizard" id='complete-btn'>Continue</button>
-                                                    </div>
-                                                </div> {/* .row */}
-                                            </div> {/* .card-body */}
-                                        </div> {/* .card */}                                                                            
-                                    </div> {/* .row */}
+                                            <div className="row align-items-center">
+                                                <div className="col-auto">
+                                                    <button className="btn btn-lg btn-white back-btn" pane-id='3' type="back">Quay lại</button>
+                                                </div>
+                                                <div className="col text-center">
+                                                    <h6 className="text-uppercase text-muted mb-0">Bước 3 / 3</h6>
+                                                </div>
+                                                <div className="col-auto">
+                                                    <button className="btn btn-lg btn-primary next-btn" pane-id='3' data-toggle="wizard" id='complete-btn'>Continue</button>
+                                                </div>
+                                            </div> {/* .row */}
+                                        </div> {/* .card-body */}
+                                    </div> {/* .card */}                                                                            
                                 </div> {/* .wizard step */}
 
                             </div> {/* .tab-content */}                                                                                      
