@@ -40,7 +40,7 @@ export default class NavBar extends React.Component {
       },'Account')
       .then (result => {
         console.log('nav data:',result);
-        currentComponent.setState({data:result[0].fields})
+        if(result && result.length > 0) currentComponent.setState({data:result[0].fields})
       })
       
       retrieveData({
@@ -49,7 +49,7 @@ export default class NavBar extends React.Component {
       },'Brand')
       .then(res => {
         console.log('brand data:', res);
-        if (res.length > 0) currentComponent.setState({brand:res[0].fields})
+        if (res && res.length > 0) currentComponent.setState({brand:res[0].fields})
         console.log('brand empty');
       })
       
