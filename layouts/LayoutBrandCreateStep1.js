@@ -1,14 +1,24 @@
-import Flatpickr from "react-flatpickr";
-
+// ==========================================
+// REACT LINK
 import React from 'react';
 import Head from 'next/head'
+
+// ==========================================
+// COMPONENTS LINK
 import NavBar from '../components/nav/nav_bar';
+
+// ==========================================
+// OTHERS LIBS LINK
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import $, { data } from 'jquery'
 import loadable from '@loadable/component';
 import Router from 'next/router';
-import Select from "react-dropdown-select";
+import Select from "react-dropdown-select"; 
+// document react-dropdown-select: https://www.npmjs.com/package/react-dropdown-select
+import Flatpickr from "react-flatpickr";
 
+// ==========================================
+// INIT VARIABLES OF LIBS
 const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
@@ -17,6 +27,8 @@ const airtable = new AirtablePlus({
   tableName: 'Brand',
 });
 
+// ==========================================
+// MASTER FUNCTIONS USING THROW OF COMPONENT
 async function retrieveData(formular,tbName) {
     try {
       const res = await airtable.read(formular,{tableName:tbName});
@@ -44,15 +56,35 @@ async function updateData(rowID, data,tbName) {
     }
 }
 
+function checkValidPane(paneID) {
+    console.log('check valid pane')
+    var isValid = true
+    $(paneID + ' .required').each(function(index){
+        if ($(this).hasClass('required') && ($(this).attr('data') === '' | $(this).attr('data') === undefined)) {
+            $(this).removeClass('is-valid')
+            $(this).addClass('is-invalid')            
+            console.log(index + ": invalid" )
+            isValid = false
+            return;
+        } else {
+            console.log(index + ": valid " + $(this).attr('data'))
+            $(this).removeClass('is-invalid')
+            $(this).addClass('is-valid')   
+        }
+    })
 
+    return isValid;
+}
+
+// ==========================================
+// MAIN COMPONENT ACTION
 export default class LayoutBrandCreateStep1 extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            data: [],
-            cabinOptionsTitle: [],
-            cabinOptionsValue: []
+            cabinOptionsData: [],
+            bankData: []
         }
     }
 
@@ -62,17 +94,17 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         let currentComponent = this
         let brandInfo = []
         let ownerInfo = []
+        let deliveryPartnerData = []
         let licenseData = []
         let onboardingData = []
-        let notifyData = []
-        let deliveryPartnerData = []
-        let cabinAvailableList = []
+        let notificationData = []
+        
         
         // ===============================================
         // CHECKING AUTHENTICATE
         if (!cookies.isLoggedIn | !cookies.userID || !cookies.brandID) Router.push('/signin');
         console.log('current brandID:', cookies.brandID);
-        
+
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE
         
@@ -85,16 +117,16 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
         // get all list on-boarding
         retrieveData({},'OnBoarding')
-        .then(onboardingRes => {
-            onboardingData = onboardingRes
-            console.log('onboardingData:', onboardingData)
+        .then(onboardingRes => {        
+            onboardingData= onboardingRes
+            console.log('OnBoarding data:', onboardingData)
         })
 
         // get all notification for new brand
         retrieveData({filterByFormula: `type = "1"`},'Notification')
         .then(notifyRes => {
-            notifyData = notifyRes
-            console.log('notification data:', notifyData)
+            notificationData= notifyRes
+            console.log('notification data:', notificationData)
         })
 
         // get all delivery partner
@@ -104,19 +136,26 @@ export default class LayoutBrandCreateStep1 extends React.Component {
             console.log('DeliveryPartner:', deliveryPartnerData)
         })
 
+        // get all delivery partner
+        retrieveData({},'Bank')
+        .then(bankRes => {
+            var tempBank = []
+            for (var i=0; i<bankRes.length; i++) {
+                tempBank.push(bankRes[i].fields)
+            }
+            currentComponent.setState({bankData: tempBank})
+            console.log('Bank:', currentComponent.state.bankData)
+        })
+
         // get all cabin available
         retrieveData({filterByFormula: `brand_cabin = ""`},'Cabin')
         .then(cabinRes => {
             var tempTitle = []
-            var tempValue = []
             for (var i=0; i<cabinRes.length; i++) {
                 tempTitle.push(cabinRes[i].fields)
-                tempValue.push(cabinRes[i].id)
             }
-            currentComponent.setState({cabinOptionsTitle:tempTitle})
-            // currentComponent.setState({cabinOptionsValue:tempValue})
-            console.log('cabin title:', currentComponent.state.cabinOptionsTitle)
-            // console.log('cabin value:', currentComponent.state.cabinOptionsValue)
+            currentComponent.setState({cabinOptionsData:tempTitle})
+            console.log('cabin title:', currentComponent.state.cabinOptionsData)
         })
         
 
@@ -145,29 +184,17 @@ export default class LayoutBrandCreateStep1 extends React.Component {
             Router.push('/account/brand')
         })
 
+        $('input, textarea').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+            
+            $(this).attr('data',$(this).val())
+        });
+
         // btn step 1 clicked
         $('#step1').click(function(){
-            // var checkValid = true;                    
-            // if (!$('#brandName').val()) {
-            //     $("#brandName").addClass('is-invalid');
-            //     checkValid = false
-            // }
-            // if (!$('#brandIntro').val()) {
-            //     $('#brandIntro').addClass('is-invalid');
-            //     checkValid = false
-            // }
-            // if ($('#logo').attr('image-url') === '') {
-            //     checkValid = false
-            // }
-            // if ($('#businessLicense').val() === '') {
-            //     $('#businessLicense').addClass('is-invalid');
-            //     checkValid = false
-            // }
-            // if ($('#businessLicensePhoto').attr('image-url') === '') {
-            //     checkValid = false
-            // }
-            
-            // if (!checkValid) return;
+            console.log('check valid step1: ',checkValidPane('#wizardStep1'))
+            if(!checkValidPane('#wizardStep1')) return false;
 
             brandInfo.push({brandName:$('#brandName').val()})
             brandInfo.push({brandIntro:$('#brandIntro').val()})
@@ -187,14 +214,18 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         })
 
         $('#step2').click(function(){
+            console.log('check valid step2: ',checkValidPane('#wizardStep2'))
+            if(!checkValidPane('#wizardStep2')) return false;
+            
+            ownerInfo = [] // reset ownerInfor
             ownerInfo.push({name:$('#name').val()})
             ownerInfo.push({email:$('#email').val()})
             ownerInfo.push({tel:$('#tel').val()})
             ownerInfo.push({DOB:$('#DOB').val()})
             ownerInfo.push({ownerPersonalID:$('#ownerPersonalID').val()})
-            ownerInfo.push({bankName:$('#bankName').val()})
-            ownerInfo.push({bankAccNo:$('#bankAccNo').val()})
-            ownerInfo.push({bankAccName:$('#bankAccName').val()})
+            ownerInfo.push({bankName:$('#bankName').attr('data')})
+            ownerInfo.push({bankAccNo:$('#bankAccNo').attr('data')})
+            ownerInfo.push({bankAccName:$('#bankAccName').attr('data')})
 
             console.log('owner overview:', ownerInfo);            
 
@@ -208,7 +239,11 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         })
 
         $('#complete-btn').click(function(){
+            console.log('owner info:', ownerInfo)
+            console.log('owner info:', ownerInfo)
+
             // generate brand - account and all relation information
+            // STEP_1. CREATE BRAND
             createData({
                 brandName:$('#brandName').val(),
                 brandIntro:$('#brandIntro').val(),
@@ -222,35 +257,31 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 brandInfo = brandRes
                 console.log('brandInfo:', brandInfo)
 
-                // CREATE OWNER
+                // STEP_2. CREATE OWNER OWN THIS BRAND
                 createData({
-                    name:$('#name').val(),
-                    // email:$('#email').val(),
-                    // tel:$('#tel').val(),
-                    // DOB:$('#DOB').val(),
-                    // bankName:$('#bankName').val(),
-                    // bankAccNo:$('#bankAccNo').val(),
-                    // bankAccName:$('#bankAccName').val(),
+                    name: ownerInfo.name,
+                    email: ownerInfo.email,
+                    tel: ownerInfo.tel,
+                    DOB: ownerInfo.BOD,
+                    ownerPersonalID: ownerInfo.ownerPersonalID,
+                    bankName: [`${ownerInfo.bankName}`],
+                    bankAccNo: ownerInfo.bankAccNo,
+                    bankAccName: ownerInfo.bankAccName,
                     Brand: [`${brandRes.id}`]
                 },'Owner')
                 
-                // UPDATE ACCOUNT
+                // STEP_3. ADD BRAND TO ACCOUNT
                 retrieveData({
                     view: 'Grid view',
                     filterByFormula:`ID="${cookies.userID}"`
                 },'Account')
                 .then(accountRes => {
                     accountRes[0].fields.Brand.push(brandRes.id)
-                    // console.log('brand:', accountRes[0].fields.Brand)
-                    // var temp = []
-                    // temp = accountRes[0].fields.Brand
-                    // temp.push(`${brandRes.id}`)
-                    // console.log('brand push:', temp)
                     updateData(cookies.userID, {Brand:accountRes[0].fields.Brand},'Account')
                     .then(accUpdateRes => console.log('update account success...', accUpdateRes))
                 })
 
-                // CREATE BRAND_CABIN
+                // STEP_4. LINK BRAND_CABIN
                 createData({
                     BrandID: [`${brandRes.id}`],
                     CabinID: [`${$('#cabin-assigned').attr('data-selected')}`],
@@ -258,6 +289,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 },'Brand_Cabin')
                 .then(bcRes => {
                     for (var i=0; i<deliveryPartnerData.length; i++) {
+                        // STEP_5.1. LINK CHANEL WITH BRAND_CABIN
                         createData({
                             Brand_Cabin: [`${bcRes.id}`],
                             DeliveryPartner: [`${deliveryPartnerData[i].id}`],
@@ -265,14 +297,16 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                         },'DeliveryPartner_Brand_Cabin')
                     }
                 })
-
+                
+                // STEP_5.2. LINK LICENSE WITH BRAND_LICENSE
                 for (var i=0; i<licenseData.length; i++) {
                     createData({
                         Brand: [`${brandRes.id}`],
                         License: [`${licenseData[i].id}`]
                     },'Brand_License')
                 }
-
+                
+                // STEP_5.3. LINK LICENSE WITH BRAND_ONBOARDING
                 for (var i=0; i<onboardingData.length; i++) {
                     createData({
                         Brand: [`${brandRes.id}`],
@@ -280,22 +314,21 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                         status: false
                     },'Brand_OnBoarding')
                 }
-
+                
+                // STEP_5.4. LINK LICENSE WITH BRAND_NOTIFICATION
                 for (var i=0; i<notifyData.length; i++) {
                     createData({
                         Brand: [`${brandRes.id}`],
                         Notification: [`${notifyData[i].id}`],
                     },'Brand_Notification')
                 }
-
-
             })
         })
 
     }
 
     render() {
-        const { data, cabinOptionsTitle, cabinOptionsValue } = this.state;
+        const {cabinOptionsData, bankData} = this.state;
         return (
             <div>
                 <Head>
@@ -327,19 +360,18 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                 <div className="form-row">
                                                     <div className='col-12 col-md-6 mb-3'>
                                                         <label>Tên nhãn hiệu</label>
-                                                        <input type="text" className="form-control" id="brandName" required/>   
-                                                        {/* <div class="invalid-feedback">Thông tin bắt buộc</div>      */}
+                                                        <input type="text" className="form-control required" id="brandName" data=''/>   
                                                     </div>{/* .form-col BRAND*/}
                                                     <div className='col-12 col-md-6 mb-3'>
                                                         <label>Mã số doanh nghiệp</label>
-                                                        <input type="text" className="form-control" id='businessLicense' required/>
+                                                        <input type="text" className="form-control required" id='businessLicense' data=''/>
                                                     </div> {/* .form-col CABIN*/}
                                                 </div> {/* .form-row */}                                                
-                                            </div> {/* .form-group Brand - Cabin */}
+                                            </div> {/* .form-group BRAND_CABIN */}
 
                                             <div className="form-group">
                                                 <label className="mb-1">Mô tả</label>
-                                                <textarea className="form-control" id='brandIntro' data-toggle="autosize" rows="5" placeholder="Không quá 80 từ..." required></textarea>
+                                                <textarea className="form-control required " data='' id='brandIntro' data-toggle="autosize" rows="5" placeholder="Không quá 80 từ..." required></textarea>
                                             </div>
                                         
                                             <div className="form-group">
@@ -358,9 +390,12 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                             )}
                                                             onSuccess={(res) => {
                                                                 console.log('filestack:',res)
-                                                                $('#logo').attr('image-url',res.filesUploaded[0].url);
-                                                                $('.logo-file-name').text(res.filesUploaded[0].filename);
-                                                                console.log('add file url to element:', $('#logo').attr('image-url'))
+                                                                if (res.filesUploaded.length > 0) {
+                                                                    $('#logo').attr('image-url',res.filesUploaded[0].url);
+                                                                    $('.logo-file-name').text(res.filesUploaded[0].filename);
+                                                                    console.log('add file url to element:', $('#logo').attr('image-url'))
+                                                                }
+                                                                
                                                             }}
                                                         />
                                                     </div>
@@ -378,9 +413,11 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                             )}
                                                             onSuccess={(res) => {
                                                                 console.log('filestack:',res)
-                                                                $('#businessLicensePhoto').attr('image-url',res.filesUploaded[0].url);
-                                                                $('.business-license-file-name').text(res.filesUploaded[0].filename);
-                                                                console.log('add file url to element:', $('#businessLicensePhoto').attr('image-url'))
+                                                                if (res.filesUploaded.length > 0) {
+                                                                    $('#businessLicensePhoto').attr('image-url',res.filesUploaded[0].url);
+                                                                    $('.business-license-file-name').text(res.filesUploaded[0].filename);
+                                                                    console.log('add file url to element:', $('#businessLicensePhoto').attr('image-url'))
+                                                                }                                                                
                                                             }}
                                                         />
                                                     </div>
@@ -388,18 +425,19 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             </div>                                                                            
 
                                             <div className="form-group">
-                                                <label>Cabin</label>
-                                                <span className='hide' id='cabin-assigned' data-selected=''></span>
+                                                <label>Cabin (*)</label>
+                                                <span className='hide required' id='cabin-assigned' data=''></span>
                                                 <Select 
                                                     className='form-control' 
-                                                    options={cabinOptionsTitle} 
+                                                    options={cabinOptionsData} 
                                                     labelField= 'name'
                                                     valueField='recID'
                                                     dropdownHandle='false'
+                                                    searchable='false'
                                                     placeholder="Chọn cabin theo hợp đồng" 
                                                     onChange={(valSelected) => {
                                                         console.log('cabin seleted: ',valSelected)
-                                                        $('#cabin-assigned').attr('data-selected',valSelected[0].recID)
+                                                        $('#cabin-assigned').attr('data',valSelected[0].recID)
                                                     }} 
                                                 />
                                                 
@@ -422,7 +460,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                         </div>
                                     </div>
                                     
-                                </div> {/* .wizard step */}
+                                </div> {/* .wizard step  #wizardStep1*/}
 
                                 <div className="tab-pane fade show" id="wizardStep2" role="tabpanel">
                                     <div className="row justify-content-center">
@@ -436,58 +474,70 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                         <div className='card-body'>
                                             {/* group owner general informatoin */}
                                             <div className="form-group">
-                                                <label>Họ và tên (*)</label>
-                                                <small className="form-text text-muted">Tên trên GPKD (nếu có GPKD là Công ty/Hộ kinh doanh) thì điền chính xác tên in trên GPKD, nếu không GPKD thì ghi tên chính xác trên biển hiệu</small>
-                                                <input type="text" className="form-control" id='name'/>
+                                                <div className='form-row'>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Họ và tên (*)</label>
+                                                        <input type="text" className="form-control required" id='name' data=''/>
+                                                    </div>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Số CMND/CCCD/Hộ chiếu (*)</label>
+                                                        <input type="text" className="form-control required" id='ownerPersonalID' data=''/>
+                                                    </div>
+                                                </div>                                                
                                             </div>
 
                                             <div className="form-group">
-                                                <label>Số CMND/CCCD/Hộ chiếu (*)</label>
-                                                <input type="text" className="form-control" id='ownerPersonalID'/>
+                                                <div className='form-row'>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Số điện thoại (*)</label>
+                                                        <input type="text" className="form-control required" id='tel' data=''/>
+                                                    </div>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Email (*)</label>
+                                                        <input type="email" className="form-control required" id='email' data=''/>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
 
                                             <div className="form-group">
-                                                <label>Ngày sinh (*)</label>
-                                                <Flatpickr className="form-control" id='DOB'
-                                                    // value={date}
-                                                    onChange={date => {
-                                                        console.log('new date:', date)
-                                                    // this.setState({ date });
-                                                    }}
-                                                />
+                                                <div className='form-row'>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Ngày sinh (*)</label>
+                                                        <span className='hide required' data='' id='DOB-data'></span>
+                                                        <Flatpickr className="form-control" id='DOB' data=''
+                                                            onChange={date => {
+                                                                console.log('new date:', date)
+                                                                $('#DOB-data').attr('data',date)
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Hình ảnh CMND/CCCD/Hộ chiếu (*)</label>
+                                                        <ReactFilestack
+                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                            customRender={({ onPick }) => (
+                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image' image-url=''>
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
+                                                                    <div className="dz-default dz-message">
+                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            onSuccess={(res) => {
+                                                                console.log('filestack:',res)
+                                                                if (res.filesUploaded.length > 0) {
+                                                                    $('#personalIDPhoto-image').attr('image-url',res.filesUploaded[0].url);
+                                                                    $('.personal-ID-file-name').text(res.filesUploaded[0].filename);
+                                                                    console.log('add file url to element:', $('#personalIDPhoto-image').attr('image-url'))
+                                                                }
+                                                                
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>                                                
                                             </div>
 
-                                            <div className="form-group">
-                                                <label>Số điện thoại (*)</label>
-                                                <input type="text" className="form-control" id='tel'/>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label>Email (*)</label>
-                                                <input type="email" className="form-control" id='email'/>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label>Hình ảnh CMND/CCCD/Hộ chiếu (*)</label>
-                                                <small className="form-text text-muted">Sử dụng trong việc hoàn thiện thủ tục triển khai cùng các đối tác bán hàng. </small>
-                                                <ReactFilestack
-                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                    customRender={({ onPick }) => (
-                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image' image-url=''>
-                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
-                                                            <div className="dz-default dz-message">
-                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    onSuccess={(res) => {
-                                                        console.log('filestack:',res)
-                                                        $('#personalIDPhoto-image').attr('image-url',res.filesUploaded[0].url);
-                                                        $('.personal-ID-file-name').text(res.filesUploaded[0].filename);
-                                                        console.log('add file url to element:', $('#personalIDPhoto-image').attr('image-url'))
-                                                    }}
-                                                />
-                                            </div>
 
                                             {/* group brank information */}
                                             <hr className="my-5" />    
@@ -498,15 +548,32 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
                                             <div className="form-group">
                                                 <label>Tên ngân hàng (*)</label>
-                                                <input type="text" className="form-control" id='bankName'/>
+                                                <span className="hide required" id='bankName' data=''></span>
+                                                <Select 
+                                                    className='form-control' 
+                                                    options={bankData} 
+                                                    labelField= 'name'
+                                                    valueField='ID'
+                                                    dropdownHandle='false'
+                                                    searchable='false'
+                                                    placeholder="Chọn ngân hàng" 
+                                                    onChange={(valSelected) => {
+                                                        console.log('bank seleted: ',valSelected)
+                                                        $('#bankName').attr('data',valSelected[0].ID)
+                                                    }} 
+                                                />
                                             </div>
                                             <div className="form-group">
-                                                <label>Số tài khoản (*)</label>
-                                                <input type="text" className="form-control" id='brandAccNo'/>
-                                            </div>
-                                            <div className="form-group">
-                                                <label>Tên chủ tài khoản (*)</label>
-                                                <input type="text" className="form-control" id='brandAccName'/>
+                                                <div className='form-row'>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Số tài khoản (*)</label>
+                                                        <input type="text" className="form-control required" id='bankAccNo' data=''/>
+                                                    </div>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Tên chủ tài khoản (*)</label>
+                                                        <input type="text" className="form-control required" id='bankAccName' data=''/>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             {/* group brank information */}
@@ -517,7 +584,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
                                             <div className="form-group">
                                                 <label>Mã hợp đồng (*)</label>
-                                                <input type="text" className="form-control"/>
+                                                <input type="text" className="form-control required" data=''/>
                                             </div>
 
                                             {/* group account information */}
@@ -528,17 +595,20 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
                                             <div className="form-group">
                                                 <label>Tên tài khoản: (*)</label>
-                                                <input type="text" className="form-control"/>
+                                                <input type="text" className="form-control required" data=''/>
                                             </div>
 
                                             <div className="form-group">
-                                                <label>Email: (*)</label>
-                                                <input type="text" className="form-control"/>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label>Số điện thoại: (*)</label>
-                                                <input type="text" className="form-control"/>
+                                                <div className='form-row'>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Email: (*)</label>
+                                                        <input type="text" className="form-control required" data=''/>
+                                                    </div>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Số điện thoại: (*)</label>
+                                                        <input type="text" className="form-control required" data=''/>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             {/* group navigate button */}
@@ -557,7 +627,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             </div> {/* .row */}
                                         </div> {/* .card-body */}
                                     </div> {/* .card */}                                                                            
-                                </div> {/* .wizard step */}
+                                </div> {/* .wizard step  #wizardStep2*/}
 
                                 <div className="tab-pane fade show" id="wizardStep3" role="tabpanel">
                                     <div className="row justify-content-center">
