@@ -104,7 +104,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         // ===============================================
         // CHECKING AUTHENTICATE
         if (!cookies.isLoggedIn | !cookies.userID || !cookies.brandID) Router.push('/signin');
-        console.log('current brandID:', cookies.brandID);
+        // console.log('current brandID:', cookies.brandID);
 
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE
@@ -197,7 +197,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
         // btn step 1 clicked
         $('#step1').click(function(){
-            console.log('check valid step1: ',checkValidPane('#wizardStep1'))
+            // console.log('check valid step1: ',checkValidPane('#wizardStep1'))
             if(!checkValidPane('#wizardStep1')) return false;
 
             brandInfo.push({brandName:$('#brandName').val()})
@@ -214,11 +214,11 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
             $(current_pane_id).removeClass('active')
             $(next_pane_id).addClass('active')
-            console.log('go to pane 2:');            
+            // console.log('go to pane 2:');            
         })
 
         $('#step2').click(function(){
-            console.log('check valid step2: ',checkValidPane('#wizardStep2'))
+            // console.log('check valid step2: ',checkValidPane('#wizardStep2'))
             if(!checkValidPane('#wizardStep2')) return false;                
 
             // go to next pane
@@ -227,16 +227,16 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
             $(current_pane_id).removeClass('active')
             $(next_pane_id).addClass('active')
-            console.log('go to pane 3');            
+            // console.log('go to pane 3');            
         })
 
         $('#complete-btn').click(function(){
-            console.log('check valid step3: ',checkValidPane('#wizardStep3'))
+            // console.log('check valid step3: ',checkValidPane('#wizardStep3'))
             if(!checkValidPane('#wizardStep3')) return false;
 
 
             var promiseList = []
-            console.log('bank id:', $('#bankName').attr('data')); 
+
             // generate brand - account and all relation information
             // STEP_1. CREATE BRAND
             createData({
@@ -367,14 +367,12 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                         tel: $('#accountTel').attr('data'),
                         password:`123456`,
                         Role:[`${roleAcc[1].id}`]
-                    },'Account').then(accCreateRes => {
-                        console.log('tao accoutn thanh cong ',accCreateRes )
-                    })
+                    },'Account')
                 )
                 
                 Promise.all(promiseList)
                 .then(result=> {
-                    console.log(result)
+                    // console.log(result)
                     Router.push('/account/brand')
                 })
             })
