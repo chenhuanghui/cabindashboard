@@ -27,7 +27,8 @@ export default class LayoutAccountBrand extends React.Component {
 
         this.state = {
             data: [],
-            brandList: []
+            brandList: [],
+            accountData: []
         }
     }
     componentDidMount() {
@@ -47,8 +48,7 @@ export default class LayoutAccountBrand extends React.Component {
             filterByFormula: `ID = "${cookies.userID}"`,
         },'Account')
         .then(result => {
-            console.log('account:', result[0].fields);
-
+            currentComponent.setState({accountData:result[0].fields})
             var promises = []
             for (var i=0; i<result[0].fields.Brand.length; i++) {
                 promises.push(
@@ -72,7 +72,7 @@ export default class LayoutAccountBrand extends React.Component {
     }
 
     render() {
-        const { data, brandList } = this.state;
+        const { accountData, brandList } = this.state;
         return (
             <div>
                 <Head>
@@ -124,9 +124,14 @@ export default class LayoutAccountBrand extends React.Component {
                             <div className="card">
                                 <div className="card-header">
                                     <h4 className="card-header-title">Nhãn hiệu</h4>
-                                    <Link href='/account/brandnew'>
-                                        <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhãn hiệu</a> 
-                                    </Link>                                    
+                                    {accountData && accountData.roleValue < 3
+                                    ? 
+                                        <Link href='/account/brandnew'>
+                                            <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhãn hiệu</a> 
+                                        </Link>                                    
+                                    : ''
+                                    }
+                                    
                                 </div>{/* end card header */}
                                 
                                 <div className="table-responsive mb-0">
