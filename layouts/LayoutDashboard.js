@@ -117,7 +117,7 @@ export default function Dashboard () {
   function checkLicense(data) {
     var count = 0;
     for (var i=0; i < data.length; i++) {
-      if (data[i] == 'Hoàn thành') count ++
+      if (data[i] == true) count ++
     }
     return count
   }
@@ -405,9 +405,9 @@ export default function Dashboard () {
                               <div className="card-body">
                                 <div className="row">
                                   <div className="col"><p className="mb-0">{item}</p></div>
-                                  { brand.licenseStatus && brand.licenseStatus.length > 0 && brand.licenseStatus[index] == 'Hoàn thành'
-                                  ? <div className="col-auto"><div className="small text-success" >{brand.licenseStatus ? brand.licenseStatus[index] : ''}</div></div>
-                                  : <div className="col-auto"><div className="small text-warning" >{brand.licenseStatus ? brand.licenseStatus[index] : ''}</div></div>
+                                  { brand.licenseStatus && brand.licenseStatus.length > 0 && brand.licenseStatus[index] === true
+                                  ? <div className="col-auto"><div className="small text-success" >{brand.licenseStatus ? 'Đã cấp' : ''}</div></div>
+                                  : <div className="col-auto"><div className="small text-warning" >{brand.licenseStatus ? 'Chưa có' : ''}</div></div>
                                   }
                                 </div>
                               </div>

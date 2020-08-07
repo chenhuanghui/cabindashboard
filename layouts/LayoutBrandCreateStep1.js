@@ -97,7 +97,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         let deliveryPartnerData = []
         let licenseData = []
         let onboardingData = []
-        let notificationData = []
+        let notifyData = []
         let roleAcc = []
         
         
@@ -126,7 +126,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         // get all notification for new brand
         retrieveData({filterByFormula: `type = "1"`},'Notification')
         .then(notifyRes => {
-            notificationData= notifyRes
+            notifyData= notifyRes
             // console.log('notification data:', notificationData)
         })
 
@@ -141,7 +141,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         retrieveData({},'Role')
         .then(roleRes => {
             roleAcc = roleRes
-            // console.log('Role Acc:', roleAcc)
+            console.log('Role Acc:', roleAcc)
         })
 
         // get all delivery partner
@@ -223,7 +223,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
             ownerInfo.push({tel:$('#tel').val()})
             ownerInfo.push({DOB:$('#DOB').val()})
             ownerInfo.push({ownerPersonalID:$('#ownerPersonalID').val()})
-            ownerInfo.push({bankName:$('#bankName').attr('data')})
+            ownerInfo.push({bankID:$('#bankName').attr('data')})
             ownerInfo.push({bankAccNo:$('#bankAccNo').attr('data')})
             ownerInfo.push({bankAccName:$('#bankAccName').attr('data')})
 
@@ -264,7 +264,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                     tel: ownerInfo.tel,
                     DOB: ownerInfo.BOD,
                     ownerPersonalID: ownerInfo.ownerPersonalID,
-                    bankName: [`${ownerInfo.bankName}`],
+                    Bank: [`${ownerInfo.bankID}`],
                     bankAccNo: ownerInfo.bankAccNo,
                     bankAccName: ownerInfo.bankAccName,
                     Brand: [`${brandRes.id}`]
@@ -284,7 +284,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 // STEP_4. LINK BRAND_CABIN
                 createData({
                     BrandID: [`${brandRes.id}`],
-                    CabinID: [`${$('#cabin-assigned').attr('data-selected')}`],
+                    CabinID: [`${$('#cabin-assigned').attr('data')}`],
                     status: true
                 },'Brand_Cabin')
                 .then(bcRes => {
@@ -302,7 +302,8 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 for (var i=0; i<licenseData.length; i++) {
                     createData({
                         Brand: [`${brandRes.id}`],
-                        License: [`${licenseData[i].id}`]
+                        License: [`${licenseData[i].id}`],
+                        status: false
                     },'Brand_License')
                 }
                 
@@ -332,7 +333,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                     email: ownerInfo.email,
                     tel: ownerInfo.tel,
                     password:`123456`,
-                    Role:[`${roleAcc[3].id}`]
+                    Role:[`${roleAcc[2].id}`]
                 },'Account')
 
                 // CREATE ACCOUNT FOR BRAND'S MANAGER
@@ -342,8 +343,11 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                     email: $('accountEmail').attr('data'),
                     tel: $('accountTel').attr('data'),
                     password:`123456`,
-                    Role:[`${roleAcc[4].id}`]
-                },'Account')
+                    Role:[`${roleAcc[3].id}`]
+                },'Account').then(accCreateRes => {
+                    console.log('tao accoutn thanh cong')
+                    Router.push('/acount/brand')
+                })
             })
         })
 
