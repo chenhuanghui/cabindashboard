@@ -19,8 +19,8 @@ const airtable = new AirtablePlus({
 
 async function retrieveData(formular,tbName) {
     try {
-      const readRes = await airtable.read(formular,{tableName:tbName});
-      return readRes
+      const res = await airtable.read(formular,{tableName:tbName});
+      return res
     } catch(e) {
       console.error(e);
     }
@@ -114,9 +114,9 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 tempValue.push(cabinRes[i].id)
             }
             currentComponent.setState({cabinOptionsTitle:tempTitle})
-            currentComponent.setState({cabinOptionsValue:tempValue})
+            // currentComponent.setState({cabinOptionsValue:tempValue})
             console.log('cabin title:', currentComponent.state.cabinOptionsTitle)
-            console.log('cabin value:', currentComponent.state.cabinOptionsValue)
+            // console.log('cabin value:', currentComponent.state.cabinOptionsValue)
         })
         
 
