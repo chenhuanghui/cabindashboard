@@ -7,6 +7,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import $, { data } from 'jquery'
 import loadable from '@loadable/component';
 import Router from 'next/router';
+import Select from "react-dropdown-select";
 
 const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 const AirtablePlus = require('airtable-plus');  
@@ -49,7 +50,9 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            cabinOptionsTitle: [],
+            cabinOptionsValue: []
         }
     }
 
@@ -104,8 +107,16 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         // get all cabin available
         retrieveData({filterByFormula: `brand_cabin = ""`},'Cabin')
         .then(cabinRes => {
-            cabinAvailableList = cabinRes
-            console.log('cabin:', cabinAvailableList)
+            var tempTitle = []
+            var tempValue = []
+            for (var i=0; i<cabinRes.length; i++) {
+                tempTitle.push(cabinRes[i].fields)
+                tempValue.push(cabinRes[i].id)
+            }
+            currentComponent.setState({cabinOptionsTitle:tempTitle})
+            currentComponent.setState({cabinOptionsValue:tempValue})
+            console.log('cabin title:', currentComponent.state.cabinOptionsTitle)
+            console.log('cabin value:', currentComponent.state.cabinOptionsValue)
         })
         
 
@@ -223,10 +234,26 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                     Brand: [`${brandRes.id}`]
                 },'Owner')
                 
+                // UPDATE ACCOUNT
+                retrieveData({
+                    view: 'Grid view',
+                    filterByFormula:`ID="${cookies.userID}"`
+                },'Account')
+                .then(accountRes => {
+                    accountRes[0].fields.Brand.push(brandRes.id)
+                    // console.log('brand:', accountRes[0].fields.Brand)
+                    // var temp = []
+                    // temp = accountRes[0].fields.Brand
+                    // temp.push(`${brandRes.id}`)
+                    // console.log('brand push:', temp)
+                    updateData(cookies.userID, {Brand:accountRes[0].fields.Brand},'Account')
+                    .then(accUpdateRes => console.log('update account success...', accUpdateRes))
+                })
+
                 // CREATE BRAND_CABIN
                 createData({
                     BrandID: [`${brandRes.id}`],
-                    CabinID: [`recWCySs7WT4fzyzS`],
+                    CabinID: [`${$('#cabin-assigned').attr('data-selected')}`],
                     status: true
                 },'Brand_Cabin')
                 .then(bcRes => {
@@ -268,7 +295,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
     }
 
     render() {
-        const { data } = this.state;
+        const { data, cabinOptionsTitle, cabinOptionsValue } = this.state;
         return (
             <div>
                 <Head>
@@ -297,63 +324,86 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                     <div className='card'>
                                         <div className='card-body'>
                                             <div className="form-group">
-                                                <label>Tên nhãn hiệu</label>
-                                                <small className="form-text text-muted">Tên trên GPKD (nếu có GPKD là Công ty/Hộ kinh doanh) thì điền chính xác tên in trên GPKD, nếu không GPKD thì ghi tên chính xác trên biển hiệu</small>
-                                                <input type="text" className="form-control" id="brandName" required/>
-                                            </div>
+                                                <div className="form-row">
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Tên nhãn hiệu</label>
+                                                        <input type="text" className="form-control" id="brandName" required/>   
+                                                        {/* <div class="invalid-feedback">Thông tin bắt buộc</div>      */}
+                                                    </div>{/* .form-col BRAND*/}
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Mã số doanh nghiệp</label>
+                                                        <input type="text" className="form-control" id='businessLicense' required/>
+                                                    </div> {/* .form-col CABIN*/}
+                                                </div> {/* .form-row */}                                                
+                                            </div> {/* .form-group Brand - Cabin */}
+
                                             <div className="form-group">
                                                 <label className="mb-1">Mô tả</label>
-                                                <small className="form-text text-muted">Giới thiệu chi tiết về thương hiệu của bạn giúp khách hàng hiểu bạn đang bán món ăn thức uống nào, có phù hợp với nhu cầu của khách hàng không</small>
-                                                <textarea className="form-control" id='brandIntro' data-toggle="autosize" rows="1" placeholder="Không quá 80 từ..." required></textarea>
+                                                <textarea className="form-control" id='brandIntro' data-toggle="autosize" rows="5" placeholder="Không quá 80 từ..." required></textarea>
                                             </div>
+                                        
                                             <div className="form-group">
-                                                <label>Logo</label>
-                                                <ReactFilestack
-                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                    customRender={({ onPick }) => (
-                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='logo' image-url='' required>
-                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush logo-file-name"></ul>
-                                                            <div className="dz-default dz-message">
-                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    onSuccess={(res) => {
-                                                        console.log('filestack:',res)
-                                                        $('#logo').attr('image-url',res.filesUploaded[0].url);
-                                                        $('.logo-file-name').text(res.filesUploaded[0].filename);
-                                                        console.log('add file url to element:', $('#logo').attr('image-url'))
-                                                    }}
+                                                <div className='form-row'>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Logo</label>
+                                                        <ReactFilestack
+                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                            customRender={({ onPick }) => (
+                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='logo' image-url='' required>
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush logo-file-name"></ul>
+                                                                    <div className="dz-default dz-message">
+                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            onSuccess={(res) => {
+                                                                console.log('filestack:',res)
+                                                                $('#logo').attr('image-url',res.filesUploaded[0].url);
+                                                                $('.logo-file-name').text(res.filesUploaded[0].filename);
+                                                                console.log('add file url to element:', $('#logo').attr('image-url'))
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div className='col-12 col-md-6 mb-3'>
+                                                        <label>Hình ảnh GPDKKD</label>
+                                                        <ReactFilestack
+                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                            customRender={({ onPick }) => (
+                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='businessLicensePhoto' image-url=''>
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush business-license-file-name"></ul>
+                                                                    <div className="dz-default dz-message">
+                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            onSuccess={(res) => {
+                                                                console.log('filestack:',res)
+                                                                $('#businessLicensePhoto').attr('image-url',res.filesUploaded[0].url);
+                                                                $('.business-license-file-name').text(res.filesUploaded[0].filename);
+                                                                console.log('add file url to element:', $('#businessLicensePhoto').attr('image-url'))
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>                                                                            
+
+                                            <div className="form-group">
+                                                <label>Cabin</label>
+                                                <span className='hide' id='cabin-assigned' data-selected=''></span>
+                                                <Select 
+                                                    className='form-control' 
+                                                    options={cabinOptionsTitle} 
+                                                    labelField= 'name'
+                                                    valueField='recID'
+                                                    dropdownHandle='false'
+                                                    placeholder="Chọn cabin theo hợp đồng" 
+                                                    onChange={(valSelected) => {
+                                                        console.log('cabin seleted: ',valSelected)
+                                                        $('#cabin-assigned').attr('data-selected',valSelected[0].recID)
+                                                    }} 
                                                 />
-                                            </div>
-                                            
-                                            <div className="form-group">
-                                                <label>Mã số doanh nghiệp</label>
-                                                <small className="form-text text-muted"> VD : nếu là HKD 41A... , 41X... - nếu là công ty : 0311..... ) Không có GPKD điền " Không có "</small>
-                                                <input type="text" className="form-control" id='businessLicense' required/>
-                                            </div>
-                                            
-                                            <hr className="my-5" />
-                                            <div className="form-group">
-                                                <label>Hình ảnh GPDKKD</label>
-                                                <small className="form-text text-muted">Hình ảnh GPDKKD sử dụng trong việc hoàn thiện thủ tục triển khai cùng các đối tác bán hàng. </small>
-                                                <ReactFilestack
-                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                    customRender={({ onPick }) => (
-                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='businessLicensePhoto' image-url=''>
-                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush business-license-file-name"></ul>
-                                                            <div className="dz-default dz-message">
-                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    onSuccess={(res) => {
-                                                        console.log('filestack:',res)
-                                                        $('#businessLicensePhoto').attr('image-url',res.filesUploaded[0].url);
-                                                        $('.business-license-file-name').text(res.filesUploaded[0].filename);
-                                                        console.log('add file url to element:', $('#businessLicensePhoto').attr('image-url'))
-                                                    }}
-                                                />
+                                                
+                                                {/* <div class="invalid-feedback">Thông tin bắt buộc</div>      */}
                                             </div>
                                             
                                             <hr className="my-5" />    
