@@ -98,6 +98,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         let licenseData = []
         let onboardingData = []
         let notificationData = []
+        let roleAcc = []
         
         
         // ===============================================
@@ -112,28 +113,35 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         retrieveData({},'License')
         .then(licenseRes => {
             licenseData = licenseRes
-            console.log('license data:', licenseData)
+            // console.log('license data:', licenseData)
         })
 
         // get all list on-boarding
         retrieveData({},'OnBoarding')
         .then(onboardingRes => {        
             onboardingData= onboardingRes
-            console.log('OnBoarding data:', onboardingData)
+            // console.log('OnBoarding data:', onboardingData)
         })
 
         // get all notification for new brand
         retrieveData({filterByFormula: `type = "1"`},'Notification')
         .then(notifyRes => {
             notificationData= notifyRes
-            console.log('notification data:', notificationData)
+            // console.log('notification data:', notificationData)
         })
 
         // get all delivery partner
         retrieveData({},'DeliveryPartner')
         .then(deliveryPartnerRes => {
             deliveryPartnerData = deliveryPartnerRes
-            console.log('DeliveryPartner:', deliveryPartnerData)
+            // console.log('DeliveryPartner:', deliveryPartnerData)
+        })
+
+        // get all delivery partner
+        retrieveData({},'Role')
+        .then(roleRes => {
+            roleAcc = roleRes
+            // console.log('Role Acc:', roleAcc)
         })
 
         // get all delivery partner
@@ -144,7 +152,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 tempBank.push(bankRes[i].fields)
             }
             currentComponent.setState({bankData: tempBank})
-            console.log('Bank:', currentComponent.state.bankData)
+            // console.log('Bank:', currentComponent.state.bankData)
         })
 
         // get all cabin available
@@ -155,20 +163,12 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 tempTitle.push(cabinRes[i].fields)
             }
             currentComponent.setState({cabinOptionsData:tempTitle})
-            console.log('cabin title:', currentComponent.state.cabinOptionsData)
+            // console.log('cabin title:', currentComponent.state.cabinOptionsData)
         })
         
 
         // ===============================================
         // FRONT-END ENGAGEMENT
-        // next pane action
-        $('.next-btn').click(function(){
-            // var current_pane_id = '#wizardStep'+$(this).attr('pane-id');
-            // var next_pane_id = '#wizardStep'+ (parseInt($(this).attr('pane-id'))+1);
-
-            // $(current_pane_id).removeClass('active')
-            // $(next_pane_id).addClass('active')
-        })
         
         // prev pane action
         $('.back-btn').click(function(){
@@ -202,7 +202,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
             brandInfo.push({brandName:$('#businessLicense').val()})
             brandInfo.push({logo:[{url:$('#businessLicensePhoto').attr('image-url')}]})
 
-            console.log('biz overview:', brandInfo);
+            // console.log('biz overview:', brandInfo);
 
             // go to next pane
             var current_pane_id = '#wizardStep'+$(this).attr('pane-id');
@@ -227,7 +227,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
             ownerInfo.push({bankAccNo:$('#bankAccNo').attr('data')})
             ownerInfo.push({bankAccName:$('#bankAccName').attr('data')})
 
-            console.log('owner overview:', ownerInfo);            
+            // console.log('owner overview:', ownerInfo);            
 
             // go to next pane
             var current_pane_id = '#wizardStep'+$(this).attr('pane-id');
@@ -239,8 +239,8 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         })
 
         $('#complete-btn').click(function(){
-            console.log('owner info:', ownerInfo)
-            console.log('owner info:', ownerInfo)
+            console.log('check valid step3: ',checkValidPane('#wizardStep3'))
+            if(!checkValidPane('#wizardStep3')) return false;
 
             // generate brand - account and all relation information
             // STEP_1. CREATE BRAND
@@ -278,7 +278,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 .then(accountRes => {
                     accountRes[0].fields.Brand.push(brandRes.id)
                     updateData(cookies.userID, {Brand:accountRes[0].fields.Brand},'Account')
-                    .then(accUpdateRes => console.log('update account success...', accUpdateRes))
+                    .then(accUpdateRes => console.log('update account success...'))
                 })
 
                 // STEP_4. LINK BRAND_CABIN
@@ -322,6 +322,28 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                         Notification: [`${notifyData[i].id}`],
                     },'Brand_Notification')
                 }
+
+                // STEP_6. CREATE ACCOUNT AND LINK TO BRAND
+
+                // CREATE ACCOUNT FOR BRAND'S OWNER
+                createData({
+                    Brand: [`${brandRes.id}`],
+                    name: ownerInfo.name,
+                    email: ownerInfo.email,
+                    tel: ownerInfo.tel,
+                    password:`123456`,
+                    Role:[`${roleAcc[3].id}`]
+                },'Account')
+
+                // CREATE ACCOUNT FOR BRAND'S MANAGER
+                createData({
+                    Brand: [`${brandRes.id}`],
+                    name: $('accountName').attr('data'),
+                    email: $('accountEmail').attr('data'),
+                    tel: $('accountTel').attr('data'),
+                    password:`123456`,
+                    Role:[`${roleAcc[4].id}`]
+                },'Account')
             })
         })
 
@@ -618,25 +640,24 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                             {/* group owner general informatoin */}
                                             <div className="form-group">
                                                 {/* group account information */}
-                                                <hr className="my-5" />    
                                                 <div className='form-group'>
-                                                    <h2>Thông tin tài khoản của nhãn hàng truy cập vào "CabinFood for Business"</h2>
+                                                    <h2>Thông tin tài khoản của nhãn hàng truy cập vào hệ thống quản lý</h2>
                                                 </div>                                                
 
                                                 <div className="form-group">
                                                     <label>Tên tài khoản: (*)</label>
-                                                    <input type="text" className="form-control required" data=''/>
+                                                    <input type="text" className="form-control required" data='' id='accountName'/>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <div className='form-row'>
                                                         <div className='col-12 col-md-6 mb-3'>
                                                             <label>Email: (*)</label>
-                                                            <input type="text" className="form-control required" data=''/>
+                                                            <input type="text" className="form-control required" data='' id='accountEmail'/>
                                                         </div>
                                                         <div className='col-12 col-md-6 mb-3'>
                                                             <label>Số điện thoại: (*)</label>
-                                                            <input type="text" className="form-control required" data=''/>
+                                                            <input type="text" className="form-control required" data='' id='accountTel'/>
                                                         </div>
                                                     </div>
                                                 </div>
