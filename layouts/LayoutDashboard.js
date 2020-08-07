@@ -405,9 +405,9 @@ export default function Dashboard () {
                               <div className="card-body">
                                 <div className="row">
                                   <div className="col"><p className="mb-0">{item}</p></div>
-                                  { brand.licenseStatus[index] == 'Hoàn thành'
-                                  ? <div className="col-auto"><div className="small text-success" >{brand.licenseStatus[index]}</div></div>
-                                  : <div className="col-auto"><div className="small text-warning" >{brand.licenseStatus[index]}</div></div>
+                                  { brand.licenseStatus && brand.licenseStatus.length > 0 && brand.licenseStatus[index] == 'Hoàn thành'
+                                  ? <div className="col-auto"><div className="small text-success" >{brand.licenseStatus ? brand.licenseStatus[index] : ''}</div></div>
+                                  : <div className="col-auto"><div className="small text-warning" >{brand.licenseStatus ? brand.licenseStatus[index] : ''}</div></div>
                                   }
                                 </div>
                               </div>
