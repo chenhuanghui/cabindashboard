@@ -39,7 +39,7 @@ export default class NavBar extends React.Component {
         filterByFormula:`ID="${cookies.userID}"`
       },'Account')
       .then (result => {
-        console.log('account data:',result);
+        // console.log('account data:',result);
         if(result && result.length > 0) currentComponent.setState({data:result[0].fields})
       })
       
@@ -48,7 +48,7 @@ export default class NavBar extends React.Component {
         filterByFormula:`ID="${cookies.brandID}"`
       },'Brand')
       .then(res => {
-        console.log('brand data:', res);
+        // console.log('brand data:', res);
         if (res && res.length > 0) currentComponent.setState({brand:res[0].fields})
       })
       
