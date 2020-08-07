@@ -138,10 +138,14 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         })
 
         // get all delivery partner
-        retrieveData({},'Role')
-        .then(roleRes => {
-            roleAcc = roleRes
-            console.log('Role Acc:', roleAcc)
+        retrieveData({filterByFormula: `value = 3`},'Role')
+        .then(role3 => {
+            roleAcc.push(role3[0])
+            retrieveData({filterByFormula: `value = 4`},'Role')
+            .then(role4 => {
+                roleAcc.push(role4[0])
+                console.log('Role Acc:', roleAcc)
+            })
         })
 
         // get all delivery partner
@@ -215,19 +219,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
 
         $('#step2').click(function(){
             console.log('check valid step2: ',checkValidPane('#wizardStep2'))
-            if(!checkValidPane('#wizardStep2')) return false;
-            
-            ownerInfo = [] // reset ownerInfor
-            ownerInfo.push({name:$('#name').val()})
-            ownerInfo.push({email:$('#email').val()})
-            ownerInfo.push({tel:$('#tel').val()})
-            ownerInfo.push({DOB:$('#DOB').val()})
-            ownerInfo.push({ownerPersonalID:$('#ownerPersonalID').val()})
-            ownerInfo.push({bankID:$('#bankName').attr('data')})
-            ownerInfo.push({bankAccNo:$('#bankAccNo').attr('data')})
-            ownerInfo.push({bankAccName:$('#bankAccName').attr('data')})
-
-            // console.log('owner overview:', ownerInfo);            
+            if(!checkValidPane('#wizardStep2')) return false;                
 
             // go to next pane
             var current_pane_id = '#wizardStep'+$(this).attr('pane-id');
@@ -242,11 +234,14 @@ export default class LayoutBrandCreateStep1 extends React.Component {
             console.log('check valid step3: ',checkValidPane('#wizardStep3'))
             if(!checkValidPane('#wizardStep3')) return false;
 
+
+            var promiseList = []
+            console.log('bank id:', $('#bankName').attr('data')); 
             // generate brand - account and all relation information
             // STEP_1. CREATE BRAND
             createData({
-                brandName:$('#brandName').val(),
-                brandIntro:$('#brandIntro').val(),
+                brandName:$('#brandName').attr('data'),
+                brandIntro:$('#brandIntro').attr('data'),
                 logo:[{url:$('#logo').attr('image-url')}],
                 businessLicense:$('#businessLicense').val(),
                 businessLicensePhoto:[{url:$('#businessLicensePhoto').attr('image-url')}],
@@ -258,95 +253,129 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                 console.log('brandInfo:', brandInfo)
 
                 // STEP_2. CREATE OWNER OWN THIS BRAND
-                createData({
-                    name: ownerInfo.name,
-                    email: ownerInfo.email,
-                    tel: ownerInfo.tel,
-                    DOB: ownerInfo.BOD,
-                    ownerPersonalID: ownerInfo.ownerPersonalID,
-                    Bank: [`${ownerInfo.bankID}`],
-                    bankAccNo: ownerInfo.bankAccNo,
-                    bankAccName: ownerInfo.bankAccName,
-                    Brand: [`${brandRes.id}`]
-                },'Owner')
+                promiseList.push(
+                    createData({
+                        name: $('#name').attr('data'),
+                        email: $('#email').attr('data'),
+                        tel: $('#tel').attr('data'),
+                        DOB: $('#DOB').val(),
+                        ownerPersonalID: $('#ownerPersonalID').val(),
+                        Bank: [`${$('#bankName').attr('data')}`],
+                        bankAccNo: $('#bankAccNo').attr('data'),
+                        bankAccName: $('#bankAccName').attr('data'),
+                        Brand: [`${brandRes.id}`]
+                    },'Owner')
+                )
                 
                 // STEP_3. ADD BRAND TO ACCOUNT
-                retrieveData({
-                    view: 'Grid view',
-                    filterByFormula:`ID="${cookies.userID}"`
-                },'Account')
-                .then(accountRes => {
-                    accountRes[0].fields.Brand.push(brandRes.id)
-                    updateData(cookies.userID, {Brand:accountRes[0].fields.Brand},'Account')
-                    .then(accUpdateRes => console.log('update account success...'))
-                })
+                promiseList.push (
+                    retrieveData({
+                        view: 'Grid view',
+                        filterByFormula:`ID="${cookies.userID}"`
+                    },'Account')
+                    .then(accountRes => {
+                        accountRes[0].fields.Brand.push(brandRes.id)
+                        promiseList.push(
+                            updateData(cookies.userID, {Brand:accountRes[0].fields.Brand},'Account')
+                            .then(accUpdateRes => console.log('update account success...'))
+                        )
+                        
+                    })
+                )
+                
 
                 // STEP_4. LINK BRAND_CABIN
-                createData({
-                    BrandID: [`${brandRes.id}`],
-                    CabinID: [`${$('#cabin-assigned').attr('data')}`],
-                    status: true
-                },'Brand_Cabin')
-                .then(bcRes => {
-                    for (var i=0; i<deliveryPartnerData.length; i++) {
-                        // STEP_5.1. LINK CHANEL WITH BRAND_CABIN
-                        createData({
-                            Brand_Cabin: [`${bcRes.id}`],
-                            DeliveryPartner: [`${deliveryPartnerData[i].id}`],
-                            status: true
-                        },'DeliveryPartner_Brand_Cabin')
-                    }
-                })
+                promiseList.push(
+                    createData({
+                        BrandID: [`${brandRes.id}`],
+                        CabinID: [`${$('#cabin-assigned').attr('data')}`],
+                        electricUsedByCurrentMonth : 0,
+                        waterUsedByCurrentMonth: 0,
+                        status: true
+                    },'Brand_Cabin')
+                    .then(bcRes => {
+                        for (var i=0; i<deliveryPartnerData.length; i++) {
+                            // STEP_5.1. LINK CHANEL WITH BRAND_CABIN
+                            promiseList.push(
+                                createData({
+                                    Brand_Cabin: [`${bcRes.id}`],
+                                    DeliveryPartner: [`${deliveryPartnerData[i].id}`],
+                                    status: false
+                                },'DeliveryPartner_Brand_Cabin')
+                            )                            
+                        }
+                    })
+                )
+                
                 
                 // STEP_5.2. LINK LICENSE WITH BRAND_LICENSE
                 for (var i=0; i<licenseData.length; i++) {
-                    createData({
-                        Brand: [`${brandRes.id}`],
-                        License: [`${licenseData[i].id}`],
-                        status: false
-                    },'Brand_License')
+                    promiseList.push(
+                        createData({
+                            Brand: [`${brandRes.id}`],
+                            License: [`${licenseData[i].id}`],
+                            status: false
+                        },'Brand_License')
+                    )
+                    
                 }
                 
                 // STEP_5.3. LINK LICENSE WITH BRAND_ONBOARDING
                 for (var i=0; i<onboardingData.length; i++) {
-                    createData({
-                        Brand: [`${brandRes.id}`],
-                        Onboarding: [`${onboardingData[i].id}`],
-                        status: false
-                    },'Brand_OnBoarding')
+                    promiseList.push (
+                        createData({
+                            Brand: [`${brandRes.id}`],
+                            Onboarding: [`${onboardingData[i].id}`],
+                            status: false
+                        },'Brand_OnBoarding')
+                    )
+                    
                 }
                 
                 // STEP_5.4. LINK LICENSE WITH BRAND_NOTIFICATION
                 for (var i=0; i<notifyData.length; i++) {
-                    createData({
-                        Brand: [`${brandRes.id}`],
-                        Notification: [`${notifyData[i].id}`],
-                    },'Brand_Notification')
+                    promiseList.push (
+                        createData({
+                            Brand: [`${brandRes.id}`],
+                            Notification: [`${notifyData[i].id}`],
+                        },'Brand_Notification')
+                    )
+                    
                 }
 
                 // STEP_6. CREATE ACCOUNT AND LINK TO BRAND
 
                 // CREATE ACCOUNT FOR BRAND'S OWNER
-                createData({
-                    Brand: [`${brandRes.id}`],
-                    name: ownerInfo.name,
-                    email: ownerInfo.email,
-                    tel: ownerInfo.tel,
-                    password:`123456`,
-                    Role:[`${roleAcc[2].id}`]
-                },'Account')
+                promiseList.push(
+                    createData({
+                        Brand: [`${brandRes.id}`],
+                        fullName: $('#name').attr('data'),
+                        email: $('#email').attr('data'),
+                        tel: $('#tel').attr('data'),
+                        password:`123456`,
+                        Role:[`${roleAcc[0].id}`]
+                    },'Account')
+                )
+                
 
                 // CREATE ACCOUNT FOR BRAND'S MANAGER
-                createData({
-                    Brand: [`${brandRes.id}`],
-                    name: $('accountName').attr('data'),
-                    email: $('accountEmail').attr('data'),
-                    tel: $('accountTel').attr('data'),
-                    password:`123456`,
-                    Role:[`${roleAcc[3].id}`]
-                },'Account').then(accCreateRes => {
-                    console.log('tao accoutn thanh cong')
-                    Router.push('/acount/brand')
+                promiseList.push(
+                    createData({
+                        Brand: [`${brandRes.id}`],
+                        fullName: $('#accountName').attr('data'),
+                        email: $('#accountEmail').attr('data'),
+                        tel: $('#accountTel').attr('data'),
+                        password:`123456`,
+                        Role:[`${roleAcc[1].id}`]
+                    },'Account').then(accCreateRes => {
+                        console.log('tao accoutn thanh cong ',accCreateRes )
+                    })
+                )
+                
+                Promise.all(promiseList)
+                .then(result=> {
+                    console.log(result)
+                    Router.push('/account/brand')
                 })
             })
         })
