@@ -39,7 +39,6 @@ export default class LayoutAccountBrand extends React.Component {
         // ===============================================
         // CHECKING AUTHENTICATE
         if (!cookies.isLoggedIn | !cookies.userID || !cookies.brandID) Router.push('/signin');
-        console.log('current brandID:', cookies.brandID);
         
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE
@@ -59,7 +58,6 @@ export default class LayoutAccountBrand extends React.Component {
             }
             Promise.all(promises)
             .then(brandListRes => {
-                console.log('brandList:', brandListRes);
                 currentComponent.setState({brandList:brandListRes})
             })
         })

@@ -587,30 +587,6 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                 <input type="text" className="form-control required" data=''/>
                                             </div>
 
-                                            {/* group account information */}
-                                            <hr className="my-5" />    
-                                            <div className='form-group'>
-                                                <h2>Thông tin tài khoản của nhãn hàng truy cập vào "CabinFood for Business"</h2>
-                                            </div>                                                
-
-                                            <div className="form-group">
-                                                <label>Tên tài khoản: (*)</label>
-                                                <input type="text" className="form-control required" data=''/>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <div className='form-row'>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Email: (*)</label>
-                                                        <input type="text" className="form-control required" data=''/>
-                                                    </div>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Số điện thoại: (*)</label>
-                                                        <input type="text" className="form-control required" data=''/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             {/* group navigate button */}
                                             <hr className="my-5" />    
 
@@ -641,43 +617,30 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                         <div className='card-body'>
                                             {/* group owner general informatoin */}
                                             <div className="form-group">
-                                                <h2>Kích hoạt On-boarding</h2>
-                                                <small className='text-muted'> Chọn các hạng mục onboarding mà nhãn hàng cần được kết nối</small>
+                                                {/* group account information */}
+                                                <hr className="my-5" />    
+                                                <div className='form-group'>
+                                                    <h2>Thông tin tài khoản của nhãn hàng truy cập vào "CabinFood for Business"</h2>
+                                                </div>                                                
 
-                                                <div className="table-responsive mb-0">
-                                                    <table className="table table-sm table-nowrap card-table table-hover">
-                                                        <tbody className="list">{/* table item */} 
-                                                            <tr>
-                                                                <td><h4 className='font-weight-normal'>Thông báo từ hệ thống</h4></td>        
-                                                                <td><input id='call' type="checkbox" checked/></td>
-                                                                <td><input id='email' type="checkbox" checked/></td>
-                                                                <td><input id='sms' type="checkbox" checked/></td>
-                                                            </tr>        
-                                                            <tr>
-                                                                <td><h4 className='font-weight-normal'>Thông báo đơn hàng</h4></td>        
-                                                                <td><input id='call' type="checkbox" checked/></td>
-                                                                <td><input id='email' type="checkbox" checked/></td>
-                                                                <td><input id='sms' type="checkbox" checked/></td>
-                                                            </tr>        
-                                                            <tr>
-                                                                <td><h4 className='font-weight-normal'>Thông báo từ cửa hàng</h4></td>        
-                                                                <td><input id='call' type="checkbox" checked/></td>
-                                                                <td><input id='email' type="checkbox" checked/></td>
-                                                                <td><input id='sms' type="checkbox" checked/></td>
-                                                            </tr>   
-                                                            <tr>
-                                                                <td><h4 className='font-weight-normal'>Tư vấn 24/7</h4></td>        
-                                                                <td><input id='call' type="checkbox" checked/></td>
-                                                                <td><input id='email' type="checkbox" checked/></td>
-                                                                <td><input id='sms' type="checkbox" checked/></td>
-                                                            </tr>             
-                                                        </tbody>
-                                                    </table>
+                                                <div className="form-group">
+                                                    <label>Tên tài khoản: (*)</label>
+                                                    <input type="text" className="form-control required" data=''/>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <div className='form-row'>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Email: (*)</label>
+                                                            <input type="text" className="form-control required" data=''/>
+                                                        </div>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Số điện thoại: (*)</label>
+                                                            <input type="text" className="form-control required" data=''/>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-
-
-
 
                                             {/* group navigate button */}
                                             <hr className="my-5" />    
