@@ -1,5 +1,6 @@
+import LayoutAssetsIndex from "../../layouts/LayoutAssets"
 const AssetsIndex = props => (
-    <div>this is Asset</div>
+    <LayoutAssetsIndex />
 );
       
 export default AssetsIndex;

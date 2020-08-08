@@ -361,8 +361,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                         },'Account')
                     )
                 }
-                
-                
+                                
                 Promise.all(promiseList)
                 .then(result=> {
                     // console.log(result)
