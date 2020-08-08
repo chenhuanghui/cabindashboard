@@ -151,13 +151,17 @@ export default class NavBar extends React.Component {
                 <Link href="/staffs">
                   <a className="nav-link"><i className="fe fe-user"></i> Nhân sự</a>
                 </Link>  
+                <Link href="/assets">
+                  <a className="nav-link"><i className="fe fe-user"></i> Tài sản</a>
+                </Link>  
               </li>
             </ul>
 
             <hr className="navbar-divider my-3" />
             <h6 className="navbar-heading">Ứng dụng</h6>
             <ul className="navbar-nav">
-              <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> CRM</a></Link></li>
+              <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> Giao dịch</a></Link></li>
+              <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> Khách hàng</a></Link></li>
               <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-book-open"></i> Học viện</a></Link></li>
             </ul>
 
@@ -183,7 +187,7 @@ export default class NavBar extends React.Component {
                 {/* Menu */}
                 <div className="dropdown-menu" aria-labelledby="sidebarIconCopy">
                   {data && data.brandName && data.brandName.map((b,index) => (
-                    <Link href="/brands/{ID}" as={`/brands/${data.brandID[index]}`} key={b.toString()}>
+                    <Link href="/overview/{ID}" as={`/overview/${data.brandID[index]}`} key={b.toString()}>
                       <a className="dropdown-item">{b}</a>
                     </Link>
                   ))}
