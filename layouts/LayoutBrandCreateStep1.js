@@ -191,7 +191,6 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         $('input, textarea').keyup(function(event) {
             // skip for arrow keys
             if(event.which >= 37 && event.which <= 40) return;
-            
             $(this).attr('data',$(this).val())
         });
 
@@ -233,7 +232,6 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         $('#complete-btn').click(function(){
             // console.log('check valid step3: ',checkValidPane('#wizardStep3'))
             if(!checkValidPane('#wizardStep3')) return false;
-
 
             var promiseList = []
 
@@ -279,7 +277,6 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                             updateData(cookies.userID, {Brand:accountRes[0].fields.Brand},'Account')
                             .then(accUpdateRes => console.log('update account success...'))
                         )
-                        
                     })
                 )
                 
@@ -357,18 +354,20 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                     },'Account')
                 )
                 
-
                 // CREATE ACCOUNT FOR BRAND'S MANAGER
-                promiseList.push(
-                    createData({
-                        Brand: [`${brandRes.id}`],
-                        fullName: $('#accountName').attr('data'),
-                        email: $('#accountEmail').attr('data'),
-                        tel: $('#accountTel').attr('data'),
-                        password:`123456`,
-                        Role:[`${roleAcc[1].id}`]
-                    },'Account')
-                )
+                if ($('#accountEmail').attr('data') !== '') {
+                    promiseList.push(
+                        createData({
+                            Brand: [`${brandRes.id}`],
+                            fullName: $('#accountName').attr('data'),
+                            email: $('#accountEmail').attr('data'),
+                            tel: $('#accountTel').attr('data'),
+                            password:`123456`,
+                            Role:[`${roleAcc[1].id}`]
+                        },'Account')
+                    )
+                }
+                
                 
                 Promise.all(promiseList)
                 .then(result=> {
@@ -676,19 +675,19 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                                                 </div>                                                
 
                                                 <div className="form-group">
-                                                    <label>Tên tài khoản: (*)</label>
-                                                    <input type="text" className="form-control required" data='' id='accountName'/>
+                                                    <label>Tên tài khoản:</label>
+                                                    <input type="text" className="form-control" data='' id='accountName'/>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <div className='form-row'>
                                                         <div className='col-12 col-md-6 mb-3'>
-                                                            <label>Email: (*)</label>
-                                                            <input type="text" className="form-control required" data='' id='accountEmail'/>
+                                                            <label>Email: </label>
+                                                            <input type="text" className="form-control" data='' id='accountEmail'/>
                                                         </div>
                                                         <div className='col-12 col-md-6 mb-3'>
-                                                            <label>Số điện thoại: (*)</label>
-                                                            <input type="text" className="form-control required" data='' id='accountTel'/>
+                                                            <label>Số điện thoại: </label>
+                                                            <input type="text" className="form-control" data='' id='accountTel'/>
                                                         </div>
                                                     </div>
                                                 </div>
