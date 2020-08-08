@@ -5,6 +5,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
 import $, { data } from 'jquery'
 import loadable from '@loadable/component';
+import Select from "react-dropdown-select"; 
 
 const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 const AirtablePlus = require('airtable-plus');  
@@ -37,7 +38,8 @@ export default class LayoutStaff extends React.Component {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            cabinOptionsData: []
         }
     }
 
@@ -60,6 +62,16 @@ export default class LayoutStaff extends React.Component {
         .then(result => {
             console.log('brand_product:', result);
             currentComponent.setState({data:result})
+        })
+
+        retrieveData({filterByFormula: `brand_cabin = ""`},'Cabin')
+        .then(cabinRes => {
+            var tempTitle = []
+            for (var i=0; i<cabinRes.length; i++) {
+                tempTitle.push(cabinRes[i].fields)
+            }
+            currentComponent.setState({cabinOptionsData:tempTitle})
+            console.log('cabin title:', currentComponent.state.cabinOptionsData)
         })
 
         // ===============================================
@@ -114,7 +126,8 @@ export default class LayoutStaff extends React.Component {
                     createData({
                         Brand: [cookies.brandID],
                         Staff: [result.id],
-                        timeStaffWorkingByCurrentMonth:0                        
+                        timeStaffWorkingByCurrentMonth:0,
+                        Cabin: [`${$('#cabin-assigned').attr('data')}`]                  
                     },'Brand_Staff')
                 }   
             })
@@ -144,7 +157,7 @@ export default class LayoutStaff extends React.Component {
     }
 
     render() {
-        const { data } = this.state;
+        const { data, cabinOptionsData} = this.state;
         return (
             <div>
                 <Head>
@@ -262,35 +275,47 @@ export default class LayoutStaff extends React.Component {
                                                     <label htmlFor="exampleInputEmail1">Mức lương</label>
                                                     <input className="form-control input-number" id='staff-salary'/>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Hình thức làm việc</label>
-                                                    <input className="form-control" id='staff-type'/>
-                                                </div>
-                                                {/* <div className="form-group">
-                                                    <label htmlFor="addSaleOff">Chi nhánh</label>
-                                                    <input className="form-control" id='staff-brand'/>
-                                                </div> */}
-                                            </div>
-                                                
-                                            <div className="card">
-                                                <ReactFilestack
-                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                    customRender={({ onPick }) => (
-                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-image' image-url=''>
-                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                            <div className="dz-default dz-message">
-                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                <div className="card">
+                                                    <label>Hình ảnh nhân sự</label>
+                                                    <ReactFilestack
+                                                        apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                        customRender={({ onPick }) => (
+                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-image' image-url=''>
+                                                                <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                                <div className="dz-default dz-message">
+                                                                    <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    )}
-                                                    onSuccess={(res) => {
-                                                        console.log('filestack:',res)
-                                                        $('#staff-image').attr('image-url',res.filesUploaded[0].url);
-                                                        $('.dz-preview').text(res.filesUploaded[0].filename);
-                                                        console.log('add file url to element:', $('#staff-image').attr('image-url'))
+                                                        )}
+                                                        onSuccess={(res) => {
+                                                            console.log('filestack:',res)
+                                                            $('#staff-image').attr('image-url',res.filesUploaded[0].url);
+                                                            $('.dz-preview').text(res.filesUploaded[0].filename);
+                                                            console.log('add file url to element:', $('#staff-image').attr('image-url'))
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Cabin làm việc</label>
+                                                    <span className='hide required' id='cabin-assigned' data=''></span>
+                                                    <Select 
+                                                    className='form-control' 
+                                                    options={cabinOptionsData} 
+                                                    labelField= 'name'
+                                                    valueField='recID'
+                                                    dropdownHandle='false'
+                                                    searchable='false'
+                                                    onChange={(valSelected) => {
+                                                        console.log('cabin seleted: ',valSelected)
+                                                        $('#cabin-assigned').attr('data',valSelected[0].recID)
                                                     }}
-                                                />
-                                            </div>
+                                                    onDropdownOpen={()=>{
+                                                        console.log('open dropdown')
+                                                        $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                    }}
+                                                    />
+                                                </div>                                                
+                                            </div>                                                
                                             
                                             <button className="btn btn-lg btn-block btn-primary mb-3" id="staff-action">Lưu</button>
                                             
@@ -304,6 +329,7 @@ export default class LayoutStaff extends React.Component {
                 
                 <style jsx>{`
                     .dropdown-toggle {cursor: pointer}
+                    
                 `}</style>
             </div>
         )

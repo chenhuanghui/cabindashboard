@@ -226,7 +226,11 @@ export default class LayoutAssets extends React.Component {
                                                     onChange={(valSelected) => {
                                                         console.log('cabin seleted: ',valSelected)
                                                         $('#cabin-assigned').attr('data',valSelected[0].recID)
-                                                    }} 
+                                                    }}
+                                                    onDropdownOpen={()=>{
+                                                        console.log('open dropdown')
+                                                        $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                    }}
                                                     />
                                                 </div>
                                             </div>                                            
