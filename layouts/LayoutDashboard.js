@@ -154,7 +154,10 @@ export default function Dashboard () {
                 <div className="card card-fill-lg">
                   <div className="card-body text-center">
                     <span className="card-avatar avatar avatar-lg mx-auto">
-                      <img src={brand && brand.logo ? brand.logo[0].url : ''} alt="" className="avatar-img rounded" />
+                      { brand && brand.logo && brand.logo.length >0
+                        ? <img src={brand && brand.logo ? brand.logo[0].url : ''} alt="" className="avatar-img rounded" />
+                        : <img src="../assets/img/logo2.jpg" className="avatar-img rounded-circle" alt="..."/>  
+                      }                                          
                     </span>
                     <h2 className="mb-3">{brand ? brand.brandName : ''}</h2>
                     <p className="card-text text-muted">{brand ? brand.brandIntro : ''}</p>
