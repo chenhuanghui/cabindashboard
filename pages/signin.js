@@ -53,7 +53,7 @@ export default class Signin extends React.Component {
                         setCookie(null, 'userID',result[0].fields.ID , {maxAge: 30 * 24 * 60 * 60,path: '/',})
                         setCookie(null,'brandID', result[0].fields.brandID[0], {maxAge: 30 * 24 * 60 * 60,path:'/'})
 
-                        Router.push(`/brands/${result[0].fields.brandID[0]}`)
+                        Router.push(`/overview/${result[0].fields.brandID[0]}`)
                     } else {
                         $('#notice').removeClass('hide').addClass('show')   
                     }
