@@ -123,7 +123,11 @@ export default class NavBar extends React.Component {
                     <a className="dropdown-item">{b}</a>
                   </Link>
                 ))}
-
+                
+                <hr className="dropdown-divider" />
+                <Link href="/onboarding" >
+                  <a className="dropdown-item">OnBoarding</a>
+                </Link>
                 <hr className="dropdown-divider" />
                 <Link href="/account" >
                   <a className="dropdown-item">Tài khoản</a>
@@ -131,9 +135,6 @@ export default class NavBar extends React.Component {
                 <Link href="#" >
                   <a className="dropdown-item">Hóa đơn</a>
                 </Link>
-                <Link href="#" >
-                    <a className="dropdown-item">OnBoarding</a>
-                  </Link>
 
                 <hr className="dropdown-divider" />
                 <span className="dropdown-item logout">Logout</span>
@@ -194,16 +195,17 @@ export default class NavBar extends React.Component {
                       <a className="dropdown-item">{b}</a>
                     </Link>
                   ))}
-
+                  
+                  <hr className="dropdown-divider" />
+                  <Link href="/onboarding" >
+                    <a className="dropdown-item">OnBoarding</a>
+                  </Link>
                   <hr className="dropdown-divider" />
                   <Link href="/account" >
                     <a className="dropdown-item">Tài khoản</a>
                   </Link>
                   <Link href="#" >
                     <a className="dropdown-item">Hóa đơn</a>
-                  </Link>
-                  <Link href="#" >
-                    <a className="dropdown-item">OnBoarding</a>
                   </Link>
 
                   <hr className="dropdown-divider" />
