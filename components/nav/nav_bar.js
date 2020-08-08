@@ -152,7 +152,7 @@ export default class NavBar extends React.Component {
                   <a className="nav-link"><i className="fe fe-user"></i> Nhân sự</a>
                 </Link>  
                 <Link href="/assets">
-                  <a className="nav-link"><i className="fe fe-user"></i> Tài sản</a>
+                  <a className="nav-link"><i className="fe fe-shopping-bag"></i> Tài sản</a>
                 </Link>  
               </li>
             </ul>
