@@ -144,7 +144,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
             retrieveData({filterByFormula: `value = 4`},'Role')
             .then(role4 => {
                 roleAcc.push(role4[0])
-                console.log('Role Acc:', roleAcc)
+                // console.log('Role Acc:', roleAcc)
             })
         })
 
@@ -198,12 +198,6 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         $('#step1').click(function(){
             // console.log('check valid step1: ',checkValidPane('#wizardStep1'))
             if(!checkValidPane('#wizardStep1')) return false;
-
-            brandInfo.push({brandName:$('#brandName').val()})
-            brandInfo.push({brandIntro:$('#brandIntro').val()})
-            brandInfo.push({logo:[{url:$('#logo').attr('image-url')}]})
-            brandInfo.push({brandName:$('#businessLicense').val()})
-            brandInfo.push({logo:[{url:$('#businessLicensePhoto').attr('image-url')}]})
 
             // console.log('biz overview:', brandInfo);
 
