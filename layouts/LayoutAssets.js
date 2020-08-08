@@ -148,9 +148,7 @@ export default class LayoutAssets extends React.Component {
                             <div className="card">
                                 <div className="card-header">
                                     <h4 className="card-header-title">Danh sách tài sản</h4>
-                                    <Link href='#'>
-                                        <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm tài sản</a> 
-                                    </Link>                                    
+                                    <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm tài sản</button>
                                 </div>{/* end card header */}
                                 
                                 <div className="table-responsive mb-0">

@@ -129,7 +129,7 @@ export default class LayoutStaff extends React.Component {
                         timeStaffWorkingByCurrentMonth:0,
                         Cabin: [`${$('#cabin-assigned').attr('data')}`]                  
                     },'Brand_Staff')
-                }   
+                }
             })
             .finally( () => {
                 $('#modalProductEdit').removeClass('show')
@@ -196,9 +196,7 @@ export default class LayoutStaff extends React.Component {
                             <div className="card">
                                 <div className="card-header">
                                     <h4 className="card-header-title">Danh sách nhân sự</h4>
-                                    <Link href='#'>
-                                        <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhân sự</a> 
-                                    </Link>                                    
+                                    <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhân sự</button> 
                                 </div>{/* end card header */}
                                 
                                 <div className="table-responsive mb-0">
@@ -315,8 +313,9 @@ export default class LayoutStaff extends React.Component {
                                                     }}
                                                     />
                                                 </div>                                                
-                                            </div>                                                
-                                            
+                                            </div>                    
+
+                                            <hr className="my-5" />   
                                             <button className="btn btn-lg btn-block btn-primary mb-3" id="staff-action">Lưu</button>
                                             
                                         </div>
