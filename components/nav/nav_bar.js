@@ -119,7 +119,7 @@ export default class NavBar extends React.Component {
               </a>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon"> 
                 {data && data.brandName && data.brandName.map((b,index) => (
-                  <Link href="/brands/{ID}" as={`/brands/${data.brandID[index]}`} key={b.toString()}>
+                  <Link href="/overview/{ID}" as={`/overview/${data.brandID[index]}`} key={b.toString()}>
                     <a className="dropdown-item">{b}</a>
                   </Link>
                 ))}
