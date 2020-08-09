@@ -77,14 +77,19 @@ export default class LayoutStaff extends React.Component {
 
         // ===============================================
         // FRONT-END ENGAGEMENT
+        
+        // ***********************************************
+        // _SHOW modal StaffCreate
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
-                $('#modalProductEdit').addClass('show');
+                $('#modalStaffCreate').addClass('show');
                 $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
-            }
-            console.log('modal opened');
+                console.log('open modal create staff.');
+            } else console.log('modal was opened before.');
         });
-        
+
+        // ***********************************************
+        // _HIDE modal StaffCreate        
         $(document).on('click', function() {
             if ( 
                 $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
@@ -93,7 +98,7 @@ export default class LayoutStaff extends React.Component {
             ){ console.log('clicked inside');} 
             else {
                 if ($(event.target).hasClass('modal')) {
-                    $('#modalProductEdit').removeClass('show')
+                    $('#modalStaffCreate').removeClass('show')
                     $('body').removeClass('modal-open')
                     $('.modal-backdrop').remove()
                     console.log('modal close finished')
@@ -252,7 +257,7 @@ export default class LayoutStaff extends React.Component {
                             </div>
 
                             {/* MODAL EDIT PRODUCT */}
-                            <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1">
+                            <div className="modal fade fixed-right" id="modalStaffCreate" tabIndex="-1">
                                 <div className="modal-dialog modal-dialog-vertical">
                                     <div className="modal-content">
                                         <div className="modal-body">
