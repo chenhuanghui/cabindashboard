@@ -60,11 +60,12 @@ export default class LayoutStaff extends React.Component {
             filterByFormula: `Brand = "${cookies.brandID}"`,
         },'Brand_Staff')
         .then(result => {
-            console.log('brand_product:', result);
+            console.log('brand_staff:', result);
             currentComponent.setState({data:result})
         })
 
-        retrieveData({filterByFormula: `brand_cabin = ""`},'Cabin')
+        // Retrieve Cabin belong to Brand
+        retrieveData({filterByFormula: `BrandID = "${cookies.brandID}"`},'Brand_Cabin')
         .then(cabinRes => {
             var tempTitle = []
             for (var i=0; i<cabinRes.length; i++) {
@@ -110,7 +111,8 @@ export default class LayoutStaff extends React.Component {
             console.log('salary:', $('#staff-salary').val())
             console.log('image-url-staff:', $('#staff-image').attr('image-url'))
 
-            if ($('#staff-name').val() === '' | $('#staff-salary').val() === '' | $('#staff-image').attr('image-url') === '') return;
+            // if ($('#staff-name').val() === '' | $('#staff-salary').val() === '' | $('#staff-image').attr('image-url') === '') return;
+            if ($('#staff-name').val() === '' | $('#staff-salary').val() === '') return;
 
             createData({
                 name: $('#staff-name').val(),
@@ -120,15 +122,16 @@ export default class LayoutStaff extends React.Component {
                 }],
                 status: true,
             },'Staff')
-            .then(result => {
-                console.log('create res:', result)
-                if (result) {
+            .then(staffRes => {
+                console.log('staff data:', staffRes)
+                if (staffRes) {
                     createData({
                         Brand: [cookies.brandID],
-                        Staff: [result.id],
+                        Staff: [staffRes.id],
                         timeStaffWorkingByCurrentMonth:0,
                         Cabin: [`${$('#cabin-assigned').attr('data')}`]                  
                     },'Brand_Staff')
+                
                 }
             })
             .finally( () => {
@@ -207,7 +210,7 @@ export default class LayoutStaff extends React.Component {
                                                 <th>NHÂN VIÊN</th>
                                                 <th>TRẠNG THÁI</th>
                                                 <th>SỐ GIỜ</th>
-                                                <th>LOẠI</th>
+                                                <th>CHI NHÁNH</th>
                                                 <th>LƯƠNG</th>
                                             </tr>
                                         </thead>
@@ -232,15 +235,12 @@ export default class LayoutStaff extends React.Component {
                                                         
                                                     </td>
                                                     <td> <h4 className="mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
-                                                    <td>                                           
-                                                        { item.fields.staffType && item.fields.staffType.length > 0 
-                                                        ? <h4 className="mb-1">{item.fields.staffType[0]}</h4>
-                                                        : ''
-                                                        }                                                        
+                                                    <td>                                            
+                                                        <span className="mb-1">{item.fields.cabinName}</span>              
                                                     </td>
                                                     <td className="text-right">
                                                         { item.fields.staffSalary && item.fields.staffSalary.length > 0 
-                                                        ? <h4 className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
+                                                        ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                                                         : ''
                                                         }                                                        
                                                     </td>
@@ -299,13 +299,13 @@ export default class LayoutStaff extends React.Component {
                                                     <Select 
                                                     className='form-control' 
                                                     options={cabinOptionsData} 
-                                                    labelField= 'name'
-                                                    valueField='recID'
+                                                    labelField= 'cabinName'
+                                                    valueField='ID'
                                                     dropdownHandle='false'
                                                     searchable='false'
                                                     onChange={(valSelected) => {
                                                         console.log('cabin seleted: ',valSelected)
-                                                        $('#cabin-assigned').attr('data',valSelected[0].recID)
+                                                        $('#cabin-assigned').attr('data',valSelected[0].CabinID)
                                                     }}
                                                     onDropdownOpen={()=>{
                                                         console.log('open dropdown')

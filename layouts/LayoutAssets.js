@@ -56,15 +56,16 @@ export default class LayoutAssets extends React.Component {
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE
 
-        retrieveData({
-            filterByFormula: `Brand = "${cookies.brandID}"`,
-        },'Brand_Staff')
-        .then(result => {
-            console.log('brand_product:', result);
-            currentComponent.setState({data:result})
-        })
+        // retrieveData({
+        //     filterByFormula: `Brand = "${cookies.brandID}"`,
+        // },'Brand_Staff')
+        // .then(result => {
+        //     console.log('brand_product:', result);
+        //     currentComponent.setState({data:result})
+        // })
 
-        retrieveData({filterByFormula: `brand_cabin = ""`},'Cabin')
+        // Retrieve Cabin belong to Brand
+        retrieveData({filterByFormula: `BrandID = "${cookies.brandID}"`},'Brand_Cabin')
         .then(cabinRes => {
             var tempTitle = []
             for (var i=0; i<cabinRes.length; i++) {
@@ -217,13 +218,13 @@ export default class LayoutAssets extends React.Component {
                                                     <Select 
                                                     className='form-control' 
                                                     options={cabinOptionsData} 
-                                                    labelField= 'name'
-                                                    valueField='recID'
+                                                    labelField= 'cabinName'
+                                                    valueField='ID'
                                                     dropdownHandle='false'
                                                     searchable='false'
                                                     onChange={(valSelected) => {
                                                         console.log('cabin seleted: ',valSelected)
-                                                        $('#cabin-assigned').attr('data',valSelected[0].recID)
+                                                        $('#cabin-assigned').attr('data',valSelected[0].ID)
                                                     }}
                                                     onDropdownOpen={()=>{
                                                         console.log('open dropdown')
