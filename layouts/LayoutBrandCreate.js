@@ -78,7 +78,7 @@ function checkValidPane(paneID) {
 
 // ==========================================
 // MAIN COMPONENT ACTION
-export default class LayoutBrandCreateStep1 extends React.Component {
+export default class LayoutBrandCreate extends React.Component {
     constructor(props) {
         super(props);
 
@@ -94,7 +94,7 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         let currentComponent = this
         let brandInfo = []
         let ownerInfo = []
-        let deliveryPartnerData = []
+        let sellChannelData = []
         let licenseData = []
         let onboardingData = []
         let notifyData = []
@@ -131,10 +131,10 @@ export default class LayoutBrandCreateStep1 extends React.Component {
         })
 
         // get all delivery partner
-        retrieveData({},'DeliveryPartner')
-        .then(deliveryPartnerRes => {
-            deliveryPartnerData = deliveryPartnerRes
-            // console.log('DeliveryPartner:', deliveryPartnerData)
+        retrieveData({},'SellChannel')
+        .then(sellChannelRes => {
+            sellChannelData = sellChannelRes
+            // console.log('SellChannel:', SellChannelData)
         })
 
         // get all delivery partner
@@ -285,14 +285,14 @@ export default class LayoutBrandCreateStep1 extends React.Component {
                         status: true
                     },'Brand_Cabin')
                     .then(bcRes => {
-                        for (var i=0; i<deliveryPartnerData.length; i++) {
+                        for (var i=0; i<sellChannelData.length; i++) {
                             // STEP_5.1. LINK CHANEL WITH BRAND_CABIN
                             promiseList.push(
                                 createData({
                                     Brand_Cabin: [`${bcRes.id}`],
-                                    DeliveryPartner: [`${deliveryPartnerData[i].id}`],
+                                    SellChannel: [`${sellChannelData[i].id}`],
                                     status: false
-                                },'DeliveryPartner_Brand_Cabin')
+                                },'SellChannel_Brand_Cabin')
                             )                            
                         }
                     })

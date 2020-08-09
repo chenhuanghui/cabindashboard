@@ -1,7 +1,7 @@
-import LayoutBrandCreateStep1 from "../../layouts/LayoutBrandCreateStep1"
+import LayoutBrandCreate from "../../layouts/LayoutBrandCreate"
 
 const BrandCreateIndex = props => (
-    <LayoutBrandCreateStep1/>
+    <LayoutBrandCreate/>
 );
       
 export default BrandCreateIndex;
