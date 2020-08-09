@@ -125,7 +125,7 @@ export default class LayoutAccountBrand extends React.Component {
                                     {accountData && accountData.roleValue < 3
                                     ? 
                                         <Link href='/account/brandnew'>
-                                            <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhãn hiệu</a> 
+                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm nhãn hiệu</a> 
                                         </Link>                                    
                                     : ''
                                     }
