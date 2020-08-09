@@ -140,7 +140,7 @@ export default class LayoutStaff extends React.Component {
                 }
             })
             .finally( () => {
-                $('#modalProductEdit').removeClass('show')
+                $('#modalStaffCreate').removeClass('show')
                 $('body').removeClass('modal-open')
                 $('.modal-backdrop').remove()
                 console.log('modal close finished')
