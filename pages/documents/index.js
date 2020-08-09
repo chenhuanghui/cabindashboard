@@ -1,4 +1,4 @@
-import LayoutOnboarding from "../../layouts/LayoutOnboarding"
+import LayoutOnboarding from "../../layouts/LayoutDocuments"
 const OnboardingIndex = props => (
     <LayoutOnboarding />
 );

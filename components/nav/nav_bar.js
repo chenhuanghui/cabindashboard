@@ -125,8 +125,8 @@ export default class NavBar extends React.Component {
                 ))}
                 
                 <hr className="dropdown-divider" />
-                <Link href="/onboarding" >
-                  <a className="dropdown-item">OnBoarding</a>
+                <Link href="/documents" >
+                  <a className="dropdown-item">Tài liệu</a>
                 </Link>
                 <hr className="dropdown-divider" />
                 <Link href="/account" >
@@ -197,8 +197,8 @@ export default class NavBar extends React.Component {
                   ))}
                   
                   <hr className="dropdown-divider" />
-                  <Link href="/onboarding" >
-                    <a className="dropdown-item">OnBoarding</a>
+                  <Link href="/documents" >
+                    <a className="dropdown-item">Tài liệu</a>
                   </Link>
                   <hr className="dropdown-divider" />
                   <Link href="/account" >
