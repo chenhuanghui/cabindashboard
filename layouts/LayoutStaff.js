@@ -112,7 +112,7 @@ export default class LayoutStaff extends React.Component {
             console.log('image-url-staff:', $('#staff-image').attr('image-url'))
 
             // if ($('#staff-name').val() === '' | $('#staff-salary').val() === '' | $('#staff-image').attr('image-url') === '') return;
-            if ($('#staff-name').val() === '' | $('#staff-salary').val() === '') return;
+            if ($('#staff-name').val() === '') return;
 
             createData({
                 name: $('#staff-name').val(),
