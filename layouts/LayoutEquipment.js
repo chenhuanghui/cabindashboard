@@ -178,15 +178,15 @@ export default class LayoutAssets extends React.Component {
                                         </div>                                            
                                     </div> {/* row align-items-center */}
 
-                                    {/* <div className="row align-items-center">
+                                    <div className="row align-items-center">
                                         <div className="col">
                                             <ul className="nav nav-tabs nav-overflow header-tabs">
-                                                <li className="nav-item"><a className="nav-link active" href="#!">Tất cả</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Xếp ca</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Xin nghỉ</a></li>
+                                                <li className="nav-item"><a className="nav-link active" href="#!">Đăng ký</a></li>
+                                                <li className="nav-item"><a className="nav-link" href="#!">Đang đợi chuyển</a></li>
+                                                <li className="nav-item"><a className="nav-link" href="#!">Đã vào trạm</a></li>
                                             </ul>            
                                         </div>
-                                    </div>  */}
+                                    </div>  
                                     {/* row align-items-center */}
                                 </div>
                             </div>
