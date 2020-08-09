@@ -19,7 +19,7 @@ export default function Dashboard () {
   const [brandID, setBrandID] = useState(null);
   const [brand, setBrand] = useState(null);
   const [brandCabin, setBrandCabin] = useState([]);
-  const [brandSellChannel, setbrandSellChannel] = useState([]);
+  const [brandSellChannelGroupByChannel, setbrandSellChannelGroupByChannel] = useState([]);
 
   async function retrieveData(formular,tbName) {
     try {
@@ -77,32 +77,30 @@ export default function Dashboard () {
         })
       })
 
-      var partnerListing = ['Grab','Now','Baemin','Loship','GoJek','Hotline']
-      var partnerPromises = []
+      var channelListing = ['Grab','Now','Baemin','Loship','GoJek','Hotline']
+      var channelPromises = []
       for (var i=0; i<6; i++) {
-        partnerPromises.push(
+        channelPromises.push(
           retrieveData({
-            filterByFormula: `AND(brandID = "${brandID}",sellChannelName="${partnerListing[i]}")`
+            filterByFormula: `AND(brandID = "${brandID}",sellChannelName="${channelListing[i]}")`
           }, 'SellChannel_Brand_Cabin')
         )
       }
-      Promise.all(partnerPromises)
+      Promise.all(channelPromises)
       .then (sellChannelData => {
         console.log('sellChannelData:', sellChannelData)      
-        setbrandSellChannel(sellChannelData);
-      })
-      
-      
+        setbrandSellChannelGroupByChannel(sellChannelData);
+      }) 
     }
   },[brandID])
 
-  function checkStatusFoodDelivery(grab,loship,now,beamin,goJek) {
+  function checkStatusFoodDelivery() {
     var count = 0;
-    if (grab=='Thành công') count++;
-    if (loship=='Thành công') count++;
-    if (now=='Thành công') count++;
-    if (beamin=='Thành công') count++;
-    if (goJek=='Thành công') count++;
+    for(var i=0; i<brandSellChannelGroupByChannel.length; i++) {
+      // BUG of designer - this is overview layout, so can not show how many channel connect with current layout
+      // to fixed for using, I used [0] in list brandSellChannelByChannel
+      if (brandSellChannelGroupByChannel[i][0].fields.status === true) count++;
+    }
     return count;
   }
 
@@ -328,24 +326,24 @@ export default function Dashboard () {
               {/* theo đúng layout gốc thì bộ .card sẽ được chia ra 2 bên, mỗi bên 3 block .card, và mỗi bên nằm trong bộ div col-12 col-lg-6 */}
               {/* <div className="col-12 col-lg-6">   */}
               <div className="col-12">  
-                {brandSellChannel && brandSellChannel.length > 0 && brandSellChannel.map((p,index) => (
+                {brandSellChannelGroupByChannel && brandSellChannelGroupByChannel.length > 0 && brandSellChannelGroupByChannel.map((p,index) => (
                     <div className="card col-lg-6 _cardPartner" key={index}>
                       <div className="card-body">
                         <div className="row align-items-center">
                           <div className="col-auto">
                             <span href="#" className="avatar">
-                              <img src={p.length > 0 && p[0].fields.photo[0].url} alt="..." className="avatar-img rounded" />
+                              <img src={p.length>0 && p[0].fields.photo && p[0].fields.photo[0].url} alt="..." className="avatar-img rounded" />
                             </span>
                           </div>                      
                           <div className="col ml-n2">
-                            <h4 className="mb-1">{p.length > 0 && p[0].fields.sellChannelName}</h4>
-                            {p.map((partner) => {
-                              return partner.fields.status === true
-                              ? <span className="text-success _partnerItem" key={partner.toString()}>●
-                                  <small className="text-muted"> {partner.fields.cabinName}</small>
+                            <h4 className="mb-1">{p[0].fields.sellChannelName}</h4>
+                            {p.map((cab) => {
+                              return cab.fields.status === true
+                              ? <span className="text-success _partnerItem" key={cab.toString()}>●
+                                  <small className="text-muted"> {cab.fields.cabinName}</small>
                                 </span>
-                              : <span className="text-warning _partnerItem" key={partner.toString()}>●
-                                  <small className="text-muted"> {partner.fields.cabinName}</small>
+                              : <span className="text-warning _partnerItem" key={cab.toString()}>●
+                                  <small className="text-muted"> {cab.fields.cabinName}</small>
                                 </span>                              
                             })
                             }
@@ -409,8 +407,8 @@ export default function Dashboard () {
                                 <div className="row">
                                   <div className="col"><p className="mb-0">{item}</p></div>
                                   { brand.licenseStatus && brand.licenseStatus.length > 0 && brand.licenseStatus[index] === true
-                                  ? <div className="col-auto"><div className="small text-success" >{brand.licenseStatus ? 'Đã cấp' : ''}</div></div>
-                                  : <div className="col-auto"><div className="small text-warning" >{brand.licenseStatus ? 'Chưa có' : ''}</div></div>
+                                  ? <div className="col-auto"><div className="small text-success" >{brand.licenseStatusValue[index]}</div></div>
+                                  : <div className="col-auto"><div className="small text-warning" >{brand.licenseStatusValue[index]}</div></div>
                                   }
                                 </div>
                               </div>
