@@ -38,7 +38,7 @@ export default class LayoutAssets extends React.Component {
         super(props);
 
         this.state = {
-            data: [],
+            equipList: [],
             cabinOptionsData: []
         }
     }
@@ -47,6 +47,7 @@ export default class LayoutAssets extends React.Component {
         // INIT VARIABLE
         const cookies = parseCookies();
         let currentComponent = this
+        var isAction = false;
         
         // ===============================================
         // CHECKING AUTHENTICATE
@@ -56,13 +57,18 @@ export default class LayoutAssets extends React.Component {
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE
 
-        // retrieveData({
-        //     filterByFormula: `Brand = "${cookies.brandID}"`,
-        // },'Brand_Staff')
-        // .then(result => {
-        //     console.log('brand_product:', result);
-        //     currentComponent.setState({data:result})
-        // })
+        retrieveData({
+            filterByFormula: `Brand = "${cookies.brandID}"`,
+        },'Brand_Equipment')
+        .then(result => {
+            console.log('brand_equip:', result);
+            var temp=[];
+            for(var i=0; i<result.length; i++) {
+                temp.push(result[i].fields)
+            }
+            currentComponent.setState({equipList:temp})
+            console.log('brand_equip:', currentComponent.state.equipList);
+        })
 
         // Retrieve Cabin belong to Brand
         retrieveData({filterByFormula: `BrandID = "${cookies.brandID}"`},'Brand_Cabin')
@@ -79,7 +85,7 @@ export default class LayoutAssets extends React.Component {
         // FRONT-END ENGAGEMENT
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
-                $('#modalDevice').addClass('show');
+                $('#modalEquipment').addClass('show');
                 $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
             }
             console.log('modal opened');
@@ -93,7 +99,7 @@ export default class LayoutAssets extends React.Component {
             ){ console.log('clicked inside');} 
             else {
                 if ($(event.target).hasClass('modal')) {
-                    $('#modalDevice').removeClass('show')
+                    $('#modalEquipment').removeClass('show')
                     $('body').removeClass('modal-open')
                     $('.modal-backdrop').remove()
                     console.log('modal close finished')
@@ -106,15 +112,54 @@ export default class LayoutAssets extends React.Component {
             // $(this).parent().find('.dropdown-menu-right').addClass('show')
         })
 
+        $(document).on('click', '#asset-action', function() {
+            if (isAction ) return;
+            console.log('name:', $('#equip-name').val())
+            console.log('desc:', $('#equip-desc').val())
+            console.log('voltage:', $('#equip-voltage').val())
+            console.log('cabin:', $('#cabin-assigned').attr('data'))
+
+            // if ($('#staff-name').val() === '' | $('#staff-salary').val() === '' | $('#staff-image').attr('image-url') === '') return;
+            if ($('#equip-name').val() === '' | $('#cabin-assigned').attr('data') === '') return;
+            
+            isAction = true;
+            createData({
+                name: $('#equip-name').val(),
+                desc: $('#equip-desc').val(),
+                voltage: $('#equip-voltage').val(),
+                photos:[{
+                    url: $('#equip-image').attr('image-url')
+                }]
+            },'Equipment')
+            .then(equipRes => {
+                console.log('equip data:', equipRes)
+                if (equipRes) {
+                    createData({
+                        Brand: [cookies.brandID],
+                        Equipment:[equipRes.id],
+                        Cabin: [`${$('#cabin-assigned').attr('data')}`],
+                        status: "1"
+                    },'Brand_Equipment')                
+                }
+            })
+            .finally( () => {
+                $('#modalEquipment').removeClass('show')
+                $('body').removeClass('modal-open')
+                $('.modal-backdrop').remove()
+                console.log('modal close finished')
+                isAction = false;
+            })
+        })
+
     }
 
     render() {
-        const { data, cabinOptionsData } = this.state;
+        const { equipList, cabinOptionsData } = this.state;
         return (
             <div>
                 <Head>
                     {/* <script src="../assets/js/theme.min.js"></script> */}
-                    <title> Staff | CabinFood Business</title>
+                    <title> Equiment | CabinFood Business</title>
                 </Head>
 
                 <NavBar />
@@ -129,7 +174,7 @@ export default class LayoutAssets extends React.Component {
                                     <div className="row align-items-center">
                                         <div className="col">
                                             <h6 className="header-pretitle">QUẢN LÝ</h6>
-                                            <h1 className="header-title">Tài sản</h1>
+                                            <h1 className="header-title">Thiết bị</h1>
                                         </div>                                            
                                     </div> {/* row align-items-center */}
 
@@ -148,8 +193,8 @@ export default class LayoutAssets extends React.Component {
 
                             <div className="card">
                                 <div className="card-header">
-                                    <h4 className="card-header-title">Danh sách tài sản</h4>
-                                    <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm tài sản</button>
+                                    <h4 className="card-header-title">Danh sách thiết bị</h4>
+                                    <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm thiết bị</button>
                                 </div>{/* end card header */}
                                 
                                 <div className="table-responsive mb-0">
@@ -158,43 +203,42 @@ export default class LayoutAssets extends React.Component {
                                             <tr>
                                                 <th></th>
                                                 <th>THIẾT BỊ</th>
-                                                <th>KÍCH THƯỚC(D*R*C)</th>
+                                                <th>MÔ TẢ</th>
                                                 <th>ĐIỆN ÁP</th>
                                                 <th>CABIN</th>
                                             </tr>
                                         </thead>
                                         <tbody className="list">{/* table item */} 
-                                                <tr>
-                                                    <td className="col-auto">
-                                                        <div className="avatar avatar-xs"><img src='../assets/img/logo2.jpg' alt='....' className="avatar-img rounded-circle"/></div>                                                        
-                                                    </td>        
-                                                    <td>
-                                                        <h4 className="mb-1">LÒ VI SÓNG</h4>
-                                                    </td>
-                                                    <td> 
-                                                        <span className="mb-1">20cm X 40cm X 30cm</span>
-                                                    </td>
-                                                    <td> 
-                                                        <span className="mb-1">220V</span>
-                                                    </td>
-                                                    <td>
-                                                        <span className="badge badge-success">C02-PN</span>                                                        
-                                                    </td>
-                                                </tr>        
+                                        { equipList && equipList.length >0 && equipList.map((item, index) => (
+                                            <tr key={index}>
+                                                <td className="col-auto">
+                                                    {item.equipPhotos && item.equipPhotos.length > 0
+                                                    ? <div className="avatar avatar-xs"><img src={item.equipPhotos[0].url} alt='....' className="avatar-img rounded-circle"/></div>
+                                                    : <div className="avatar avatar-xs"><img src='../assets/img/logo2.jpg' alt='....' className="avatar-img rounded-circle"/></div>
+                                                    }
+                                                </td>        
+                                                <td><h4 className="mb-1">{item.equipName}</h4></td>
+                                                <td> <span className="mb-1">{item.equipDesc}</span></td>
+                                                <td> <span className="mb-1">{item.equipVoltage}</span></td>
+                                                <td><span className="badge badge-success">{item.cabinName}</span></td>
+                                            </tr>        
+                                        ))
+
+                                        }    
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
                             {/* MODAL EDIT PRODUCT */}
-                            <div className="modal fade fixed-right" id="modalDevice" tabIndex="-1">
+                            <div className="modal fade fixed-right" id="modalEquipment" tabIndex="-1">
                                 <div className="modal-dialog modal-dialog-vertical">
                                     <div className="modal-content">
                                         <div className="modal-body">
 
                                             <div className="header">
                                                 <div className="header-body">
-                                                    <h1 className="header-title">Thêm tài sản</h1>
+                                                    <h1 className="header-title">Thêm thiết bị</h1>
                                                     <p className='text-muted'>Cung cấp các thông tin về thiết bị để chủ động và có được sử hỗ trợ tốt nhất.</p>
                                                 </div>
                                             </div>
@@ -202,15 +246,15 @@ export default class LayoutAssets extends React.Component {
                                             <div className="my-n3">
                                                 <div className="form-group">
                                                     <label>Tên thiết bị</label>
-                                                    <input className="form-control" id='device-name'/>
+                                                    <input className="form-control" id='equip-name' data=''/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Kích thước</label>
-                                                    <input className="form-control" id='device-demension'/>
+                                                    <label>Mô tả</label>
+                                                    <input className="form-control" id='equip-desc' data=''/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Điện áp</label>
-                                                    <input className="form-control" id='device-voltage'/>
+                                                    <label>Điện áp (V)</label>
+                                                    <input className="form-control" id='equip-voltage' data=''/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Cabin</label>
@@ -224,7 +268,7 @@ export default class LayoutAssets extends React.Component {
                                                     searchable='false'
                                                     onChange={(valSelected) => {
                                                         console.log('cabin seleted: ',valSelected)
-                                                        $('#cabin-assigned').attr('data',valSelected[0].ID)
+                                                        $('#cabin-assigned').attr('data',valSelected[0].CabinID)
                                                     }}
                                                     onDropdownOpen={()=>{
                                                         console.log('open dropdown')
@@ -232,9 +276,29 @@ export default class LayoutAssets extends React.Component {
                                                     }}
                                                     />
                                                 </div>
+                                                <div className="form-group">
+                                                    <label>Hình ảnh thiết bị</label>
+                                                    <ReactFilestack
+                                                        apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                        customRender={({ onPick }) => (
+                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='equip-image' image-url=''>
+                                                                <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                                <div className="dz-default dz-message">
+                                                                    <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        onSuccess={(res) => {
+                                                            console.log('filestack:',res)
+                                                            $('#equip-image').attr('image-url',res.filesUploaded[0].url);
+                                                            $('.dz-preview').text(res.filesUploaded[0].filename);
+                                                            console.log('add file url to element:', $('#equip-image').attr('image-url'))
+                                                        }}
+                                                    />
+                                                </div>
                                             </div>                                            
                                             <hr className="my-5" />   
-                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="staff-action">Lưu</button>
+                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="asset-action">Lưu</button>
                                             
                                         </div>
                                     </div>
