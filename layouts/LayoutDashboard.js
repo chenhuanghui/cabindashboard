@@ -197,7 +197,7 @@ export default function Dashboard () {
                           </div>
                           <div className="col ml-n2">
                             <a href='#food-delivery'>
-                              <h4 className="mb-1">Kênh food delivery</h4>
+                              <h4 className="mb-1">Kênh bán hàng</h4>
                             </a>
                             
                             { brand && (checkStatusFoodDelivery(brand.grab, brand.loship, brand.now, brand.baemin, brand.goJek) == 4)
@@ -324,7 +324,7 @@ export default function Dashboard () {
             <hr className="navbar-divider my-3"/>                                      
             
             <div className="row" id='food-delivery'>
-              <h6 className="header-pretitle col-12 head-block">KÊNH FOOD DELIVERY</h6>
+              <h6 className="header-pretitle col-12 head-block">KÊNH BÁN HÀNG</h6>
               {/* theo đúng layout gốc thì bộ .card sẽ được chia ra 2 bên, mỗi bên 3 block .card, và mỗi bên nằm trong bộ div col-12 col-lg-6 */}
               {/* <div className="col-12 col-lg-6">   */}
               <div className="col-12">  

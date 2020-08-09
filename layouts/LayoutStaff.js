@@ -33,6 +33,15 @@ async function createData(formular,tbName) {
     }
 }
 
+async function updateData(rowID, data,tbName) {
+    try {
+      const res = await airtable.update(rowID, data,{tableName:tbName});
+      return res
+    } catch(e) {
+      console.error(e);
+    }
+}
+
 export default class LayoutStaff extends React.Component {
     constructor(props) {
         super(props);
@@ -135,9 +144,29 @@ export default class LayoutStaff extends React.Component {
                         Staff: [staffRes.id],
                         timeStaffWorkingByCurrentMonth:0,
                         Cabin: [`${$('#cabin-assigned').attr('data')}`]                  
-                    },'Brand_Staff')
-                
-                }
+                    },'Brand_Staff')                
+                    
+                    retrieveData({
+                        filterByFormula: `ID = "${$('#cabin-assigned').attr('brand-cabin')}"`,
+                    },'Brand_Cabin')
+                    .then( brandCabinRes => {
+                        console.log('brand_cabin:', brandCabinRes)
+                        
+                        var tempStaffList = []                        
+                        //in case have stafflist before, need to retrieve data first and add more record later
+                        if(brandCabinRes[0].fields.StaffList) { 
+                            temp = brandCabinRes[0].fields.StaffList
+                            console.log('temp:', temp)
+                        }                        
+                        
+                        // insert record staff was added recently to temp stafflist
+                        tempStaffList.push(staffRes.id)
+                        
+                        // do update data
+                        updateData(brandCabinRes[0].id,{StaffList:tempStaffList},'Brand_Cabin')
+                    })
+                    
+                }                
             })
             .finally( () => {
                 $('#modalStaffCreate').removeClass('show')
@@ -300,7 +329,7 @@ export default class LayoutStaff extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Cabin làm việc</label>
-                                                    <span className='hide required' id='cabin-assigned' data=''></span>
+                                                    <span className='hide required' id='cabin-assigned' data='' brand-cabin=''></span>
                                                     <Select 
                                                     className='form-control' 
                                                     options={cabinOptionsData} 
@@ -311,6 +340,7 @@ export default class LayoutStaff extends React.Component {
                                                     onChange={(valSelected) => {
                                                         console.log('cabin seleted: ',valSelected)
                                                         $('#cabin-assigned').attr('data',valSelected[0].CabinID)
+                                                        $('#cabin-assigned').attr('brand-cabin',valSelected[0].ID)
                                                     }}
                                                     onDropdownOpen={()=>{
                                                         console.log('open dropdown')
