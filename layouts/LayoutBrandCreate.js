@@ -252,6 +252,12 @@ export default class LayoutBrandCreate extends React.Component {
                         tel: $('#tel').attr('data'),
                         DOB: $('#DOB').val(),
                         ownerPersonalID: $('#ownerPersonalID').val(),
+                        personalIDPhotoFront:[{
+                            url: $('#personalIDPhoto-image-front').attr('image-url')
+                        }],
+                        personalIDPhotoBack:[{
+                            url: $('#personalIDPhoto-image-back').attr('image-url')
+                        }],
                         Bank: [`${$('#bankName').attr('data')}`],
                         bankAccNo: $('#bankAccNo').attr('data'),
                         bankAccName: $('#bankAccName').attr('data'),
@@ -559,26 +565,49 @@ export default class LayoutBrandCreate extends React.Component {
                                                     </div>
                                                     <div className='col-12 col-md-6 mb-3'>
                                                         <label>Hình ảnh CMND/CCCD/Hộ chiếu (*)</label>
-                                                        <ReactFilestack
-                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                            customRender={({ onPick }) => (
-                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image' image-url=''>
-                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
-                                                                    <div className="dz-default dz-message">
-                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                        <div className='form-row'>
+                                                            <ReactFilestack
+                                                                apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                                customRender={({ onPick }) => (
+                                                                    <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image-front' image-url=''>
+                                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personalIDPhoto-image-front"></ul>
+                                                                        <div className="dz-default dz-message">
+                                                                            <button className="dz-button" type="button" onClick={onPick}>Mặt trước</button>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            )}
-                                                            onSuccess={(res) => {
-                                                                console.log('filestack:',res)
-                                                                if (res.filesUploaded.length > 0) {
-                                                                    $('#personalIDPhoto-image').attr('image-url',res.filesUploaded[0].url);
-                                                                    $('.personal-ID-file-name').text(res.filesUploaded[0].filename);
-                                                                    console.log('add file url to element:', $('#personalIDPhoto-image').attr('image-url'))
-                                                                }
-                                                                
-                                                            }}
-                                                        />
+                                                                )}
+                                                                onSuccess={(res) => {
+                                                                    console.log('filestack:',res)
+                                                                    if (res.filesUploaded.length > 0) {
+                                                                        $('#personalIDPhoto-image-front').attr('image-url',res.filesUploaded[0].url);
+                                                                        $('.dz-preview .personalIDPhoto-image-front').text(res.filesUploaded[0].filename) // update file name to let user know this success
+                                                                        console.log('add file url to element:', $('#personalIDPhoto-image-front').attr('image-url'))
+                                                                    }
+                                                                    
+                                                                }}
+                                                            />
+                                                            <ReactFilestack
+                                                                apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                                customRender={({ onPick }) => (
+                                                                    <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image-back' image-url=''>
+                                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
+                                                                        <div className="dz-default dz-message">
+                                                                            <button className="dz-button" type="button" onClick={onPick}>Mặt sau</button>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                onSuccess={(res) => {
+                                                                    console.log('filestack:',res)
+                                                                    if (res.filesUploaded.length > 0) {
+                                                                        $('#personalIDPhoto-image-back').attr('image-url',res.filesUploaded[0].url);
+                                                                        $('.dz-preview .personalIDPhoto-image-back').text(res.filesUploaded[0].filename) // update file name to let user know this success
+                                                                        console.log('add file url to element:', $('#personalIDPhoto-image-back').attr('image-url'))
+                                                                    }
+                                                                    
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>                                                
                                             </div>
