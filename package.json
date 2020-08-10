@@ -8,11 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^14.1.1",
+    "@contentful/rich-text-types": "^14.1.1",
     "@loadable/component": "^5.13.1",
     "airtable": "^0.8.1",
     "airtable-plus": "^1.0.4",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
+    "contentful": "^7.14.6",
     "filestack-react": "^3.2.1",
     "jquery": "^3.5.1",
     "next": "9.4.4",

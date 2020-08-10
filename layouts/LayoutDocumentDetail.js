@@ -3,7 +3,10 @@ import NavBar from '../components/nav/nav_bar';
 import React from 'react';
 import Router from 'next/router';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import { BLOCKS } from '@contentful/rich-text-types';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
@@ -28,13 +31,21 @@ const client = contentful.createClient({
     accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
 })
 
+const contentfulOptions = {
+    renderNode: {
+        [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields }}}) =>
+            `<img src="${fields.file.url}" alt="${fields.description}" class="img-fluid rounded-lg"/>`,
+    },
+};
+
+
 
 export default class LayoutIndex extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            documentsList: []
+            data: []
         }
     }
 
@@ -43,19 +54,28 @@ export default class LayoutIndex extends React.Component {
         // if(cookies.userID && cookies.isLoggedIn && cookies.brandID) {
         //     Router.push(`/overview/${cookies.brandID}`)
         // } else Router.push('/signin')      
-        let currentComponent = this;
+        
+        // client.getEntries({
+        //     content_type: 'document'
+        // })
+        // .then((response) => console.log(response.items))
+        // .catch(console.error) 
+        // console.log('router id:', router.query.id)
+
+        let currentComponent = this
         client.getEntries({
-            content_type: 'document'
+            content_type: 'document',
+            'sys.id': '2fQWA3DKPzT6aO22tVPXzB'
         })
         .then((response) => {
-            console.log(response.items)
-            currentComponent.setState({documentsList:response.items})
+            console.log('detail document: ',response.items)
+            currentComponent.setState({data:response.items})
         })
         .catch(console.error) 
     }
 
     render () {
-        const { documentsList } = this.state;
+        const { data } = this.state;
         return (
             <div>
                 <Head>
@@ -73,23 +93,11 @@ export default class LayoutIndex extends React.Component {
                                 <div className="header mt-md-5">
                                     <div className="header-body">
                                         <h6 className="header-pretitle">Tài liệu</h6>
-                                        <h1 className="header-title display-4">Danh sách</h1>
+                                        <h1 className="header-title display-4">{data && data[0] && data[0].fields.title}</h1>
                                     </div>
                                 </div>
-                                <ul>
-                                    { documentsList.length > 0 && documentsList.map((item,index) => (
-                                        <li key={index}>
-                                            <Link href='/documents/[id]' as={`/documents/${item.sys.id}`}>
-                                                <a>{item.fields.title}</a>
-                                            </Link>
-                                        </li>                                                                                
-                                    ))}
-                                </ul>
-                                
-                                
 
-                                
-
+                                <div className='' dangerouslySetInnerHTML={{__html: data && data[0] ? documentToHtmlString(data[0].fields.desc,contentfulOptions) : ''}} />
                                 
                             </div>
                         </div>

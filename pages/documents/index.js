@@ -1,6 +1,6 @@
-import LayoutOnboarding from "../../layouts/LayoutDocuments"
-const OnboardingIndex = props => (
-    <LayoutOnboarding />
+import LayoutDocuments from "../../layouts/LayoutDocuments"
+const DocumentsIndex = props => (
+    <LayoutDocuments />
 );
       
-export default OnboardingIndex;
+export default DocumentsIndex;
