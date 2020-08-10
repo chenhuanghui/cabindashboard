@@ -14,6 +14,7 @@ import NavBar from '../components/nav/nav_bar';
 
 // ====================================
 // OTHERS LIBS
+import $ from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
@@ -51,6 +52,15 @@ async function retrieveData(formular,tbName) {
     }
 }
 
+async function updateData(rowID, data,tbName) {
+    try {
+      const res = await airtable.update(rowID, data,{tableName:tbName});
+      return res
+    } catch(e) {
+      console.error(e);
+    }
+}
+
 
 export default function LayoutDocumentDetail () {
     const router = useRouter();
@@ -73,20 +83,76 @@ export default function LayoutDocumentDetail () {
         // when docID was assigned successful retrieve data from Contenful
         if(docID === router.query.id) {
             console.log('docID: ',docID)
+            retrieveData({
+                filterByFormula: `ID = "${docID}"`,
+                maxRecords: 1
+            }, 'Document')
+            .then(result => {
+                var temp = []                
+                temp['title'] = result[0].fields.title;
+                temp['document_onboarding'] = result[0].fields.Document_Onboarding[0];
 
-            // get document by document_ID
-            client.getEntries({
-                content_type: 'document',
-                'sys.id': docID
+                // get document by document_ID
+                client.getEntries({
+                    content_type: 'document',
+                    'sys.id': result[0].fields.contentfulID
+                })
+                .then((response) => {
+                    temp['content'] = response.items[0].fields.desc
+                    setData(temp)
+                })
+                .catch(console.error) 
             })
-            .then((response) => {
-                console.log('detail document: ',response.items)
-                setData(response.items)
+            
+            $(document).on('click','#confirmed', function(){
+                $(this).html(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+                retrieveData({
+                    filterByFormula : `ID = "${$(this).attr('data')}"`,
+                    maxRecords : 1
+                },'Document_Onboarding')
+                .then(docOnRes => {
+                    console.log(docOnRes[0].fields.Onboarding);
+                    console.log('brandid',cookies.brandID)
+                    retrieveData({
+                        filterByFormula : `AND(Brand = "${cookies.brandID}", Onboarding="${docOnRes[0].fields.Onboarding}")`,
+                        maxRecords: 1
+                    },'Brand_Onboarding')
+                    .then(brandOnboardingRes => {
+                        console.log('brandonboarding: ',brandOnboardingRes)
+                        let temp = []
+                        if (brandOnboardingRes[0].fields.updatedBy) {
+                            temp = brandOnboardingRes[0].fields.updatedBy;
+                            var isDuplicate = false;
+                            for (var i=0; i < temp.length; i++) {
+                                if (temp[i] === cookies.userID) Router.push('/documents')
+                            }
+                            
+                            if (!isDuplicate) temp.push(cookies.userID)
+                            
+                            console.log('temp1', temp)
+                        } else {
+                            temp.push(cookies.userID)
+                            console.log('temp2', temp)
+                        }
+                        console.log('temp final', temp)
+                        
+                        updateData(brandOnboardingRes[0].id,{status : true,updatedBy : temp},'Brand_Onboarding')
+                        .then(res => {
+                            Router.push('/documents')
+                        })    
+                    })
+                })
             })
-            .catch(console.error) 
-        }
+
+
+
+        }             
 
     },[docID])
+
+    function markUnderstand() {
+        console.log('asdf')
+    }
 
     return (
         <div>
@@ -105,11 +171,22 @@ export default function LayoutDocumentDetail () {
                             <div className="header mt-md-5">
                                 <div className="header-body">
                                     <h6 className="header-pretitle">Tài liệu</h6>
-                                    <h1 className="header-title display-4">{data && data[0] && data[0].fields.title}</h1>
+                                    <h1 className="header-title display-4">{data && data.title}</h1>
                                 </div>
                             </div>
 
-                            <div className='' dangerouslySetInnerHTML={{__html: data && data[0] ? documentToHtmlString(data[0].fields.desc,contentfulOptions) : ''}} />
+                            <div className='' dangerouslySetInnerHTML={{__html: data ? documentToHtmlString(data.content, contentfulOptions) : ''}} />
+                            
+                            <hr className="my-5" />    
+                            { data && data.document_onboarding && data.document_onboarding.length > 0
+                            ? <div className="row align-items-center">
+                                <div className="col-auto"></div>
+                                <div className="col text-center"></div>
+                                <div className="col-auto"><span className="btn btn-lg btn-primary" id='confirmed' data={data.document_onboarding}>Tôi đã hiểu</span></div>
+                            </div>
+                            : ''
+                            }
+                            
                             
                         </div>
                     </div>
