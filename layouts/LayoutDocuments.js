@@ -44,14 +44,20 @@ export default class LayoutIndex extends React.Component {
         //     Router.push(`/overview/${cookies.brandID}`)
         // } else Router.push('/signin')      
         let currentComponent = this;
-        client.getEntries({
-            content_type: 'document'
+        // client.getEntries({
+        //     content_type: 'document'
+        // })
+        // .then((response) => {
+        //     console.log(response.items)
+        //     currentComponent.setState({documentsList:response.items})
+        // })
+        // .catch(console.error) 
+
+        retrieveData({}, 'Document')
+        .then(result => {
+            console.log('document list:', result)
+            currentComponent.setState({documentsList:result})
         })
-        .then((response) => {
-            console.log(response.items)
-            currentComponent.setState({documentsList:response.items})
-        })
-        .catch(console.error) 
     }
 
     render () {
@@ -73,22 +79,17 @@ export default class LayoutIndex extends React.Component {
                                 <div className="header mt-md-5">
                                     <div className="header-body">
                                         <h6 className="header-pretitle">Tài liệu</h6>
-                                        <h1 className="header-title display-4">Danh sách</h1>
+                                        <h1 className="header-title display-4">Tại sao nên kinh doanh cùng CabinFood?</h1>
                                     </div>
                                 </div>
                                 <p>Chúng tôi tạo ra nền tảng giúp cho việc <code>bắt đầu - vận hành - tăng trưởng</code> trong lĩnh vực kinh doanh đồ ăn thức uống <code>delivery</code> của các doanh nghiệp Việt Nam trở nên dễ dàng, và chuyên nghiệp hơn.</p>
-                                
-                                {/* .row group */}
-                                <div className="header mt-md-5">
-                                    <div className="header-body">
-                                        <h1 className="header-title">Tại sao nên kinh doanh cùng CabinFood?</h1>
-                                    </div>
-                                </div>
                                 <p>CabinFood mang đến nền tảng với các sản phẩm, dịch vụ, giải pháp cho mô hình delivery chuyên nghiệp mà doanh nghiệp cần có để bắt đầu, vận hành tinh gọn và phát triển bền vững.</p>
+
+                                
                                 <ol>
                                     { documentsList.length > 0 && documentsList.map((item,index) => (
                                         <li key={index}>
-                                            <Link href='/documents/[id]' as={`/documents/${item.sys.id}`}>
+                                            <Link href='/documents/[id]' as={`/documents/${item.id}`}>
                                                 <a>{item.fields.title}</a>
                                             </Link>
                                         </li>                                                                                
