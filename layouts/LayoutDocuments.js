@@ -76,7 +76,16 @@ export default class LayoutIndex extends React.Component {
                                         <h1 className="header-title display-4">Danh sách</h1>
                                     </div>
                                 </div>
-                                <ul>
+                                <p>Chúng tôi tạo ra nền tảng giúp cho việc <code>bắt đầu - vận hành - tăng trưởng</code> trong lĩnh vực kinh doanh đồ ăn thức uống <code>delivery</code> của các doanh nghiệp Việt Nam trở nên dễ dàng, và chuyên nghiệp hơn.</p>
+                                
+                                {/* .row group */}
+                                <div className="header mt-md-5">
+                                    <div className="header-body">
+                                        <h1 className="header-title">Tại sao nên kinh doanh cùng CabinFood?</h1>
+                                    </div>
+                                </div>
+                                <p>CabinFood mang đến nền tảng với các sản phẩm, dịch vụ, giải pháp cho mô hình delivery chuyên nghiệp mà doanh nghiệp cần có để bắt đầu, vận hành tinh gọn và phát triển bền vững.</p>
+                                <ol>
                                     { documentsList.length > 0 && documentsList.map((item,index) => (
                                         <li key={index}>
                                             <Link href='/documents/[id]' as={`/documents/${item.sys.id}`}>
@@ -84,7 +93,16 @@ export default class LayoutIndex extends React.Component {
                                             </Link>
                                         </li>                                                                                
                                     ))}
-                                </ul>
+                                </ol>
+                                <p>Với những tài liệu trên, hi vọng rằng sẽ giúp cho nhãn hàng dễ dàng hệ thống và nắm bắt thông tin trong quá trình hội nhập cùng chúng tôi.</p>
+                                
+                                {/* .row group */}{/* .row */}
+                                <div className="header mt-md-5">
+                                    <div className="header-body">
+                                        <h1 className="header-title">Hệ sinh thái kết nối nguồn lực</h1>
+                                    </div>
+                                </div>
+                                <p>Chúng tôi mong muốn giúp đỡ nhiều doanh nghiệp trong ngành kinh doanh món ăn thức uống có được sự phát triển bền vững. Nhờ vào khai thác mô hình kinh tế chia sẻ, tư duy vận hành tinh gọn và ứng dụng công nghệ hiện đại chúng tôi biến mọi thứ phức tạp trở nên dễ dàng hơn giúp doanh nghiệp nâng cao hiệu quả kinh doanh và có được phát triển bền vững.</p>
                                 
                                 
 
