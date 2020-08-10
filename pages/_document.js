@@ -18,7 +18,7 @@ class MyDocument extends Document {
             <link rel="stylesheet" href="../assets/css/style.css"></link>
 
             {/* <link rel="stylesheet" href="../assets/libs/highlightjs/styles/vs2015.css"></link> */}
-            <link rel="stylesheet" href="../assets/libs/flatpickr/dist/flatpickr.min.css"></link>
+            {/* <link rel="stylesheet" href="../assets/libs/flatpickr/dist/flatpickr.min.css"></link> */}
             {/* <link rel="stylesheet" href="../assets/libs/quill/dist/quill.core.css"></link> */}
             <link rel="stylesheet" href="../assets/fonts/feather/feather.css"></link>
 
