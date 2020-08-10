@@ -302,7 +302,7 @@ export default function Dashboard () {
                                 ))}
                               </div>
                             </td>
-                            <td className="text-right">
+                            {/* <td className="text-right">
                               <div className="dropdown">
                                 <span href="#" className="dropdown-ellipses dropdown-toggle"><i className="fe fe-more-vertical"></i></span>
                                 <div className="dropdown-menu dropdown-menu-right">
@@ -311,7 +311,7 @@ export default function Dashboard () {
                                     <a href="#!" className="dropdown-item">Something else here</a>
                                 </div>
                               </div>
-                            </td>
+                            </td> */}
                         </tr>
                         ))}
                       </tbody>
