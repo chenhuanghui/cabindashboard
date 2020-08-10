@@ -373,8 +373,8 @@ export default function Dashboard () {
                         brand && brand.onboardingTitle && brand.onboardingTitle.map((item,index) => (
                           <div className="custom-control custom-checkbox checklist-control" tabIndex="0" key={item.toString()}>
                             {brand.onboardingStatus[index] == true 
-                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked/>
-                            : <input className="custom-control-input" id="checklistTwo" type="checkbox"/>
+                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked readOnly/>
+                            : <input className="custom-control-input" id="checklistTwo" type="checkbox" readOnly/>
                             }
                             
                             <label className="custom-control-label" ></label>
