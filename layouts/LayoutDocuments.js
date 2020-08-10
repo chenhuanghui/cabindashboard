@@ -79,7 +79,7 @@ export default class LayoutIndex extends React.Component {
                                 <div className="header mt-md-5">
                                     <div className="header-body">
                                         <h6 className="header-pretitle">Tài liệu</h6>
-                                        <h1 className="header-title display-4">Tại sao nên kinh doanh cùng CabinFood?</h1>
+                                        <h1 className="header-title display-4">Kinh doanh cùng CabinFood?</h1>
                                     </div>
                                 </div>
                                 <p>Chúng tôi tạo ra nền tảng giúp cho việc <code>bắt đầu - vận hành - tăng trưởng</code> trong lĩnh vực kinh doanh đồ ăn thức uống <code>delivery</code> của các doanh nghiệp Việt Nam trở nên dễ dàng, và chuyên nghiệp hơn.</p>
