@@ -33,7 +33,7 @@ export default class LayoutIndex extends React.Component {
             <div>
                 <Head>
                     {/* <script src="../assets/js/theme.min.js"></script> */}
-                    <title> Staff | CabinFood Business</title>
+                    <title> Tài liệu | CabinFood Business</title>
                 </Head>
 
                 <NavBar />

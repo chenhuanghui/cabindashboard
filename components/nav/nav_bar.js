@@ -164,8 +164,8 @@ export default class NavBar extends React.Component {
             <hr className="navbar-divider my-3" />
             <h6 className="navbar-heading">Ứng dụng</h6>
             <ul className="navbar-nav">
-              <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> Giao dịch</a></Link></li>
-              <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> Khách hàng</a></Link></li>
+              <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> Transaction</a></Link></li>
+              <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-clipboard"></i> CRM</a></Link></li>
               <li className="nav-item"><Link href="#"><a className="nav-link"><i className="fe fe-book-open"></i> Học viện</a></Link></li>
             </ul>
 
