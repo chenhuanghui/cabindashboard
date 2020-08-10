@@ -20,6 +20,7 @@ export default function Dashboard () {
   const [brand, setBrand] = useState(null);
   const [brandCabin, setBrandCabin] = useState([]);
   const [brandSellChannelGroupByChannel, setbrandSellChannelGroupByChannel] = useState([]);
+  const [onboarding, setOnboarding] = useState([]);
 
   async function retrieveData(formular,tbName) {
     try {
@@ -55,7 +56,8 @@ export default function Dashboard () {
         setBrand(result[0].fields);
         console.log('promise result',result[0])
 
-        // query data Brand_Cabin
+        // ******************************************************
+        // RETRIEVE ALL BRAND - CABIN
         var promises = []
         for(var i=0; i<result[0].fields.Brand_Cabin.length; i++) {
           promises.push(
@@ -75,25 +77,39 @@ export default function Dashboard () {
           console.log('read again:', temp);
           setBrandCabin(temp)
         })
-      })
 
-      var channelListing = ['Grab','Now','Baemin','Loship','GoJek','Hotline']
-      var channelPromises = []
-      for (var i=0; i<6; i++) {
-        channelPromises.push(
-          retrieveData({
-            filterByFormula: `AND(brandID = "${brandID}",sellChannelName="${channelListing[i]}")`
-          }, 'SellChannel_Brand_Cabin')
-        )
-      }
-      Promise.all(channelPromises)
-      .then (sellChannelData => {
-        console.log('sellChannelData:', sellChannelData)      
-        setbrandSellChannelGroupByChannel(sellChannelData);
-      }) 
+        // ******************************************************
+        // RETRIEVE ONBOARDING DATA
+        retrieveData({
+          filterByFormula: `Brand = "${brandID}"`,
+        },'Brand_Onboarding')
+        .then(onboardingRes=> {
+          console.log('onboarding: ',onboardingRes);
+          setOnboarding(onboardingRes);
+          console.log('onboarding state: ',onboarding);
+        })
+
+        // ******************************************************
+        // RETRIEVE SELL CHANNEL DATA
+        var channelListing = ['Grab','Now','Baemin','Loship','GoJek','Hotline']
+        var channelPromises = []
+        for (var i=0; i<6; i++) {
+          channelPromises.push(
+            retrieveData({
+              filterByFormula: `AND(brandID = "${brandID}",sellChannelName="${channelListing[i]}")`
+            }, 'SellChannel_Brand_Cabin')
+          )
+        }
+        Promise.all(channelPromises)
+        .then (sellChannelData => {
+          console.log('sellChannelData:', sellChannelData)      
+          setbrandSellChannelGroupByChannel(sellChannelData);
+        }) 
+      })
     }
   },[brandID])
 
+  // ******************************************************
   function checkStatusFoodDelivery() {
     var count = 0;
     for(var i=0; i<brandSellChannelGroupByChannel.length; i++) {
@@ -362,14 +378,13 @@ export default function Dashboard () {
               <div className="col-12 col-lg-12 col-xl-12">
                 <div className="card">
                   <div className="card-header">
-                    <h4 className="card-header-title">HỘI NHẬP CÙNG CABINFOOD</h4>
-                    
+                    <h4 className="card-header-title">HỘI NHẬP CÙNG CABINFOOD</h4>                    
                     <span className="badge badge-soft-secondary">{brand && brand.onboardingStatus && checkOnBoarding(brand.onboardingStatus)} hạng mục hoàn thành</span>
                   </div>
 
                   <div className="card-body">
                     <div className="checklist" tabIndex="0">
-                      {
+                      {/* {
                         brand && brand.onboardingTitle && brand.onboardingTitle.map((item,index) => (
                           <div className="custom-control custom-checkbox checklist-control" tabIndex="0" key={item.toString()}>
                             {brand.onboardingStatus[index] == true 
@@ -379,6 +394,26 @@ export default function Dashboard () {
                             
                             <label className="custom-control-label" ></label>
                             <span className="custom-control-caption">{item}</span>
+                          </div>    
+                        ))
+                      } */}
+{
+                        onboarding && onboarding.length > 0 && onboarding.map((item,index) => (
+                          <div className="custom-control custom-checkbox checklist-control" tabIndex="0" key={item.id}>
+                            {item.fields.status == true 
+                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked readOnly/>
+                            : <input className="custom-control-input" id="checklistTwo" type="checkbox" readOnly/>
+                            }
+                            
+                            <label className="custom-control-label" ></label>
+                            <span className="custom-control-caption">
+                            { item.fields.documentID
+                            ?  <Link href='/documents/[id]' as={`/documents/${item.fields.documentID}`}>
+                                <a>{item.fields.onboardingTitle} <span className='fe fe-arrow-right mr-4'></span></a>
+                                </Link>
+                            : item.fields.onboardingTitle
+                            }
+                            </span>                            
                           </div>    
                         ))
                       }
