@@ -124,7 +124,7 @@ export default class LayoutAccountBrand extends React.Component {
                                     <h4 className="card-header-title">Nhãn hiệu</h4>
                                     {accountData && accountData.roleValue < 3
                                     ? 
-                                        <Link href='/account/brandnew'>
+                                        <Link href='/brands/create'>
                                             <a className="btn btn-sm btn-white" id='add-product'>Thêm nhãn hiệu</a> 
                                         </Link>                                    
                                     : ''

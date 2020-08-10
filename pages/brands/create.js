@@ -1,4 +1,4 @@
-import LayoutBrandCreate from "../../../layouts/LayoutBrandCreate"
+import LayoutBrandCreate from "../../layouts/LayoutBrandCreate"
 
 const BrandCreateIndex = props => (
     <LayoutBrandCreate/>
