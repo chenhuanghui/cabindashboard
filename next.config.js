@@ -9,5 +9,9 @@ module.exports = {
             })
         )
         return config
+    },
+    env: {
+        AIR_TABLE_BASE_ID: process.env.AIR_TABLE_BASE_ID,
+        AIR_TABLE_API_KEY: process.env.AIR_TABLE_API_KEY
     }
 }

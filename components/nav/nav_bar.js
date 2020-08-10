@@ -6,8 +6,8 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
-  baseID: 'appmREe03n1MQ6ydq',
-  apiKey: 'keyLNupG6zOmmokND',
+  baseID: process.env.AIR_TABLE_BASE_ID,
+  apiKey: process.env.AIR_TABLE_API_KEY,
   tableName: 'Brand',
 });
 
