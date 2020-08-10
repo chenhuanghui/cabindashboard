@@ -362,7 +362,7 @@ export default function Dashboard () {
               <div className="col-12 col-lg-12 col-xl-12">
                 <div className="card">
                   <div className="card-header">
-                    <h4 className="card-header-title">NHẬP MÔN CABINFOOD</h4>
+                    <h4 className="card-header-title">HỘI NHẬP CÙNG CABINFOOD</h4>
                     
                     <span className="badge badge-soft-secondary">{brand && brand.onboardingStatus && checkOnBoarding(brand.onboardingStatus)} hạng mục hoàn thành</span>
                   </div>
