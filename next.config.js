@@ -12,6 +12,8 @@ module.exports = {
     },
     env: {
         AIR_TABLE_BASE_ID: process.env.AIR_TABLE_BASE_ID,
-        AIR_TABLE_API_KEY: process.env.AIR_TABLE_API_KEY
+        AIR_TABLE_API_KEY: process.env.AIR_TABLE_API_KEY,
+        NEXT_PUBLIC_CONTENTFUL_SPACE_ID: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+        NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
     }
 }
