@@ -3,6 +3,7 @@ import NavBar from '../components/nav/nav_bar';
 import React from 'react';
 import Router from 'next/router';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import Link from 'next/link'
 
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
@@ -20,15 +21,41 @@ async function retrieveData(formular,tbName) {
     }
 }
 
+
+const contentful = require('contentful')
+const client = contentful.createClient({
+    space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+    accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
+})
+
+
 export default class LayoutIndex extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            documentsList: []
+        }
+    }
+
     componentDidMount() {
         // const cookies = parseCookies()
         // if(cookies.userID && cookies.isLoggedIn && cookies.brandID) {
         //     Router.push(`/overview/${cookies.brandID}`)
-        // } else Router.push('/signin')                
+        // } else Router.push('/signin')      
+        let currentComponent = this;
+        client.getEntries({
+            content_type: 'document'
+        })
+        .then((response) => {
+            console.log(response.items)
+            currentComponent.setState({documentsList:response.items})
+        })
+        .catch(console.error) 
     }
 
     render () {
+        const { documentsList } = this.state;
         return (
             <div>
                 <Head>
@@ -45,42 +72,43 @@ export default class LayoutIndex extends React.Component {
 
                                 <div className="header mt-md-5">
                                     <div className="header-body">
-                                        <h6 className="header-pretitle">Documentation</h6>
-                                        <h1 className="header-title display-4">Design File</h1>
+                                        <h6 className="header-pretitle">Tài liệu</h6>
+                                        <h1 className="header-title display-4">Danh sách</h1>
                                     </div>
                                 </div>
-
-                                <p>Dashkit was designed in <a href="https://www.figma.com/" target="_blank">Figma</a>, the best new design tool.</p>
-
+                                <p>Chúng tôi tạo ra nền tảng giúp cho việc <code>bắt đầu - vận hành - tăng trưởng</code> trong lĩnh vực kinh doanh đồ ăn thức uống <code>delivery</code> của các doanh nghiệp Việt Nam trở nên dễ dàng, và chuyên nghiệp hơn.</p>
+                                
+                                {/* .row group */}
                                 <div className="header mt-md-5">
                                     <div className="header-body">
-                                        <h1 className="header-title">Why Figma?</h1>
+                                        <h1 className="header-title">Tại sao nên kinh doanh cùng CabinFood?</h1>
                                     </div>
                                 </div>
-                                <p>While Figma is a relatively new design tool, it has taken the top spot in our design toolkit. Having been a Sketch user since it's inception, it was a big decision to switch...but we so glad we did. Here are the biggest benefits we've found with Figma:</p>
-                                <ul>
-                                    <li>Performance is significantly better with large files</li>
-                                    <li>Work on any machine and you have "the latest"</li>
-                                    <li>Built in version history</li>
-                                    <li>Components and shared styles are better suited for building a design system</li>
-                                    <li>The ability to work collaboratively at the same time</li>
-                                </ul>
-                                <p>The only downsides we've seen are that it takes a while to get used to different shortcut keys, and pasting assets into files doesn't work as well. The transition is hard in the beginning, but well worth it.</p>
-                                <div className="header mt-md-5">
-                                    <div className="header-body">
-                                        <h1 className="header-title">Unofficial Figma File</h1>
-                                    </div>
-                                </div>
-                                <p>Since we work pretty fluidly between Figma and actual code, we've decided it's a better investment of time to continue improving Dashkit over babysitting our design file. That said, we realize it can be super useful to have a design resource to rough out new pages or spin up component variations. To that end, we provide an "unofficial" Dashkit Figma file for you to play with.</p>
-                                <p>The file is far from perfect, and is relatively disorganized, but the type and colors systems are well utilized and the overall layouts are quite close to the live product. To play with design:</p>
-                                <ol className="mb-5">
-                                    <li> <a href="https://www.figma.com/" target="_blank">Download Figma</a>
-                                    </li>
-                                    <li>Open the Figma link from the <code>README.md</code>
-                                    </li>
-                                    <li>The file is "read-only", so you'll have to duplicate it! Go to your grid of documents in Figma, click the ellipsis icon on <code>Dashkit (Distributed)</code>, and then "Duplicate" to create an editable version.</li>
+                                <p>CabinFood mang đến nền tảng với các sản phẩm, dịch vụ, giải pháp cho mô hình delivery chuyên nghiệp mà doanh nghiệp cần có để bắt đầu, vận hành tinh gọn và phát triển bền vững.</p>
+                                <ol>
+                                    { documentsList.length > 0 && documentsList.map((item,index) => (
+                                        <li key={index}>
+                                            <Link href='/documents/[id]' as={`/documents/${item.sys.id}`}>
+                                                <a>{item.fields.title}</a>
+                                            </Link>
+                                        </li>                                                                                
+                                    ))}
                                 </ol>
-                                <img src="../assets/img/figma.jpg" alt="..." className="img-fluid rounded-lg"/>
+                                <p>Với những tài liệu trên, hi vọng rằng sẽ giúp cho nhãn hàng dễ dàng hệ thống và nắm bắt thông tin trong quá trình hội nhập cùng chúng tôi.</p>
+                                
+                                {/* .row group */}{/* .row */}
+                                <div className="header mt-md-5">
+                                    <div className="header-body">
+                                        <h1 className="header-title">Hệ sinh thái kết nối nguồn lực</h1>
+                                    </div>
+                                </div>
+                                <p>Chúng tôi mong muốn giúp đỡ nhiều doanh nghiệp trong ngành kinh doanh món ăn thức uống có được sự phát triển bền vững. Nhờ vào khai thác mô hình kinh tế chia sẻ, tư duy vận hành tinh gọn và ứng dụng công nghệ hiện đại chúng tôi biến mọi thứ phức tạp trở nên dễ dàng hơn giúp doanh nghiệp nâng cao hiệu quả kinh doanh và có được phát triển bền vững.</p>
+                                
+                                
+
+                                
+
+                                
                             </div>
                         </div>
                     </div>
