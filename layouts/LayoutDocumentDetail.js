@@ -73,10 +73,11 @@ export default function LayoutDocumentDetail () {
         // when docID was assigned successful retrieve data from Contenful
         if(docID === router.query.id) {
             console.log('docID: ',docID)
+
             // get document by document_ID
             client.getEntries({
                 content_type: 'document',
-                'sys.id': '2fQWA3DKPzT6aO22tVPXzB'
+                'sys.id': docID
             })
             .then((response) => {
                 console.log('detail document: ',response.items)
