@@ -33,6 +33,27 @@ async function createData(formular,tbName) {
     }
 }
 
+function checkValid() {
+    console.log('check valid inputs')
+    var isValid = true
+    $('.required').each(function(index){
+        if ($(this).hasClass('required') && ($(this).attr('data') === '' | $(this).attr('data') === undefined)) {
+            $(this).removeClass('is-valid')
+            $(this).addClass('is-invalid')            
+            console.log(index + ": invalid" )
+            isValid = false
+            return;
+        } else {
+            console.log(index + ": valid " + $(this).attr('data'))
+            $(this).removeClass('is-invalid')
+            $(this).addClass('is-valid')   
+        }
+    })
+    console.log('checked status:', isValid)
+    return isValid;
+}
+
+
 export default class LayoutProduct extends React.Component {
     constructor(props) {
         super(props);
@@ -65,6 +86,15 @@ export default class LayoutProduct extends React.Component {
 
         // ===============================================
         // FRONT-END ENGAGEMENT
+
+        // _AUTO SYNC INPUT VAL TO DATA PROPERTY
+        $('input, textarea').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+            $(this).attr('data',$(this).val())
+        });
+
+        // _SHOW MODAL WHEN WAS CLICKED
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
                 $('#modalProductEdit').addClass('show');
@@ -73,6 +103,7 @@ export default class LayoutProduct extends React.Component {
             console.log('modal opened');
         });
         
+        // _CLOSED MODAL WHEN CLICK OUTSIDE
         $(document).on('click', function() {
             if ( 
                 $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
@@ -87,26 +118,23 @@ export default class LayoutProduct extends React.Component {
                     console.log('modal close finished')
                 }
             } 
-        });
-        
-        /* action on per product item */
-        $(document).on('click', '.dropdown-toggle', function(){
-            // $(this).parent().find('.dropdown-menu-right').addClass('show')
-        })
+        });        
 
         $(document).on('click', '#product-action', function() {
-            console.log('name:', $('#product-name').val())
-            console.log('desc:', $('#product-desc').val())
-            console.log('price:', $('#product-price').attr('data'))
-            console.log('image-url:', $('#product-image').attr('image-url'))
-            if ($('#product-name').val() === '' | $('#product-desc').val() === '' | $('#product-price').val() === '' | $('#product-image').attr('image-url') === '') return;
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+            
+            // if ($('#product-name').val() === '' | $('#product-desc').val() === '' | $('#product-price').val() === '' | $('#product-image').attr('image-url') === '') return;
+            if(!checkValid()) {
+                $('.spinner-grow').remove()
+                return;
+            }
 
             createData({
                 name: $('#product-name').val(),
                 desc: $('#product-desc').val(),
                 price4Sell: parseInt($('#product-price').attr('data')),
                 images:[{
-                    url: $('#product-image').attr('image-url')
+                    url: $('#product-image').attr('data')
                 }],
                 status: true,
             },'Product')
@@ -117,12 +145,19 @@ export default class LayoutProduct extends React.Component {
                         Brand: [cookies.brandID],
                         Product: [result.id]
                     },'Brand_Product')
+                    .then(brandProductRes => {
+                        // _UPDATE STATE
+                        var temp = currentComponent.state.data
+                        temp.push(brandProductRes)
+                        currentComponent.setState({data:temp})
+                    })                    
                 }   
             })
             .finally( () => {
                 $('#modalProductEdit').removeClass('show')
                 $('body').removeClass('modal-open')
                 $('.modal-backdrop').remove()
+                $('.spinner-grow').remove()
                 console.log('modal close finished')
             })
         })
@@ -234,7 +269,7 @@ export default class LayoutProduct extends React.Component {
                                                         : ''
                                                         }                                                        
                                                     </td>
-                                                    <td className="text-right">
+                                                    {/* <td className="text-right">
                                                         <div className="dropdown">
                                                             <span className="dropdown-ellipses dropdown-toggle"><i className="fe fe-more-vertical"></i></span>
                                                             <div className="dropdown-menu dropdown-menu-right">
@@ -242,7 +277,7 @@ export default class LayoutProduct extends React.Component {
                                                                 <a href="#" className="dropdown-item">Xóa</a>
                                                             </div>
                                                         </div>
-                                                    </td>
+                                                    </td> */}
                                                 </tr>        
                                             ))}
                                         </tbody>
@@ -266,15 +301,15 @@ export default class LayoutProduct extends React.Component {
                                             <div className="my-n3">
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
-                                                    <input className="form-control" id='product-name'/>
+                                                    <input className="form-control required" id='product-name' data=''/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Mô tả</label>
-                                                    <input className="form-control" id='product-desc'/>
+                                                    <input className="form-control required" id='product-desc' data=''/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Giá bán</label>
-                                                    <input className="form-control input-number" id='product-price'/>
+                                                    <input className="form-control input-number required" id='product-price' data=''/>
                                                 </div>
                                                 {/* <div className="form-group">
                                                     <label htmlFor="addCategory">Danh mục</label>
@@ -282,11 +317,12 @@ export default class LayoutProduct extends React.Component {
                                                 </div> */}
                                             </div>
                                                 
-                                            <div className="card">
+                                            <div className="form-group">
+                                                <label htmlFor="exampleInputEmail1">Hình ảnh sản phẩm:</label>
                                                 <ReactFilestack
                                                     apikey={'A88NrCjOoTtq2X3RiYyvSz'}
                                                     customRender={({ onPick }) => (
-                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image' image-url=''>
+                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image' data=''>
                                                             <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
                                                             <div className="dz-default dz-message">
                                                                 <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
@@ -295,9 +331,9 @@ export default class LayoutProduct extends React.Component {
                                                     )}
                                                     onSuccess={(res) => {
                                                         console.log('filestack:',res)
-                                                        $('#product-image').attr('image-url',res.filesUploaded[0].url);
+                                                        $('#product-image').attr('data',res.filesUploaded[0].url);
                                                         $('.dz-preview').text(res.filesUploaded[0].filename);
-                                                        console.log('add file url to element:', $('#product-image').attr('image-url'))
+                                                        console.log('add file url to element:', $('#product-image').attr('data'))
                                                     }}
                                                 />
                                             </div>
