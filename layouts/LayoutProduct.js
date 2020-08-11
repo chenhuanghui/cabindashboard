@@ -1,13 +1,22 @@
+// ====================================
+// REACT
 import React from 'react';
 import Head from 'next/head'
-import NavBar from '../components/nav/nav_bar';
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
+
+// ====================================
+// COMPONENTS
+import NavBar from '../components/nav/nav_bar';
+
+// ====================================
+// OTHERS LIBS
 import $, { data } from 'jquery'
-
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import loadable from '@loadable/component';
-const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 
+// ====================================
+// INIT GLOBAL VARIABLES
+const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
   baseID: 'appmREe03n1MQ6ydq',
@@ -15,6 +24,8 @@ const airtable = new AirtablePlus({
   tableName: 'Brand',
 });
 
+// ====================================
+// GLOBAL FUNCTIONS
 async function retrieveData(formular,tbName) {
     try {
       const readRes = await airtable.read(formular,{tableName:tbName});
@@ -33,10 +44,10 @@ async function createData(formular,tbName) {
     }
 }
 
-function checkValid() {
+function checkValid(paneID) {
     console.log('check valid inputs')
     var isValid = true
-    $('.required').each(function(index){
+    $(paneID+ ' .required').each(function(index){
         if ($(this).hasClass('required') && ($(this).attr('data') === '' | $(this).attr('data') === undefined)) {
             $(this).removeClass('is-valid')
             $(this).addClass('is-invalid')            
@@ -53,29 +64,29 @@ function checkValid() {
     return isValid;
 }
 
-
+// ====================================
+// MAIN COMPONENT
 export default class LayoutProduct extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             data: []
         }
     }
 
-    componentDidMount() {
-        // INIT VARIABLE
-        const cookies = parseCookies();
-        let currentComponent = this
-        
+    componentDidMount() {        
         // ===============================================
         // CHECKING AUTHENTICATE
+        const cookies = parseCookies();
         if (!cookies.isLoggedIn | !cookies.userID || !cookies.brandID) Router.push('/signin');
         console.log('current brandID:', cookies.brandID);
         
-        // ===============================================
-        // RETRIEVE DATA FROM AIRTABLE
+        // ===============================================        
+        // INIT VARIABLE
+        let currentComponent = this
 
+        // RETRIEVE DATA FROM AIRTABLE
+        // _ GET BRAND_PRODUCT RECORD BY BRAND ID
         retrieveData({
             filterByFormula: `Brand = "${cookies.brandID}"`,
         },'Brand_Product')
@@ -86,8 +97,7 @@ export default class LayoutProduct extends React.Component {
 
         // ===============================================
         // FRONT-END ENGAGEMENT
-
-        // _AUTO SYNC INPUT VAL TO DATA PROPERTY
+        // _AUTO SYNC INPUT, TEXTAREA VAL TO DATA PROPERTY
         $('input, textarea').keyup(function(event) {
             // skip for arrow keys
             if(event.which >= 37 && event.which <= 40) return;
@@ -97,10 +107,31 @@ export default class LayoutProduct extends React.Component {
         // _SHOW MODAL WHEN WAS CLICKED
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
+                $('#modalProductCreate').addClass('show');
+                $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
+            }
+            console.log('modal create opened');
+        });
+
+        // _EDIT PRODUCT ON MODAL
+        $(document).on('click', `.item-row` , function() {
+            console.log()
+
+            // show modal
+            if (!$('body').hasClass('modal-open')) {
                 $('#modalProductEdit').addClass('show');
                 $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
             }
-            console.log('modal opened');
+
+            //load data to modal
+            $('#modalProductEdit').attr('data',$(this).attr('data'))            // record product id
+            $('#product-name-edit').val($(this).find('.item-name').text())      // product name
+            $('#product-name-edit').attr('data',($(this).find('.item-name').text()))      // product name
+            $('#product-desc-edit').val($(this).find('.item-desc').text())      // product desc
+            $('#product-desc-edit').attr('data',$(this).find('.item-desc').text())      // product desc
+            $('#product-price-edit').val($(this).find('.item-price').text())    // product price
+            $('#product-price-edit').attr('data',$(this).find('.item-price').text())    // product price
+            
         });
         
         // _CLOSED MODAL WHEN CLICK OUTSIDE
@@ -112,26 +143,33 @@ export default class LayoutProduct extends React.Component {
             ){ console.log('clicked inside');} 
             else {
                 if ($(event.target).hasClass('modal')) {
+                    $('#modalProductCreate').removeClass('show')
                     $('#modalProductEdit').removeClass('show')
+                    
                     $('body').removeClass('modal-open')
                     $('.modal-backdrop').remove()
+
                     console.log('modal close finished')
                 }
             } 
         });        
-
-        $(document).on('click', '#product-action', function() {
-            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+        
+        // _CREATE PRODUCT
+        $(document).on('click', '#product-create', function() {
+            // add loading spinner icon
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
             
-            // if ($('#product-name').val() === '' | $('#product-desc').val() === '' | $('#product-price').val() === '' | $('#product-image').attr('image-url') === '') return;
-            if(!checkValid()) {
-                $('.spinner-grow').remove()
+            // checkvalid .required form
+            if(!checkValid('#modalProductCreate')) {
+                $('.spinner-grow').remove();
                 return;
             }
 
+            // If all input required valid
+            // Create Product -> Link to Brand_Product -> Insert new success record to table
             createData({
-                name: $('#product-name').val(),
-                desc: $('#product-desc').val(),
+                name: $('#product-name').attr('data'),
+                desc: $('#product-desc').attr('data'),
                 price4Sell: parseInt($('#product-price').attr('data')),
                 images:[{
                     url: $('#product-image').attr('data')
@@ -139,7 +177,6 @@ export default class LayoutProduct extends React.Component {
                 status: true,
             },'Product')
             .then(result => {
-                console.log('create res:', result)
                 if (result) {
                     createData({
                         Brand: [cookies.brandID],
@@ -162,6 +199,18 @@ export default class LayoutProduct extends React.Component {
             })
         })
 
+        $(document).on('click', '#product-update', function() {
+            // add loading spinner icon
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
+            
+            // checkvalid .required form
+            if(!checkValid('#modalProductEdit')) {
+                $('.spinner-grow').remove();
+                return;
+            }            
+        })
+        
+        // AUTO INSERT COMMAS ON EACH THOUSAND
         $('.input-number').keyup(function(event) {
             // skip for arrow keys
             if(event.which >= 37 && event.which <= 40) return;
@@ -173,7 +222,8 @@ export default class LayoutProduct extends React.Component {
               .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
               ;
             });
-            
+        
+            // saving true value on data property
             $(this).attr('data',$(this).val().replace(/,/g,''));
         });
     }
@@ -233,12 +283,11 @@ export default class LayoutProduct extends React.Component {
                                                 <th>TRẠNG THÁI</th>
                                                 <th>DANH MỤC</th>
                                                 <th>GIÁ BÁN</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody className="list">{/* table item */} 
                                             {data && data.length > 0 && data.map((item, index) => (
-                                                <tr key={item.id}>
+                                                <tr key={item.id} className='item-row' data={item.id}>
                                                     <td className="col-auto">
                                                         { item.fields.productImage && item.fields.productImage.length > 0
                                                         ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded"/></div>
@@ -247,37 +296,28 @@ export default class LayoutProduct extends React.Component {
                                                         
                                                     </td>        
                                                     <td className="col-auto">
-                                                        <h4 className="font-weight-normal mb-1">{item.fields.productName}</h4>
-                                                        <small className="text-muted">{item.fields.productDesc}</small>
+                                                        <h4 className="font-weight-normal mb-1 item-name">{item.fields.productName}</h4>
+                                                        <small className="text-muted item-desc">{item.fields.productDesc}</small>
                                                     </td>
                                                     <td>
                                                         { item.fields.productStatus && item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
-                                                        ? <span className="badge badge-success">Đang kinh doanh</span>
-                                                        : <span className="badge badge-danger">Ngừng bán</span>
+                                                        ? <span className="badge badge-success item-status" data={item.fields.productStatus[0].toString()}>Đang kinh doanh</span>
+                                                        : <span className="badge badge-danger item-status" data={item.fields.productStatus[0].toString()}>Ngừng bán</span>
                                                         }
                                                         
                                                     </td>
                                                     <td> 
                                                         { item.fields.productCategory && item.fields.productCategory.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1">{item.fields.productCategory[0]}</h4>
+                                                        ? <h4 className="font-weight-normal mb-1 item-cat">{item.fields.productCategory[0]}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
                                                     <td>
                                                         { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1">{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
+                                                        ? <h4 className="font-weight-normal mb-1 item-price">{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
-                                                    {/* <td className="text-right">
-                                                        <div className="dropdown">
-                                                            <span className="dropdown-ellipses dropdown-toggle"><i className="fe fe-more-vertical"></i></span>
-                                                            <div className="dropdown-menu dropdown-menu-right">
-                                                                <a href="#" className="dropdown-item">Chỉnh sửa</a>
-                                                                <a href="#" className="dropdown-item">Xóa</a>
-                                                            </div>
-                                                        </div>
-                                                    </td> */}
                                                 </tr>        
                                             ))}
                                         </tbody>
@@ -285,8 +325,8 @@ export default class LayoutProduct extends React.Component {
                                 </div>
                             </div>
 
-                            {/* MODAL EDIT PRODUCT */}
-                            <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1">
+                            {/* MODAL CREATE PRODUCT */}
+                            <div className="modal fade fixed-right" id="modalProductCreate" tabIndex="-1">
                                 <div className="modal-dialog modal-dialog-vertical">
                                     <div className="modal-content">
                                         <div className="modal-body">
@@ -294,7 +334,7 @@ export default class LayoutProduct extends React.Component {
                                             <div className="header">
                                                 <div className="header-body">
                                                     <h1 className="header-title">Thêm sản phẩm</h1>
-                                                    <p className='text-muted'>Set preferences that will be cookied for your live preview desmonstration.</p>                                    
+                                                    <p className='text-muted'>Cập nhật các thông tin về sản phẩm vào hệ thống quản lý.</p>
                                                 </div>
                                             </div>
 
@@ -311,10 +351,6 @@ export default class LayoutProduct extends React.Component {
                                                     <label htmlFor="exampleInputEmail1">Giá bán</label>
                                                     <input className="form-control input-number required" id='product-price' data=''/>
                                                 </div>
-                                                {/* <div className="form-group">
-                                                    <label htmlFor="addCategory">Danh mục</label>
-                                                    <input className="form-control" id='product-cat'/>
-                                                </div> */}
                                             </div>
                                                 
                                             <div className="form-group">
@@ -338,22 +374,59 @@ export default class LayoutProduct extends React.Component {
                                                 />
                                             </div>
                                             
-                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="product-action">Lưu</button>
-                                            
+                                            <hr className="my-5" />   
+                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="product-create">Lưu</button>                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
-                            
-                            
+
+                            {/* MODAL EDIT PRODUCT */}
+                            <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1" data=''>
+                                <div className="modal-dialog modal-dialog-vertical">
+                                    <div className="modal-content">
+                                        <div className="modal-body">
+
+                                            <div className="header">
+                                                <div className="header-body">
+                                                    <h1 className="header-title">Chỉnh sửa sản phẩm</h1>
+                                                    <p className='text-muted'>Cập nhật các thông tin về sản phẩm vào hệ thống quản lý.</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="my-n3">
+                                                <div className="form-group">
+                                                    <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
+                                                    <input className="form-control required" id='product-name-edit' data=''/>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="exampleInputEmail1">Mô tả</label>
+                                                    <input className="form-control required" id='product-desc-edit' data=''/>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="exampleInputEmail1">Giá bán</label>
+                                                    <input className="form-control input-number required" id='product-price-edit' data=''/>
+                                                </div>
+                                                <div className="form-group">
+                                                    <div className="custom-control custom-switch">
+                                                        <input type="checkbox" className="custom-control-input" id="product-status-edit"/>
+                                                        <label className="custom-control-label" htmlFor="product-status-edit">Đang kinh doanh</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                
+                                            <hr className="my-5" />                                  
+                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="product-update">Lưu</button>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 <style jsx>{`
-                    .dropdown-toggle {cursor: pointer}
+                    .item-row:hover{ cursor: pointer}
                 `}</style>
             </div>
         )

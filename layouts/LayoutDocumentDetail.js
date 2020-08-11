@@ -1,10 +1,8 @@
-import Head from 'next/head'
-
-import Router from 'next/router';
-
 // ====================================
 // REACT
+import Head from 'next/head'
 import React, { useState, useEffect, useRef } from 'react';
+import Router from 'next/router';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 
