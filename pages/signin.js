@@ -41,6 +41,8 @@ export default class Signin extends React.Component {
 
         let currentComponent = this;        
         $('#tryToLoggin').click(function(){
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+            
             retrieveData({
                 view: 'Grid view',
                 filterByFormula:`email="${$('#username').val()}"`
@@ -60,8 +62,13 @@ export default class Signin extends React.Component {
                         Router.push(`/overview/${result[0].fields.brandID[0]}`)
                     } else {
                         $('#notice').removeClass('hide').addClass('show')   
+                        $('.spinner-grow').remove()
                     }
-                } else $('#notice').removeClass('hide').addClass('show')
+                } else {
+                    $('#notice').removeClass('hide').addClass('show')
+                    $('.spinner-grow').remove()
+                }
+
             })
         })
     }
