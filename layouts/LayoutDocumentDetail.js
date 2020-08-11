@@ -139,7 +139,7 @@ export default function LayoutDocumentDetail () {
                             temp = brandOnboardingRes[0].fields.updatedBy;
                             var isDuplicate = false;
                             for (var i=0; i < temp.length; i++) {
-                                if (temp[i] === cookies.userID) Router.push('/documents')
+                                if (temp[i] === cookies.userID) Router.push('/#onboarding')
                             }
                             
                             if (!isDuplicate) temp.push(cookies.userID)
@@ -153,14 +153,11 @@ export default function LayoutDocumentDetail () {
                         
                         updateData(brandOnboardingRes[0].id,{status : true,updatedBy : temp},'Brand_Onboarding')
                         .then(res => {
-                            Router.push('/documents')
+                            Router.push('/#onboarding')
                         })    
                     })
                 })
             })
-
-
-
         }             
 
     },[docID])
@@ -205,9 +202,7 @@ export default function LayoutDocumentDetail () {
                                     </Link>
                                     }
                                 </div>
-                            </div>
-                            
-                            
+                            </div>                                                    
                         </div>
                     </div>
                 </div>

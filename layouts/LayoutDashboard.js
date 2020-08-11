@@ -107,6 +107,8 @@ export default function Dashboard () {
         }) 
       })
     }
+    
+    
   },[brandID])
 
   // ******************************************************
@@ -259,8 +261,9 @@ export default function Dashboard () {
                             ? <span className="text-success">● <small className="text-muted">Hoàn thành</small></span>
                             : <span className="text-warning">● <small className="text-muted">Đang thực hiện</small></span>
                             }
-                            
+
                           </div>                          
+
                           <button className="btn btn-sm btn-outline-dard">
                           {brand && brand.licenseStatus && checkLicense(brand.licenseStatus)}/{brand && brand.licenseStatus && brand.licenseStatus.length}
                           </button>                         
@@ -361,8 +364,7 @@ export default function Dashboard () {
                               : <span className="text-warning _partnerItem" key={cab.toString()}>●
                                   <small className="text-muted"> {cab.fields.cabinName}</small>
                                 </span>                              
-                            })
-                            }
+                            })}
                           </div>
                         </div>
                       </div>
@@ -384,29 +386,14 @@ export default function Dashboard () {
 
                   <div className="card-body">
                     <div className="checklist" tabIndex="0">
-                      {/* {
-                        brand && brand.onboardingTitle && brand.onboardingTitle.map((item,index) => (
-                          <div className="custom-control custom-checkbox checklist-control" tabIndex="0" key={item.toString()}>
-                            {brand.onboardingStatus[index] == true 
-                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked readOnly/>
-                            : <input className="custom-control-input" id="checklistTwo" type="checkbox" readOnly/>
-                            }
-                            
-                            <label className="custom-control-label" ></label>
-                            <span className="custom-control-caption">{item}</span>
-                          </div>    
-                        ))
-                      } */}
-{
-                        onboarding && onboarding.length > 0 && onboarding.map((item,index) => (
-                          <div className="custom-control custom-checkbox checklist-control" tabIndex="0" key={item.id}>
+                        { onboarding && onboarding.length > 0 && onboarding.map((item,index) => (
+                          <div className = "custom-control custom-checkbox checklist-control" tabIndex="0" key={item.id}>
                             {item.fields.status == true 
-                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked readOnly/>
-                            : <input className="custom-control-input" id="checklistTwo" type="checkbox" readOnly/>
+                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked />
+                            : <input className="custom-control-input" id="checklistTwo" type="checkbox" />
                             }
-                            
-                            <label className="custom-control-label" ></label>
-                            <span className="custom-control-caption">
+                            <label className = "custom-control-label" ></label>
+                            <span className = "custom-control-caption">
                             { item.fields.documentID
                             ?  <Link href='/documents/[id]' as={`/documents/${item.fields.documentID}`}>
                                 <a>{item.fields.onboardingTitle} <span className='fe fe-arrow-right mr-4'></span></a>
