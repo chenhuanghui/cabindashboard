@@ -31,14 +31,15 @@ export default class LayoutAccountBrand extends React.Component {
             accountData: []
         }
     }
-    componentDidMount() {
-        // INIT VARIABLE
-        const cookies = parseCookies();
-        let currentComponent = this
-        
+    componentDidMount() {        
         // ===============================================
         // CHECKING AUTHENTICATE
-        if (!cookies.isLoggedIn | !cookies.userID || !cookies.brandID) Router.push('/signin');
+        const cookies = parseCookies()
+        if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | !cookies.role) Router.push('/signin');
+        
+        // ===============================================
+        // INIT VARIABLE
+        let currentComponent = this
         
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE

@@ -59,7 +59,7 @@ export default class LayoutStaff extends React.Component {
         
         // ===============================================
         // CHECKING AUTHENTICATE
-        if (!cookies.isLoggedIn | !cookies.userID || !cookies.brandID) Router.push('/signin');
+        if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | !cookies.role) Router.push('/signin');
         console.log('current brandID:', cookies.brandID);
         
         // ===============================================

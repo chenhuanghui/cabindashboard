@@ -70,13 +70,15 @@ export default function LayoutDocumentDetail () {
 
     useEffect(() => {
         // if not user --> redirect to Sign In page
-        if(!cookies.userID | !cookies.isLoggedIn | !cookies.brandID) {
+        if(!cookies.userID | !cookies.isLoggedIn | !cookies.brandID | !cookies.role) {
             destroyCookie(userID)
             destroyCookie(isLoggedIn)
             destroyCookie(brandID)
+            destroyCookie(role)
             Router.push('/signin')
         }
-
+        
+        // ===============================================
         setDocID(router.query.id)
         console.log('router: ',router.query.id)
 

@@ -39,19 +39,13 @@ export default class LayoutIndex extends React.Component {
     }
 
     componentDidMount() {
-        // const cookies = parseCookies()
-        // if(cookies.userID && cookies.isLoggedIn && cookies.brandID) {
-        //     Router.push(`/overview/${cookies.brandID}`)
-        // } else Router.push('/signin')      
+        // ===============================================
+        // CHECKING AUTHENTICATE
+        const cookies = parseCookies()
+        if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | !cookies.role) Router.push('/signin');
+
+        // ===============================================
         let currentComponent = this;
-        // client.getEntries({
-        //     content_type: 'document'
-        // })
-        // .then((response) => {
-        //     console.log(response.items)
-        //     currentComponent.setState({documentsList:response.items})
-        // })
-        // .catch(console.error) 
 
         retrieveData({}, 'Document')
         .then(result => {

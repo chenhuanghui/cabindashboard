@@ -26,17 +26,20 @@ export default class Signin extends React.Component {
         }
     }
 
-    componentDidMount() {
-        let currentComponent = this;
+    componentDidMount() {    
+        // ===============================================
+        // CHECKING AUTHENTICATE
         const cookies = parseCookies()
-        if (cookies.isLoggedIn && cookies.userID && cookies.brandID) Router.push(`/`)
+        if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | !cookies.role) Router.push('/signin');
 
         // reset all cookies
         destroyCookie(null,'isLoggedIn',{path:'/'})
         destroyCookie(null,'userID',{path:'/'})
         destroyCookie(null,'brandID',{path:'/'})
+        destroyCookie(null,'role',{path:'/'})
         // ========================
 
+        let currentComponent = this;        
         $('#tryToLoggin').click(function(){
             retrieveData({
                 view: 'Grid view',
@@ -52,6 +55,7 @@ export default class Signin extends React.Component {
                         setCookie(null, 'isLoggedIn', true, {maxAge: 30 * 24 * 60 * 60,path: '/',})
                         setCookie(null, 'userID',result[0].fields.ID , {maxAge: 30 * 24 * 60 * 60,path: '/',})
                         setCookie(null,'brandID', result[0].fields.brandID[0], {maxAge: 30 * 24 * 60 * 60,path:'/'})
+                        setCookie(null,'role', result[0].fields.roleValue, {maxAge: 30 * 24 * 60 * 60,path:'/'})
 
                         Router.push(`/overview/${result[0].fields.brandID[0]}`)
                     } else {

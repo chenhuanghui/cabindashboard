@@ -33,9 +33,12 @@ export default function Dashboard () {
   }
 
   useEffect(() => {
-    // if not loggined yet 
-    if (!cookies.isLoggedIn | !cookies.userID) Router.push('/signin');
-
+    // ===============================================
+    // CHECKING AUTHENTICATE
+    const cookies = parseCookies()
+    if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | !cookies.role) Router.push('/signin');
+    
+    // ===============================================
     setBrandID(router.query.id);
     
     if(brandID === router.query.id) {
