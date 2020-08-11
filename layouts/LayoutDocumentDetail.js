@@ -6,7 +6,7 @@ import Router from 'next/router';
 // REACT
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router'
-
+import Link from 'next/link';
 
 // ====================================
 // COMPONENTS
@@ -92,14 +92,28 @@ export default function LayoutDocumentDetail () {
                 temp['title'] = result[0].fields.title;
                 temp['document_onboarding'] = result[0].fields.Document_Onboarding[0];
 
-                // get document by document_ID
+                // get document by Document_ID
                 client.getEntries({
                     content_type: 'document',
                     'sys.id': result[0].fields.contentfulID
                 })
                 .then((response) => {
                     temp['content'] = response.items[0].fields.desc
-                    setData(temp)
+                    
+                    retrieveData({
+                        filterByFormula : `ID = "${result[0].fields.onboardingID[0]}"`,
+                        maxRecords : 1    
+                    },`OnBoarding`)
+                    .then(onboardingRes => {
+                        console.log('onboardingRes: ', onboardingRes[0].fields.type)
+                        temp['onboarding'] = onboardingRes[0].fields.type
+                        temp['valueAction'] = onboardingRes[0].fields.valueAction
+                        setData(temp)
+                    })
+                    .finally(res=>{
+                        
+                        console.log('data: ', data)
+                    })    
                 })
                 .catch(console.error) 
             })
@@ -120,6 +134,7 @@ export default function LayoutDocumentDetail () {
                     .then(brandOnboardingRes => {
                         console.log('brandonboarding: ',brandOnboardingRes)
                         let temp = []
+                        
                         if (brandOnboardingRes[0].fields.updatedBy) {
                             temp = brandOnboardingRes[0].fields.updatedBy;
                             var isDuplicate = false;
@@ -177,15 +192,20 @@ export default function LayoutDocumentDetail () {
 
                             <div className='' dangerouslySetInnerHTML={{__html: data ? documentToHtmlString(data.content, contentfulOptions) : ''}} />
                             
-                            <hr className="my-5" />    
-                            { data && data.document_onboarding && data.document_onboarding.length > 0
-                            ? <div className="row align-items-center">
+                            <hr className="my-5" />
+                            <div className="row align-items-center">
                                 <div className="col-auto"></div>
                                 <div className="col text-center"></div>
-                                <div className="col-auto"><span className="btn btn-lg btn-primary" id='confirmed' data={data.document_onboarding}>Tôi đã hiểu</span></div>
+                                <div className="col-auto">
+                                    { data && parseInt(data.onboarding) === 2
+                                    ? <span className="btn btn-lg btn-primary" id='confirmed' data={data.document_onboarding}>Tôi đã hiểu</span>
+                                    : 
+                                    <Link href={`${data ? data.valueAction : ''}`} >
+                                        <a className="btn btn-lg btn-primary">Thực hiện ngay</a>
+                                    </Link>
+                                    }
+                                </div>
                             </div>
-                            : ''
-                            }
                             
                             
                         </div>
