@@ -48,6 +48,7 @@ async function updateData(rowID, data,tbName) {
 export default function LayoutCabinDetail () {
     const router = useRouter();
     const cookies = parseCookies();
+    const [cabin, setCabin] = useState(null);
     const [staffList, setStaffList] = useState([]);
     const [cabinID, setCabinID] = useState(null);
     
@@ -72,21 +73,23 @@ export default function LayoutCabinDetail () {
             console.log('brand_id: ',cookies.brandID)
 
             // _GET CABIN INFORMATION
-            retrieveData({filterByFormula: `AND(BrandID = "${cookies.brandID}",CabinID= "${cabinID}" )`},'Brand_Cabin')
-            .then(res => {
-                console.log('cabinRes: ', res)               
-                if (res && res.length > 0) {
+            retrieveData({filterByFormula: `recID="${cabinID}"`},'Cabin')
+            .then(cabinRes => {
+                console.log('cabinRes: ', cabinRes)               
+                if (cabinRes && cabinRes.length > 0) {
+                    setCabin(cabinRes[0])
                     // _GET STAFF LIST
+                    retrieveData({filterByFormula: `Brand = "${cookies.brandID}"`},'Brand_Staff')
+                    .then(brandStaffRes => {
+                        console.log('staffRes: ', brandStaffRes)
+                        setStaffList(brandStaffRes)}
+                    )
                 } else {
                     console.log('dont have data')
                 }
             })
 
-            retrieveData({filterByFormula: `Brand = "${cookies.brandID}"`},'Brand_Staff')
-            .then(brandStaffRes => {
-                console.log('staffRes: ', brandStaffRes)
-                setStaffList(brandStaffRes)}
-            )
+            
             
         }             
 
@@ -117,8 +120,8 @@ export default function LayoutCabinDetail () {
                                             </div>
                                             
                                             <div className="col">
-                                                <h6 className="header-pretitle">BRAND 01 - 31 PHAN NGỮ , DAKAO, Q.1, HCM</h6>
-                                                <h1 className="header-title">Cabin 05</h1>
+                                                <h6 className="header-pretitle"> {cabin && cabin.fields.brandName} - {cabin && cabin.fields.fullAddr}</h6>
+                                                <h1 className="header-title">{cabin && cabin.fields.name}</h1>
                                             </div>
                                             
                                         </div>
@@ -136,8 +139,8 @@ export default function LayoutCabinDetail () {
                                         </div>
                                         
                                         <div className="col ml-n2">
-                                            <h4 className="mb-1"><a href="profile-posts.html">Cabin 05 - BRAND 01</a></h4>                                            
-                                            <p className="small text-muted mb-1">Ngày bắt đầu kinh doanh: 16/06/2020</p>
+                                            <h4 className="mb-1"><a href="#">{cabin && cabin.fields.name} - {cabin && cabin.fields.brandName}</a></h4>
+                                            <p className="small text-muted mb-1">Ngày bắt đầu kinh doanh: {cabin && cabin.fields.brandStartDate}</p>
                                             <p className="small mb-0"><span className="text-success">●</span> Đang hoạt động</p>
                                         </div>
 
