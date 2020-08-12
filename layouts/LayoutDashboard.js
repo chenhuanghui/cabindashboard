@@ -5,6 +5,7 @@ import NavBar from '../components/nav/nav_bar';
 import { useRouter } from 'next/router'
 import Router from 'next/router';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { data } from 'jquery';
 
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
@@ -13,6 +14,16 @@ const airtable = new AirtablePlus({
   tableName: 'Brand',
 });
 
+function countCompleteOnBoarding(dataFromAirtable) {
+  var count = 0;
+  for(var i=0; i<dataFromAirtable.length; i++) {
+    if (dataFromAirtable[i].fields.status && dataFromAirtable[i].fields.status === true) {
+      count ++
+    }
+  }
+  return count
+}
+
 export default function Dashboard () {
   const router = useRouter();
   const cookies = parseCookies();
@@ -20,7 +31,12 @@ export default function Dashboard () {
   const [brand, setBrand] = useState(null);
   const [brandCabin, setBrandCabin] = useState([]);
   const [brandSellChannelGroupByChannel, setbrandSellChannelGroupByChannel] = useState([]);
+  
+  // _Onboarding group state
   const [onboarding, setOnboarding] = useState([]);
+  const [onboardingGroup1, setOnboardingGroup1] = useState(null);
+  const [onboardingGroup2, setOnboardingGroup2] = useState(null);
+  const [onboardingGroup3, setOnboardingGroup3] = useState(null);
 
   async function retrieveData(formular,tbName) {
     try {
@@ -29,7 +45,6 @@ export default function Dashboard () {
     } catch(e) {
       console.error(e);
     }
-
   }
 
   useEffect(() => {
@@ -91,6 +106,36 @@ export default function Dashboard () {
           setOnboarding(onboardingRes);
           console.log('onboarding state: ',onboarding);
         })
+
+        retrieveData({
+          view: 'GroupByCollection1',
+          filterByFormula: `Brand = "${brandID}"`,
+          sort: [ {field: 'orderInCollection', direction: 'asc'},]
+        },'Brand_Onboarding')
+        .then(response=> {
+          console.log('onboarding group 1: ',response);
+          setOnboardingGroup1(response)
+        })
+
+        retrieveData({
+          view: 'GroupByCollection2',
+          filterByFormula: `Brand = "${brandID}"`,
+          sort: [ {field: 'orderInCollection', direction: 'asc'},]
+        },'Brand_Onboarding')
+        .then(response=> {
+          console.log('onboarding group 2: ',response);
+          setOnboardingGroup2(response)
+        })        
+
+        retrieveData({
+          view: 'GroupByCollection3',
+          filterByFormula: `Brand = "${brandID}"`,
+          sort: [ {field: 'orderInCollection', direction: 'asc'},]
+        },'Brand_Onboarding')
+        .then(response=> {
+          console.log('onboarding group 3: ',response);
+          setOnboardingGroup3(response)
+        })        
 
         // ******************************************************
         // RETRIEVE SELL CHANNEL DATA
@@ -376,20 +421,21 @@ export default function Dashboard () {
               </div> 
             </div>
 
-            {/* <hr className="navbar-divider my-3"/>                                       */}
+            <hr className="navbar-divider my-3"/>                                      
 
             <div className="row" id='onboarding'>
-              {/* <h6 className="header-pretitle col-12 head-block">NHẬP MÔN CABINFOOD</h6> */}
+              <h6 className="header-pretitle col-12 head-block">HỘI NHẬP CÙNG CABINFOOD</h6>
               <div className="col-12 col-lg-12 col-xl-12">
+                
+                {/* GROUP BY COLLECTION 1 */}
                 <div className="card">
                   <div className="card-header">
-                    <h4 className="card-header-title">HỘI NHẬP CÙNG CABINFOOD</h4>                    
-                    <span className="badge badge-soft-secondary">{brand && brand.onboardingStatus && checkOnBoarding(brand.onboardingStatus)} hạng mục hoàn thành</span>
+                    <h4 className="card-header-title">{onboardingGroup1 && onboardingGroup1[0].fields.collectionName}</h4>
+                    <span className="badge badge-soft-secondary">{onboardingGroup1 && countCompleteOnBoarding(onboardingGroup1)} hạng mục hoàn thành</span>
                   </div>
-
                   <div className="card-body">
                     <div className="checklist" tabIndex="0">
-                        { onboarding && onboarding.length > 0 && onboarding.map((item,index) => (
+                        { onboardingGroup1 && onboardingGroup1.length > 0 && onboardingGroup1.map((item,index) => (
                           <div className = "custom-control custom-checkbox checklist-control" tabIndex="0" key={item.id}>
                             {item.fields.status == true 
                             ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked />
@@ -407,14 +453,74 @@ export default function Dashboard () {
                           </div>    
                         ))
                       }
-                      
                     </div>
                   </div>
                 </div>
+
+                {/* GROUP BY COLLECTION 2 */}
+                <div className="card">
+                  <div className="card-header">
+                    <h4 className="card-header-title">{onboardingGroup2 && onboardingGroup2[0].fields.collectionName}</h4>
+                    <span className="badge badge-soft-secondary">{onboardingGroup2 && countCompleteOnBoarding(onboardingGroup2)} hạng mục hoàn thành</span>
+                  </div>
+                  <div className="card-body">
+                    <div className="checklist" tabIndex="0">
+                        { onboardingGroup2 && onboardingGroup2.length > 0 && onboardingGroup2.map((item,index) => (
+                          <div className = "custom-control custom-checkbox checklist-control" tabIndex="0" key={item.id}>
+                            {item.fields.status == true 
+                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked />
+                            : <input className="custom-control-input" id="checklistTwo" type="checkbox" />
+                            }
+                            <label className = "custom-control-label" ></label>
+                            <span className = "custom-control-caption">
+                            { item.fields.documentID
+                            ?  <Link href='/documents/[id]' as={`/documents/${item.fields.documentID}`}>
+                                <a>{item.fields.onboardingTitle} <span className='fe fe-arrow-right mr-4'></span></a>
+                                </Link>
+                            : item.fields.onboardingTitle
+                            }
+                            </span>                            
+                          </div>    
+                        ))
+                      }
+                    </div>
+                  </div>
+                </div>
+
+                {/* GROUP BY COLLECTION 3 */}
+                <div className="card">
+                  <div className="card-header">
+                    <h4 className="card-header-title">{onboardingGroup3 && onboardingGroup3[0].fields.collectionName}</h4>
+                    <span className="badge badge-soft-secondary">{onboardingGroup3 && countCompleteOnBoarding(onboardingGroup3)} hạng mục hoàn thành</span>
+                  </div>
+                  <div className="card-body">
+                    <div className="checklist" tabIndex="0">
+                        { onboardingGroup3 && onboardingGroup3.length > 0 && onboardingGroup3.map((item,index) => (
+                          <div className = "custom-control custom-checkbox checklist-control" tabIndex="0" key={item.id}>
+                            {item.fields.status == true 
+                            ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked />
+                            : <input className="custom-control-input" id="checklistTwo" type="checkbox" />
+                            }
+                            <label className = "custom-control-label" ></label>
+                            <span className = "custom-control-caption">
+                            { item.fields.documentID
+                            ?  <Link href='/documents/[id]' as={`/documents/${item.fields.documentID}`}>
+                                <a>{item.fields.onboardingTitle} <span className='fe fe-arrow-right mr-4'></span></a>
+                                </Link>
+                            : item.fields.onboardingTitle
+                            }
+                            </span>                            
+                          </div>    
+                        ))
+                      }
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
             
-            {/* <hr className="navbar-divider my-3"/>                                       */}
+            <hr className="navbar-divider my-3"/>
 
             <div className="row" id='license'>
               <div className="col-12 col-lg-12 col-xl-12">
