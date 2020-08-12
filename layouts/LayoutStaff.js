@@ -63,6 +63,15 @@ function checkValid(paneID) {
     return isValid;
 }
 
+function resetInput(paneID) {
+    console.log('reseting')
+    $('#modalStaffCreate input').each(function(index){
+        console.log('clear ',index)
+        $(this).attr('data','')
+        $(this).val('')
+    })
+}
+
 export default class LayoutStaff extends React.Component {
     constructor(props) {
         super(props);
@@ -120,7 +129,10 @@ export default class LayoutStaff extends React.Component {
             if (!$('body').hasClass('modal-open')) {
                 $('#modalStaffCreate').addClass('show');
                 $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
+                resetInput('#modalStaffCreate')
+
                 console.log('open modal create staff.');
+
             } else console.log('modal was opened before.');
         });
 
@@ -155,6 +167,7 @@ export default class LayoutStaff extends React.Component {
             }
 
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+
 
             // 1. CREATE STAFF ON DATABASE
             createData({
@@ -353,6 +366,11 @@ export default class LayoutStaff extends React.Component {
                                                 </div>
 
                                                 <div className="form-group">
+                                                    <label htmlFor="exampleInputEmail1">Mức lương</label>
+                                                    <input className="form-control input-number required" id='staff-salary' data=''/>
+                                                </div>
+
+                                                <div className="form-group">
                                                     <label>Cabin làm việc</label>
                                                     <span className='hide required' id='cabin-assigned' data='' brand-cabin=''></span>
                                                     <Select 
@@ -373,12 +391,7 @@ export default class LayoutStaff extends React.Component {
                                                         }}
                                                         />
                                                     </div>                                                
-                                                </div>       
-                                                
-                                                <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Mức lương</label>
-                                                    <input className="form-control input-number required" id='staff-salary' data=''/>
-                                                </div>
+                                                </div>                                            
                                                 
                                                 <hr className="my-5" />   
                                                 <div className="form-group">
