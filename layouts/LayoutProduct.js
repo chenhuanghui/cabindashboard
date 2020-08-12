@@ -191,7 +191,7 @@ export default class LayoutProduct extends React.Component {
                 }   
             })
             .finally( () => {
-                $('#modalProductEdit').removeClass('show')
+                $('#modalProductCreate').removeClass('show')
                 $('body').removeClass('modal-open')
                 $('.modal-backdrop').remove()
                 $('.spinner-grow').remove()
@@ -207,7 +207,8 @@ export default class LayoutProduct extends React.Component {
             if(!checkValid('#modalProductEdit')) {
                 $('.spinner-grow').remove();
                 return;
-            }            
+            }
+            $('#modalProductEdit').removeClass('show')
         })
         
         // AUTO INSERT COMMAS ON EACH THOUSAND
