@@ -332,7 +332,7 @@ export default function Dashboard () {
                       <thead>
                           <tr>
                               <th>CABIN</th>
-                              <th>STATUS</th>
+                              <th>TRẠNG THÁI</th>
                               <th>ĐIỆN</th>
                               <th>NƯỚC</th>
                               <th>NHÂN SỰ</th>
