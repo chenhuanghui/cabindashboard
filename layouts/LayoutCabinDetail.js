@@ -96,7 +96,7 @@ export default class LayoutCabinDetail extends React.Component {
 
                         {/* toggle button */}
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                            <span className="navbar-toggler-icon"></span>
                         </button>
 
                         {/* logo */}
