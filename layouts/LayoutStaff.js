@@ -293,6 +293,7 @@ export default class LayoutStaff extends React.Component {
                                             <tr>
                                                 <th></th>
                                                 <th>NHÂN VIÊN</th>
+                                                <th>MÃ NHÂN VIÊN</th>
                                                 <th>TRẠNG THÁI</th>
                                                 <th>SỐ GIỜ</th>
                                                 <th>CHI NHÁNH</th>
@@ -311,6 +312,9 @@ export default class LayoutStaff extends React.Component {
                                                     </td>        
                                                     <td className="project-project">
                                                         <h4 className="mb-1">{item.fields.staffName}</h4>
+                                                    </td>
+                                                    <td className="project-project">
+                                                        <span className="mb-1">{item.fields.staffID}</span>
                                                     </td>
                                                     <td>
                                                         { item.fields.staffStatus && item.fields.staffStatus.length > 0 && item.fields.staffStatus[0] === true
