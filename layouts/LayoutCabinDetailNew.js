@@ -68,13 +68,26 @@ export default function LayoutCabinDetail () {
 
         // when docID was assigned successful retrieve data from Contenful
         if(cabinID === router.query.id) {
-            console.log('cabinid: ',cabinID)
-            retrieveData({
-                filterByFormula: `Brand = "${cookies.brandID}"`,
-            },'Brand_Staff')
-            .then(result => {
-                setStaffList(result)
+            console.log('cabin_id: ',cabinID)
+            console.log('brand_id: ',cookies.brandID)
+
+            // _GET CABIN INFORMATION
+            retrieveData({filterByFormula: `AND(BrandID = "${cookies.brandID}",CabinID= "${cabinID}" )`},'Brand_Cabin')
+            .then(res => {
+                console.log('cabinRes: ', res)               
+                if (res && res.length > 0) {
+                    // _GET STAFF LIST
+                } else {
+                    console.log('dont have data')
+                }
             })
+
+            retrieveData({filterByFormula: `Brand = "${cookies.brandID}"`},'Brand_Staff')
+            .then(brandStaffRes => {
+                console.log('staffRes: ', brandStaffRes)
+                setStaffList(brandStaffRes)}
+            )
+            
         }             
 
     },[cabinID])

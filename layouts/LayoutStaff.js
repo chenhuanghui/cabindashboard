@@ -6,6 +6,7 @@ import Link from 'next/link';
 import $, { data } from 'jquery'
 import loadable from '@loadable/component';
 import Select from "react-dropdown-select"; 
+import Flatpickr from "react-flatpickr";
 
 const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 const AirtablePlus = require('airtable-plus');  
@@ -40,6 +41,26 @@ async function updateData(rowID, data,tbName) {
     } catch(e) {
       console.error(e);
     }
+}
+
+function checkValid(paneID) {
+    console.log('check valid inputs')
+    var isValid = true
+    $(paneID+ ' .required').each(function(index){
+        if ($(this).hasClass('required') && ($(this).attr('data') === '' | $(this).attr('data') === undefined)) {
+            $(this).removeClass('is-valid')
+            $(this).addClass('is-invalid')            
+            console.log(index + ": invalid" )
+            isValid = false
+            return;
+        } else {
+            console.log(index + ": valid " + $(this).attr('data'))
+            $(this).removeClass('is-invalid')
+            $(this).addClass('is-valid')   
+        }
+    })
+    console.log('checked status:', isValid)
+    return isValid;
 }
 
 export default class LayoutStaff extends React.Component {
@@ -87,6 +108,12 @@ export default class LayoutStaff extends React.Component {
         // ===============================================
         // FRONT-END ENGAGEMENT
         
+        $('input, textarea').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+            $(this).attr('data',$(this).val())
+        });
+
         // ***********************************************
         // _SHOW modal StaffCreate
         $(document).on('click', `.btn-modal` , function() {
@@ -120,32 +147,43 @@ export default class LayoutStaff extends React.Component {
             // $(this).parent().find('.dropdown-menu-right').addClass('show')
         })
 
-        $(document).on('click', '#staff-action', function() {
-            console.log('name:', $('#staff-name').val())
-            console.log('salary:', $('#staff-salary').val())
-            console.log('image-url-staff:', $('#staff-image').attr('image-url'))
+        $(document).on('click', '#staff-action', function() {            
+            // checkvalid .required form
+            if(!checkValid('#modalStaffCreate')) {
+                $('.spinner-grow').remove();
+                return;
+            }
 
-            // if ($('#staff-name').val() === '' | $('#staff-salary').val() === '' | $('#staff-image').attr('image-url') === '') return;
-            if ($('#staff-name').val() === '') return;
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
 
+            // 1. CREATE STAFF ON DATABASE
             createData({
-                name: $('#staff-name').val(),
-                salary: parseInt($('#staff-salary').val().replace(/,/g,'')),
-                photos:[{
-                    url: $('#staff-image').attr('image-url')
-                }],
+                name: $('#staff-name').attr('data'),
+                salary: parseInt($('#staff-salary').attr('data').replace(/,/g,'')),
+                personalID : $('#staff-personal-id').attr('data'),
+                DOB: $('#DOB-data').attr('data'),
+                idPhotoFront:[{url: $('#staff-id-front').attr('data')}],
+                idPhotoBack:[{url: $('#staff-id-back').attr('data')}],
                 status: true,
             },'Staff')
             .then(staffRes => {
                 console.log('staff data:', staffRes)
                 if (staffRes) {
+                    // 2. CREATE BRAND_STAFF LINKKING
                     createData({
                         Brand: [cookies.brandID],
                         Staff: [staffRes.id],
                         timeStaffWorkingByCurrentMonth:0,
                         Cabin: [`${$('#cabin-assigned').attr('data')}`]                  
-                    },'Brand_Staff')                
+                    },'Brand_Staff')
+                    .then(brandStaffRes => {
+                        // 4. ADD RECORD TO STATE VARIABLE
+                        var temp = currentComponent.state.data
+                        temp.push(brandStaffRes)
+                        currentComponent.setState({data:temp})
+                    })              
                     
+                    // 3. ADD TO STAFFLIST ON BRAND_CABIN
                     retrieveData({
                         filterByFormula: `ID = "${$('#cabin-assigned').attr('brand-cabin')}"`,
                     },'Brand_Cabin')
@@ -155,16 +193,15 @@ export default class LayoutStaff extends React.Component {
                         var tempStaffList = []                        
                         //in case have stafflist before, need to retrieve data first and add more record later
                         if(brandCabinRes[0].fields.StaffList) { 
+                            var temp = []
                             temp = brandCabinRes[0].fields.StaffList
                             console.log('temp:', temp)
-                        }                        
-                        
+                        }                                                
                         // insert record staff was added recently to temp stafflist
-                        tempStaffList.push(staffRes.id)
-                        
+                        tempStaffList.push(staffRes.id)                        
                         // do update data
                         updateData(brandCabinRes[0].id,{StaffList:tempStaffList},'Brand_Cabin')
-                    })
+                    })                    
                     
                 }                
             })
@@ -172,7 +209,8 @@ export default class LayoutStaff extends React.Component {
                 $('#modalStaffCreate').removeClass('show')
                 $('body').removeClass('modal-open')
                 $('.modal-backdrop').remove()
-                console.log('modal close finished')
+                $('.spinner-grow').remove()
+                console.log('modal close finished')                    
             })
         })
 
@@ -285,7 +323,7 @@ export default class LayoutStaff extends React.Component {
                                 </div>
                             </div>
 
-                            {/* MODAL EDIT PRODUCT */}
+                            {/* MODAL STAFF CREATE */}
                             <div className="modal fade fixed-right" id="modalStaffCreate" tabIndex="-1">
                                 <div className="modal-dialog modal-dialog-vertical">
                                     <div className="modal-content">
@@ -294,25 +332,76 @@ export default class LayoutStaff extends React.Component {
                                             <div className="header">
                                                 <div className="header-body">
                                                     <h1 className="header-title">Thêm nhân sự</h1>
-                                                    <p className='text-muted'>Set preferences that will be cookied for your live preview desmonstration.</p>                                    
+                                                    <p className='text-muted'>Cung cấp các thông tin về nhân sự, để giúp việc quản lý được thực hiện tốt hơn</p>
                                                 </div>
                                             </div>
 
                                             <div className="my-n3">
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Tên nhân sự</label>
-                                                    <input className="form-control" id='staff-name'/>
+                                                    <input className="form-control required" id='staff-name' data=''/>
                                                 </div>
+                                                <div className='form-group'>
+                                                    <label>Ngày sinh (*)</label>
+                                                    <span className='hide required' data='' id='DOB'></span>
+                                                    <Flatpickr className="form-control" id='DOB' data=''
+                                                        onChange={date => {
+                                                            console.log('new date:', date)
+                                                            $('#DOB').attr('data',date)
+                                                        }}
+                                                    />
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label>Cabin làm việc</label>
+                                                    <span className='hide required' id='cabin-assigned' data='' brand-cabin=''></span>
+                                                    <Select 
+                                                        className='form-control' 
+                                                        options={cabinOptionsData} 
+                                                        labelField= 'cabinName'
+                                                        valueField='ID'
+                                                        dropdownHandle='false'
+                                                        searchable='false'
+                                                        onChange={(valSelected) => {
+                                                            console.log('cabin seleted: ',valSelected)
+                                                            $('#cabin-assigned').attr('data',valSelected[0].CabinID)
+                                                            $('#cabin-assigned').attr('brand-cabin',valSelected[0].ID)
+                                                        }}
+                                                        onDropdownOpen={()=>{
+                                                            console.log('open dropdown')
+                                                            $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                        }}
+                                                        />
+                                                    </div>                                                
+                                                </div>       
+                                                
                                                 <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Mức lương</label>
-                                                    <input className="form-control input-number" id='staff-salary'/>
+                                                    <input className="form-control input-number required" id='staff-salary' data=''/>
                                                 </div>
-                                                <div className="card">
-                                                    <label>Hình ảnh nhân sự</label>
+                                                
+                                                <hr className="my-5" />   
+                                                <div className="form-group">
+                                                    <label htmlFor="exampleInputEmail1">CMND/CCCD/Hộ chiếu</label>
+                                                    <input className="form-control required" id='staff-personal-id' data=''/>
+                                                </div>
+                                                <div className='form-group'>
+                                                    <label>Ngày cấp (*)</label>
+                                                    <span className='hide required' data='' id='issued-data'></span>
+                                                    <Flatpickr className="form-control" id='issued' data=''
+                                                        onChange={date => {
+                                                            console.log('new date:', date)
+                                                            $('#issued-data').attr('data',date)
+                                                        }}
+                                                    />
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label>CMND mặt trước</label>
                                                     <ReactFilestack
                                                         apikey={'A88NrCjOoTtq2X3RiYyvSz'}
                                                         customRender={({ onPick }) => (
-                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-image' image-url=''>
+                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-id-front' data=''>
                                                                 <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
                                                                 <div className="dz-default dz-message">
                                                                     <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
@@ -321,34 +410,65 @@ export default class LayoutStaff extends React.Component {
                                                         )}
                                                         onSuccess={(res) => {
                                                             console.log('filestack:',res)
-                                                            $('#staff-image').attr('image-url',res.filesUploaded[0].url);
-                                                            $('.dz-preview').text(res.filesUploaded[0].filename);
-                                                            console.log('add file url to element:', $('#staff-image').attr('image-url'))
+                                                            $('#staff-id-front').attr('data',res.filesUploaded[0].url);
+                                                            $('#staff-id-front .dz-preview').html(
+                                                                `<li class="list-group-item dz-processing dz-image-preview">
+                                                                    <div class="row align-items-center thumbnail-preview-dropzone" style="flex-wrap: initial !important; overflow:hidden">
+                                                                        <div class="col-auto">
+                                                                            <div class="avatar">
+                                                                            <img class="avatar-img rounded" src="${res.filesUploaded[0].url}"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col ml-n3">
+                                                                            <h4 class="mb-1" data-dz-name="">${res.filesUploaded[0].filename}</h4>
+                                                                            <small class="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
+                                                                        </div>
+                                                                        <div class="col-auto"></div>
+                                                                    </div>
+                                                                </li>`
+                                                            );
+                                                            console.log('add file url to element:', $('#staff-id-front').attr('data'))
                                                         }}
                                                     />
                                                 </div>
+
                                                 <div className="form-group">
-                                                    <label>Cabin làm việc</label>
-                                                    <span className='hide required' id='cabin-assigned' data='' brand-cabin=''></span>
-                                                    <Select 
-                                                    className='form-control' 
-                                                    options={cabinOptionsData} 
-                                                    labelField= 'cabinName'
-                                                    valueField='ID'
-                                                    dropdownHandle='false'
-                                                    searchable='false'
-                                                    onChange={(valSelected) => {
-                                                        console.log('cabin seleted: ',valSelected)
-                                                        $('#cabin-assigned').attr('data',valSelected[0].CabinID)
-                                                        $('#cabin-assigned').attr('brand-cabin',valSelected[0].ID)
-                                                    }}
-                                                    onDropdownOpen={()=>{
-                                                        console.log('open dropdown')
-                                                        $('.react-dropdown-select-dropdown').css({'width': '100%'})
-                                                    }}
-                                                    />
-                                                </div>                                                
-                                            </div>                    
+                                                    <label>CMND mặt sau</label>
+                                                    <ReactFilestack
+                                                        apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                        customRender={({ onPick }) => (
+                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-id-back' data=''>
+                                                                <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+
+                                                                </ul>
+                                                                <div className="dz-default dz-message">
+                                                                    <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        onSuccess={(res) => {
+                                                            console.log('filestack:',res)
+                                                            $('#staff-id-back').attr('data',res.filesUploaded[0].url);
+                                                            $('#staff-id-back .dz-preview').html(
+                                                                `<li class="list-group-item dz-processing dz-image-preview">
+                                                                    <div class="row align-items-center thumbnail-preview-dropzone" style="flex-wrap: initial !important; overflow:hidden">
+                                                                        <div class="col-auto">
+                                                                            <div class="avatar">
+                                                                            <img class="avatar-img rounded" src="${res.filesUploaded[0].url}"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col ml-n3">
+                                                                            <h4 class="mb-1" data-dz-name="">${res.filesUploaded[0].filename}</h4>
+                                                                            <small class="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
+                                                                        </div>
+                                                                        <div class="col-auto"></div>
+                                                                    </div>
+                                                                </li>`
+                                                                )
+                                                            console.log('add file url to element:', $('#staff-id-back').attr('data'))
+                                                        }}
+                                                    />                                                    
+                                                </div>             
 
                                             <hr className="my-5" />   
                                             <button className="btn btn-lg btn-block btn-primary mb-3" id="staff-action">Lưu</button>
@@ -363,7 +483,9 @@ export default class LayoutStaff extends React.Component {
                 
                 <style jsx>{`
                     .dropdown-toggle {cursor: pointer}
-                    
+                    .thumbnail-preview-dropzone {
+                        flex-wrap: none !important;
+                    }
                 `}</style>
             </div>
         )
