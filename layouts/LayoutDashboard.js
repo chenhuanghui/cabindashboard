@@ -524,10 +524,11 @@ export default function Dashboard () {
 
             <div className="row" id='license'>
               <div className="col-12 col-lg-12 col-xl-12">
+                <h6 className="header-pretitle col-12 head-block">THỦ TỤC PHÁP LÝ</h6>
                 <div className="card">
-                  <div className="card-header">
+                  {/* <div className="card-header">
                     <h4 className="card-header-title">THỦ TỤC PHÁP LÝ</h4>
-                  </div>
+                  </div> */}
                   <div className="card-body">
                     <div className="kanban-category" tabIndex="0">
                       {
