@@ -389,10 +389,10 @@ export default function Dashboard () {
             <hr className="navbar-divider my-3"/>                                      
             
             <div className="row" id='food-delivery'>
-              <h6 className="header-pretitle col-12 head-block">KÊNH BÁN HÀNG</h6>
               {/* theo đúng layout gốc thì bộ .card sẽ được chia ra 2 bên, mỗi bên 3 block .card, và mỗi bên nằm trong bộ div col-12 col-lg-6 */}
               {/* <div className="col-12 col-lg-6">   */}
-              <div className="col-12">  
+              <div className="col-12 col-lg-12 col-xl-12">  
+                <h6 className="header-pretitle col-12 head-block">KÊNH BÁN HÀNG</h6>
                 {brandSellChannelGroupByChannel && brandSellChannelGroupByChannel.length > 0 && brandSellChannelGroupByChannel.map((p,index) => (
                     <div className="card col-lg-6 _cardPartner" key={index}>
                       <div className="card-body">
@@ -423,10 +423,9 @@ export default function Dashboard () {
 
             <hr className="navbar-divider my-3"/>                                      
 
-            <div className="row" id='onboarding'>
-              <h6 className="header-pretitle col-12 head-block">HỘI NHẬP CÙNG CABINFOOD</h6>
+            <div className="row" id='onboarding'>              
               <div className="col-12 col-lg-12 col-xl-12">
-                
+                <h6 className="header-pretitle col-12 head-block">HỘI NHẬP CÙNG CABINFOOD</h6>  
                 {/* GROUP BY COLLECTION 1 */}
                 <div className="card">
                   <div className="card-header">
