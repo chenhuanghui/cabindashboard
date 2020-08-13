@@ -226,9 +226,10 @@ export default class LayoutBrandCreate extends React.Component {
         $('#complete-btn').click(function(){
             // console.log('check valid step3: ',checkValidPane('#wizardStep3'))
             if(!checkValidPane('#wizardStep3')) return false;
-
+            
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
+            
             var promiseList = []
-
             // generate brand - account and all relation information
             // STEP_1. CREATE BRAND
             createData({
@@ -243,15 +244,15 @@ export default class LayoutBrandCreate extends React.Component {
                 console.log('branRes:', brandRes)
                 brandInfo = brandRes
                 console.log('brandInfo:', brandInfo)
-
+                console.log('DOB:', new Date($('#DOB-data').attr('data')).toDateString())
                 // STEP_2. CREATE OWNER OWN THIS BRAND
                 promiseList.push(
                     createData({
                         name: $('#name').attr('data'),
                         email: $('#email').attr('data'),
                         tel: $('#tel').attr('data'),
-                        DOB: $('#DOB').val(),
-                        ownerPersonalID: $('#ownerPersonalID').val(),
+                        DOB: new Date($('#DOB-data').attr('data')).toDateString(),
+                        ownerPersonalID: $('#ownerPersonalID').attr('data'),
                         personalIDPhotoFront:[{
                             url: $('#personalIDPhoto-image-front').attr('image-url')
                         }],
@@ -263,6 +264,7 @@ export default class LayoutBrandCreate extends React.Component {
                         bankAccName: $('#bankAccName').attr('data'),
                         Brand: [`${brandRes.id}`]
                     },'Owner')
+                    .then(ownerRes => console.log('owner Res: ', ownerRes))
                 )
                 
                 // STEP_3. ADD BRAND TO ACCOUNT
@@ -726,7 +728,7 @@ export default class LayoutBrandCreate extends React.Component {
                                                     <h6 className="text-uppercase text-muted mb-0">Bước 3 / 3</h6>
                                                 </div>
                                                 <div className="col-auto">
-                                                    <button className="btn btn-lg btn-primary next-btn" pane-id='3' data-toggle="wizard" id='complete-btn'>Continue</button>
+                                                    <button className="btn btn-lg btn-primary next-btn" pane-id='3' data-toggle="wizard" id='complete-btn'>Tạo thương hiệu</button>
                                                 </div>
                                             </div> {/* .row */}
                                         </div> {/* .card-body */}
