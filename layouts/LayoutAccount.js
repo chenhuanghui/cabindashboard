@@ -171,6 +171,34 @@ export default class LayoutStaff extends React.Component {
                                 
                                 <hr className="my-5"></hr> {/* .divider */}
 
+                                <div className="row">
+                                    <div className="col-12 col-md-4">
+                                        <div className="form-group ">
+                                            <label>Mật khẩu mới</label>
+                                            <input type="text" className="form-control mb-3"/>
+                                        </div>                                            
+                                    </div>
+
+                                    <div className="col-12 col-md-4">
+                                        <div className="form-group ">
+                                            <label>Xác nhận mật khẩu mới</label>
+                                            <input type="text" className="form-control mb-3"/>
+                                        </div>                                            
+                                    </div>
+                                    <div className="col-12 col-md-4">
+                                        <div className="form-group ">
+                                            <label>Mật khẩu hiện tại</label>
+                                            <input type="text" className="form-control mb-3"/>
+                                        </div>                                            
+                                    </div>
+                                    <div className="col-auto">
+                                        <button className="btn btn-sm btn-primary">Đổi mật khẩu</button>
+                                    </div>
+                                </div>
+                                
+                                
+                                <hr className="my-5"></hr> {/* .divider */}
+
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">Thông báo</h4>
