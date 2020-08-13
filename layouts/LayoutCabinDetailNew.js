@@ -81,8 +81,9 @@ export default function LayoutCabinDetail () {
                 console.log('cabinRes: ', cabinRes)               
                 if (cabinRes && cabinRes.length > 0) {
                     setCabin(cabinRes[0])
+                    
                     // _GET STAFF LIST
-                    retrieveData({filterByFormula: `Brand = "${cookies.brandID}"`},'Brand_Staff')
+                    retrieveData({filterByFormula: `AND(Brand = "${cookies.brandID}", CabinID="${cabinID}")`},'Brand_Staff')
                     .then(brandStaffRes => {
                         console.log('staffRes: ', brandStaffRes)
                         setStaffList(brandStaffRes)}
