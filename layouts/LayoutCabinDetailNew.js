@@ -148,7 +148,7 @@ export default function LayoutCabinDetail () {
                         //load data to modal
                         $('#modalSellChannelEdit').attr('data',$(this).attr('data'))        
                         $('#channel-name').val($(this).find('.sellChannelName').text())     
-                        $('#channel-account').attr('data',($(this).find('.sellChannelAccount').text()))
+                        $('#channel-account').val($(this).find('.sellChannelAccount').text())
                         
                     });
 
