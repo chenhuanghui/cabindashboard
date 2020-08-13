@@ -14,6 +14,7 @@ import NavBar from '../components/nav/nav_bar';
 // OTHERS LIBS
 import $ from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { Line } from 'react-chartjs-2';
 const AirtablePlus = require('airtable-plus');  
 
 // ====================================
@@ -51,6 +52,8 @@ export default function LayoutCabinDetail () {
     const [cabin, setCabin] = useState(null);
     const [staffList, setStaffList] = useState([]);
     const [cabinID, setCabinID] = useState(null);
+    const [electricData, setElectricData] = useState(null);
+    const [chartOption, setChartOption] = useState(null);
     
 
     useEffect(() => {
@@ -89,8 +92,8 @@ export default function LayoutCabinDetail () {
                 }
             })
 
-            
-            
+            // SETUP DATA FOR ELECTRIC
+
         }             
 
     },[cabinID])
@@ -128,6 +131,25 @@ export default function LayoutCabinDetail () {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">Năng lượng tiêu thụ</h4>
+                                    <ul className="nav nav-tabs nav-tabs-sm card-header-tabs">
+                                        <li className="nav-item"><a className="nav-link active" href="#" data-toggle="tab">Điện</a></li>
+                                        <li className="nav-item"><a className="nav-link" href="#" data-toggle="tab">Nước</a></li>
+                                    </ul>
+                                </div>
+
+                                <div className="card-body">
+                                    <div className="chart">
+                                        <Line id="overviewChart" className="chart-canvas chartjs-render-monitor" data={electricData} options={chartOption} width={'687px'} height= {'300px'}/>
+                                    </div>
+                                </div>      
+                            </div> */}
+
+                            {/* <CartChart /> */}
+
 
                             <div className="card">
                                 <div className="card-body">
