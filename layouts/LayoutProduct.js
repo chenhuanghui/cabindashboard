@@ -107,8 +107,10 @@ export default class LayoutProduct extends React.Component {
         // _SHOW MODAL WHEN WAS CLICKED
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
-                $('#modalProductCreate').addClass('show');
-                $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
+                $('#modalProductCreate').addClass('show').finish(
+                    $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>')
+                )
+                
             }
             console.log('modal create opened');
         });

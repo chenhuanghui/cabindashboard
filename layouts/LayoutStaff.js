@@ -127,8 +127,11 @@ export default class LayoutStaff extends React.Component {
         // _SHOW modal StaffCreate
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
-                $('#modalStaffCreate').addClass('show');
-                $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
+                $('#modalStaffCreate').addClass('show').finish(
+                    // console.log('add class finish')
+                    $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>')
+                );
+                
                 resetInput('#modalStaffCreate')
 
                 console.log('open modal create staff.');
