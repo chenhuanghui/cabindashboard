@@ -127,11 +127,9 @@ export default class LayoutStaff extends React.Component {
         // _SHOW modal StaffCreate
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
-                $('#modalStaffCreate').addClass('show').finish(
-                    // console.log('add class finish')
-                    $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>')
-                );
-                
+                $('body').addClass('modal-open')
+                $('#modalStaffCreate').addClass('show')
+                $('.modal-backdrop').show()
                 resetInput('#modalStaffCreate')
 
                 console.log('open modal create staff.');
@@ -151,7 +149,7 @@ export default class LayoutStaff extends React.Component {
                 if ($(event.target).hasClass('modal')) {
                     $('#modalStaffCreate').removeClass('show')
                     $('body').removeClass('modal-open')
-                    $('.modal-backdrop').remove()
+                    $('.modal-backdrop').hide()
                     console.log('modal close finished')
                 }
             } 
@@ -224,7 +222,7 @@ export default class LayoutStaff extends React.Component {
             .finally( () => {
                 $('#modalStaffCreate').removeClass('show')
                 $('body').removeClass('modal-open')
-                $('.modal-backdrop').remove()
+                $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close finished')                    
             })

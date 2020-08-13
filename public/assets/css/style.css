@@ -1,6 +1,9 @@
 .modal.show {
     display: block;
 }
+.modal-backdrop {
+    display: none;
+}
 .rectangle{
     position: absolute;
 left: 0%;

@@ -86,7 +86,7 @@ export default class LayoutAssets extends React.Component {
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
                 $('#modalEquipment').addClass('show');
-                $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
+                $('.modal-backdrop').show()
             }
             console.log('modal opened');
         });
@@ -101,7 +101,7 @@ export default class LayoutAssets extends React.Component {
                 if ($(event.target).hasClass('modal')) {
                     $('#modalEquipment').removeClass('show')
                     $('body').removeClass('modal-open')
-                    $('.modal-backdrop').remove()
+                    $('.modal-backdrop').hide()
                     console.log('modal close finished')
                 }
             } 
@@ -145,7 +145,7 @@ export default class LayoutAssets extends React.Component {
             .finally( () => {
                 $('#modalEquipment').removeClass('show')
                 $('body').removeClass('modal-open')
-                $('.modal-backdrop').remove()
+                $('.modal-backdrop').hide()
                 console.log('modal close finished')
                 isAction = false;
             })
