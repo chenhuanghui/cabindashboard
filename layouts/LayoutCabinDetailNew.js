@@ -183,10 +183,10 @@ export default function LayoutCabinDetail () {
                                             <tr>
                                                 <th></th>
                                                 <th>NHÂN VIÊN</th>
+                                                <th>MÃ NHÂN VIÊN</th>
                                                 <th>TRẠNG THÁI</th>
                                                 <th>SỐ GIỜ</th>
                                                 <th>CHI NHÁNH</th>
-                                                <th>LƯƠNG</th>
                                             </tr>
                                         </thead>
                                         <tbody className="list">{/* table item */} 
@@ -199,26 +199,24 @@ export default function LayoutCabinDetail () {
                                                         }
                                                         
                                                     </td>        
-                                                    <td className="project-project">
-                                                        <h4 className="mb-1">{item.fields.staffName}</h4>
-                                                    </td>
+                                                    <td><h4 className="mb-1">{item.fields.staffName}</h4></td>
+                                                    <td><span className="mb-1">{item.fields.staffID}</span></td>
                                                     <td>
                                                         { item.fields.staffStatus && item.fields.staffStatus.length > 0 && item.fields.staffStatus[0] === true
                                                         ? <span className="badge badge-success">Đang làm việc</span>
                                                         : <span className="badge badge-danger">Nghỉ việc</span>
-                                                        }
-                                                        
+                                                        }                                                        
                                                     </td>
                                                     <td> <h4 className="mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
                                                     <td>                                            
                                                         <span className="mb-1">{item.fields.cabinName}</span>              
                                                     </td>
-                                                    <td className="text-right">
+                                                    {/* <td className="text-right">
                                                         { item.fields.staffSalary && item.fields.staffSalary.length > 0 
                                                         ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                                                         : ''
                                                         }                                                        
-                                                    </td>
+                                                    </td> */}
                                                 </tr>        
                                             ))}
                                         </tbody>
