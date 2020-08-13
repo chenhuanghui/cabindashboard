@@ -37,7 +37,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <div class="modal-backdrop fade show"></div>
+          <div className="modal-backdrop fade show"></div>
         </body>
       </Html>
     )

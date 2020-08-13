@@ -28,6 +28,7 @@
     "react-flatpickr": "^3.10.4",
     "react-router-dom": "^5.2.0",
     "react-select2": "^4.0.3",
-    "select2": "^4.0.13"
+    "select2": "^4.0.13",
+    "select2-react-component": "^5.10.2"
   }
 }

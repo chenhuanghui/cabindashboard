@@ -15,7 +15,6 @@ import NavBar from '../components/nav/nav_bar';
 import $ from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { Line } from 'react-chartjs-2';
-import Select from "react-dropdown-select"; 
 import Flatpickr from "react-flatpickr";
 const AirtablePlus = require('airtable-plus');  
 
@@ -47,7 +46,6 @@ async function updateData(rowID, data,tbName) {
     }
 }
 
-
 export default function LayoutCabinDetail () {
     const router = useRouter();
     const cookies = parseCookies();
@@ -57,9 +55,10 @@ export default function LayoutCabinDetail () {
     const [sellChannel, setSellChannel] = useState(null);
     const [electricData, setElectricData] = useState(null);
     const [chartOption, setChartOption] = useState(null);
+    const [selectStatusOptionData, setSelectStatusOptionData] = useState([{title:'Chưa kết nối',value:false},{title:'Đã kết nối',value:true}])
     
 
-    useEffect(() => {
+    useEffect(() => {        
         // if not user --> redirect to Sign In page
         if(!cookies.userID | !cookies.isLoggedIn | !cookies.brandID | !cookies.role) {
             destroyCookie(userID)
@@ -71,7 +70,8 @@ export default function LayoutCabinDetail () {
         
         // ===============================================
         setCabinID(router.query.id)
-        console.log('router: ',router.query.id)
+        console.log('router 1: ',router)
+        console.log('router id 1: ',router.query.id)
 
         // when docID was assigned successful retrieve data from Contenful
         if(cabinID === router.query.id) {
@@ -177,22 +177,42 @@ export default function LayoutCabinDetail () {
 
                         // add loading spinner icon
                         $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
+                        var channelStatus = !$('#channel-status:checked').val() ? false : true
+                        var estDateSelected = new Date().toDateString()
 
-                        var estDateSelected = new Date($('#est-date').attr('data')).toDateString()
-                        
-                        updateData($('#modalSellChannelEdit').attr('data'),{
-                            sellChannelAccount: $('#channel-account').attr('data'),
-                            estStart: estDateSelected,
-                            status: $(`#channel-status`).attr('data') !== '' ?  true : false                            
-                        },`SellChannel_Brand_Cabin`)
-                        .then(res => {console.log('res: ',res)})
-                        .finally( () => {
-                            $('#modalSellChannelEdit').removeClass('show')
-                            $('body').removeClass('modal-open')
-                            $('.modal-backdrop').hide()
-                            $('.spinner-grow').remove()
-                            console.log('modal close finished')
-                        })
+                        if ($('#est-date').attr('data') !== '') {
+                            estDateSelected = new Date($('#est-date').attr('data')).toDateString()
+                            console.log('date ', estDateSelected)
+                                                        
+                            updateData($('#modalSellChannelEdit').attr('data'),{
+                                sellChannelAccount: $('#channel-account').attr('data'),
+                                estStart: estDateSelected,
+                                status: channelStatus
+                            },`SellChannel_Brand_Cabin`)
+                            .then(res => {console.log('res: ',res)})
+                            .finally( () => {
+                                $('#modalSellChannelEdit').removeClass('show')
+                                $('body').removeClass('modal-open')
+                                $('.modal-backdrop').hide()
+                                $('.spinner-grow').remove()
+                                console.log('modal close finished')
+                            })
+                        } else {
+                            console.log('none date');
+                            updateData($('#modalSellChannelEdit').attr('data'),{
+                                sellChannelAccount: $('#channel-account').attr('data'),
+                                status: channelStatus
+                            },`SellChannel_Brand_Cabin`)
+                            .then(res => {console.log('res: ',res)})
+                            .finally( () => {
+                                $('#modalSellChannelEdit').removeClass('show')
+                                $('body').removeClass('modal-open')
+                                $('.modal-backdrop').hide()
+                                $('.spinner-grow').remove()
+                                console.log('modal close finished')
+                            })
+                        }
+
                     })
 
                 } else {
@@ -206,7 +226,6 @@ export default function LayoutCabinDetail () {
     return (
         <div>
             <Head>
-                {/* <script src="../assets/js/theme.min.js"></script> */}
                 <title> Cabin Detail | CabinFood Business</title>
             </Head>
 
@@ -237,25 +256,6 @@ export default function LayoutCabinDetail () {
                                 </div>
                             </div>
 
-                            {/* <div className="card">
-                                <div className="card-header">
-                                    <h4 className="card-header-title">Năng lượng tiêu thụ</h4>
-                                    <ul className="nav nav-tabs nav-tabs-sm card-header-tabs">
-                                        <li className="nav-item"><a className="nav-link active" href="#" data-toggle="tab">Điện</a></li>
-                                        <li className="nav-item"><a className="nav-link" href="#" data-toggle="tab">Nước</a></li>
-                                    </ul>
-                                </div>
-
-                                <div className="card-body">
-                                    <div className="chart">
-                                        <Line id="overviewChart" className="chart-canvas chartjs-render-monitor" data={electricData} options={chartOption} width={'687px'} height= {'300px'}/>
-                                    </div>
-                                </div>      
-                            </div> */}
-
-                            {/* <CartChart /> */}
-
-
                             <div className="card">
                                 <div className="card-body">
                                     <div className="row align-items-center">
@@ -280,7 +280,7 @@ export default function LayoutCabinDetail () {
                             <div className="card">
                                 <div className="card-header">
                                     <h4 className="card-header-title">Kênh bán hàng</h4>
-                                </div>{/* end card header */}
+                                </div>
                                 
                                 <div className="table-responsive mb-0">
                                     <table className="table table-sm table-nowrap card-table table-hover">
@@ -294,7 +294,7 @@ export default function LayoutCabinDetail () {
                                                 <th>CHI NHÁNH</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="list">{/* table item */} 
+                                        <tbody className="list">
                                             {sellChannel && sellChannel.length > 0 && sellChannel.map((item, index) => (
                                                 <tr key={index} className='item-row sell-channel-item' data={item.id}>
                                                     <td className="col-auto">
@@ -318,7 +318,7 @@ export default function LayoutCabinDetail () {
                             <div className="card">
                                 <div className="card-header">
                                     <h4 className="card-header-title">Danh sách nhân sự</h4>
-                                </div>{/* end card header */}
+                                </div>
                                 
                                 <div className="table-responsive mb-0">
                                     <table className="table table-sm table-nowrap card-table table-hover">
@@ -332,7 +332,7 @@ export default function LayoutCabinDetail () {
                                                 <th>CHI NHÁNH</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="list">{/* table item */} 
+                                        <tbody className="list">
                                             {staffList && staffList.length > 0 && staffList.map((item, index) => (
                                                 <tr key={index}>
                                                     <td className="col-auto">
@@ -353,16 +353,58 @@ export default function LayoutCabinDetail () {
                                                     <td>                                            
                                                         <span className="mb-1">{item.fields.cabinName}</span>              
                                                     </td>
-                                                    {/* <td className="text-right">
-                                                        { item.fields.staffSalary && item.fields.staffSalary.length > 0 
-                                                        ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-                                                        : ''
-                                                        }                                                        
-                                                    </td> */}
                                                 </tr>        
                                             ))}
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+
+                            <div className="modal fade fixed-right" id="modalSellChannelEdit" tabIndex="-1">
+                                <div className="modal-dialog modal-dialog-vertical">
+                                    <div className="modal-content">
+                                        <div className="modal-body">
+
+                                            <div className="header">
+                                                <div className="header-body">
+                                                    <h1 className="header-title">KÊNH BÁN HÀNG</h1>
+                                                    <p className='text-muted'>Cập nhật các thông tin liên quan đến KÊNH BÁN HÀNG của THƯƠNG HIỆU tại CABIN</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="my-n3">
+                                                <div className="form-group">
+                                                    <label>Tên kênh bán hàng</label>
+                                                    <input className="form-control" id='channel-name' data=''/>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Tài khoản</label>
+                                                    <input className="form-control" id='channel-account' data=''/>
+                                                </div>
+                                                
+                                                <div className="form-group">
+                                                    <label>Đã sẵn sàng hoạt động: </label>
+                                                    <input type="checkbox" className='ml-3' id='channel-status' data=''/>
+                                                </div>
+                                                
+                                                <div className="form-group">
+                                                    <label>Ngày dự kiến</label>
+                                                    <span className='hide required' data='' id='est-date'></span>
+                                                    <Flatpickr className="form-control" id='est-date' data=''
+                                                        onChange={date => {
+                                                            console.log('new date:', date)
+                                                            $('#est-date').attr('data',date)
+                                                        }}
+                                                    />
+                                                </div>
+                                               
+                                            </div>    
+
+                                            <hr className="my-5" />   
+                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="channel-update">Lưu</button>
+                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -371,67 +413,6 @@ export default function LayoutCabinDetail () {
                     </div>
                 </div>
             </div>
-            {/* MODAL UPDATE SELL_CHANNEL */}
-            <div className="modal fade fixed-right" id="modalSellChannelEdit" tabIndex="-1">
-                <div className="modal-dialog modal-dialog-vertical">
-                    <div className="modal-content">
-                        <div className="modal-body">
-
-                            <div className="header">
-                                <div className="header-body">
-                                    <h1 className="header-title">KÊNH BÁN HÀNG</h1>
-                                    <p className='text-muted'>Cập nhật các thông tin liên quan đến KÊNH BÁN HÀNG của THƯƠNG HIỆU tại CABIN</p>
-                                </div>
-                            </div>
-
-                            <div className="my-n3">
-                                <div className="form-group">
-                                    <label>Tên kênh bán hàng</label>
-                                    <input className="form-control" id='channel-name' data=''/>
-                                </div>
-                                <div className="form-group">
-                                    <label>Tài khoản</label>
-                                    <input className="form-control" id='channel-account' data=''/>
-                                </div>
-                                <div className="form-group">
-                                    <label>Trạng thái</label>
-                                    <span className='hide required' id='channel-status' data='' brand-cabin=''></span>
-                                    <Select
-                                        className='form-control' 
-                                        options={[{title:'Chưa kết nối',value:false},{title:'Đã kết nối',value:true}]} 
-                                        labelField= 'title'
-                                        valueField='value'
-                                        dropdownHandle='false'
-                                        searchable='false'
-                                        onChange={(valSelected) => {
-                                            console.log('cabin seleted: ',valSelected)
-                                            $('#channel-status').attr('data',valSelected[0].value)
-                                        }}
-                                        onDropdownOpen={()=>{
-                                            console.log('open dropdown')
-                                            $('.react-dropdown-select-dropdown').css({'width': '100%'})
-                                        }}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Ngày dự kiến</label>
-                                    <span className='hide required' data='' id='est-date'></span>
-                                    <Flatpickr className="form-control" id='est-date' data=''
-                                        onChange={date => {
-                                            console.log('new date:', date)
-                                            $('#est-date').attr('data',date)
-                                        }}
-                                    />
-                                </div>
-                                
-                            </div>                                            
-                            <hr className="my-5" />   
-                            <button className="btn btn-lg btn-block btn-primary mb-3" id="channel-update">Lưu</button>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>          
 
         </div>
     )
