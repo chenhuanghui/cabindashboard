@@ -52,6 +52,7 @@ export default function LayoutCabinDetail () {
     const [cabin, setCabin] = useState(null);
     const [staffList, setStaffList] = useState([]);
     const [cabinID, setCabinID] = useState(null);
+    const [sellChannel, setSellChannel] = useState(null);
     const [electricData, setElectricData] = useState(null);
     const [chartOption, setChartOption] = useState(null);
     
@@ -88,6 +89,41 @@ export default function LayoutCabinDetail () {
                         console.log('staffRes: ', brandStaffRes)
                         setStaffList(brandStaffRes)}
                     )
+
+                    // GET SELL CHANNEL INFORMATION OF CURRENT CABIN BY ROUTER CABINS/[ID]   
+                    // _ RETRIEVE ALL SELL CHANNEL
+                    retrieveData({},'SellChannel')
+                    .then(sellChannelRes => {
+                        console.log('sellChannelRes: ',sellChannelRes)
+                        
+                        // _ RETRIEVE BRAND_CABIN DATA
+                        retrieveData({filterByFormula: `AND(BrandID = "${cookies.brandID}", CabinRecID="${cabinID}")`},'Brand_Cabin')
+                        .then(brandCabinRes => {
+                            console.log('brandCabinRes: ', brandCabinRes)
+                            
+                            var sellChannelPromises = []
+                            for(var i=0; i<sellChannelRes.length; i++) {
+                                sellChannelPromises.push(
+                                    // _ ADD QUERY ALL DATA SELLCHANNEL_BRAND_CABIN
+                                    retrieveData({
+                                        filterByFormula: `AND(Brand_Cabin="${brandCabinRes[0].id}",SellChannel="${sellChannelRes[i].id}")`
+                                    },'SellChannel_Brand_Cabin')
+                                )
+                            }
+                            
+                            // _ RETRIEVE ALL DATA SELLCHANNEL_BRAND_CABIN
+                            Promise.all(sellChannelPromises)
+                            .then(result => {
+                                console.log(result);
+                                var temp = []
+                                for(var i=0; i<result.length; i++) {
+                                    temp.push(result[i][0])
+                                }
+                                setSellChannel(temp);
+                            })
+                        })
+                    })
+
                 } else {
                     console.log('dont have data')
                 }
@@ -185,39 +221,23 @@ export default function LayoutCabinDetail () {
                                                 <th></th>
                                                 <th>KÊNH</th>
                                                 <th>TRẠNG THÁI</th>
-                                                <th>NGÀY HOẠT ĐỘNG</th>
                                                 <th>TÀI KHOẢN</th>
                                                 <th>CHI NHÁNH</th>
                                             </tr>
                                         </thead>
                                         <tbody className="list">{/* table item */} 
-                                            {staffList && staffList.length > 0 && staffList.map((item, index) => (
+                                            {sellChannel && sellChannel.length > 0 && sellChannel.map((item, index) => (
                                                 <tr key={index}>
                                                     <td className="col-auto">
-                                                        { item.fields.staffPhoto && item.fields.staffPhoto.length > 0
-                                                        ? <div className="avatar avatar-xs"><img src={item.fields.staffPhoto[0].url} alt={item.fields.staffName} className="avatar-img rounded-circle"/></div>
+                                                        { item.fields.photo && item.fields.photo.length > 0
+                                                        ? <div className="avatar avatar-xs"><img src={item.fields.photo[0].url} alt={item.fields.sellChannelName} className="avatar-img rounded-circle"/></div>
                                                         : ''
                                                         }
-                                                        
-                                                    </td>        
-                                                    <td><h4 className="mb-1">{item.fields.staffName}</h4></td>
-                                                    <td><span className="mb-1">{item.fields.staffID}</span></td>
-                                                    <td>
-                                                        { item.fields.staffStatus && item.fields.staffStatus.length > 0 && item.fields.staffStatus[0] === true
-                                                        ? <span className="badge badge-success">Đang làm việc</span>
-                                                        : <span className="badge badge-danger">Nghỉ việc</span>
-                                                        }                                                        
                                                     </td>
-                                                    <td> <h4 className="mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
-                                                    <td>                                            
-                                                        <span className="mb-1">{item.fields.cabinName}</span>              
-                                                    </td>
-                                                    {/* <td className="text-right">
-                                                        { item.fields.staffSalary && item.fields.staffSalary.length > 0 
-                                                        ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-                                                        : ''
-                                                        }                                                        
-                                                    </td> */}
+                                                    <td><h4 className="mb-1">{item.fields.sellChannelName}</h4></td>
+                                                    <td><span className="mb-1">{ item.fields.value}</span></td>
+                                                    <td> <span className="mb-1">{item.fields.sellChannelAccount}</span></td>
+                                                    <td> <span className="mb-1">{item.fields.cabinName}</span></td>
                                                 </tr>        
                                             ))}
                                         </tbody>
@@ -250,7 +270,6 @@ export default function LayoutCabinDetail () {
                                                         ? <div className="avatar avatar-xs"><img src={item.fields.staffPhoto[0].url} alt={item.fields.staffName} className="avatar-img rounded-circle"/></div>
                                                         : ''
                                                         }
-                                                        
                                                     </td>        
                                                     <td><h4 className="mb-1">{item.fields.staffName}</h4></td>
                                                     <td><span className="mb-1">{item.fields.staffID}</span></td>
