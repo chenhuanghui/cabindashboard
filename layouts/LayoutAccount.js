@@ -4,6 +4,7 @@ import NavBar from '../components/nav/nav_bar';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
 import $, { data } from 'jquery'
+import Router from 'next/router';
 
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
@@ -25,6 +26,15 @@ async function createData(formular,tbName) {
     try {
       const readRes = await airtable.create(formular,{tableName:tbName});
       return readRes
+    } catch(e) {
+      console.error(e);
+    }
+}
+
+async function updateData(rowID, data,tbName) {
+    try {
+      const res = await airtable.update(rowID, data,{tableName:tbName});
+      return res
     } catch(e) {
       console.error(e);
     }
@@ -56,13 +66,50 @@ export default class LayoutStaff extends React.Component {
             filterByFormula: `ID = "${cookies.userID}"`,
         },'Account')
         .then(result => {
-            console.log('account:', result);
-            currentComponent.setState({data:result[0].fields})
+            console.log('account:', result[0]);
+            currentComponent.setState({data:result[0]})
         })
 
         // ===============================================
         // FRONT-END ENGAGEMENT        
-        
+        $('#update-password').click(function(){
+            console.log($('#new-password').val())
+            console.log($('#new-password-cfm').val())
+            console.log($('#current-password').val())
+
+            if($('#new-password').val() !== $('#new-password-cfm').val()){
+                $('#notice-pass-cfm').show()
+                $('#new-password').removeClass('is-valid')
+                $('#new-password-cfm').removeClass('is-valid')
+                $('#new-password').addClass('is-invalid')
+                $('#new-password-cfm').addClass('is-invalid')
+            } else {
+                $('#new-password').removeClass('is-invalid')
+                $('#new-password-cfm').removeClass('is-invalid')
+                $('#new-password').addClass('is-valid')
+                $('#new-password-cfm').addClass('is-valid')
+                $('#notice-pass-cfm').hide()
+
+                if( $('#current-password').val() === currentComponent.state.data.fields.password) {
+                    $('#notice-pass-current').hide()
+                    $('#success-update-notice').hide()
+
+                    console.log('true')
+                    updateData(currentComponent.state.data.id,{password:$('#new-password').val()},`Account`)
+                    .then(res=>{
+                        console.log('res: ', res)
+                        if(res) {
+                            $('#success-update-notice').show()
+                            $('#new-password').removeClass('is-valid')
+                            $('#new-password-cfm').removeClass('is-valid')
+                            Router.push('/')
+                        }
+                    })
+                } else {
+                    $('#notice-pass-current').show()
+                }
+            }
+        })
 
     }
 
@@ -122,14 +169,14 @@ export default class LayoutStaff extends React.Component {
                                         <div className="row align-items-center">
                                             <div className="col-auto">
                                                 <div className="avatar">
-                                                    {data && data.avatar
-                                                    ? <img className="avatar-img rounded-circle" src={data.avatar[0].url} alt={data.fullName}/>
+                                                    {data && data.fields && data.fields.avatar
+                                                    ? <img className="avatar-img rounded-circle" src={data.fields.avatar[0].url} alt={data.fields.fullName}/>
                                                     : <img className="avatar-img rounded-circle" src="assets/img/avatars/profiles/avatar-1.jpg"/>
                                                     }
                                                 </div>
                                             </div>
                                             <div className="col ml-n2">
-                                                <h4 className="mb-1">{ data.fullName}</h4>
+                                                <h4 className="mb-1">{data && data.fields &&  data.fields.fullName}</h4>
                                                 <small className="text-muted">PNG or JPG no bigger than 1000px wide and tall.</small>
                                             </div>
                                         </div>
@@ -145,26 +192,26 @@ export default class LayoutStaff extends React.Component {
                                     <div className="col-12 col-md-6">
                                         <div className="form-group">
                                             <label>Họ và tên</label>
-                                            <input type="text" className="form-control" value={data.fullName}/>
+                                            <input type="text" className="form-control" value={data && data.fields && data.fields.fullName}/>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="form-group">
                                             <label>Email</label>
-                                            <input type="email" className="form-control" value={data.email}/>
+                                            <input type="email" className="form-control" value={data && data.fields && data.fields.email}/>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="form-group">
                                             <label>Phone</label>
-                                            <input type="text" className="form-control mb-3" value={data.tel}/>
+                                            <input type="text" className="form-control mb-3" value={data && data.fields && data.fields.tel}/>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="form-group">
                                             <label>Birthday</label>
                                             {/* <input type="text" className="form-control flatpickr-input" data-toggle="flatpickr" readonly="readonly"/> */}
-                                            <input type="text" className="form-control mb-3" value={data.DOB}/>
+                                            <input type="text" className="form-control mb-3" value={data && data.fields && data.fields.DOB}/>
                                         </div>
                                     </div>
                                 </div>
@@ -175,24 +222,30 @@ export default class LayoutStaff extends React.Component {
                                     <div className="col-12 col-md-4">
                                         <div className="form-group ">
                                             <label>Mật khẩu mới</label>
-                                            <input type="text" className="form-control mb-3"/>
+                                            {/* <input type="text" className="form-control mb-3"/> */}
+                                            <input type="password" className="form-control form-control-appended required" placeholder="Enter your password" id='new-password'/>
                                         </div>                                            
                                     </div>
 
                                     <div className="col-12 col-md-4">
                                         <div className="form-group ">
                                             <label>Xác nhận mật khẩu mới</label>
-                                            <input type="text" className="form-control mb-3"/>
+                                            {/* <input type="text" className="form-control mb-3"/> */}
+                                            <input type="password" className="form-control form-control-appended required" placeholder="Enter your password" id='new-password-cfm'/>
+                                            {/* <p className='hide alert alert-danger alert-dismissible' id='notice-pass-cfm'></p> */}
+                                            <div className="invalid-feedback" id='notice-pass-cfm'>Mật khẩu mới không trùng khớp.</div>
                                         </div>                                            
                                     </div>
                                     <div className="col-12 col-md-4">
                                         <div className="form-group ">
-                                            <label>Mật khẩu hiện tại</label>
-                                            <input type="text" className="form-control mb-3"/>
+                                            <label>Mật khẩu hiện tại</label>                                            
+                                            <input type="password" className="form-control form-control-appended required" placeholder="Enter your password" id='current-password'/>
+                                            <div className="invalid-feedback" id='notice-pass-current'>Mật khẩu không đúng.</div>
                                         </div>                                            
                                     </div>
                                     <div className="col-auto">
-                                        <button className="btn btn-sm btn-primary">Đổi mật khẩu</button>
+                                        <button className="btn btn-sm btn-primary" id='update-password'>Đổi mật khẩu</button>
+                                        <div className="valid-feedback" id='success-update-notice'>Đã cập nhật thành công!</div>
                                     </div>
                                 </div>
                                 
@@ -217,27 +270,27 @@ export default class LayoutStaff extends React.Component {
                                             <tbody className="list">{/* table item */} 
                                                 <tr>
                                                     <td><h4 className='font-weight-normal'>Thông báo từ hệ thống</h4></td>        
-                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                    <td><input id='call' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='email' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='sms' type="checkbox" defaultChecked readOnly/></td>
                                                 </tr>        
                                                 <tr>
                                                     <td><h4 className='font-weight-normal'>Thông báo đơn hàng</h4></td>        
-                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                    <td><input id='call' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='email' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='sms' type="checkbox" defaultChecked readOnly/></td>
                                                 </tr>        
                                                 <tr>
                                                     <td><h4 className='font-weight-normal'>Thông báo từ cửa hàng</h4></td>        
-                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                    <td><input id='call' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='email' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='sms' type="checkbox" defaultChecked readOnly/></td>
                                                 </tr>   
                                                 <tr>
                                                     <td><h4 className='font-weight-normal'>Tư vấn 24/7</h4></td>        
-                                                    <td><input id='call' type="checkbox" checked/></td>
-                                                    <td><input id='email' type="checkbox" checked/></td>
-                                                    <td><input id='sms' type="checkbox" checked/></td>
+                                                    <td><input id='call' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='email' type="checkbox" defaultChecked readOnly/></td>
+                                                    <td><input id='sms' type="checkbox" defaultChecked readOnly/></td>
                                                 </tr>             
                                             </tbody>
                                         </table>
