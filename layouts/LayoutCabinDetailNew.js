@@ -192,8 +192,8 @@ export default function LayoutCabinDetail () {
                                 <div className="card-body">
                                     <div className="row align-items-center">
                                         <div className="col-auto">
-                                            <a href="profile-posts.html" className="avatar avatar-lg">
-                                                <img src="/assets/img/avatars/profiles/avatar-1.jpg" alt="..." className="avatar-img rounded-circle"/>
+                                            <a href="#" className="avatar avatar-lg">
+                                                <img src={cabin && cabin.fields.storefrontPhoto && cabin.fields.storefrontPhoto[0].url} alt="..." className="avatar-img rounded-circle"/>
                                             </a>
                                         </div>
                                         
