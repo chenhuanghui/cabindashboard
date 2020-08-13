@@ -15,6 +15,8 @@ import NavBar from '../components/nav/nav_bar';
 import $ from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { Line } from 'react-chartjs-2';
+import Select from "react-dropdown-select"; 
+import Flatpickr from "react-flatpickr";
 const AirtablePlus = require('airtable-plus');  
 
 // ====================================
@@ -124,13 +126,74 @@ export default function LayoutCabinDetail () {
                         })
                     })
 
+                    // FRONTEND ACTION
+                    // _AUTO SYNC INPUT, TEXTAREA VAL TO DATA PROPERTY
+                    $('input, textarea').keyup(function(event) {
+                        // skip for arrow keys
+                        if(event.which >= 37 && event.which <= 40) return;
+                        $(this).attr('data',$(this).val())
+                    });
+
+                    // _ SHOW MODAL EDIT WHEN CLICK ITEM-ROW
+                    $(document).on('click', `.item-row` , function() {
+                        console.log()
+            
+                        // show modal
+                        if (!$('body').hasClass('modal-open')) {
+                            $('#modalSellChannelEdit').addClass('show');
+                            $('.modal-backdrop').show()
+                        }
+            
+                        //load data to modal
+                        $('#modalSellChannelEdit').attr('data',$(this).attr('data'))        
+                        $('#channel-name').val($(this).find('.sellChannelName').text())     
+                        $('#channel-account').attr('data',($(this).find('.sellChannelAccount').text()))
+                        
+                    });
+
+                    // _HIDE MODAL EDIT WHEN CLICK OUTIDE
+                    $(document).on('click', function() {
+                        if ( 
+                            $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
+                            &&
+                            $('.modal-body').is(event.target) //checks if the modal itself was clicked
+                        ){ console.log('clicked inside');} 
+                        else {
+                            if ($(event.target).hasClass('modal')) {
+                                $('#modalSellChannelEdit').removeClass('show')
+                                $('body').removeClass('modal-open')
+                                $('.modal-backdrop').hide()
+                                console.log('modal close finished')
+                            }
+                        } 
+                    });
+
+                    // _UPDATE CHANNEL INFORMATION
+                    $(document).on('click', `#channel-update`,function() {
+                        // add loading spinner icon
+                        $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
+
+                        var estDateSelected = new Date($('#est-date').attr('data')).toDateString()
+                        
+                        updateData($('#modalSellChannelEdit').attr('data'),{
+                            sellChannelAccount: $('#channel-account').attr('data'),
+                            estStart: estDateSelected,
+                            status: $(`#channel-status`).attr('data') !== '' ?  true : false                            
+                        },`SellChannel_Brand_Cabin`)
+                        .then(res => {console.log('res: ',res)})
+                        .finally( () => {
+                            $('#modalSellChannelEdit').removeClass('show')
+                            $('body').removeClass('modal-open')
+                            $('.modal-backdrop').hide()
+                            $('.spinner-grow').remove()
+                            console.log('modal close finished')
+                        })
+                    })
+
                 } else {
                     console.log('dont have data')
                 }
             })
-
-            // SETUP DATA FOR ELECTRIC
-
         }             
 
     },[cabinID])
@@ -221,23 +284,25 @@ export default function LayoutCabinDetail () {
                                                 <th></th>
                                                 <th>KÊNH</th>
                                                 <th>TRẠNG THÁI</th>
+                                                <th>NGÀY HOẠT ĐỘNG</th>
                                                 <th>TÀI KHOẢN</th>
                                                 <th>CHI NHÁNH</th>
                                             </tr>
                                         </thead>
                                         <tbody className="list">{/* table item */} 
                                             {sellChannel && sellChannel.length > 0 && sellChannel.map((item, index) => (
-                                                <tr key={index}>
+                                                <tr key={index} className='item-row sell-channel-item' data={item.id}>
                                                     <td className="col-auto">
                                                         { item.fields.photo && item.fields.photo.length > 0
                                                         ? <div className="avatar avatar-xs"><img src={item.fields.photo[0].url} alt={item.fields.sellChannelName} className="avatar-img rounded-circle"/></div>
                                                         : ''
                                                         }
                                                     </td>
-                                                    <td><h4 className="mb-1">{item.fields.sellChannelName}</h4></td>
-                                                    <td><span className="mb-1">{ item.fields.value}</span></td>
-                                                    <td> <span className="mb-1">{item.fields.sellChannelAccount}</span></td>
-                                                    <td> <span className="mb-1">{item.fields.cabinName}</span></td>
+                                                    <td><h4 className="mb-1 sellChannelName">{item.fields.sellChannelName}</h4></td>
+                                                    <td><span className="mb-1 sellChannelValue">{ item.fields.value}</span></td>
+                                                    <td><span className="mb-1 sellChannelValue">{ new Date(item.fields.estStart).toDateString()}</span></td>
+                                                    <td> <span className="mb-1 sellChannelAccount">{item.fields.sellChannelAccount}</span></td>
+                                                    <td> <span className="mb-1 sellChannelCabinName">{item.fields.cabinName}</span></td>
                                                 </tr>        
                                             ))}
                                         </tbody>
@@ -301,6 +366,68 @@ export default function LayoutCabinDetail () {
                     </div>
                 </div>
             </div>
+            {/* MODAL UPDATE SELL_CHANNEL */}
+            <div className="modal fade fixed-right" id="modalSellChannelEdit" tabIndex="-1">
+                <div className="modal-dialog modal-dialog-vertical">
+                    <div className="modal-content">
+                        <div className="modal-body">
+
+                            <div className="header">
+                                <div className="header-body">
+                                    <h1 className="header-title">KÊNH BÁN HÀNG</h1>
+                                    <p className='text-muted'>Cập nhật các thông tin liên quan đến KÊNH BÁN HÀNG của THƯƠNG HIỆU tại CABIN</p>
+                                </div>
+                            </div>
+
+                            <div className="my-n3">
+                                <div className="form-group">
+                                    <label>Tên kênh bán hàng</label>
+                                    <input className="form-control" id='channel-name' data=''/>
+                                </div>
+                                <div className="form-group">
+                                    <label>Tài khoản</label>
+                                    <input className="form-control" id='channel-account' data=''/>
+                                </div>
+                                <div className="form-group">
+                                    <label>Trạng thái</label>
+                                    <span className='hide required' id='channel-status' data='' brand-cabin=''></span>
+                                    <Select
+                                        className='form-control' 
+                                        options={[{title:'Chưa kết nối',value:false},{title:'Đã kết nối',value:true}]} 
+                                        labelField= 'title'
+                                        valueField='value'
+                                        dropdownHandle='false'
+                                        searchable='false'
+                                        onChange={(valSelected) => {
+                                            console.log('cabin seleted: ',valSelected)
+                                            $('#channel-status').attr('data',valSelected[0].value)
+                                        }}
+                                        onDropdownOpen={()=>{
+                                            console.log('open dropdown')
+                                            $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Ngày dự kiến</label>
+                                    <span className='hide required' data='' id='est-date'></span>
+                                    <Flatpickr className="form-control" id='est-date' data=''
+                                        onChange={date => {
+                                            console.log('new date:', date)
+                                            $('#est-date').attr('data',date)
+                                        }}
+                                    />
+                                </div>
+                                
+                            </div>                                            
+                            <hr className="my-5" />   
+                            <button className="btn btn-lg btn-block btn-primary mb-3" id="channel-update">Lưu</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>          
+
         </div>
     )
 

@@ -377,7 +377,7 @@ export default class LayoutStaff extends React.Component {
                                                 <div className="form-group">
                                                     <label>Cabin làm việc</label>
                                                     <span className='hide required' id='cabin-assigned' data='' brand-cabin=''></span>
-                                                    <Select 
+                                                    <Select
                                                         className='form-control' 
                                                         options={cabinOptionsData} 
                                                         labelField= 'cabinName'
