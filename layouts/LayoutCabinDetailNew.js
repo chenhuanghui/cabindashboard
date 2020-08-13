@@ -136,7 +136,8 @@ export default function LayoutCabinDetail () {
 
                     // _ SHOW MODAL EDIT WHEN CLICK ITEM-ROW
                     $(document).on('click', `.item-row` , function() {
-                        console.log()
+                        // IF NOT ADMIN OR SUPPER ADMIN NOT ALLOW TO UPDATE INFORMATION
+                        if(cookies.role > 2) return;
             
                         // show modal
                         if (!$('body').hasClass('modal-open')) {
@@ -170,6 +171,10 @@ export default function LayoutCabinDetail () {
 
                     // _UPDATE CHANNEL INFORMATION
                     $(document).on('click', `#channel-update`,function() {
+
+                        // IF NOT ADMIN OR SUPPER ADMIN NOT ALLOW TO UPDATE INFORMATION
+                        if(cookies.role > 2) return;
+
                         // add loading spinner icon
                         $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
 
