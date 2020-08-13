@@ -172,7 +172,7 @@ export default class LayoutStaff extends React.Component {
             // 1. CREATE STAFF ON DATABASE
             createData({
                 name: $('#staff-name').attr('data'),
-                salary: parseInt($('#staff-salary').attr('data').replace(/,/g,'')),
+                // salary: parseInt($('#staff-salary').attr('data').replace(/,/g,'')),
                 personalID : $('#staff-personal-id').attr('data'),
                 DOB: $('#DOB-data').attr('data'),
                 idPhotoFront:[{url: $('#staff-id-front').attr('data')}],
@@ -297,7 +297,6 @@ export default class LayoutStaff extends React.Component {
                                                 <th>TRẠNG THÁI</th>
                                                 <th>SỐ GIỜ</th>
                                                 <th>CHI NHÁNH</th>
-                                                <th>LƯƠNG</th>
                                             </tr>
                                         </thead>
                                         <tbody className="list">{/* table item */} 
@@ -327,12 +326,12 @@ export default class LayoutStaff extends React.Component {
                                                     <td>                                            
                                                         <span className="mb-1">{item.fields.cabinName}</span>              
                                                     </td>
-                                                    <td className="text-right">
+                                                    {/* <td className="text-right">
                                                         { item.fields.staffSalary && item.fields.staffSalary.length > 0 
                                                         ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                                                         : ''
                                                         }                                                        
-                                                    </td>
+                                                    </td> */}
                                                 </tr>        
                                             ))}
                                         </tbody>
@@ -369,10 +368,10 @@ export default class LayoutStaff extends React.Component {
                                                     />
                                                 </div>
 
-                                                <div className="form-group">
+                                                {/* <div className="form-group">
                                                     <label htmlFor="exampleInputEmail1">Mức lương</label>
                                                     <input className="form-control input-number required" id='staff-salary' data=''/>
-                                                </div>
+                                                </div> */}
 
                                                 <div className="form-group">
                                                     <label>Cabin làm việc</label>
