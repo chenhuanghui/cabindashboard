@@ -120,7 +120,7 @@ export default class LayoutProduct extends React.Component {
             // show modal
             if (!$('body').hasClass('modal-open')) {
                 $('#modalProductEdit').addClass('show');
-                $('body').addClass('modal-open').append('<div class="modal-backdrop fade show"></div>');
+                $('.modal-backdrop').show()
             }
 
             //load data to modal

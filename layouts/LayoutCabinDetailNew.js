@@ -172,6 +172,58 @@ export default function LayoutCabinDetail () {
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">Kênh bán hàng</h4>
+                                </div>{/* end card header */}
+                                
+                                <div className="table-responsive mb-0">
+                                    <table className="table table-sm table-nowrap card-table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>KÊNH</th>
+                                                <th>TRẠNG THÁI</th>
+                                                <th>NGÀY HOẠT ĐỘNG</th>
+                                                <th>TÀI KHOẢN</th>
+                                                <th>CHI NHÁNH</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="list">{/* table item */} 
+                                            {staffList && staffList.length > 0 && staffList.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td className="col-auto">
+                                                        { item.fields.staffPhoto && item.fields.staffPhoto.length > 0
+                                                        ? <div className="avatar avatar-xs"><img src={item.fields.staffPhoto[0].url} alt={item.fields.staffName} className="avatar-img rounded-circle"/></div>
+                                                        : ''
+                                                        }
+                                                        
+                                                    </td>        
+                                                    <td><h4 className="mb-1">{item.fields.staffName}</h4></td>
+                                                    <td><span className="mb-1">{item.fields.staffID}</span></td>
+                                                    <td>
+                                                        { item.fields.staffStatus && item.fields.staffStatus.length > 0 && item.fields.staffStatus[0] === true
+                                                        ? <span className="badge badge-success">Đang làm việc</span>
+                                                        : <span className="badge badge-danger">Nghỉ việc</span>
+                                                        }                                                        
+                                                    </td>
+                                                    <td> <h4 className="mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
+                                                    <td>                                            
+                                                        <span className="mb-1">{item.fields.cabinName}</span>              
+                                                    </td>
+                                                    {/* <td className="text-right">
+                                                        { item.fields.staffSalary && item.fields.staffSalary.length > 0 
+                                                        ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                                        : ''
+                                                        }                                                        
+                                                    </td> */}
+                                                </tr>        
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                             <div className="card">
                                 <div className="card-header">
