@@ -344,7 +344,7 @@ export default function Dashboard () {
                           <tr key={index}> 
                             <td className="project-project">
                               <h4 className="font-weight-normal mb-1">
-                                <Link href='#'>
+                                <Link href='/cabins/[id]' as={`/cabins/${item.cabinRecID}`}>
                                   <a>{item.cabinName}</a>
                                 </Link>                                
                               </h4>
