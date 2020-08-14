@@ -13,7 +13,6 @@ import NavBar from '../components/nav/nav_bar';
 import $, { data } from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import loadable from '@loadable/component';
-
 import Select from "react-dropdown-select"; 
 // ====================================
 // INIT GLOBAL VARIABLES

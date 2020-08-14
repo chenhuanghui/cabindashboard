@@ -3,6 +3,7 @@
 import React from 'react';
 import Head from 'next/head'
 import Link from 'next/link';
+import Router from 'next/router';
 
 // ====================================
 // COMPONENTS
@@ -13,7 +14,7 @@ import NavBar from '../components/nav/nav_bar';
 import $, { data } from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import loadable from '@loadable/component';
-import Router from 'next/router';
+import Select from "react-dropdown-select"; 
 
 // ====================================
 // INIT GLOBAL VARIABLES
@@ -52,6 +53,26 @@ async function updateData(rowID, data,tbName) {
     } catch(e) {
       console.error(e);
     }
+}
+
+function checkValid(paneID) {
+    console.log('check valid inputs')
+    var isValid = true
+    $(paneID+ ' .required').each(function(index){
+        if ($(this).hasClass('required') && ($(this).attr('data') === '' | $(this).attr('data') === undefined)) {
+            $(this).removeClass('is-valid')
+            $(this).addClass('is-invalid')            
+            console.log(index + ": invalid" )
+            isValid = false
+            return;
+        } else {
+            console.log(index + ": valid " + $(this).attr('data'))
+            $(this).removeClass('is-invalid')
+            $(this).addClass('is-valid')   
+        }
+    })
+    console.log('checked status:', isValid)
+    return isValid;
 }
 
 // ====================================
@@ -124,6 +145,70 @@ export default class LayoutConfig extends React.Component {
 
         // ===============================================
         // FRONT-END ENGAGEMENT
+
+        $('input, textarea').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+            $(this).attr('data',$(this).val())
+        });
+
+        $(document).on('click', `.btn-modal` , function() {
+            if (!$('body').hasClass('modal-open')) {
+                $('body').addClass('modal-open')
+                $('#modalCreateOnboarding').addClass('show')
+                $('.modal-backdrop').show()
+                console.log('open modal onboarding.');
+                console.log(`collection_name: `, $(this).attr('collection-name'))
+                
+                $(`#onboarding-collection`).val($(this).attr('collection-name'))
+                $(`#onboarding-collection`).attr(`data`,$(this).attr('collection'))
+
+
+            } else console.log('modal was opened before.');
+        });
+
+        $(document).on('click', function() {
+            if ( 
+                $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
+                &&
+                $('.modal-body').is(event.target) //checks if the modal itself was clicked
+            ){ console.log('clicked inside');} 
+            else {
+                if ($(event.target).hasClass('modal')) {
+                    $('#modalCreateOnboarding').removeClass('show')
+                    $('body').removeClass('modal-open')
+                    $('.modal-backdrop').hide()
+                    $('.spinner-grow').remove()
+                    console.log('modal close finished')
+                }
+            } 
+        });
+        $(document).on('click',`#create-action`, function() {
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+            if(!checkValid(`#modalCreateOnboarding`)) {
+                $('.spinner-grow').remove()
+                return;
+            }
+
+            createData({
+                title: $(`#onboarding-name`).attr('data'),
+                collection: $(`#onboarding-collection`).attr(`data`),
+                type: $(`#onboarding-type-selected`).attr(`data`),
+                valueAction: $(`#onboarding-valueAction`).attr(`data`),
+                orderInCollection: parseInt($(`#onboarding-order`).attr(`data`))
+            },`OnBoarding`)
+            .then(res=> {
+                console.log(`res: `, res)
+            })
+            .finally(()=> {
+                $('#modalCreateOnboarding').removeClass('show')
+                $('body').removeClass('modal-open')
+                $('.modal-backdrop').hide()
+                $('.spinner-grow').remove()
+                console.log('modal close finished')
+                location.reload()
+            })
+        })
        
 
     }
@@ -173,9 +258,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name}</h4>
-                                        <Link href='/brands/create'>
-                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
-                                        </Link>
+                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' collection={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection.toString()} collection-name={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -190,7 +273,7 @@ export default class LayoutConfig extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList1 && onboardingList1.map((item, index) => (
-                                                    <tr key={index}>
+                                                    <tr key={index} className='group1-item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
@@ -206,9 +289,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection_name}</h4>
-                                        <Link href='/brands/create'>
-                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
-                                        </Link>
+                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' data={onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -223,7 +304,7 @@ export default class LayoutConfig extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList2 && onboardingList2.map((item, index) => (
-                                                    <tr key={index}>
+                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
@@ -239,9 +320,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection_name}</h4>
-                                        <Link href='/brands/create'>
-                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
-                                        </Link>
+                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' data={onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -256,7 +335,7 @@ export default class LayoutConfig extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList3 && onboardingList3.map((item, index) => (
-                                                    <tr key={index}>
+                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
@@ -272,9 +351,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection_name}</h4>
-                                        <Link href='/brands/create'>
-                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
-                                        </Link>
+                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' data={onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -289,7 +366,7 @@ export default class LayoutConfig extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList4 && onboardingList4.map((item, index) => (
-                                                    <tr key={index}>
+                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
@@ -299,8 +376,107 @@ export default class LayoutConfig extends React.Component {
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>                                               
+                                </div>      
+
+                                {/*  MODAL CREATE ONBOARDING */}
+                                <div className="modal fade fixed-right" id="modalCreateDocument" tabIndex="-1">
+                                    <div className="modal-dialog modal-dialog-vertical">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
+
+                                                <div className="header">
+                                                    <div className="header-body">
+                                                        <h1 className="header-title">Thêm hạng mục hội nhập</h1>
+                                                        {/* <p className='text-muted'>Cung cấp các thông tin về nhân sự, để giúp việc quản lý được thực hiện tốt hơn</p> */}
+                                                    </div>
+                                                </div>
+
+                                                <div className="my-n3">
+                                                    <div className="form-group">
+                                                        <label>Tên tài liệu</label>
+                                                        <input className="form-control required" id='doc-name' data=''/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>ContenfulID</label>
+                                                        <input className="form-control required" id='contenful-ID' data=''/>                                  
+                                                    </div>
+                                                </div>
+                                                <hr className="my-5" />   
+                                                <button className="btn btn-lg btn-block btn-primary mb-3" id="create-action">Lưu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                         
                                 
+                                {/*  MODAL CREATE ONBOARDING */}
+                                <div className="modal fade fixed-right" id="modalCreateOnboarding" tabIndex="-1">
+                                    <div className="modal-dialog modal-dialog-vertical">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
+
+                                                <div className="header">
+                                                    <div className="header-body">
+                                                        <h1 className="header-title">Thêm hạng mục hội nhập</h1>
+                                                        {/* <p className='text-muted'>Cung cấp các thông tin về nhân sự, để giúp việc quản lý được thực hiện tốt hơn</p> */}
+                                                    </div>
+                                                </div>
+
+                                                <div className="my-n3" id='onboarding-setup'>
+                                                    <div className="form-group">
+                                                        <label>Tiêu đề: </label>
+                                                        <input className="form-control required" id='onboarding-name' data=''/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>Thứ tự: </label>
+                                                        <input className="form-control required" id='onboarding-order' data=''/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>Loại: </label>
+                                                        <span className='hide required' id='onboarding-type-selected' data=''></span>
+                                                        <Select
+                                                            className='form-control' 
+                                                            options={[{title:'Tự động hoàn thành',ID:1},{title:'Xác nhận', ID: 2}]} 
+                                                            labelField= 'title'
+                                                            valueField='ID'
+                                                            dropdownHandle='false'
+                                                            searchable='false'
+                                                            onChange={(valSelected) => {
+                                                                console.log('seleted: ',valSelected)
+                                                                $('#onboarding-type-selected').attr('data',valSelected[0].ID)
+
+                                                                if (valSelected[0].ID === 2) {
+                                                                    $(`#form-value-action`).hide()
+                                                                } else {
+                                                                    $(`#form-value-action`).show()
+                                                                }
+
+                                                            }}
+                                                            onDropdownOpen={()=>{
+                                                                console.log('open dropdown')
+                                                                $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                            }}
+                                                            />   
+                                                    </div>
+
+                                                    <div className="form-group" id='form-value-action'>
+                                                        <label>Di chuyển đến đường link: </label>
+                                                        <input className="form-control required" id='onboarding-valueAction' data='-'/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>Nhóm: </label>
+                                                        <input className="form-control required" id='onboarding-collection' data='' readOnly/>
+                                                    </div>
+                                                </div>
+                                                <hr className="my-5" />   
+                                                <button className="btn btn-lg btn-block btn-primary mb-3" id="create-action">Lưu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
