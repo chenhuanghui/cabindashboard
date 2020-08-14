@@ -374,7 +374,7 @@ export default function LayoutCabinDetail () {
 
                                             <div className="my-n3">
                                                 <div className="form-group">
-                                                    <label>Tên kênh bán hàng</label>
+                                                    <label>Kênh bán hàng</label>
                                                     <input className="form-control" id='channel-name' data=''/>
                                                 </div>
                                                 <div className="form-group">

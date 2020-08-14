@@ -13,6 +13,7 @@ import NavBar from '../components/nav/nav_bar';
 import $, { data } from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import loadable from '@loadable/component';
+import Router from 'next/router';
 
 // ====================================
 // INIT GLOBAL VARIABLES
@@ -39,6 +40,15 @@ async function createData(formular,tbName) {
     try {
       const readRes = await airtable.create(formular,{tableName:tbName});
       return readRes
+    } catch(e) {
+      console.error(e);
+    }
+}
+
+async function updateData(rowID, data,tbName) {
+    try {
+      const res = await airtable.update(rowID, data,{tableName:tbName});
+      return res
     } catch(e) {
       console.error(e);
     }
@@ -125,12 +135,20 @@ export default class LayoutProduct extends React.Component {
 
             //load data to modal
             $('#modalProductEdit').attr('data',$(this).attr('data'))            // record product id
+            $('#modalProductEdit').attr('item-index',$(this).attr('item-index'))            // record product id
+            
+            
             $('#product-name-edit').val($(this).find('.item-name').text())      // product name
             $('#product-name-edit').attr('data',($(this).find('.item-name').text()))      // product name
+            
             $('#product-desc-edit').val($(this).find('.item-desc').text())      // product desc
             $('#product-desc-edit').attr('data',$(this).find('.item-desc').text())      // product desc
-            $('#product-price-edit').val($(this).find('.item-price').text())    // product price
-            $('#product-price-edit').attr('data',$(this).find('.item-price').text())    // product price
+            
+            $('#product-price-edit').val($(this).find('.item-price').attr('data').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))    // product price
+            $('#product-price-edit').attr('data',$(this).find('.item-price').attr('data'))    // product price
+
+            // if( $(`.item-status`).attr(data) === `true`) $('#product-status-edit').prop('checked', true)
+            if ($(this).find('.item-status').attr('data') === `true`) $('#product-status-edit').prop('checked', true)
             
         });
         
@@ -147,6 +165,7 @@ export default class LayoutProduct extends React.Component {
                     $('#modalProductEdit').removeClass('show')
                     $('body').removeClass('modal-open')
                     $('.modal-backdrop').hide()
+                    $('.spinner-grow').remove()
                     console.log('modal close finished')
                 }
             } 
@@ -181,6 +200,7 @@ export default class LayoutProduct extends React.Component {
                         Product: [result.id]
                     },'Brand_Product')
                     .then(brandProductRes => {
+                        console.log(`brand product data:`, brandProductRes)
                         // _UPDATE STATE
                         var temp = currentComponent.state.data
                         temp.push(brandProductRes)
@@ -206,7 +226,38 @@ export default class LayoutProduct extends React.Component {
                 $('.spinner-grow').remove();
                 return;
             }
-            $('#modalProductEdit').removeClass('show')
+
+            var productStatusUpdate = !$('#product-status-edit:checked').val() ? false : true
+            console.log('status: ', productStatusUpdate)
+
+            console.log('product price 1: ', $('#product-price-edit').attr('data'));
+            console.log('product price 2: ', parseInt($('#product-price-edit').attr('data')));
+
+            updateData($('#modalProductEdit').attr('data'), {
+                name: $('#product-name-edit').attr('data'),
+                desc: $('#product-desc-edit').attr('data'),
+                price4Sell: parseInt($('#product-price-edit').attr('data')),
+                status: productStatusUpdate
+            },`Product`)
+            .then( res=> {
+                console.log('res product update: ', res)
+                var temp = currentComponent.state.data
+                console.log('asfdasdf: ',temp[$(`#modalProductEdit`).attr(`item-index`)])
+                temp[$(`#modalProductEdit`).attr(`item-index`)][`productName`] = res.fields.name
+                temp[$(`#modalProductEdit`).attr(`item-index`)][`productDesc`] = res.fields.desc
+                temp[$(`#modalProductEdit`).attr(`item-index`)][`productPrice4Sell`] = res.fields.price4Sell
+                temp[$(`#modalProductEdit`).attr(`item-index`)][`productStatus`] = res.fields.status
+
+                currentComponent.setState({data:temp})
+                console.log('new update: ',temp)
+            })
+            .finally(() => {
+                $('#modalProductEdit').removeClass('show')
+                $('body').removeClass('modal-open')
+                $('.modal-backdrop').hide()
+                $('.spinner-grow').remove()
+                console.log('modal close update finished')
+            })
         })
         
         // AUTO INSERT COMMAS ON EACH THOUSAND
@@ -286,7 +337,7 @@ export default class LayoutProduct extends React.Component {
                                         </thead>
                                         <tbody className="list">{/* table item */} 
                                             {data && data.length > 0 && data.map((item, index) => (
-                                                <tr key={item.id} className='item-row' data={item.id}>
+                                                <tr key={index} className='item-row' data={item.fields.Product} item-index={index}>
                                                     <td className="col-auto">
                                                         { item.fields.productImage && item.fields.productImage.length > 0
                                                         ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded"/></div>
@@ -300,20 +351,20 @@ export default class LayoutProduct extends React.Component {
                                                     </td>
                                                     <td>
                                                         { item.fields.productStatus && item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
-                                                        ? <span className="badge badge-success item-status" data={item.fields.productStatus[0].toString()}>Đang kinh doanh</span>
-                                                        : <span className="badge badge-danger item-status" data={item.fields.productStatus[0].toString()}>Ngừng bán</span>
+                                                        ? <span className="badge badge-success item-status" data='true'>Đang kinh doanh</span>
+                                                        : <span className="badge badge-danger item-status" data='false'> Ngừng kinh doanh</span>
                                                         }
                                                         
                                                     </td>
                                                     <td> 
                                                         { item.fields.productCategory && item.fields.productCategory.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1 item-cat">{item.fields.productCategory[0]}</h4>
+                                                        ? <h4 className="font-weight-normal mb-1 item-cat" data={item.fields.productCategory[0]}>{item.fields.productCategory[0]}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
                                                     <td>
                                                         { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1 item-price">{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
+                                                        ? <h4 className="font-weight-normal mb-1 item-price" data={item.fields.productPrice4Sell[0]}>{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
                                                         : ''
                                                         }                                                        
                                                     </td>
@@ -381,7 +432,7 @@ export default class LayoutProduct extends React.Component {
                             </div>
 
                             {/* MODAL EDIT PRODUCT */}
-                            <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1" data=''>
+                            <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1" data='' item-index=''>
                                 <div className="modal-dialog modal-dialog-vertical">
                                     <div className="modal-content">
                                         <div className="modal-body">
@@ -395,22 +446,20 @@ export default class LayoutProduct extends React.Component {
 
                                             <div className="my-n3">
                                                 <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
+                                                    <label>Tên sản phẩm</label>
                                                     <input className="form-control required" id='product-name-edit' data=''/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Mô tả</label>
+                                                    <label>Mô tả</label>
                                                     <input className="form-control required" id='product-desc-edit' data=''/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Giá bán</label>
+                                                    <label>Giá bán</label>
                                                     <input className="form-control input-number required" id='product-price-edit' data=''/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <div className="custom-control custom-switch">
-                                                        <input type="checkbox" className="custom-control-input" id="product-status-edit"/>
-                                                        <label className="custom-control-label" htmlFor="product-status-edit">Đang kinh doanh</label>
-                                                    </div>
+                                                    <label>Tình trạng kinh doanh</label>
+                                                    <input type="checkbox" className='ml-3' id='product-status-edit' data=''/>
                                                 </div>
                                             </div>
                                                 
