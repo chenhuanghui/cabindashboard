@@ -39,7 +39,7 @@ export default class NavBar extends React.Component {
         filterByFormula:`ID="${cookies.userID}"`
       },'Account')
       .then (result => {
-        // console.log('account data:',result);
+        console.log('account data:',parseInt(result[0].fields.roleValue));
         if(result && result.length > 0) currentComponent.setState({data:result[0].fields})
       })
       
@@ -51,6 +51,8 @@ export default class NavBar extends React.Component {
         // console.log('brand data:', res);
         if (res && res.length > 0) currentComponent.setState({brand:res[0].fields})
       })
+      
+     
       
     }
     
@@ -125,16 +127,16 @@ export default class NavBar extends React.Component {
                 ))}
                 
                 <hr className="dropdown-divider" />
-                <Link href="/documents" >
-                  <a className="dropdown-item">Tài liệu</a>
-                </Link>
+                <Link href="/documents"><a className="dropdown-item">Tài liệu</a></Link>
+                
                 <hr className="dropdown-divider" />
-                <Link href="/account" >
-                  <a className="dropdown-item">Tài khoản</a>
-                </Link>
-                <Link href="#" >
-                  <a className="dropdown-item">Hóa đơn</a>
-                </Link>
+                <Link href="/account" ><a className="dropdown-item">Tài khoản</a></Link>
+                <Link href="#" ><a className="dropdown-item">Hóa đơn</a></Link>                
+                
+                { data && data.roleValue && parseInt(data.roleValue)<=2
+                ? <Link href="/config" ><a className="dropdown-item">Thiết lập</a></Link>                
+                : ''
+                }
 
                 <hr className="dropdown-divider" />
                 <span className="dropdown-item logout">Logout</span>
@@ -200,13 +202,14 @@ export default class NavBar extends React.Component {
                   <Link href="/documents" >
                     <a className="dropdown-item">Tài liệu</a>
                   </Link>
+                  
                   <hr className="dropdown-divider" />
-                  <Link href="/account" >
-                    <a className="dropdown-item">Tài khoản</a>
-                  </Link>
-                  <Link href="#" >
-                    <a className="dropdown-item">Hóa đơn</a>
-                  </Link>
+                  <Link href="/account" ><a className="dropdown-item">Tài khoản</a></Link>
+                  <Link href="#" ><a className="dropdown-item">Hóa đơn</a></Link>
+                  { data && data.roleValue && parseInt(data.roleValue)<=2
+                  ? <Link href="/config" ><a className="dropdown-item">Thiết lập</a></Link>                
+                  : ''
+                  }
 
                   <hr className="dropdown-divider" />
                   <span className="dropdown-item logout">Logout</span>

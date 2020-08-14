@@ -71,88 +71,91 @@ export default function Dashboard () {
         maxRecords: 1
       }, 'Brand')
       .then(result => {
-        setBrand(result[0].fields);
-        console.log('promise result',result[0])
+        if (result.length > 0) {
+          setBrand(result[0].fields);
+          console.log('promise result',result[0])
 
-        // ******************************************************
-        // RETRIEVE ALL BRAND - CABIN
-        var promises = []
-        for(var i=0; i<result[0].fields.Brand_Cabin.length; i++) {
-          promises.push(
-            retrieveData({
-              filterByFormula: `ID = "${result[0].fields.Brand_Cabin[i]}"`,
-            },'Brand_Cabin')
-          )
-        }
-
-        Promise.all(promises)
-        .then(brandCabinData => {
-          // re-structure data response to save to BrandCabin-state
-          var temp = []
-          for (var i=0; i<brandCabinData.length; i++) {
-            temp.push(brandCabinData[i][0].fields)
+          // ******************************************************
+          // RETRIEVE ALL BRAND - CABIN
+          var promises = []
+          for(var i=0; i<result[0].fields.Brand_Cabin.length; i++) {
+            promises.push(
+              retrieveData({
+                filterByFormula: `ID = "${result[0].fields.Brand_Cabin[i]}"`,
+              },'Brand_Cabin')
+            )
           }
-          console.log('read again:', temp);
-          setBrandCabin(temp)
-        })
 
-        // ******************************************************
-        // RETRIEVE ONBOARDING DATA
-        retrieveData({
-          filterByFormula: `Brand = "${brandID}"`,
-        },'Brand_Onboarding')
-        .then(onboardingRes=> {
-          console.log('onboarding: ',onboardingRes);
-          setOnboarding(onboardingRes);
-          console.log('onboarding state: ',onboarding);
-        })
+          Promise.all(promises)
+          .then(brandCabinData => {
+            // re-structure data response to save to BrandCabin-state
+            var temp = []
+            for (var i=0; i<brandCabinData.length; i++) {
+              temp.push(brandCabinData[i][0].fields)
+            }
+            console.log('read again:', temp);
+            setBrandCabin(temp)
+          })
 
-        retrieveData({
-          view: 'GroupByCollection1',
-          filterByFormula: `Brand = "${brandID}"`,
-          sort: [ {field: 'orderInCollection', direction: 'asc'},]
-        },'Brand_Onboarding')
-        .then(response=> {
-          console.log('onboarding group 1: ',response);
-          setOnboardingGroup1(response)
-        })
+          // ******************************************************
+          // RETRIEVE ONBOARDING DATA
+          retrieveData({
+            filterByFormula: `Brand = "${brandID}"`,
+          },'Brand_Onboarding')
+          .then(onboardingRes=> {
+            console.log('onboarding: ',onboardingRes);
+            setOnboarding(onboardingRes);
+            console.log('onboarding state: ',onboarding);
+          })
 
-        retrieveData({
-          view: 'GroupByCollection2',
-          filterByFormula: `Brand = "${brandID}"`,
-          sort: [ {field: 'orderInCollection', direction: 'asc'},]
-        },'Brand_Onboarding')
-        .then(response=> {
-          console.log('onboarding group 2: ',response);
-          setOnboardingGroup2(response)
-        })        
+          retrieveData({
+            view: 'GroupByCollection1',
+            filterByFormula: `Brand = "${brandID}"`,
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+          },'Brand_Onboarding')
+          .then(response=> {
+            console.log('onboarding group 1: ',response);
+            setOnboardingGroup1(response)
+          })
 
-        retrieveData({
-          view: 'GroupByCollection3',
-          filterByFormula: `Brand = "${brandID}"`,
-          sort: [ {field: 'orderInCollection', direction: 'asc'},]
-        },'Brand_Onboarding')
-        .then(response=> {
-          console.log('onboarding group 3: ',response);
-          setOnboardingGroup3(response)
-        })        
+          retrieveData({
+            view: 'GroupByCollection2',
+            filterByFormula: `Brand = "${brandID}"`,
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+          },'Brand_Onboarding')
+          .then(response=> {
+            console.log('onboarding group 2: ',response);
+            setOnboardingGroup2(response)
+          })        
 
-        // ******************************************************
-        // RETRIEVE SELL CHANNEL DATA
-        var channelListing = ['Grab','Now','Baemin','Loship','GoJek','Hotline']
-        var channelPromises = []
-        for (var i=0; i<6; i++) {
-          channelPromises.push(
-            retrieveData({
-              filterByFormula: `AND(brandID = "${brandID}",sellChannelName="${channelListing[i]}")`
-            }, 'SellChannel_Brand_Cabin')
-          )
+          retrieveData({
+            view: 'GroupByCollection3',
+            filterByFormula: `Brand = "${brandID}"`,
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+          },'Brand_Onboarding')
+          .then(response=> {
+            console.log('onboarding group 3: ',response);
+            setOnboardingGroup3(response)
+          })     
+
+          // ******************************************************
+          // RETRIEVE SELL CHANNEL DATA
+          var channelListing = ['Grab','Now','Baemin','Loship','GoJek','Hotline']
+          var channelPromises = []
+          for (var i=0; i<6; i++) {
+            channelPromises.push(
+              retrieveData({
+                filterByFormula: `AND(brandID = "${brandID}",sellChannelName="${channelListing[i]}")`
+              }, 'SellChannel_Brand_Cabin')
+            )
+          }
+          Promise.all(channelPromises)
+          .then (sellChannelData => {
+            console.log('sellChannelData:', sellChannelData)      
+            setbrandSellChannelGroupByChannel(sellChannelData);
+          }) 
+
         }
-        Promise.all(channelPromises)
-        .then (sellChannelData => {
-          console.log('sellChannelData:', sellChannelData)      
-          setbrandSellChannelGroupByChannel(sellChannelData);
-        }) 
       })
     }
     
