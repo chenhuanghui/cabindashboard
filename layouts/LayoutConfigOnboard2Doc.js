@@ -62,6 +62,7 @@ export default class LayoutOnboard2Doc extends React.Component {
 
         this.state = {
             documentListing: [],
+            documentAvailableListing: [],
             onboardingListing: [],
             onboard2docList : []
         }
@@ -84,10 +85,14 @@ export default class LayoutOnboard2Doc extends React.Component {
         .then(result => {
             console.log('Document:', result);
             var temp = []
+            var tempAvailable = []
             for (var i=0; i<result.length; i++) {
                 temp.push(result[i].fields)
+                if (!result[i].fields.Document_Onboarding) {tempAvailable.push(result[i].fields)}
             }
+            console.log('document available list:', tempAvailable)
             currentComponent.setState({documentListing:temp})
+            currentComponent.setState({documentAvailableListing:tempAvailable})
         })
 
         retrieveData({},'Onboarding')
@@ -140,9 +145,18 @@ export default class LayoutOnboard2Doc extends React.Component {
             var onboardingSelected = $('#onboarding-selected').attr(`data`);
             var documentSelected = $('#document-selected').attr(`data`);
 
-            if (!onboardingSelected | !documentSelected) return;
-            
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+
+            if (!onboardingSelected | !documentSelected) {
+                alert('Không thành công')
+                $('#modalLinkOnboardingDocument').removeClass('show')
+                $('body').removeClass('modal-open')
+                $('.modal-backdrop').hide()
+                $('.spinner-grow').remove()
+                console.log('modal close finished')                    
+                return;
+            }
+            
             console.log('document: ', documentSelected)
             console.log('onboarding: ', onboardingSelected)
 
@@ -182,7 +196,7 @@ export default class LayoutOnboard2Doc extends React.Component {
     }
 
     render() {
-        const { documentListing, onboardingListing, onboard2docList} = this.state;
+        const { documentListing, documentAvailableListing, onboardingListing, onboard2docList} = this.state;
         return (
             <div>
                 <Head>
@@ -239,7 +253,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboard2docList && onboard2docList.map((item, index) => (
-                                                    <tr key={index}>
+                                                    <tr key={index} data={item.id}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.Document}>{item.fields.documentTitle}</h4></td>
                                                         <td data={item.Onboarding}>{item.fields.onboardingTitle}</td>
                                                         <td className='col-auto' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? 'Đang kết nối' : 'Ngưng kết nối'}</td>
@@ -264,35 +278,12 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                 </div>
 
                                                 <div className="my-n3">
-
-
-                                                    <div className="form-group">
-                                                        <label>Hội nhập</label>
-                                                        <span className='hide required' id='onboarding-selected' data=''></span>
-                                                        <Select
-                                                            className='form-control' 
-                                                            options={onboardingListing} 
-                                                            labelField= 'title'
-                                                            valueField='ID'
-                                                            dropdownHandle='false'
-                                                            searchable='false'
-                                                            onChange={(valSelected) => {
-                                                                console.log('seleted: ',valSelected)
-                                                                $('#onboarding-selected').attr('data',valSelected[0].ID)
-                                                            }}
-                                                            onDropdownOpen={()=>{
-                                                                console.log('open dropdown')
-                                                                $('.react-dropdown-select-dropdown').css({'width': '100%'})
-                                                            }}
-                                                            />                                           
-                                                    </div>                                            
-
                                                     <div className="form-group">
                                                         <label>Tài liệu</label>
                                                         <span className='hide required' id='document-selected' data=''></span>
                                                         <Select
                                                             className='form-control' 
-                                                            options={documentListing} 
+                                                            options={documentAvailableListing} 
                                                             labelField= 'title'
                                                             valueField='ID'
                                                             dropdownHandle='false'
@@ -307,6 +298,29 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                             }}
                                                             />                                           
                                                     </div>   
+
+                                                    <div className="form-group">
+                                                        <label>Hội nhập</label>
+                                                        <span className='hide required' id='onboarding-selected' data=''></span>
+                                                        <Select
+                                                            className='form-control' 
+                                                            options={onboardingListing} 
+                                                            labelField= 'title'
+                                                            valueField='ID'
+                                                            dropdownHandle='false'
+                                                            // searchable='false'
+                                                            onChange={(valSelected) => {
+                                                                console.log('seleted: ',valSelected)
+                                                                $('#onboarding-selected').attr('data',valSelected[0].ID)
+                                                            }}
+                                                            onDropdownOpen={()=>{
+                                                                console.log('open dropdown')
+                                                                $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                            }}
+                                                            />                                           
+                                                    </div>                                            
+
+                                                    
                                                     
                                                 </div>
                                                 <hr className="my-5" />   
