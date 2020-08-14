@@ -219,7 +219,7 @@ export default class LayoutDocument extends React.Component {
                                     </div>
                                 </div>     
 
-
+                                {/*  MODAL CREATE DOCUMENT */}
                                 <div className="modal fade fixed-right" id="modalCreateDocument" tabIndex="-1">
                                     <div className="modal-dialog modal-dialog-vertical">
                                         <div className="modal-content">
