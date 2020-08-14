@@ -87,7 +87,65 @@ export default class LayoutDocument extends React.Component {
 
         // ===============================================
         // FRONT-END ENGAGEMENT
+
+        $('input, textarea').keyup(function(event) {
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40) return;
+            $(this).attr('data',$(this).val())
+        });
+
+        $(document).on('click', `.btn-modal` , function() {
+            if (!$('body').hasClass('modal-open')) {
+                $('body').addClass('modal-open')
+                $('#modalCreateDocument').addClass('show')
+                $('.modal-backdrop').show()
+                console.log('open modal link onboarding documents.');
+
+            } else console.log('modal was opened before.');
+        });
        
+        $(document).on('click', function() {
+            if ( 
+                $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
+                &&
+                $('.modal-body').is(event.target) //checks if the modal itself was clicked
+            ){ console.log('clicked inside');} 
+            else {
+                if ($(event.target).hasClass('modal')) {
+                    $('#modalCreateDocument').removeClass('show')
+                    $('body').removeClass('modal-open')
+                    $('.modal-backdrop').hide()
+                    console.log('modal close finished')
+                }
+            } 
+        });
+
+        $(document).on('click', '#create-action', function() {
+            var docName = $('#doc-name').attr(`data`);
+            var docContentfulID = $('#contenful-ID').attr(`data`);
+
+            if (!docName | !docContentfulID) return;
+
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+            console.log('document: ', docName)
+            console.log('onboarding: ', docContentfulID)
+
+            createData({
+                title: docName,
+                contentfulID: docContentfulID,
+                status: true
+            },`Document`)
+            .then(res => {
+                console.log ('linked: ', res)
+            })
+            .finally(()=>{
+                $('#modalCreateDocument').removeClass('show')
+                $('body').removeClass('modal-open')
+                $('.modal-backdrop').hide()
+                $('.spinner-grow').remove()
+                location.reload()
+            })
+        })
 
     }
 
@@ -136,9 +194,7 @@ export default class LayoutDocument extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">TÀI LIỆU SỬ DỤNG DÀNH CHO MERCHANT</h4>
-                                        <Link href='/brands/create'>
-                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
-                                        </Link>
+                                        <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -153,15 +209,46 @@ export default class LayoutDocument extends React.Component {
                                             <tbody className="list">
                                                 { documentListing && documentListing.map((item, index) => (
                                                     <tr key={index}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
-                                                        <td>{item.fields.contentfulID}</td>
-                                                        <td className='col-auto'>{item.fields.status ? 'Đang sử dụng' : 'Ngừng sử dụng'}</td>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item && item.fields && item.fields.title}</h4></td>
+                                                        <td>{item && item.fields && item.fields.contentfulID}</td>
+                                                        <td className='col-auto'>{item && item.fields && item.fields.status ? 'Đang sử dụng' : 'Ngừng sử dụng'}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>     
+
+
+                                <div className="modal fade fixed-right" id="modalCreateDocument" tabIndex="-1">
+                                    <div className="modal-dialog modal-dialog-vertical">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
+
+                                                <div className="header">
+                                                    <div className="header-body">
+                                                        <h1 className="header-title">Thêm tài liệu</h1>
+                                                        {/* <p className='text-muted'>Cung cấp các thông tin về nhân sự, để giúp việc quản lý được thực hiện tốt hơn</p> */}
+                                                    </div>
+                                                </div>
+
+                                                <div className="my-n3">
+                                                    <div className="form-group">
+                                                        <label>Tên tài liệu</label>
+                                                        <input className="form-control required" id='doc-name' data=''/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>ContenfulID</label>
+                                                        <input className="form-control required" id='contenful-ID' data=''/>                                  
+                                                    </div>
+                                                </div>
+                                                <hr className="my-5" />   
+                                                <button className="btn btn-lg btn-block btn-primary mb-3" id="create-action">Lưu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
