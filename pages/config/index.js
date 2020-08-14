@@ -1,7 +1,7 @@
-import LayoutConfig from "../../layouts/LayoutConfig"
+import LayoutConfigOnboarding from "../../layouts/LayoutConfigOnboarding"
 
 const Config = props => (
-    <LayoutConfig/>
+    <LayoutConfigOnboarding/>
 );
       
 export default Config;
