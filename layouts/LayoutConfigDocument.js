@@ -117,9 +117,15 @@ export default class LayoutDocument extends React.Component {
                                         <div className="row align-items-center">
                                             <div className="col">
                                                 <ul className="nav nav-tabs nav-overflow header-tabs">
-                                                    <li className="nav-item"><a className="nav-link " href="#!">Hội nhập</a></li>
-                                                    <li className="nav-item"><a className="nav-link active" href="#!">Tài liệu</a></li>
-                                                    <li className="nav-item"><a className="nav-link" href="#!">Tài liệu - Hội nhập</a></li>
+                                                <li className="nav-item">
+                                                        <Link href='/config'><a className="nav-link">Hội nhập</a></Link>                                                        
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <Link href='/config/document'><a className="nav-link active">Tài liệu</a></Link>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <Link href='/config/onboard2doc'><a className="nav-link">Tài liệu - Hội nhập</a></Link>
+                                                    </li>
                                                 </ul>            
                                             </div>
                                         </div>  {/* row align-items-center */}

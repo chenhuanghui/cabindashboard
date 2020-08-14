@@ -148,15 +148,21 @@ export default class LayoutConfig extends React.Component {
                                         <div className="row align-items-center">
                                             <div className="col">
                                                 <h6 className="header-pretitle">THIẾT LẬP</h6>
-                                                <h1 className="header-title">Thông số hệ thống</h1>
+                                                <h1 className="header-title">Chương trình hội nhập</h1>
                                             </div>                                            
                                         </div> {/* row align-items-center */}
                                         <div className="row align-items-center">
                                             <div className="col">
                                                 <ul className="nav nav-tabs nav-overflow header-tabs">
-                                                    <li className="nav-item"><a className="nav-link active" href="#!">Hội nhập</a></li>
-                                                    <li className="nav-item"><a className="nav-link" href="#!">Tài liệu</a></li>
-                                                    <li className="nav-item"><a className="nav-link" href="#!">Tài liệu - Hội nhập</a></li>
+                                                <li className="nav-item">
+                                                        <Link href='/config'><a className="nav-link active">Hội nhập</a></Link>                                                        
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <Link href='/config/document'><a className="nav-link">Tài liệu</a></Link>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <Link href='/config/onboard2doc'><a className="nav-link">Tài liệu - Hội nhập</a></Link>
+                                                    </li>
                                                 </ul>            
                                             </div>
                                         </div>  {/* row align-items-center */}
@@ -217,7 +223,7 @@ export default class LayoutConfig extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList2 && onboardingList2.map((item, index) => (
-                                                    <tr>
+                                                    <tr key={index}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
@@ -250,7 +256,7 @@ export default class LayoutConfig extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList3 && onboardingList3.map((item, index) => (
-                                                    <tr>
+                                                    <tr key={index}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
@@ -283,7 +289,7 @@ export default class LayoutConfig extends React.Component {
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList4 && onboardingList4.map((item, index) => (
-                                                    <tr>
+                                                    <tr key={index}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>

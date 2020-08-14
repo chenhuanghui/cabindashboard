@@ -1,4 +1,4 @@
-import LayoutDocument from "../../layouts/LayoutDocument"
+import LayoutDocument from "../../layouts/LayoutConfigDocument"
 
 const Document = props => (
     <LayoutDocument/>
