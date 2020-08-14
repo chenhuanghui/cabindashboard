@@ -206,15 +206,14 @@ export default function Dashboard () {
                           <div className="col">
                                 <h6 className="header-pretitle">NHÃN HIỆU</h6>
                                 <h1 className="header-title">{brand ? brand.brandName:''}</h1>
-                            </div>
-                            
+                            </div>                            
                         </div>
                     </div>
                 </div>
               </div>
 
               <div className="row">
-
+                
                 <div className="col-12 col-lg-6">
                   <div className="card card-fill-lg">
                     <div className="card-body text-center">

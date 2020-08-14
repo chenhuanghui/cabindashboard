@@ -61,8 +61,11 @@ export default class LayoutConfig extends React.Component {
         super(props);
 
         this.state = {
-            equipList: [],
-            cabinOptionsData: []
+            onboardingList1: [],
+            onboardingList2: [],
+            onboardingList3: [],
+            onboardingList4: [],
+
         }
     }
 
@@ -70,114 +73,63 @@ export default class LayoutConfig extends React.Component {
         // INIT VARIABLE
         const cookies = parseCookies();
         let currentComponent = this
-        var isAction = false;
         
         // ===============================================
         // CHECKING AUTHENTICATE
-        if (!cookies.isLoggedIn | !cookies.userID || !cookies.brandID) Router.push('/signin');
+        if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | cookies.role > 2) Router.push('/signin');
         console.log('current brandID:', cookies.brandID);
         
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE
-
+        // _ GET ONBOARDING BY GROUP BY COLLECTION 1
         retrieveData({
-            filterByFormula: `Brand = "${cookies.brandID}"`,
-        },'Brand_Equipment')
+            view: 'GroupByCollection1',
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+        },'Onboarding')
         .then(result => {
-            console.log('brand_equip:', result);
-            var temp=[];
-            for(var i=0; i<result.length; i++) {
-                temp.push(result[i].fields)
-            }
-            currentComponent.setState({equipList:temp})
-            console.log('brand_equip:', currentComponent.state.equipList);
+            console.log('Onboarding:', result);
+            currentComponent.setState({onboardingList1:result})
         })
 
-        // Retrieve Cabin belong to Brand
-        retrieveData({filterByFormula: `BrandID = "${cookies.brandID}"`},'Brand_Cabin')
-        .then(cabinRes => {
-            var tempTitle = []
-            for (var i=0; i<cabinRes.length; i++) {
-                tempTitle.push(cabinRes[i].fields)
-            }
-            currentComponent.setState({cabinOptionsData:tempTitle})
-            console.log('cabin title:', currentComponent.state.cabinOptionsData)
+        // _ GET ONBOARDING BY GROUP BY COLLECTION 2
+        retrieveData({
+            view: 'GroupByCollection2',
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+        },'Onboarding')
+        .then(result => {
+            console.log('Onboarding:', result);
+            currentComponent.setState({onboardingList2:result})
         })
+
+        // _ GET ONBOARDING BY GROUP BY COLLECTION 3
+        retrieveData({
+            view: 'GroupByCollection3',
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+        },'Onboarding')
+        .then(result => {
+            console.log('Onboarding:', result);
+            currentComponent.setState({onboardingList3:result})
+        })
+
+        // _ GET ONBOARDING BY GROUP BY COLLECTION 4
+        retrieveData({
+            view: 'GroupByCollection4',
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+        },'Onboarding')
+        .then(result => {
+            console.log('Onboarding:', result);
+            currentComponent.setState({onboardingList4:result})
+        })
+
 
         // ===============================================
         // FRONT-END ENGAGEMENT
-        $(document).on('click', `.btn-modal` , function() {
-            if (!$('body').hasClass('modal-open')) {
-                $('#modalEquipment').addClass('show');
-                $('.modal-backdrop').show()
-            }
-            console.log('modal opened');
-        });
-        
-        $(document).on('click', function() {
-            if ( 
-                $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
-                &&
-                $('.modal-body').is(event.target) //checks if the modal itself was clicked
-            ){ console.log('clicked inside');} 
-            else {
-                if ($(event.target).hasClass('modal')) {
-                    $('#modalEquipment').removeClass('show')
-                    $('body').removeClass('modal-open')
-                    $('.modal-backdrop').hide()
-                    console.log('modal close finished')
-                }
-            } 
-        });
-        
-        /* action on per product item */
-        $(document).on('click', '.dropdown-toggle', function(){
-            // $(this).parent().find('.dropdown-menu-right').addClass('show')
-        })
-
-        $(document).on('click', '#asset-action', function() {
-            if (isAction ) return;
-            console.log('name:', $('#equip-name').val())
-            console.log('desc:', $('#equip-desc').val())
-            console.log('voltage:', $('#equip-voltage').val())
-            console.log('cabin:', $('#cabin-assigned').attr('data'))
-
-            // if ($('#staff-name').val() === '' | $('#staff-salary').val() === '' | $('#staff-image').attr('image-url') === '') return;
-            if ($('#equip-name').val() === '' | $('#cabin-assigned').attr('data') === '') return;
-            
-            isAction = true;
-            createData({
-                name: $('#equip-name').val(),
-                desc: $('#equip-desc').val(),
-                voltage: $('#equip-voltage').val(),
-                photos:[{
-                    url: $('#equip-image').attr('image-url')
-                }]
-            },'Equipment')
-            .then(equipRes => {
-                console.log('equip data:', equipRes)
-                if (equipRes) {
-                    createData({
-                        Brand: [cookies.brandID],
-                        Equipment:[equipRes.id],
-                        Cabin: [`${$('#cabin-assigned').attr('data')}`],
-                        status: "1"
-                    },'Brand_Equipment')                
-                }
-            })
-            .finally( () => {
-                $('#modalEquipment').removeClass('show')
-                $('body').removeClass('modal-open')
-                $('.modal-backdrop').hide()
-                console.log('modal close finished')
-                isAction = false;
-            })
-        })
+       
 
     }
 
     render() {
-        const { equipList, cabinOptionsData } = this.state;
+        const { onboardingList1, onboardingList2, onboardingList3, onboardingList4 } = this.state;
         return (
             <div>
                 <Head>
@@ -190,8 +142,7 @@ export default class LayoutConfig extends React.Component {
                 <div className="main-content">
                     <div className="container-fluid">
                         <div className="row justify-content-center">
-                            <div className="col-12 col-lg-10 col-xl-8">
-                                
+                            <div className="col-12 col-lg-10 col-xl-8">                                
                                 <div className="header mt-md-5">
                                     <div className="header-body">                                    
                                         <div className="row align-items-center">
@@ -211,7 +162,132 @@ export default class LayoutConfig extends React.Component {
                                         </div>  {/* row align-items-center */}
                                     </div>
                                 </div>
-                                                                                    
+                                
+                                {/* COLLECTION 1 */}
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4 className="card-header-title">{onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name}</h4>
+                                        <Link href='/brands/create'>
+                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
+                                        </Link>
+                                    </div>{/* end card header */}
+
+                                    <div className="card-body">
+                                        <table className='table table-sm table-nowrap card-table table-hover'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="list">
+                                                { onboardingList1 && onboardingList1.map((item, index) => (
+                                                    <tr>
+                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                        <td>{item.fields.type_desc}</td>
+                                                        <td>{item.fields.orderInCollection}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>     
+
+                                {/* COLLECTION 2 */}
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4 className="card-header-title">{onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection_name}</h4>
+                                        <Link href='/brands/create'>
+                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
+                                        </Link>
+                                    </div>{/* end card header */}
+
+                                    <div className="card-body">
+                                        <table className='table table-sm table-nowrap card-table table-hover'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="list">
+                                                { onboardingList2 && onboardingList2.map((item, index) => (
+                                                    <tr>
+                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                        <td>{item.fields.type_desc}</td>
+                                                        <td>{item.fields.orderInCollection}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>      
+
+                                {/* COLLECTION 3 */}
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4 className="card-header-title">{onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection_name}</h4>
+                                        <Link href='/brands/create'>
+                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
+                                        </Link>
+                                    </div>{/* end card header */}
+
+                                    <div className="card-body">
+                                        <table className='table table-sm table-nowrap card-table table-hover'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="list">
+                                                { onboardingList3 && onboardingList3.map((item, index) => (
+                                                    <tr>
+                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                        <td>{item.fields.type_desc}</td>
+                                                        <td>{item.fields.orderInCollection}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>    
+
+                                {/* COLLECTION 4 */}
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4 className="card-header-title">{onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection_name}</h4>
+                                        <Link href='/brands/create'>
+                                            <a className="btn btn-sm btn-white" id='add-product'>Thêm hạng mục</a> 
+                                        </Link>
+                                    </div>{/* end card header */}
+
+                                    <div className="card-body">
+                                        <table className='table table-sm table-nowrap card-table table-hover'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="list">
+                                                { onboardingList4 && onboardingList4.map((item, index) => (
+                                                    <tr>
+                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                        <td>{item.fields.type_desc}</td>
+                                                        <td>{item.fields.orderInCollection}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>                                               
+                                
+
                             </div>
                         </div>
                     </div>
