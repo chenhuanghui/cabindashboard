@@ -258,7 +258,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name}</h4>
-                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' collection={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection.toString()} collection-name={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
+                                        <button className="btn btn-sm btn-white btn-modal" collection={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection.toString()} collection-name={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -289,7 +289,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection_name}</h4>
-                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' data={onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection}>Thêm hạng mục</button> 
+                                        <button className="btn btn-sm btn-white btn-modal" collection={onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection.toString()} collection-name={onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -320,7 +320,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection_name}</h4>
-                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' data={onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection}>Thêm hạng mục</button> 
+                                        <button className="btn btn-sm btn-white btn-modal" collection={onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection.toString()} collection-name={onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
@@ -351,7 +351,7 @@ export default class LayoutConfig extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">{onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection_name}</h4>
-                                        <button className="btn btn-sm btn-white btn-modal" id='add-product' data={onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection}>Thêm hạng mục</button> 
+                                        <button className="btn btn-sm btn-white btn-modal" collection={onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection.toString()} collection-name={onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
                                     <div className="table-responsive mb-0">
