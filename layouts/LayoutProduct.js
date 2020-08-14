@@ -236,17 +236,17 @@ export default class LayoutProduct extends React.Component {
                 status: productStatusUpdate
             },`Product`)
             .then( res=> {
-                console.log('res product update: ', res)
+                // console.log('res product update: ', res)
                 
-                var temp = currentComponent.state.data
-                console.log('asfdasdf: ',temp[$(`#modalProductEdit`).attr(`item-index`)])
-                temp[$(`#modalProductEdit`).attr(`item-index`)][`productName`] = res.fields.name
-                temp[$(`#modalProductEdit`).attr(`item-index`)][`productDesc`] = res.fields.desc
-                temp[$(`#modalProductEdit`).attr(`item-index`)][`productPrice4Sell`] = res.fields.price4Sell
-                temp[$(`#modalProductEdit`).attr(`item-index`)][`productStatus`] = res.fields.status
-                currentComponent.setState({data:temp})
+                // var temp = currentComponent.state.data
+                // console.log('asfdasdf: ',temp[$(`#modalProductEdit`).attr(`item-index`)])
+                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productName`] = res.fields.name
+                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productDesc`] = res.fields.desc
+                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productPrice4Sell`] = res.fields.price4Sell
+                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productStatus`] = res.fields.status
+                // currentComponent.setState({data:temp})
 
-                console.log('new update: ', currentComponent.state.data)
+                // console.log('new update: ', currentComponent.state.data)
             })
             .finally(() => {
                 $('#modalProductEdit').removeClass('show')
