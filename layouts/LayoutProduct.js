@@ -228,10 +228,6 @@ export default class LayoutProduct extends React.Component {
             }
 
             var productStatusUpdate = !$('#product-status-edit:checked').val() ? false : true
-            console.log('status: ', productStatusUpdate)
-
-            console.log('product price 1: ', $('#product-price-edit').attr('data'));
-            console.log('product price 2: ', parseInt($('#product-price-edit').attr('data')));
 
             updateData($('#modalProductEdit').attr('data'), {
                 name: $('#product-name-edit').attr('data'),
@@ -241,15 +237,16 @@ export default class LayoutProduct extends React.Component {
             },`Product`)
             .then( res=> {
                 console.log('res product update: ', res)
+                
                 var temp = currentComponent.state.data
                 console.log('asfdasdf: ',temp[$(`#modalProductEdit`).attr(`item-index`)])
                 temp[$(`#modalProductEdit`).attr(`item-index`)][`productName`] = res.fields.name
                 temp[$(`#modalProductEdit`).attr(`item-index`)][`productDesc`] = res.fields.desc
                 temp[$(`#modalProductEdit`).attr(`item-index`)][`productPrice4Sell`] = res.fields.price4Sell
                 temp[$(`#modalProductEdit`).attr(`item-index`)][`productStatus`] = res.fields.status
-
                 currentComponent.setState({data:temp})
-                console.log('new update: ',temp)
+
+                console.log('new update: ', currentComponent.state.data)
             })
             .finally(() => {
                 $('#modalProductEdit').removeClass('show')
@@ -257,6 +254,7 @@ export default class LayoutProduct extends React.Component {
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close update finished')
+                location.reload();
             })
         })
         
