@@ -172,21 +172,23 @@ export default class LayoutConfig extends React.Component {
                                         </Link>
                                     </div>{/* end card header */}
 
-                                    <div className="card-body">
+                                    <div className="table-responsive mb-0">
                                         <table className='table table-sm table-nowrap card-table table-hover'>
                                             <thead>
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Loại</th>
+                                                    <th>Hành động</th>
                                                     <th>Thứ tự</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList1 && onboardingList1.map((item, index) => (
-                                                    <tr>
-                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                    <tr key={index}>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.orderInCollection}</td>
+                                                        <td>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -209,15 +211,17 @@ export default class LayoutConfig extends React.Component {
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Loại</th>
+                                                    <th>Hành động</th>
                                                     <th>Thứ tự</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList2 && onboardingList2.map((item, index) => (
                                                     <tr>
-                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.orderInCollection}</td>
+                                                        <td>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -240,15 +244,17 @@ export default class LayoutConfig extends React.Component {
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Loại</th>
+                                                    <th>Hành động</th>
                                                     <th>Thứ tự</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList3 && onboardingList3.map((item, index) => (
                                                     <tr>
-                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.orderInCollection}</td>
+                                                        <td>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -271,15 +277,17 @@ export default class LayoutConfig extends React.Component {
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Loại</th>
+                                                    <th>Hành động</th>
                                                     <th>Thứ tự</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList4 && onboardingList4.map((item, index) => (
                                                     <tr>
-                                                        <td><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.orderInCollection}</td>
+                                                        <td>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
