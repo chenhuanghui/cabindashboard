@@ -149,6 +149,8 @@ export default function LayoutCabinDetail () {
                         $('#modalSellChannelEdit').attr('data',$(this).attr('data'))        
                         $('#channel-name').val($(this).find('.sellChannelName').text())     
                         $('#channel-account').val($(this).find('.sellChannelAccount').text())
+
+                        if ($(this).find('.sellChannelValue').attr('data') === `true`) $('#channel-status').prop('checked', true)
                         
                     });
 
@@ -210,6 +212,7 @@ export default function LayoutCabinDetail () {
                                 $('.modal-backdrop').hide()
                                 $('.spinner-grow').remove()
                                 console.log('modal close finished')
+                                location.reload()
                             })
                         }
 
@@ -304,7 +307,7 @@ export default function LayoutCabinDetail () {
                                                         }
                                                     </td>
                                                     <td><h4 className="mb-1 sellChannelName">{item.fields.sellChannelName}</h4></td>
-                                                    <td><span className="mb-1 sellChannelValue">{ item.fields.value}</span></td>
+                                                    <td><span className="mb-1 sellChannelValue" data={item.fields.status ? 'true' : 'false'}>{ item.fields.value}</span></td>
                                                     <td><span className="mb-1 sellChannelValue">{ new Date(item.fields.estStart).toDateString()}</span></td>
                                                     <td> <span className="mb-1 sellChannelAccount">{item.fields.sellChannelAccount}</span></td>
                                                     <td> <span className="mb-1 sellChannelCabinName">{item.fields.cabinName}</span></td>
