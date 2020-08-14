@@ -205,7 +205,7 @@ export default class LayoutConfig extends React.Component {
                                         </Link>
                                     </div>{/* end card header */}
 
-                                    <div className="card-body">
+                                    <div className="table-responsive mb-0">
                                         <table className='table table-sm table-nowrap card-table table-hover'>
                                             <thead>
                                                 <tr>
@@ -238,7 +238,7 @@ export default class LayoutConfig extends React.Component {
                                         </Link>
                                     </div>{/* end card header */}
 
-                                    <div className="card-body">
+                                    <div className="table-responsive mb-0">
                                         <table className='table table-sm table-nowrap card-table table-hover'>
                                             <thead>
                                                 <tr>
@@ -271,7 +271,7 @@ export default class LayoutConfig extends React.Component {
                                         </Link>
                                     </div>{/* end card header */}
 
-                                    <div className="card-body">
+                                    <div className="table-responsive mb-0">
                                         <table className='table table-sm table-nowrap card-table table-hover'>
                                             <thead>
                                                 <tr>
