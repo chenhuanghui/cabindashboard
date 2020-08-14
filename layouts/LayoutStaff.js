@@ -257,243 +257,245 @@ export default class LayoutStaff extends React.Component {
                 <NavBar />
 
                 <div className="main-content">
-                    <div className="row justify-content-center">
-                        <div className="col-12 col-lg-10 col-xl-8">
-                            
-                            <div className="header mt-md-5">
-                                <div className="header-body">
-                                    
-                                    <div className="row align-items-center">
-                                        <div className="col">
-                                            <h6 className="header-pretitle">QUẢN LÝ</h6>
-                                            <h1 className="header-title">Nhân sự</h1>
-                                        </div>                                            
-                                    </div> {/* row align-items-center */}
-
-                                    <div className="row align-items-center">
-                                        <div className="col">
-                                            <ul className="nav nav-tabs nav-overflow header-tabs">
-                                                <li className="nav-item"><a className="nav-link active" href="#!">Tất cả</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Xếp ca</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Xin nghỉ</a></li>
-                                            </ul>            
-                                        </div>
-                                    </div> {/* row align-items-center */}
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-header">
-                                    <h4 className="card-header-title">Danh sách nhân sự</h4>
-                                    <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhân sự</button> 
-                                </div>{/* end card header */}
+                    <div className="container-fluid">
+                        <div className="row justify-content-center">
+                            <div className="col-12 col-lg-10 col-xl-8">
                                 
-                                <div className="table-responsive mb-0">
-                                    <table className="table table-sm table-nowrap card-table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>NHÂN VIÊN</th>
-                                                <th>MÃ NHÂN VIÊN</th>
-                                                <th>TRẠNG THÁI</th>
-                                                <th>SỐ GIỜ</th>
-                                                <th>CHI NHÁNH</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="list">{/* table item */} 
-                                            {data && data.length > 0 && data.map((item, index) => (
-                                                <tr key={item.id}>
-                                                    <td className="col-auto">
-                                                        { item.fields.staffPhoto && item.fields.staffPhoto.length > 0
-                                                        ? <div className="avatar avatar-xs"><img src={item.fields.staffPhoto[0].url} alt={item.fields.staffName} className="avatar-img rounded-circle"/></div>
-                                                        : ''
-                                                        }
-                                                        
-                                                    </td>        
-                                                    <td className="project-project">
-                                                        <h4 className="mb-1">{item.fields.staffName}</h4>
-                                                    </td>
-                                                    <td className="project-project">
-                                                        <span className="mb-1">{item.fields.staffID}</span>
-                                                    </td>
-                                                    <td>
-                                                        { item.fields.staffStatus && item.fields.staffStatus.length > 0 && item.fields.staffStatus[0] === true
-                                                        ? <span className="badge badge-success">Đang làm việc</span>
-                                                        : <span className="badge badge-danger">Nghỉ việc</span>
-                                                        }
-                                                        
-                                                    </td>
-                                                    <td> <h4 className="mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
-                                                    <td>                                            
-                                                        <span className="mb-1">{item.fields.cabinName}</span>              
-                                                    </td>
-                                                    {/* <td className="text-right">
-                                                        { item.fields.staffSalary && item.fields.staffSalary.length > 0 
-                                                        ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-                                                        : ''
-                                                        }                                                        
-                                                    </td> */}
-                                                </tr>        
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                <div className="header mt-md-5">
+                                    <div className="header-body">
+                                        
+                                        <div className="row align-items-center">
+                                            <div className="col">
+                                                <h6 className="header-pretitle">QUẢN LÝ</h6>
+                                                <h1 className="header-title">Nhân sự</h1>
+                                            </div>                                            
+                                        </div> {/* row align-items-center */}
 
-                            {/* MODAL STAFF CREATE */}
-                            <div className="modal fade fixed-right" id="modalStaffCreate" tabIndex="-1">
-                                <div className="modal-dialog modal-dialog-vertical">
-                                    <div className="modal-content">
-                                        <div className="modal-body">
-
-                                            <div className="header">
-                                                <div className="header-body">
-                                                    <h1 className="header-title">Thêm nhân sự</h1>
-                                                    <p className='text-muted'>Cung cấp các thông tin về nhân sự, để giúp việc quản lý được thực hiện tốt hơn</p>
-                                                </div>
+                                        <div className="row align-items-center">
+                                            <div className="col">
+                                                <ul className="nav nav-tabs nav-overflow header-tabs">
+                                                    <li className="nav-item"><a className="nav-link active" href="#!">Tất cả</a></li>
+                                                    <li className="nav-item"><a className="nav-link" href="#!">Xếp ca</a></li>
+                                                    <li className="nav-item"><a className="nav-link" href="#!">Xin nghỉ</a></li>
+                                                </ul>            
                                             </div>
-
-                                            <div className="my-n3">
-                                                <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Tên nhân sự</label>
-                                                    <input className="form-control required" id='staff-name' data=''/>
-                                                </div>
-                                                <div className='form-group'>
-                                                    <label>Ngày sinh (*)</label>
-                                                    <span className='hide required' data='' id='DOB'></span>
-                                                    <Flatpickr className="form-control" id='DOB' data=''
-                                                        onChange={date => {
-                                                            console.log('new date:', date)
-                                                            $('#DOB').attr('data',date)
-                                                        }}
-                                                    />
-                                                </div>
-
-                                                {/* <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Mức lương</label>
-                                                    <input className="form-control input-number required" id='staff-salary' data=''/>
-                                                </div> */}
-
-                                                <div className="form-group">
-                                                    <label>Cabin làm việc</label>
-                                                    <span className='hide required' id='cabin-assigned' data='' brand-cabin=''></span>
-                                                    <Select
-                                                        className='form-control' 
-                                                        options={cabinOptionsData} 
-                                                        labelField= 'cabinName'
-                                                        valueField='ID'
-                                                        dropdownHandle='false'
-                                                        searchable='false'
-                                                        onChange={(valSelected) => {
-                                                            console.log('cabin seleted: ',valSelected)
-                                                            $('#cabin-assigned').attr('data',valSelected[0].CabinID)
-                                                            $('#cabin-assigned').attr('brand-cabin',valSelected[0].ID)
-                                                        }}
-                                                        onDropdownOpen={()=>{
-                                                            console.log('open dropdown')
-                                                            $('.react-dropdown-select-dropdown').css({'width': '100%'})
-                                                        }}
-                                                        />
-                                                    </div>                                                
-                                                </div>                                            
-                                                
-                                                <hr className="my-5" />   
-                                                <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">CMND/CCCD/Hộ chiếu</label>
-                                                    <input className="form-control required" id='staff-personal-id' data=''/>
-                                                </div>
-                                                <div className='form-group'>
-                                                    <label>Ngày cấp (*)</label>
-                                                    <span className='hide required' data='' id='issued-data'></span>
-                                                    <Flatpickr className="form-control" id='issued' data=''
-                                                        onChange={date => {
-                                                            console.log('new date:', date)
-                                                            $('#issued-data').attr('data',date)
-                                                        }}
-                                                    />
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label>CMND mặt trước</label>
-                                                    <ReactFilestack
-                                                        apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                        customRender={({ onPick }) => (
-                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-id-front' data=''>
-                                                                <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                                <div className="dz-default dz-message">
-                                                                    <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                        onSuccess={(res) => {
-                                                            console.log('filestack:',res)
-                                                            $('#staff-id-front').attr('data',res.filesUploaded[0].url);
-                                                            $('#staff-id-front .dz-preview').html(
-                                                                `<li class="list-group-item dz-processing dz-image-preview">
-                                                                    <div class="row align-items-center thumbnail-preview-dropzone" style="flex-wrap: initial !important; overflow:hidden">
-                                                                        <div class="col-auto">
-                                                                            <div class="avatar">
-                                                                            <img class="avatar-img rounded" src="${res.filesUploaded[0].url}"/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col ml-n3">
-                                                                            <h4 class="mb-1" data-dz-name="">${res.filesUploaded[0].filename}</h4>
-                                                                            <small class="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
-                                                                        </div>
-                                                                        <div class="col-auto"></div>
-                                                                    </div>
-                                                                </li>`
-                                                            );
-                                                            console.log('add file url to element:', $('#staff-id-front').attr('data'))
-                                                        }}
-                                                    />
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label>CMND mặt sau</label>
-                                                    <ReactFilestack
-                                                        apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                        customRender={({ onPick }) => (
-                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-id-back' data=''>
-                                                                <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
-
-                                                                </ul>
-                                                                <div className="dz-default dz-message">
-                                                                    <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                        onSuccess={(res) => {
-                                                            console.log('filestack:',res)
-                                                            $('#staff-id-back').attr('data',res.filesUploaded[0].url);
-                                                            $('#staff-id-back .dz-preview').html(
-                                                                `<li class="list-group-item dz-processing dz-image-preview">
-                                                                    <div class="row align-items-center thumbnail-preview-dropzone" style="flex-wrap: initial !important; overflow:hidden">
-                                                                        <div class="col-auto">
-                                                                            <div class="avatar">
-                                                                            <img class="avatar-img rounded" src="${res.filesUploaded[0].url}"/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col ml-n3">
-                                                                            <h4 class="mb-1" data-dz-name="">${res.filesUploaded[0].filename}</h4>
-                                                                            <small class="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
-                                                                        </div>
-                                                                        <div class="col-auto"></div>
-                                                                    </div>
-                                                                </li>`
-                                                                )
-                                                            console.log('add file url to element:', $('#staff-id-back').attr('data'))
-                                                        }}
-                                                    />                                                    
-                                                </div>             
-
-                                            <hr className="my-5" />   
-                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="staff-action">Lưu</button>
-                                            
-                                        </div>
+                                        </div> {/* row align-items-center */}
                                     </div>
                                 </div>
-                            </div>                                                                                                                                
+
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4 className="card-header-title">Danh sách nhân sự</h4>
+                                        <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhân sự</button> 
+                                    </div>{/* end card header */}
+                                    
+                                    <div className="table-responsive mb-0">
+                                        <table className="table table-sm table-nowrap card-table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>NHÂN VIÊN</th>
+                                                    <th>MÃ NHÂN VIÊN</th>
+                                                    <th>TRẠNG THÁI</th>
+                                                    <th>SỐ GIỜ</th>
+                                                    <th>CHI NHÁNH</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="list">{/* table item */} 
+                                                {data && data.length > 0 && data.map((item, index) => (
+                                                    <tr key={item.id}>
+                                                        <td className="col-auto">
+                                                            { item.fields.staffPhoto && item.fields.staffPhoto.length > 0
+                                                            ? <div className="avatar avatar-xs"><img src={item.fields.staffPhoto[0].url} alt={item.fields.staffName} className="avatar-img rounded-circle"/></div>
+                                                            : ''
+                                                            }
+                                                            
+                                                        </td>        
+                                                        <td className="project-project">
+                                                            <h4 className="mb-1">{item.fields.staffName}</h4>
+                                                        </td>
+                                                        <td className="project-project">
+                                                            <span className="mb-1">{item.fields.staffID}</span>
+                                                        </td>
+                                                        <td>
+                                                            { item.fields.staffStatus && item.fields.staffStatus.length > 0 && item.fields.staffStatus[0] === true
+                                                            ? <span className="badge badge-success">Đang làm việc</span>
+                                                            : <span className="badge badge-danger">Nghỉ việc</span>
+                                                            }
+                                                            
+                                                        </td>
+                                                        <td> <h4 className="mb-1">{item.fields.timeStaffWorkingByCurrentMonth}</h4></td>
+                                                        <td>                                            
+                                                            <span className="mb-1">{item.fields.cabinName}</span>              
+                                                        </td>
+                                                        {/* <td className="text-right">
+                                                            { item.fields.staffSalary && item.fields.staffSalary.length > 0 
+                                                            ? <span className="mb-1">{item.fields.staffSalary[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                                            : ''
+                                                            }                                                        
+                                                        </td> */}
+                                                    </tr>        
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                {/* MODAL STAFF CREATE */}
+                                <div className="modal fade fixed-right" id="modalStaffCreate" tabIndex="-1">
+                                    <div className="modal-dialog modal-dialog-vertical">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
+
+                                                <div className="header">
+                                                    <div className="header-body">
+                                                        <h1 className="header-title">Thêm nhân sự</h1>
+                                                        <p className='text-muted'>Cung cấp các thông tin về nhân sự, để giúp việc quản lý được thực hiện tốt hơn</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="my-n3">
+                                                    <div className="form-group">
+                                                        <label htmlFor="exampleInputEmail1">Tên nhân sự</label>
+                                                        <input className="form-control required" id='staff-name' data=''/>
+                                                    </div>
+                                                    <div className='form-group'>
+                                                        <label>Ngày sinh (*)</label>
+                                                        <span className='hide required' data='' id='DOB'></span>
+                                                        <Flatpickr className="form-control" id='DOB' data=''
+                                                            onChange={date => {
+                                                                console.log('new date:', date)
+                                                                $('#DOB').attr('data',date)
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    {/* <div className="form-group">
+                                                        <label htmlFor="exampleInputEmail1">Mức lương</label>
+                                                        <input className="form-control input-number required" id='staff-salary' data=''/>
+                                                    </div> */}
+
+                                                    <div className="form-group">
+                                                        <label>Cabin làm việc</label>
+                                                        <span className='hide required' id='cabin-assigned' data='' brand-cabin=''></span>
+                                                        <Select
+                                                            className='form-control' 
+                                                            options={cabinOptionsData} 
+                                                            labelField= 'cabinName'
+                                                            valueField='ID'
+                                                            dropdownHandle='false'
+                                                            searchable='false'
+                                                            onChange={(valSelected) => {
+                                                                console.log('cabin seleted: ',valSelected)
+                                                                $('#cabin-assigned').attr('data',valSelected[0].CabinID)
+                                                                $('#cabin-assigned').attr('brand-cabin',valSelected[0].ID)
+                                                            }}
+                                                            onDropdownOpen={()=>{
+                                                                console.log('open dropdown')
+                                                                $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                            }}
+                                                            />
+                                                        </div>                                                
+                                                    </div>                                            
+                                                    
+                                                    <hr className="my-5" />   
+                                                    <div className="form-group">
+                                                        <label htmlFor="exampleInputEmail1">CMND/CCCD/Hộ chiếu</label>
+                                                        <input className="form-control required" id='staff-personal-id' data=''/>
+                                                    </div>
+                                                    <div className='form-group'>
+                                                        <label>Ngày cấp (*)</label>
+                                                        <span className='hide required' data='' id='issued-data'></span>
+                                                        <Flatpickr className="form-control" id='issued' data=''
+                                                            onChange={date => {
+                                                                console.log('new date:', date)
+                                                                $('#issued-data').attr('data',date)
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>CMND mặt trước</label>
+                                                        <ReactFilestack
+                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                            customRender={({ onPick }) => (
+                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-id-front' data=''>
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                                    <div className="dz-default dz-message">
+                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            onSuccess={(res) => {
+                                                                console.log('filestack:',res)
+                                                                $('#staff-id-front').attr('data',res.filesUploaded[0].url);
+                                                                $('#staff-id-front .dz-preview').html(
+                                                                    `<li class="list-group-item dz-processing dz-image-preview">
+                                                                        <div class="row align-items-center thumbnail-preview-dropzone" style="flex-wrap: initial !important; overflow:hidden">
+                                                                            <div class="col-auto">
+                                                                                <div class="avatar">
+                                                                                <img class="avatar-img rounded" src="${res.filesUploaded[0].url}"/>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col ml-n3">
+                                                                                <h4 class="mb-1" data-dz-name="">${res.filesUploaded[0].filename}</h4>
+                                                                                <small class="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
+                                                                            </div>
+                                                                            <div class="col-auto"></div>
+                                                                        </div>
+                                                                    </li>`
+                                                                );
+                                                                console.log('add file url to element:', $('#staff-id-front').attr('data'))
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>CMND mặt sau</label>
+                                                        <ReactFilestack
+                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                            customRender={({ onPick }) => (
+                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='staff-id-back' data=''>
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+
+                                                                    </ul>
+                                                                    <div className="dz-default dz-message">
+                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            onSuccess={(res) => {
+                                                                console.log('filestack:',res)
+                                                                $('#staff-id-back').attr('data',res.filesUploaded[0].url);
+                                                                $('#staff-id-back .dz-preview').html(
+                                                                    `<li class="list-group-item dz-processing dz-image-preview">
+                                                                        <div class="row align-items-center thumbnail-preview-dropzone" style="flex-wrap: initial !important; overflow:hidden">
+                                                                            <div class="col-auto">
+                                                                                <div class="avatar">
+                                                                                <img class="avatar-img rounded" src="${res.filesUploaded[0].url}"/>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col ml-n3">
+                                                                                <h4 class="mb-1" data-dz-name="">${res.filesUploaded[0].filename}</h4>
+                                                                                <small class="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
+                                                                            </div>
+                                                                            <div class="col-auto"></div>
+                                                                        </div>
+                                                                    </li>`
+                                                                    )
+                                                                console.log('add file url to element:', $('#staff-id-back').attr('data'))
+                                                            }}
+                                                        />                                                    
+                                                    </div>             
+
+                                                <hr className="my-5" />   
+                                                <button className="btn btn-lg btn-block btn-primary mb-3" id="staff-action">Lưu</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                                                                                                                
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -88,6 +88,7 @@ export default function LayoutDocumentDetail () {
                 maxRecords: 1
             }, 'Document')
             .then(result => {
+                console.log('document: ', result)
                 var temp = []                
                 temp['title'] = result[0].fields.title;
                 temp['document_onboarding'] = result[0].fields.Document_Onboarding[0];
@@ -97,22 +98,22 @@ export default function LayoutDocumentDetail () {
                     content_type: 'document',
                     'sys.id': result[0].fields.contentfulID
                 })
-                .then((response) => {
-                    temp['content'] = response.items[0].fields.desc
+                .then((contenfulData) => {
+                    temp['content'] = contenfulData.items[0].fields.desc
                     
                     retrieveData({
-                        filterByFormula : `ID = "${result[0].fields.onboardingID[0]}"`,
-                        maxRecords : 1    
+                        filterByFormula : `ID = "${result[0].fields.onboardingID}"`,
+                        maxRecords : 1
                     },`OnBoarding`)
                     .then(onboardingRes => {
-                        console.log('onboardingRes: ', onboardingRes[0].fields.type)
+                        console.log('onboardingRes: ', onboardingRes)
                         temp['onboarding'] = onboardingRes[0].fields.type
                         temp['valueAction'] = onboardingRes[0].fields.valueAction
+                        console.log('data temp: ', temp)
                         setData(temp)
                     })
-                    .finally(res=>{
-                        
-                        console.log('data: ', data)
+                    .finally(()=>{                        
+                        // console.log('data: ', data)
                     })    
                 })
                 .catch(console.error) 

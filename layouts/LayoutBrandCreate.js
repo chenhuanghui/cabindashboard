@@ -393,351 +393,353 @@ export default class LayoutBrandCreate extends React.Component {
                 {/* <ModalProductEdit /> */}
 
                 <div className="main-content">
-                    <div className="row justify-content-center">
-                        <div className="col-12 col-lg-10 col-xl-8">
-                            
-                            <div className="tab-content py-6" id="wizardSteps">
+                    <div className="container-fluid">
+                        <div className="row justify-content-center">
+                            <div className="col-12 col-lg-10 col-xl-8">
+                                
+                                <div className="tab-content py-6" id="wizardSteps">
 
-                                <div className="tab-pane fade show active" id="wizardStep1" role="tabpanel">
-                                    
-                                    <div className="row justify-content-center">
-                                        <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
-                                            <h6 className="mb-4 text-uppercase text-muted">Bước 1 / 3</h6>
-                                            <h1 className="mb-3">Bắt đầu với thông tin cơ bản</h1>
-                                            <p className="mb-5 text-muted">Cung cấp các thông tin về thương hiệu của bạn để đăng ký với các đối tác bán hàng.</p>
-                                        </div>
-                                    </div> 
-                                    <div className='card'>
-                                        <div className='card-body'>
-                                            <div className="form-group">
-                                                <div className="form-row">
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Tên nhãn hiệu</label>
-                                                        <input type="text" className="form-control required" id="brandName" data=''/>   
-                                                    </div>{/* .form-col BRAND*/}
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Mã số doanh nghiệp</label>
-                                                        <input type="text" className="form-control required" id='businessLicense' data=''/>
-                                                    </div> {/* .form-col CABIN*/}
-                                                </div> {/* .form-row */}                                                
-                                            </div> {/* .form-group BRAND_CABIN */}
-
-                                            <div className="form-group">
-                                                <label className="mb-1">Mô tả</label>
-                                                <textarea className="form-control required " data='' id='brandIntro' data-toggle="autosize" rows="5" placeholder="Không quá 80 từ..." required></textarea>
-                                            </div>
+                                    <div className="tab-pane fade show active" id="wizardStep1" role="tabpanel">
                                         
-                                            <div className="form-group">
-                                                <div className='form-row'>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Logo</label>
-                                                        <ReactFilestack
-                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                            customRender={({ onPick }) => (
-                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='logo' image-url='' required>
-                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush logo-file-name"></ul>
-                                                                    <div className="dz-default dz-message">
-                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                            onSuccess={(res) => {
-                                                                console.log('filestack:',res)
-                                                                if (res.filesUploaded.length > 0) {
-                                                                    $('#logo').attr('image-url',res.filesUploaded[0].url);
-                                                                    $('.logo-file-name').text(res.filesUploaded[0].filename);
-                                                                    console.log('add file url to element:', $('#logo').attr('image-url'))
-                                                                }
-                                                                
-                                                            }}
-                                                        />
-                                                    </div>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Hình ảnh GPDKKD</label>
-                                                        <ReactFilestack
-                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                            customRender={({ onPick }) => (
-                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='businessLicensePhoto' image-url=''>
-                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush business-license-file-name"></ul>
-                                                                    <div className="dz-default dz-message">
-                                                                        <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                            onSuccess={(res) => {
-                                                                console.log('filestack:',res)
-                                                                if (res.filesUploaded.length > 0) {
-                                                                    $('#businessLicensePhoto').attr('image-url',res.filesUploaded[0].url);
-                                                                    $('.business-license-file-name').text(res.filesUploaded[0].filename);
-                                                                    console.log('add file url to element:', $('#businessLicensePhoto').attr('image-url'))
-                                                                }                                                                
-                                                            }}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>                                                                            
-
-                                            <div className="form-group">
-                                                <label>Cabin (*)</label>
-                                                <span className='hide required' id='cabin-assigned' data=''></span>
-                                                <Select 
-                                                    className='form-control' 
-                                                    options={cabinOptionsData} 
-                                                    labelField= 'name'
-                                                    valueField='recID'
-                                                    dropdownHandle='false'
-                                                    searchable='false'
-                                                    placeholder="Chọn cabin theo hợp đồng" 
-                                                    onChange={(valSelected) => {
-                                                        console.log('cabin seleted: ',valSelected)
-                                                        $('#cabin-assigned').attr('data',valSelected[0].recID)
-                                                    }} 
-                                                />
-                                                
-                                                {/* <div class="invalid-feedback">Thông tin bắt buộc</div>      */}
+                                        <div className="row justify-content-center">
+                                            <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                                <h6 className="mb-4 text-uppercase text-muted">Bước 1 / 3</h6>
+                                                <h1 className="mb-3">Bắt đầu với thông tin cơ bản</h1>
+                                                <p className="mb-5 text-muted">Cung cấp các thông tin về thương hiệu của bạn để đăng ký với các đối tác bán hàng.</p>
                                             </div>
+                                        </div> 
+                                        <div className='card'>
+                                            <div className='card-body'>
+                                                <div className="form-group">
+                                                    <div className="form-row">
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Tên nhãn hiệu</label>
+                                                            <input type="text" className="form-control required" id="brandName" data=''/>   
+                                                        </div>{/* .form-col BRAND*/}
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Mã số doanh nghiệp</label>
+                                                            <input type="text" className="form-control required" id='businessLicense' data=''/>
+                                                        </div> {/* .form-col CABIN*/}
+                                                    </div> {/* .form-row */}                                                
+                                                </div> {/* .form-group BRAND_CABIN */}
+
+                                                <div className="form-group">
+                                                    <label className="mb-1">Mô tả</label>
+                                                    <textarea className="form-control required " data='' id='brandIntro' data-toggle="autosize" rows="5" placeholder="Không quá 80 từ..." required></textarea>
+                                                </div>
                                             
-                                            <hr className="my-5" />    
-
-                                            <div className="row align-items-center">
-                                                <div className="col-auto">
-                                                    <button className="btn btn-lg btn-white cancle-btn" type="reset">Cancel</button>
-                                                </div>
-                                                <div className="col text-center">
-                                                    <h6 className="text-uppercase text-muted mb-0">Bước 1 / 3</h6>
-                                                </div>
-                                                <div className="col-auto">
-                                                    <span className="btn btn-lg btn-primary next-btn" pane-id='1' data-toggle="wizard" id='step1'>Continue</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div> {/* .wizard step  #wizardStep1*/}
-
-                                <div className="tab-pane fade show" id="wizardStep2" role="tabpanel">
-                                    <div className="row justify-content-center">
-                                        <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
-                                            <h6 className="mb-4 text-uppercase text-muted">Bước 2 / 3</h6>
-                                            <h1 className="mb-3">Thông tin Chủ sở hữu</h1>
-                                            <p className="mb-5 text-muted">Cung cấp các thông tin về chủ sở hữu để hoàn thiện đăng ký với các đối tác bán hàng.</p>
-                                        </div>
-                                    </div>    
-                                    <div className='card'>
-                                        <div className='card-body'>
-                                            {/* group owner general informatoin */}
-                                            <div className="form-group">
-                                                <div className='form-row'>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Họ và tên (*)</label>
-                                                        <input type="text" className="form-control required" id='name' data=''/>
-                                                    </div>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Số CMND/CCCD/Hộ chiếu (*)</label>
-                                                        <input type="text" className="form-control required" id='ownerPersonalID' data=''/>
-                                                    </div>
-                                                </div>                                                
-                                            </div>
-
-                                            <div className="form-group">
-                                                <div className='form-row'>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Số điện thoại (*)</label>
-                                                        <input type="text" className="form-control required" id='tel' data=''/>
-                                                    </div>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Email (*)</label>
-                                                        <input type="email" className="form-control required" id='email' data=''/>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-
-                                            <div className="form-group">
-                                                <div className='form-row'>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Ngày sinh (*)</label>
-                                                        <span className='hide required' data='' id='DOB-data'></span>
-                                                        <Flatpickr className="form-control" id='DOB' data=''
-                                                            onChange={date => {
-                                                                console.log('new date:', date)
-                                                                $('#DOB-data').attr('data',date)
-                                                            }}
-                                                        />
-                                                    </div>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Hình ảnh CMND/CCCD/Hộ chiếu (*)</label>
-                                                        <div className='form-row'>
+                                                <div className="form-group">
+                                                    <div className='form-row'>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Logo</label>
                                                             <ReactFilestack
                                                                 apikey={'A88NrCjOoTtq2X3RiYyvSz'}
                                                                 customRender={({ onPick }) => (
-                                                                    <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image-front' image-url=''>
-                                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personalIDPhoto-image-front"></ul>
+                                                                    <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='logo' image-url='' required>
+                                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush logo-file-name"></ul>
                                                                         <div className="dz-default dz-message">
-                                                                            <button className="dz-button" type="button" onClick={onPick}>Mặt trước</button>
+                                                                            <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
                                                                         </div>
                                                                     </div>
                                                                 )}
                                                                 onSuccess={(res) => {
                                                                     console.log('filestack:',res)
                                                                     if (res.filesUploaded.length > 0) {
-                                                                        $('#personalIDPhoto-image-front').attr('image-url',res.filesUploaded[0].url);
-                                                                        $('.dz-preview .personalIDPhoto-image-front').text(res.filesUploaded[0].filename) // update file name to let user know this success
-                                                                        console.log('add file url to element:', $('#personalIDPhoto-image-front').attr('image-url'))
-                                                                    }
-                                                                    
-                                                                }}
-                                                            />
-                                                            <ReactFilestack
-                                                                apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                                customRender={({ onPick }) => (
-                                                                    <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image-back' image-url=''>
-                                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
-                                                                        <div className="dz-default dz-message">
-                                                                            <button className="dz-button" type="button" onClick={onPick}>Mặt sau</button>
-                                                                        </div>
-                                                                    </div>
-                                                                )}
-                                                                onSuccess={(res) => {
-                                                                    console.log('filestack:',res)
-                                                                    if (res.filesUploaded.length > 0) {
-                                                                        $('#personalIDPhoto-image-back').attr('image-url',res.filesUploaded[0].url);
-                                                                        $('.dz-preview .personalIDPhoto-image-back').text(res.filesUploaded[0].filename) // update file name to let user know this success
-                                                                        console.log('add file url to element:', $('#personalIDPhoto-image-back').attr('image-url'))
+                                                                        $('#logo').attr('image-url',res.filesUploaded[0].url);
+                                                                        $('.logo-file-name').text(res.filesUploaded[0].filename);
+                                                                        console.log('add file url to element:', $('#logo').attr('image-url'))
                                                                     }
                                                                     
                                                                 }}
                                                             />
                                                         </div>
-                                                        
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Hình ảnh GPDKKD</label>
+                                                            <ReactFilestack
+                                                                apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                                customRender={({ onPick }) => (
+                                                                    <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='businessLicensePhoto' image-url=''>
+                                                                        <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush business-license-file-name"></ul>
+                                                                        <div className="dz-default dz-message">
+                                                                            <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                onSuccess={(res) => {
+                                                                    console.log('filestack:',res)
+                                                                    if (res.filesUploaded.length > 0) {
+                                                                        $('#businessLicensePhoto').attr('image-url',res.filesUploaded[0].url);
+                                                                        $('.business-license-file-name').text(res.filesUploaded[0].filename);
+                                                                        console.log('add file url to element:', $('#businessLicensePhoto').attr('image-url'))
+                                                                    }                                                                
+                                                                }}
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>                                                
-                                            </div>
-
-
-                                            {/* group brank information */}
-                                            <hr className="my-5" />    
-                                            <div className='form-group'>
-                                                <h2>Thông tin tài khoản ngân hàng</h2>
-                                                <small className='text-muted'> Thông tin này được sử dụng cho việc nhận thanh toán từ các đối tác bán hàng</small>
-                                            </div>                                                
-
-                                            <div className="form-group">
-                                                <label>Tên ngân hàng (*)</label>
-                                                <span className="hide required" id='bankName' data=''></span>
-                                                <Select 
-                                                    className='form-control' 
-                                                    options={bankData} 
-                                                    labelField= 'name'
-                                                    valueField='ID'
-                                                    dropdownHandle='false'
-                                                    searchable='false'
-                                                    placeholder="Chọn ngân hàng" 
-                                                    onChange={(valSelected) => {
-                                                        console.log('bank seleted: ',valSelected)
-                                                        $('#bankName').attr('data',valSelected[0].ID)
-                                                    }} 
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <div className='form-row'>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Số tài khoản (*)</label>
-                                                        <input type="text" className="form-control required" id='bankAccNo' data=''/>
-                                                    </div>
-                                                    <div className='col-12 col-md-6 mb-3'>
-                                                        <label>Tên chủ tài khoản (*)</label>
-                                                        <input type="text" className="form-control required" id='bankAccName' data=''/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* group brank information */}
-                                            <hr className="my-5" />    
-                                            <div className='form-group'>
-                                                <h2>Thông tin hợp đồng cùng CabinFood</h2>
-                                            </div>                                                
-
-                                            <div className="form-group">
-                                                <label>Mã hợp đồng (*)</label>
-                                                <input type="text" className="form-control required" data=''/>
-                                            </div>
-
-                                            {/* group navigate button */}
-                                            <hr className="my-5" />    
-
-                                            <div className="row align-items-center">
-                                                <div className="col-auto">
-                                                    <button className="btn btn-lg btn-white back-btn" pane-id='2' type="back">Quay lại</button>
-                                                </div>
-                                                <div className="col text-center">
-                                                    <h6 className="text-uppercase text-muted mb-0">Bước 2 / 3</h6>
-                                                </div>
-                                                <div className="col-auto">
-                                                    <button className="btn btn-lg btn-primary next-btn" pane-id='2' data-toggle="wizard" id='step2'>Tiếp theo</button>
-                                                </div>
-                                            </div> {/* .row */}
-                                        </div> {/* .card-body */}
-                                    </div> {/* .card */}                                                                            
-                                </div> {/* .wizard step  #wizardStep2*/}
-
-                                <div className="tab-pane fade show" id="wizardStep3" role="tabpanel">
-                                    <div className="row justify-content-center">
-                                        <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
-                                            <h6 className="mb-4 text-uppercase text-muted">Bước 3 / 3</h6>
-                                            <h1 className="mb-3">Kích hoạt </h1>
-                                            <p className="mb-5 text-muted">Cung cấp các thông tin về chủ sở hữu để hoàn thiện đăng ký với các đối tác bán hàng.</p>
-                                        </div>
-                                    </div>    
-                                    <div className='card col-12'>
-                                        <div className='card-body'>
-                                            {/* group owner general informatoin */}
-                                            <div className="form-group">
-                                                {/* group account information */}
-                                                <div className='form-group'>
-                                                    <h2>Thông tin tài khoản của nhãn hàng truy cập vào hệ thống quản lý</h2>
-                                                </div>                                                
+                                                </div>                                                                            
 
                                                 <div className="form-group">
-                                                    <label>Tên tài khoản:</label>
-                                                    <input type="text" className="form-control" data='' id='accountName'/>
+                                                    <label>Cabin (*)</label>
+                                                    <span className='hide required' id='cabin-assigned' data=''></span>
+                                                    <Select 
+                                                        className='form-control' 
+                                                        options={cabinOptionsData} 
+                                                        labelField= 'name'
+                                                        valueField='recID'
+                                                        dropdownHandle='false'
+                                                        searchable='false'
+                                                        placeholder="Chọn cabin theo hợp đồng" 
+                                                        onChange={(valSelected) => {
+                                                            console.log('cabin seleted: ',valSelected)
+                                                            $('#cabin-assigned').attr('data',valSelected[0].recID)
+                                                        }} 
+                                                    />
+                                                    
+                                                    {/* <div class="invalid-feedback">Thông tin bắt buộc</div>      */}
+                                                </div>
+                                                
+                                                <hr className="my-5" />    
+
+                                                <div className="row align-items-center">
+                                                    <div className="col-auto">
+                                                        <button className="btn btn-lg btn-white cancle-btn" type="reset">Cancel</button>
+                                                    </div>
+                                                    <div className="col text-center">
+                                                        <h6 className="text-uppercase text-muted mb-0">Bước 1 / 3</h6>
+                                                    </div>
+                                                    <div className="col-auto">
+                                                        <span className="btn btn-lg btn-primary next-btn" pane-id='1' data-toggle="wizard" id='step1'>Continue</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div> {/* .wizard step  #wizardStep1*/}
+
+                                    <div className="tab-pane fade show" id="wizardStep2" role="tabpanel">
+                                        <div className="row justify-content-center">
+                                            <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                                <h6 className="mb-4 text-uppercase text-muted">Bước 2 / 3</h6>
+                                                <h1 className="mb-3">Thông tin Chủ sở hữu</h1>
+                                                <p className="mb-5 text-muted">Cung cấp các thông tin về chủ sở hữu để hoàn thiện đăng ký với các đối tác bán hàng.</p>
+                                            </div>
+                                        </div>    
+                                        <div className='card'>
+                                            <div className='card-body'>
+                                                {/* group owner general informatoin */}
+                                                <div className="form-group">
+                                                    <div className='form-row'>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Họ và tên (*)</label>
+                                                            <input type="text" className="form-control required" id='name' data=''/>
+                                                        </div>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Số CMND/CCCD/Hộ chiếu (*)</label>
+                                                            <input type="text" className="form-control required" id='ownerPersonalID' data=''/>
+                                                        </div>
+                                                    </div>                                                
                                                 </div>
 
                                                 <div className="form-group">
                                                     <div className='form-row'>
                                                         <div className='col-12 col-md-6 mb-3'>
-                                                            <label>Email: </label>
-                                                            <input type="text" className="form-control" data='' id='accountEmail'/>
+                                                            <label>Số điện thoại (*)</label>
+                                                            <input type="text" className="form-control required" id='tel' data=''/>
                                                         </div>
                                                         <div className='col-12 col-md-6 mb-3'>
-                                                            <label>Số điện thoại: </label>
-                                                            <input type="text" className="form-control" data='' id='accountTel'/>
+                                                            <label>Email (*)</label>
+                                                            <input type="email" className="form-control required" id='email' data=''/>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <div className='form-row'>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Ngày sinh (*)</label>
+                                                            <span className='hide required' data='' id='DOB-data'></span>
+                                                            <Flatpickr className="form-control" id='DOB' data=''
+                                                                onChange={date => {
+                                                                    console.log('new date:', date)
+                                                                    $('#DOB-data').attr('data',date)
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Hình ảnh CMND/CCCD/Hộ chiếu (*)</label>
+                                                            <div className='form-row'>
+                                                                <ReactFilestack
+                                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                                    customRender={({ onPick }) => (
+                                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image-front' image-url=''>
+                                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personalIDPhoto-image-front"></ul>
+                                                                            <div className="dz-default dz-message">
+                                                                                <button className="dz-button" type="button" onClick={onPick}>Mặt trước</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+                                                                    onSuccess={(res) => {
+                                                                        console.log('filestack:',res)
+                                                                        if (res.filesUploaded.length > 0) {
+                                                                            $('#personalIDPhoto-image-front').attr('image-url',res.filesUploaded[0].url);
+                                                                            $('.dz-preview .personalIDPhoto-image-front').text(res.filesUploaded[0].filename) // update file name to let user know this success
+                                                                            console.log('add file url to element:', $('#personalIDPhoto-image-front').attr('image-url'))
+                                                                        }
+                                                                        
+                                                                    }}
+                                                                />
+                                                                <ReactFilestack
+                                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                                    customRender={({ onPick }) => (
+                                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='personalIDPhoto-image-back' image-url=''>
+                                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush personal-ID-file-name"></ul>
+                                                                            <div className="dz-default dz-message">
+                                                                                <button className="dz-button" type="button" onClick={onPick}>Mặt sau</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+                                                                    onSuccess={(res) => {
+                                                                        console.log('filestack:',res)
+                                                                        if (res.filesUploaded.length > 0) {
+                                                                            $('#personalIDPhoto-image-back').attr('image-url',res.filesUploaded[0].url);
+                                                                            $('.dz-preview .personalIDPhoto-image-back').text(res.filesUploaded[0].filename) // update file name to let user know this success
+                                                                            console.log('add file url to element:', $('#personalIDPhoto-image-back').attr('image-url'))
+                                                                        }
+                                                                        
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>                                                
+                                                </div>
+
+
+                                                {/* group brank information */}
+                                                <hr className="my-5" />    
+                                                <div className='form-group'>
+                                                    <h2>Thông tin tài khoản ngân hàng</h2>
+                                                    <small className='text-muted'> Thông tin này được sử dụng cho việc nhận thanh toán từ các đối tác bán hàng</small>
+                                                </div>                                                
+
+                                                <div className="form-group">
+                                                    <label>Tên ngân hàng (*)</label>
+                                                    <span className="hide required" id='bankName' data=''></span>
+                                                    <Select 
+                                                        className='form-control' 
+                                                        options={bankData} 
+                                                        labelField= 'name'
+                                                        valueField='ID'
+                                                        dropdownHandle='false'
+                                                        searchable='false'
+                                                        placeholder="Chọn ngân hàng" 
+                                                        onChange={(valSelected) => {
+                                                            console.log('bank seleted: ',valSelected)
+                                                            $('#bankName').attr('data',valSelected[0].ID)
+                                                        }} 
+                                                    />
+                                                </div>
+                                                <div className="form-group">
+                                                    <div className='form-row'>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Số tài khoản (*)</label>
+                                                            <input type="text" className="form-control required" id='bankAccNo' data=''/>
+                                                        </div>
+                                                        <div className='col-12 col-md-6 mb-3'>
+                                                            <label>Tên chủ tài khoản (*)</label>
+                                                            <input type="text" className="form-control required" id='bankAccName' data=''/>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                {/* group brank information */}
+                                                <hr className="my-5" />    
+                                                <div className='form-group'>
+                                                    <h2>Thông tin hợp đồng cùng CabinFood</h2>
+                                                </div>                                                
+
+                                                <div className="form-group">
+                                                    <label>Mã hợp đồng (*)</label>
+                                                    <input type="text" className="form-control required" data=''/>
+                                                </div>
+
+                                                {/* group navigate button */}
+                                                <hr className="my-5" />    
+
+                                                <div className="row align-items-center">
+                                                    <div className="col-auto">
+                                                        <button className="btn btn-lg btn-white back-btn" pane-id='2' type="back">Quay lại</button>
+                                                    </div>
+                                                    <div className="col text-center">
+                                                        <h6 className="text-uppercase text-muted mb-0">Bước 2 / 3</h6>
+                                                    </div>
+                                                    <div className="col-auto">
+                                                        <button className="btn btn-lg btn-primary next-btn" pane-id='2' data-toggle="wizard" id='step2'>Tiếp theo</button>
+                                                    </div>
+                                                </div> {/* .row */}
+                                            </div> {/* .card-body */}
+                                        </div> {/* .card */}                                                                            
+                                    </div> {/* .wizard step  #wizardStep2*/}
+
+                                    <div className="tab-pane fade show" id="wizardStep3" role="tabpanel">
+                                        <div className="row justify-content-center">
+                                            <div className="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
+                                                <h6 className="mb-4 text-uppercase text-muted">Bước 3 / 3</h6>
+                                                <h1 className="mb-3">Kích hoạt </h1>
+                                                <p className="mb-5 text-muted">Cung cấp các thông tin về chủ sở hữu để hoàn thiện đăng ký với các đối tác bán hàng.</p>
                                             </div>
+                                        </div>    
+                                        <div className='card col-12'>
+                                            <div className='card-body'>
+                                                {/* group owner general informatoin */}
+                                                <div className="form-group">
+                                                    {/* group account information */}
+                                                    <div className='form-group'>
+                                                        <h2>Thông tin tài khoản của nhãn hàng truy cập vào hệ thống quản lý</h2>
+                                                    </div>                                                
 
-                                            {/* group navigate button */}
-                                            <hr className="my-5" />    
+                                                    <div className="form-group">
+                                                        <label>Tên tài khoản:</label>
+                                                        <input type="text" className="form-control" data='' id='accountName'/>
+                                                    </div>
 
-                                            <div className="row align-items-center">
-                                                <div className="col-auto">
-                                                    <button className="btn btn-lg btn-white back-btn" pane-id='3' type="back">Quay lại</button>
+                                                    <div className="form-group">
+                                                        <div className='form-row'>
+                                                            <div className='col-12 col-md-6 mb-3'>
+                                                                <label>Email: </label>
+                                                                <input type="text" className="form-control" data='' id='accountEmail'/>
+                                                            </div>
+                                                            <div className='col-12 col-md-6 mb-3'>
+                                                                <label>Số điện thoại: </label>
+                                                                <input type="text" className="form-control" data='' id='accountTel'/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="col text-center">
-                                                    <h6 className="text-uppercase text-muted mb-0">Bước 3 / 3</h6>
-                                                </div>
-                                                <div className="col-auto">
-                                                    <button className="btn btn-lg btn-primary next-btn" pane-id='3' data-toggle="wizard" id='complete-btn'>Tạo thương hiệu</button>
-                                                </div>
-                                            </div> {/* .row */}
-                                        </div> {/* .card-body */}
-                                    </div> {/* .card */}                                                                            
-                                </div> {/* .wizard step */}
 
-                            </div> {/* .tab-content */}                                                                                      
-                        </div> {/* .col */}
-                    </div> {/* .row */}
+                                                {/* group navigate button */}
+                                                <hr className="my-5" />    
+
+                                                <div className="row align-items-center">
+                                                    <div className="col-auto">
+                                                        <button className="btn btn-lg btn-white back-btn" pane-id='3' type="back">Quay lại</button>
+                                                    </div>
+                                                    <div className="col text-center">
+                                                        <h6 className="text-uppercase text-muted mb-0">Bước 3 / 3</h6>
+                                                    </div>
+                                                    <div className="col-auto">
+                                                        <button className="btn btn-lg btn-primary next-btn" pane-id='3' data-toggle="wizard" id='complete-btn'>Tạo thương hiệu</button>
+                                                    </div>
+                                                </div> {/* .row */}
+                                            </div> {/* .card-body */}
+                                        </div> {/* .card */}                                                                            
+                                    </div> {/* .wizard step */}
+
+                                </div> {/* .tab-content */}                                                                                      
+                            </div> {/* .col */}
+                        </div> {/* .row */}
+                    </div>
                 </div>
                 
                 <style jsx>{`

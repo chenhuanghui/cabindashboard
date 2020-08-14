@@ -289,185 +289,187 @@ export default class LayoutProduct extends React.Component {
                 {/* <ModalProductEdit /> */}
 
                 <div className="main-content">
-                    <div className="row justify-content-center">
-                        <div className="col-12 col-lg-10 col-xl-8">
+                    <div className="container-fluid">
+                        <div className="row justify-content-center">
+                            <div className="col-12 col-lg-10 col-xl-8">
 
-                            <div className="header mt-md-5">
-                                <div className="header-body">
+                                <div className="header mt-md-5">
+                                    <div className="header-body">
+                                        
+                                        <div className="row align-items-center">
+                                            <div className="col">
+                                                <h6 className="header-pretitle">QUẢN LÝ</h6>
+                                                <h1 className="header-title">Sản phẩm</h1>
+                                            </div>                                            
+                                        </div> {/* row align-items-center */}
+
+                                        <div className="row align-items-center">
+                                            <div className="col">
+                                                <ul className="nav nav-tabs nav-overflow header-tabs">
+                                                    <li className="nav-item"><a className="nav-link active" href="#!">Sản phẩm</a></li>
+                                                    <li className="nav-item"><a className="nav-link" href="#!">Danh mục</a></li>
+                                                    <li className="nav-item"><a className="nav-link" href="#!">Kho</a></li>
+                                                </ul>            
+                                            </div>
+                                        </div> {/* row align-items-center */}
+                                    </div>
+                                </div>
+
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4 className="card-header-title">Danh sách sản phẩm</h4>
+                                        <Link href='#'>
+                                            <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm sản phẩm</a> 
+                                        </Link>                                    
+                                    </div>{/* end card header */}
                                     
-                                    <div className="row align-items-center">
-                                        <div className="col">
-                                            <h6 className="header-pretitle">QUẢN LÝ</h6>
-                                            <h1 className="header-title">Sản phẩm</h1>
-                                        </div>                                            
-                                    </div> {/* row align-items-center */}
-
-                                    <div className="row align-items-center">
-                                        <div className="col">
-                                            <ul className="nav nav-tabs nav-overflow header-tabs">
-                                                <li className="nav-item"><a className="nav-link active" href="#!">Sản phẩm</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Danh mục</a></li>
-                                                <li className="nav-item"><a className="nav-link" href="#!">Kho</a></li>
-                                            </ul>            
-                                        </div>
-                                    </div> {/* row align-items-center */}
+                                    <div className="table-responsive mb-0">
+                                        <table className="table table-sm table-nowrap card-table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>TÊN</th>
+                                                    <th>TRẠNG THÁI</th>
+                                                    <th>DANH MỤC</th>
+                                                    <th>GIÁ BÁN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="list">{/* table item */} 
+                                                {data && data.length > 0 && data.map((item, index) => (
+                                                    <tr key={index} className='item-row' data={item.fields.Product} item-index={index}>
+                                                        <td className="col-auto">
+                                                            { item.fields.productImage && item.fields.productImage.length > 0
+                                                            ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded"/></div>
+                                                            : ''
+                                                            }
+                                                            
+                                                        </td>        
+                                                        <td className="col-auto">
+                                                            <h4 className="font-weight-normal mb-1 item-name">{item.fields.productName}</h4>
+                                                            <small className="text-muted item-desc">{item.fields.productDesc}</small>
+                                                        </td>
+                                                        <td>
+                                                            { item.fields.productStatus && item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
+                                                            ? <span className="badge badge-success item-status" data='true'>Đang kinh doanh</span>
+                                                            : <span className="badge badge-danger item-status" data='false'> Ngừng kinh doanh</span>
+                                                            }
+                                                            
+                                                        </td>
+                                                        <td> 
+                                                            { item.fields.productCategory && item.fields.productCategory.length > 0 
+                                                            ? <h4 className="font-weight-normal mb-1 item-cat" data={item.fields.productCategory[0]}>{item.fields.productCategory[0]}</h4>
+                                                            : ''
+                                                            }                                                        
+                                                        </td>
+                                                        <td>
+                                                            { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
+                                                            ? <h4 className="font-weight-normal mb-1 item-price" data={item.fields.productPrice4Sell[0]}>{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
+                                                            : ''
+                                                            }                                                        
+                                                        </td>
+                                                    </tr>        
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="card">
-                                <div className="card-header">
-                                    <h4 className="card-header-title">Danh sách sản phẩm</h4>
-                                    <Link href='#'>
-                                        <a className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm sản phẩm</a> 
-                                    </Link>                                    
-                                </div>{/* end card header */}
-                                
-                                <div className="table-responsive mb-0">
-                                    <table className="table table-sm table-nowrap card-table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>TÊN</th>
-                                                <th>TRẠNG THÁI</th>
-                                                <th>DANH MỤC</th>
-                                                <th>GIÁ BÁN</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="list">{/* table item */} 
-                                            {data && data.length > 0 && data.map((item, index) => (
-                                                <tr key={index} className='item-row' data={item.fields.Product} item-index={index}>
-                                                    <td className="col-auto">
-                                                        { item.fields.productImage && item.fields.productImage.length > 0
-                                                        ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded"/></div>
-                                                        : ''
-                                                        }
-                                                        
-                                                    </td>        
-                                                    <td className="col-auto">
-                                                        <h4 className="font-weight-normal mb-1 item-name">{item.fields.productName}</h4>
-                                                        <small className="text-muted item-desc">{item.fields.productDesc}</small>
-                                                    </td>
-                                                    <td>
-                                                        { item.fields.productStatus && item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
-                                                        ? <span className="badge badge-success item-status" data='true'>Đang kinh doanh</span>
-                                                        : <span className="badge badge-danger item-status" data='false'> Ngừng kinh doanh</span>
-                                                        }
-                                                        
-                                                    </td>
-                                                    <td> 
-                                                        { item.fields.productCategory && item.fields.productCategory.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1 item-cat" data={item.fields.productCategory[0]}>{item.fields.productCategory[0]}</h4>
-                                                        : ''
-                                                        }                                                        
-                                                    </td>
-                                                    <td>
-                                                        { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
-                                                        ? <h4 className="font-weight-normal mb-1 item-price" data={item.fields.productPrice4Sell[0]}>{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
-                                                        : ''
-                                                        }                                                        
-                                                    </td>
-                                                </tr>        
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                {/* MODAL CREATE PRODUCT */}
+                                <div className="modal fade fixed-right" id="modalProductCreate" tabIndex="-1">
+                                    <div className="modal-dialog modal-dialog-vertical">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
 
-                            {/* MODAL CREATE PRODUCT */}
-                            <div className="modal fade fixed-right" id="modalProductCreate" tabIndex="-1">
-                                <div className="modal-dialog modal-dialog-vertical">
-                                    <div className="modal-content">
-                                        <div className="modal-body">
-
-                                            <div className="header">
-                                                <div className="header-body">
-                                                    <h1 className="header-title">Thêm sản phẩm</h1>
-                                                    <p className='text-muted'>Cập nhật các thông tin về sản phẩm vào hệ thống quản lý.</p>
+                                                <div className="header">
+                                                    <div className="header-body">
+                                                        <h1 className="header-title">Thêm sản phẩm</h1>
+                                                        <p className='text-muted'>Cập nhật các thông tin về sản phẩm vào hệ thống quản lý.</p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div className="my-n3">
+                                                <div className="my-n3">
+                                                    <div className="form-group">
+                                                        <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
+                                                        <input className="form-control required" id='product-name' data=''/>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label htmlFor="exampleInputEmail1">Mô tả</label>
+                                                        <input className="form-control required" id='product-desc' data=''/>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label htmlFor="exampleInputEmail1">Giá bán</label>
+                                                        <input className="form-control input-number required" id='product-price' data=''/>
+                                                    </div>
+                                                </div>
+                                                    
                                                 <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Tên sản phẩm</label>
-                                                    <input className="form-control required" id='product-name' data=''/>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Mô tả</label>
-                                                    <input className="form-control required" id='product-desc' data=''/>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="exampleInputEmail1">Giá bán</label>
-                                                    <input className="form-control input-number required" id='product-price' data=''/>
-                                                </div>
-                                            </div>
-                                                
-                                            <div className="form-group">
-                                                <label htmlFor="exampleInputEmail1">Hình ảnh sản phẩm:</label>
-                                                <ReactFilestack
-                                                    apikey={'A88NrCjOoTtq2X3RiYyvSz'}
-                                                    customRender={({ onPick }) => (
-                                                        <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image' data=''>
-                                                            <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                            <div className="dz-default dz-message">
-                                                                <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                    <label htmlFor="exampleInputEmail1">Hình ảnh sản phẩm:</label>
+                                                    <ReactFilestack
+                                                        apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                        customRender={({ onPick }) => (
+                                                            <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image' data=''>
+                                                                <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                                <div className="dz-default dz-message">
+                                                                    <button className="dz-button" type="button" onClick={onPick}>Chọn file</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    )}
-                                                    onSuccess={(res) => {
-                                                        console.log('filestack:',res)
-                                                        $('#product-image').attr('data',res.filesUploaded[0].url);
-                                                        $('.dz-preview').text(res.filesUploaded[0].filename);
-                                                        console.log('add file url to element:', $('#product-image').attr('data'))
-                                                    }}
-                                                />
-                                            </div>
-                                            
-                                            <hr className="my-5" />   
-                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="product-create">Lưu</button>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* MODAL EDIT PRODUCT */}
-                            <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1" data='' item-index=''>
-                                <div className="modal-dialog modal-dialog-vertical">
-                                    <div className="modal-content">
-                                        <div className="modal-body">
-
-                                            <div className="header">
-                                                <div className="header-body">
-                                                    <h1 className="header-title">Chỉnh sửa sản phẩm</h1>
-                                                    <p className='text-muted'>Cập nhật các thông tin về sản phẩm vào hệ thống quản lý.</p>
+                                                        )}
+                                                        onSuccess={(res) => {
+                                                            console.log('filestack:',res)
+                                                            $('#product-image').attr('data',res.filesUploaded[0].url);
+                                                            $('.dz-preview').text(res.filesUploaded[0].filename);
+                                                            console.log('add file url to element:', $('#product-image').attr('data'))
+                                                        }}
+                                                    />
                                                 </div>
-                                            </div>
-
-                                            <div className="my-n3">
-                                                <div className="form-group">
-                                                    <label>Tên sản phẩm</label>
-                                                    <input className="form-control required" id='product-name-edit' data=''/>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label>Mô tả</label>
-                                                    <input className="form-control required" id='product-desc-edit' data=''/>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label>Giá bán</label>
-                                                    <input className="form-control input-number required" id='product-price-edit' data=''/>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label>Tình trạng kinh doanh</label>
-                                                    <input type="checkbox" className='ml-3' id='product-status-edit' data=''/>
-                                                </div>
-                                            </div>
                                                 
-                                            <hr className="my-5" />                                  
-                                            <button className="btn btn-lg btn-block btn-primary mb-3" id="product-update">Lưu</button>                                            
+                                                <hr className="my-5" />   
+                                                <button className="btn btn-lg btn-block btn-primary mb-3" id="product-create">Lưu</button>                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                                {/* MODAL EDIT PRODUCT */}
+                                <div className="modal fade fixed-right" id="modalProductEdit" tabIndex="-1" data='' item-index=''>
+                                    <div className="modal-dialog modal-dialog-vertical">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
+
+                                                <div className="header">
+                                                    <div className="header-body">
+                                                        <h1 className="header-title">Chỉnh sửa sản phẩm</h1>
+                                                        <p className='text-muted'>Cập nhật các thông tin về sản phẩm vào hệ thống quản lý.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="my-n3">
+                                                    <div className="form-group">
+                                                        <label>Tên sản phẩm</label>
+                                                        <input className="form-control required" id='product-name-edit' data=''/>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label>Mô tả</label>
+                                                        <input className="form-control required" id='product-desc-edit' data=''/>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label>Giá bán</label>
+                                                        <input className="form-control input-number required" id='product-price-edit' data=''/>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label>Tình trạng kinh doanh</label>
+                                                        <input type="checkbox" className='ml-3' id='product-status-edit' data=''/>
+                                                    </div>
+                                                </div>
+                                                    
+                                                <hr className="my-5" />                                  
+                                                <button className="btn btn-lg btn-block btn-primary mb-3" id="product-update">Lưu</button>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
