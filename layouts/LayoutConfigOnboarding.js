@@ -620,7 +620,7 @@ export default class LayoutConfig extends React.Component {
                                                         <span className='hide required' id='onboarding-type-selected' data=''></span>
                                                         <Select
                                                             className='form-control' 
-                                                            options={[{title:'Tự động hoàn thành',ID:1},{title:'Xác nhận', ID: 2}]} 
+                                                            options={[{title:'Tự động hoàn thành',ID:1},{title:'Xác nhận', ID: 2},{title:'CF Account đánh giá', ID: 3}]} 
                                                             labelField= 'title'
                                                             valueField='ID'
                                                             dropdownHandle='false'
@@ -689,7 +689,7 @@ export default class LayoutConfig extends React.Component {
                                                         <span className='hide required' id='onboarding-type-selected-edit' data=''></span>
                                                         <Select
                                                             className='form-control' 
-                                                            options={[{title:'Tự động hoàn thành',ID:1},{title:'Xác nhận', ID: 2}]} 
+                                                            options={[{title:'Tự động hoàn thành',ID:1},{title:'Xác nhận', ID: 2},{title:'CF Account đánh giá', ID: 3}]} 
                                                             labelField= 'title'
                                                             valueField='ID'
                                                             dropdownHandle='false'
