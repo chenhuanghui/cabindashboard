@@ -304,6 +304,7 @@ export default class LayoutConfig extends React.Component {
                                                     <li className="nav-item">
                                                         <Link href='/config/onboard2doc'><a className="nav-link">Tài liệu - Hội nhập</a></Link>
                                                     </li>
+                                                    <li className="nav-item"><Link href='/config/onboard2brand'><a className="nav-link">Hội nhập - Nhãn hiệu</a></Link></li>
                                                 </ul>            
                                             </div>
                                         </div>  {/* row align-items-center */}
