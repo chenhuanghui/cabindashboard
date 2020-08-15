@@ -402,7 +402,7 @@ export default class LayoutConfig extends React.Component {
                                                                 data-item-status = {item.fields.status ? 'true' : 'false'}
                                                             >{item.fields.title}</h4>
                                                             <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
-                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
                                                                 {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
                                                             </small>
                                                         </td>
@@ -449,7 +449,7 @@ export default class LayoutConfig extends React.Component {
                                                                 data-item-status = {item.fields.status ? 'true' : 'false'}
                                                             >{item.fields.title}</h4>
                                                             <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
-                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
                                                                 {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
                                                             </small>
                                                         </td>
@@ -496,7 +496,7 @@ export default class LayoutConfig extends React.Component {
                                                                 data-item-status = {item.fields.status ? 'true' : 'false'}
                                                             >{item.fields.title}</h4>
                                                             <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
-                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
                                                                 {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
                                                             </small>
                                                         </td>
@@ -543,7 +543,7 @@ export default class LayoutConfig extends React.Component {
                                                                 data-item-status = {item.fields.status ? 'true' : 'false'}
                                                             >{item.fields.title}</h4>
                                                             <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
-                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
                                                                 {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
                                                             </small>
                                                         </td>

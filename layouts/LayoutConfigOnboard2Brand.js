@@ -64,7 +64,8 @@ export default class LayoutOnboard2Doc extends React.Component {
             brandOnboardingList1: [],
             brandOnboardingList2: [],
             brandOnboardingList3: [],
-            brandOnboardingList4: []
+            brandOnboardingList4: [],
+            isBusy : false,
         }
     }
 
@@ -147,6 +148,12 @@ export default class LayoutOnboard2Doc extends React.Component {
         // FRONT-END ENGAGEMENT
 
         $(document).on(`click`,`.action-link`,function(){
+            if (currentComponent.state.isBusy === true) {
+                alert('Have a process was handling. Please wait for a moment.')
+                return;
+            }
+            
+            // add loading spinner icon
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
 
             var isActiveSetting = false
@@ -156,6 +163,8 @@ export default class LayoutOnboard2Doc extends React.Component {
             }
             
             console.log('activate status setting: ', isActiveSetting)
+            currentComponent.setState({isBusy: true})
+            
             updateData($(this).attr(`data3`),{
                 isActive: isActiveSetting
             },`Brand_Onboarding`)
@@ -169,6 +178,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                     $(this).text('Kết nối')
                 }
                 $('.spinner-grow').remove()
+                currentComponent.setState({isBusy: false})
             })
         })
 
@@ -221,6 +231,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title"> CHỌN NHÃN HIỆU</h4>
+                                        
                                         <span id="brand-selected" className='hide' data=''></span>
                                         <Select
                                             className='form-control col-auto' 
@@ -238,7 +249,8 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                 $('.react-dropdown-select-dropdown').css({'width': '100%'})
                                             }}
                                         />                                           
-                                        <button className="btn btn-sm btn-white" id='fetch-data'>Lấy dữ liệu</button> 
+                                        
+                                        <button className="btn btn-sm btn-white ml-3" id='fetch-data'>Lấy dữ liệu</button> 
                                     </div>
                                 </div>    
                                 
@@ -252,22 +264,26 @@ export default class LayoutOnboard2Doc extends React.Component {
                                             <table className='table table-sm table-nowrap card-table table-hover'>
                                                 <thead>
                                                     <tr>
-                                                        <th>Hội nhập</th>
+                                                        <th>Hạng mục hội nhập</th>
                                                         <th>Nhãn hiệu</th>
-                                                        <th>Trạng thái liên kết</th>
                                                         <th>Thiết lập liên kết</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="list">
                                                     { brandOnboardingList1 && brandOnboardingList1.map((item, index) => (
                                                         <tr key={index} data={item.id}>
-                                                            <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
-                                                            <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
+                                                                <h4 className="font-weight-bold mb-1" data={item.id}>{item.fields.onboardingTitle}</h4>
+                                                                <small className='item-status' data={item.fields.isActive ? 'true' : 'false'}>
+                                                                    {item.fields.isActive ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
+                                                                    {item.fields.isActive ? "Đã liên kết" : 'Chưa liên kết'}
+                                                                </small>
                                                             </td>
                                                             <td>
-                                                                <button className='btn btn-sm btn-white action-link' 
+                                                                <h4 className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</h4>
+                                                            </td>
+                                                            <td>
+                                                                <button className= {`btn btn-sm btn-white action-link ${item.fields.isActive ? `alert-danger`: `alert-success`}`}
                                                                     data1={item.fields.Brand} 
                                                                     data2={item.fields.Onboarding} 
                                                                     data3={item.id} 
@@ -294,22 +310,26 @@ export default class LayoutOnboard2Doc extends React.Component {
                                             <table className='table table-sm table-nowrap card-table table-hover'>
                                                 <thead>
                                                     <tr>
-                                                        <th>Hội nhập</th>
+                                                        <th>Hạng mục hội nhập</th>
                                                         <th>Nhãn hiệu</th>
-                                                        <th>Trạng thái liên kết</th>
                                                         <th>Thiết lập liên kết</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="list">
                                                     { brandOnboardingList2 && brandOnboardingList2.map((item, index) => (
                                                         <tr key={index} data={item.id}>
-                                                            <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
-                                                            <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
+                                                                <h4 className="font-weight-bold mb-1" data={item.id}>{item.fields.onboardingTitle}</h4>
+                                                                <small className='item-status' data={item.fields.isActive ? 'true' : 'false'}>
+                                                                    {item.fields.isActive ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
+                                                                    {item.fields.isActive ? "Đã liên kết" : 'Chưa liên kết'}
+                                                                </small>
                                                             </td>
                                                             <td>
-                                                                <button className='btn btn-sm btn-white action-link' 
+                                                                <h4 className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</h4>
+                                                            </td>
+                                                            <td>
+                                                                <button className= {`btn btn-sm btn-white action-link ${item.fields.isActive ? `alert-danger`: `alert-success`}`}
                                                                     data1={item.fields.Brand} 
                                                                     data2={item.fields.Onboarding} 
                                                                     data3={item.id} 
@@ -317,8 +337,6 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                                 > {item.fields.isActive ? 'Ngưng kết nối' : 'Kết nối'} 
                                                                 </button>
                                                             </td>
-                                                            
-                                                            
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -338,22 +356,26 @@ export default class LayoutOnboard2Doc extends React.Component {
                                             <table className='table table-sm table-nowrap card-table table-hover'>
                                                 <thead>
                                                     <tr>
-                                                        <th>Hội nhập</th>
+                                                        <th>Hạng mục hội nhập</th>
                                                         <th>Nhãn hiệu</th>
-                                                        <th>Trạng thái liên kết</th>
                                                         <th>Thiết lập liên kết</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="list">
                                                     { brandOnboardingList3 && brandOnboardingList3.map((item, index) => (
                                                         <tr key={index} data={item.id}>
-                                                            <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
-                                                            <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
+                                                                <h4 className="font-weight-bold mb-1" data={item.id}>{item.fields.onboardingTitle}</h4>
+                                                                <small className='item-status' data={item.fields.isActive ? 'true' : 'false'}>
+                                                                    {item.fields.isActive ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
+                                                                    {item.fields.isActive ? "Đã liên kết" : 'Chưa liên kết'}
+                                                                </small>
                                                             </td>
                                                             <td>
-                                                                <button className='btn btn-sm btn-white action-link' 
+                                                                <h4 className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</h4>
+                                                            </td>
+                                                            <td>
+                                                                <button className= {`btn btn-sm btn-white action-link ${item.fields.isActive ? `alert-danger`: `alert-success`}`}
                                                                     data1={item.fields.Brand} 
                                                                     data2={item.fields.Onboarding} 
                                                                     data3={item.id} 
@@ -361,8 +383,6 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                                 > {item.fields.isActive ? 'Ngưng kết nối' : 'Kết nối'} 
                                                                 </button>
                                                             </td>
-                                                            
-                                                            
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -376,28 +396,32 @@ export default class LayoutOnboard2Doc extends React.Component {
                                 ? 
                                     <div className="card">
                                         <div className="card-header">
-                                            <h4 className="card-header-title">COLLECTION 4 - {brandOnboardingList4[0].fields.collectionName}</h4>
+                                            <h4 className="card-header-title">COLLECTION 1 - {brandOnboardingList4[0].fields.collectionName}</h4>
                                         </div>                                    
                                         <div className="table-responsive mb-0">
                                             <table className='table table-sm table-nowrap card-table table-hover'>
                                                 <thead>
                                                     <tr>
-                                                        <th>Hội nhập</th>
+                                                        <th>Hạng mục hội nhập</th>
                                                         <th>Nhãn hiệu</th>
-                                                        <th>Trạng thái liên kết</th>
                                                         <th>Thiết lập liên kết</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="list">
                                                     { brandOnboardingList4 && brandOnboardingList4.map((item, index) => (
                                                         <tr key={index} data={item.id}>
-                                                            <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
-                                                            <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
+                                                                <h4 className="font-weight-bold mb-1" data={item.id}>{item.fields.onboardingTitle}</h4>
+                                                                <small className='item-status' data={item.fields.isActive ? 'true' : 'false'}>
+                                                                    {item.fields.isActive ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
+                                                                    {item.fields.isActive ? "Đã liên kết" : 'Chưa liên kết'}
+                                                                </small>
                                                             </td>
                                                             <td>
-                                                                <button className='btn btn-sm btn-white action-link' 
+                                                                <h4 className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</h4>
+                                                            </td>
+                                                            <td>
+                                                                <button className= {`btn btn-sm btn-white action-link ${item.fields.isActive ? `alert-danger`: `alert-success`}`}
                                                                     data1={item.fields.Brand} 
                                                                     data2={item.fields.Onboarding} 
                                                                     data3={item.id} 
@@ -405,8 +429,6 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                                 > {item.fields.isActive ? 'Ngưng kết nối' : 'Kết nối'} 
                                                                 </button>
                                                             </td>
-                                                            
-                                                            
                                                         </tr>
                                                     ))}
                                                 </tbody>
