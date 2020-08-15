@@ -220,7 +220,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                 
                                 <div className="card">
                                     <div className="card-header">
-                                        <h4 className="card-header-title"> LIÊN KẾT HOẠT ĐỘNG HỘI NHẬP CHO NHÃN HIỆU</h4>
+                                        <h4 className="card-header-title"> CHỌN NHÃN HIỆU</h4>
                                         <span id="brand-selected" className='hide' data=''></span>
                                         <Select
                                             className='form-control col-auto' 
