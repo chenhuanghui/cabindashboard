@@ -385,7 +385,7 @@ export default class LayoutConfig extends React.Component {
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Mô tả</th>
-                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
                                                     <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
@@ -432,7 +432,7 @@ export default class LayoutConfig extends React.Component {
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Mô tả</th>
-                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
                                                     <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
@@ -479,7 +479,7 @@ export default class LayoutConfig extends React.Component {
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Mô tả</th>
-                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
                                                     <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
@@ -526,7 +526,7 @@ export default class LayoutConfig extends React.Component {
                                                 <tr>
                                                     <th>Hạng mục</th>
                                                     <th>Mô tả</th>
-                                                    <th>Loại</th>
+                                                    <th>Thứ tự</th>
                                                     <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
