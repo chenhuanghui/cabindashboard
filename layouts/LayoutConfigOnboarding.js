@@ -311,7 +311,7 @@ export default class LayoutConfig extends React.Component {
                                 {/* COLLECTION 1 */}
                                 <div className="card">
                                     <div className="card-header">
-                                        <h4 className="card-header-title">{onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name}</h4>
+                                        <h4 className="card-header-title">COLLECTION 1 - {onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name}</h4>
                                         <button className="btn btn-sm btn-white btn-modal" collection={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection.toString()} collection-name={onboardingList1 && onboardingList1.length>0 && onboardingList1[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
@@ -344,7 +344,7 @@ export default class LayoutConfig extends React.Component {
                                 {/* COLLECTION 2 */}
                                 <div className="card">
                                     <div className="card-header">
-                                        <h4 className="card-header-title">{onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection_name}</h4>
+                                        <h4 className="card-header-title">COLLECTION 2 - {onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection_name}</h4>
                                         <button className="btn btn-sm btn-white btn-modal" collection={onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection.toString()} collection-name={onboardingList2 && onboardingList2.length>0 && onboardingList2[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
@@ -377,7 +377,7 @@ export default class LayoutConfig extends React.Component {
                                 {/* COLLECTION 3 */}
                                 <div className="card">
                                     <div className="card-header">
-                                        <h4 className="card-header-title">{onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection_name}</h4>
+                                        <h4 className="card-header-title">COLLECTION 3 - {onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection_name}</h4>
                                         <button className="btn btn-sm btn-white btn-modal" collection={onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection.toString()} collection-name={onboardingList3 && onboardingList3.length>0 && onboardingList3[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
@@ -410,7 +410,7 @@ export default class LayoutConfig extends React.Component {
                                 {/* COLLECTION 4 */}
                                 <div className="card">
                                     <div className="card-header">
-                                        <h4 className="card-header-title">{onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection_name}</h4>
+                                        <h4 className="card-header-title">COLLECTION 4 - {onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection_name}</h4>
                                         <button className="btn btn-sm btn-white btn-modal" collection={onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection.toString()} collection-name={onboardingList4 && onboardingList4.length>0 && onboardingList4[0].fields.collection_name.toString()}>Thêm hạng mục</button> 
                                     </div>{/* end card header */}
 
