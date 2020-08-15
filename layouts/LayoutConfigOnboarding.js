@@ -629,12 +629,8 @@ export default class LayoutConfig extends React.Component {
                                                                 console.log('seleted: ',valSelected)
                                                                 $('#onboarding-type-selected').attr('data',valSelected[0].ID)
 
-                                                                if (valSelected[0].ID === 2) {
-                                                                    $(`#form-value-action`).hide()
-                                                                } else {
-                                                                    $(`#form-value-action`).show()
-                                                                }
-
+                                                                if (valSelected[0].ID === 2 || valSelected[0].ID === 3) $(`#form-value-action`).hide()
+                                                                else $(`#form-value-action`).show()
                                                             }}
                                                             onDropdownOpen={()=>{
                                                                 console.log('open dropdown')
@@ -697,7 +693,7 @@ export default class LayoutConfig extends React.Component {
                                                             onChange={(valSelected) => {
                                                                 console.log('seleted: ',valSelected)
                                                                 $('#onboarding-type-selected-edit').attr('data',valSelected[0].ID)
-                                                                if (valSelected[0].ID === 2) $(`#form-value-action-edit`).hide()
+                                                                if (valSelected[0].ID === 2 || valSelected[0].ID === 3) $(`#form-value-action-edit`).hide()
                                                                 else $(`#form-value-action-edit`).show()
                                                             }}
                                                             onDropdownOpen={()=>{
