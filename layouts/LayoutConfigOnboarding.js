@@ -243,19 +243,21 @@ export default class LayoutConfig extends React.Component {
                 $('.spinner-grow').remove();
                 return;
             }
+            console.log(`collection `, $(`#onboarding-collection-selected-edit`).attr(`data`))
 
             updateData($(`#modalUpdateOnboarding`).attr('data'),{
                 title: $(`#onboarding-name-edit`).attr('data'),
-                collection: $(`#onboarding-collection-edit`).attr(`data`),
+                collection: $(`#onboarding-collection-selected-edit`).attr(`data`),
                 type: $(`#onboarding-type-selected-edit`).attr(`data`),
                 valueAction: $(`#onboarding-valueAction-edit`).attr(`data`),
                 orderInCollection: parseInt($(`#onboarding-order-edit`).attr(`data`))
             },`OnBoarding`)
             .then(res => {
-                console.log('success')
+                console.log('success', res)
+
             })
             .finally(()=>{
-                $('#modalProductEdit').removeClass('show')
+                $('#modalUpdateOnboarding').removeClass('show')
                 $('body').removeClass('modal-open')
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
