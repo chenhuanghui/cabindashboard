@@ -207,18 +207,19 @@ export default class LayoutConfig extends React.Component {
                 collection: $(`#onboarding-collection`).attr(`data`),
                 type: $(`#onboarding-type-selected`).attr(`data`),
                 valueAction: $(`#onboarding-valueAction`).attr(`data`),
-                orderInCollection: parseInt($(`#onboarding-order`).attr(`data`))
+                orderInCollection: parseInt($(`#onboarding-order`).attr(`data`)),
+                status: true
             },`OnBoarding`)
             .then(res=> {
                 console.log(`onboradingCreated: `, res)
                 var brandAvailableList = currentComponent.state.brandAvailable
                 console.log(`brandAvailableList: `, brandAvailableList)
                 
+                // _CREATE LINKING OF ONBOARDING AND BRAND ON BRAND_ONBOARDING TABLE
                 for (var i=0; i<brandAvailableList.length; i++) {
                     createData({
                         Brand: [brandAvailableList[i].ID],
-                        Onboarding: [res.id],
-                        status: true
+                        Onboarding: [res.id]
                     },`Brand_OnBoarding`)
                     .then (brandOnboardingRes => {
                         console.log('create success brand_onboarding: ', brandOnboardingRes)
@@ -231,7 +232,7 @@ export default class LayoutConfig extends React.Component {
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close finished')
-                // location.reload()
+                location.reload()
             })
         })
         
@@ -284,7 +285,7 @@ export default class LayoutConfig extends React.Component {
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close finished')
-                // location.reload()
+                location.reload()
             })
         })
         
