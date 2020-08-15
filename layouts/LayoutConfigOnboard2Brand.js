@@ -238,7 +238,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                 $('.react-dropdown-select-dropdown').css({'width': '100%'})
                                             }}
                                         />                                           
-                                        <button className="btn btn-sm btn-white btn-modal" id='fetch-data'>Lấy dữ liệu</button> 
+                                        <button className="btn btn-sm btn-white" id='fetch-data'>Lấy dữ liệu</button> 
                                     </div>
                                 </div>    
                                 

@@ -216,15 +216,21 @@ export default class LayoutConfig extends React.Component {
                 console.log(`brandAvailableList: `, brandAvailableList)
                 
                 // _CREATE LINKING OF ONBOARDING AND BRAND ON BRAND_ONBOARDING TABLE
+                var promiseLinkBrandOnboarding = []
                 for (var i=0; i<brandAvailableList.length; i++) {
-                    createData({
-                        Brand: [brandAvailableList[i].ID],
-                        Onboarding: [res.id]
-                    },`Brand_OnBoarding`)
-                    .then (brandOnboardingRes => {
-                        console.log('create success brand_onboarding: ', brandOnboardingRes)
-                    })
+                    promiseLinkBrandOnboarding.push(
+                        createData({
+                            Brand: [brandAvailableList[i].ID],
+                            Onboarding: [res.id]
+                        },`Brand_OnBoarding`)
+                    )
                 }
+
+                Promise.all(promiseLinkBrandOnboarding)
+                .then(res => {
+                    console.log(`res: `, res)
+                    location.reload()
+                })
             })
             .finally(()=> {
                 $('#modalCreateOnboarding').removeClass('show')
@@ -232,7 +238,6 @@ export default class LayoutConfig extends React.Component {
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close finished')
-                location.reload()
             })
         })
         
