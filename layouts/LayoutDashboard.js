@@ -116,7 +116,11 @@ export default function Dashboard () {
           },'Brand_Onboarding')
           .then(response=> {
             console.log('onboarding group 1: ',response);
-            setOnboardingGroup1(response)
+            var temp = []
+            for (var i=0; i<response.length; i++) {
+              if (response[i].fields.isActive === true) temp.push(response[i])
+            }
+            setOnboardingGroup1(temp)
           })
 
           retrieveData({
@@ -126,7 +130,11 @@ export default function Dashboard () {
           },'Brand_Onboarding')
           .then(response=> {
             console.log('onboarding group 2: ',response);
-            setOnboardingGroup2(response)
+            var temp = []
+            for (var i=0; i<response.length; i++) {
+              if (response[i].fields.isActive === true) temp.push(response[i])
+            }
+            setOnboardingGroup2(temp)
           })        
 
           retrieveData({
@@ -136,7 +144,11 @@ export default function Dashboard () {
           },'Brand_Onboarding')
           .then(response=> {
             console.log('onboarding group 3: ',response);
-            setOnboardingGroup3(response)
+            var temp = []
+            for (var i=0; i<response.length; i++) {
+              if (response[i].fields.isActive === true) temp.push(response[i])
+            }
+            setOnboardingGroup3(temp)
           })     
 
           retrieveData({
@@ -146,7 +158,11 @@ export default function Dashboard () {
           },'Brand_Onboarding')
           .then(response=> {
             console.log('onboarding group 4: ',response);
-            setOnboardingGroup4(response)
+            var temp = []
+            for (var i=0; i<response.length; i++) {
+              if (response[i].fields.isActive === true) temp.push(response[i])
+            }
+            setOnboardingGroup4(temp)
           })     
 
           // ******************************************************
