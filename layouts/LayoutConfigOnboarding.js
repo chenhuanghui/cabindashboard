@@ -151,7 +151,8 @@ export default class LayoutConfig extends React.Component {
             if(event.which >= 37 && event.which <= 40) return;
             $(this).attr('data',$(this).val())
         });
-
+        
+        // _SHOW MODAL
         $(document).on('click', `.btn-modal` , function() {
             if (!$('body').hasClass('modal-open')) {
                 $('body').addClass('modal-open')
@@ -162,11 +163,10 @@ export default class LayoutConfig extends React.Component {
                 
                 $(`#onboarding-collection`).val($(this).attr('collection-name'))
                 $(`#onboarding-collection`).attr(`data`,$(this).attr('collection'))
-
-
             } else console.log('modal was opened before.');
         });
-
+        
+        // _CLOSED MODAL WHEN CLICKED OUTSIDE
         $(document).on('click', function() {
             if ( 
                 $('.modal-body').has(event.target).length == 0 //checks if descendants of modal was clicked
@@ -176,6 +176,7 @@ export default class LayoutConfig extends React.Component {
             else {
                 if ($(event.target).hasClass('modal')) {
                     $('#modalCreateOnboarding').removeClass('show')
+                    $('#modalUpdateOnboarding').removeClass('show')
                     $('body').removeClass('modal-open')
                     $('.modal-backdrop').hide()
                     $('.spinner-grow').remove()
@@ -183,6 +184,8 @@ export default class LayoutConfig extends React.Component {
                 }
             } 
         });
+
+        // _CREATE ONBOARDING ITEM
         $(document).on('click',`#create-action`, function() {
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
             if(!checkValid(`#modalCreateOnboarding`)) {
@@ -209,7 +212,58 @@ export default class LayoutConfig extends React.Component {
                 location.reload()
             })
         })
-       
+        
+        // _SELECT ITEM-ROW
+        $(document).on('click', `.item-row` , function() {
+            // show modal
+            if (!$('body').hasClass('modal-open')) {
+                $('#modalUpdateOnboarding').addClass('show');
+                $('.modal-backdrop').show()
+            }
+
+            $('#modalUpdateOnboarding').attr('data',$(this).attr('data'))            
+            
+            $('#onboarding-name-edit').val($(this).find('.item-title').text())
+            $('#onboarding-name-edit').attr('data',($(this).find('.item-title').text()))
+
+            $('#onboarding-order-edit').val($(this).find('.item-order-collection').text())
+            $('#onboarding-order-edit').attr('data',$(this).find('.item-order-collection').text())
+
+            $('#onboarding-valueAction-edit').val($(this).find('.item-value-action').text())
+            $('#onboarding-valueAction-edit').attr('data',$(this).find('.item-value-action').text())                        
+        });
+
+        // _UPDATE ONBOARDING DATA
+        $(document).on('click', `#update-action` , function() {
+            // add loading spinner icon
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
+            
+            // checkvalid .required form
+            if(!checkValid('#modalUpdateOnboarding')) {
+                $('.spinner-grow').remove();
+                return;
+            }
+
+            updateData($(`#modalUpdateOnboarding`).attr('data'),{
+                title: $(`#onboarding-name-edit`).attr('data'),
+                collection: $(`#onboarding-collection-edit`).attr(`data`),
+                type: $(`#onboarding-type-selected-edit`).attr(`data`),
+                valueAction: $(`#onboarding-valueAction-edit`).attr(`data`),
+                orderInCollection: parseInt($(`#onboarding-order-edit`).attr(`data`))
+            },`OnBoarding`)
+            .then(res => {
+                console.log('success')
+            })
+            .finally(()=>{
+                $('#modalProductEdit').removeClass('show')
+                $('body').removeClass('modal-open')
+                $('.modal-backdrop').hide()
+                $('.spinner-grow').remove()
+                console.log('modal close finished')
+                location.reload()
+            })
+        })
+        
 
     }
 
@@ -219,7 +273,7 @@ export default class LayoutConfig extends React.Component {
             <div>
                 <Head>
                     {/* <script src="../assets/js/theme.min.js"></script> */}
-                    <title> CONFIG | CabinFood Business</title>
+                    <title> CONFIG ONBOARDING | CabinFood Business</title>
                 </Head>
 
                 <NavBar />
@@ -269,15 +323,17 @@ export default class LayoutConfig extends React.Component {
                                                     <th>Loại</th>
                                                     <th>Hành động</th>
                                                     <th>Thứ tự</th>
+                                                    <th>Trạng thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList1 && onboardingList1.map((item, index) => (
-                                                    <tr key={index} className='group1-item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
-                                                        <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.valueAction}</td>
-                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
+                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
+                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
+                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='item-order-collection'>{item.fields.orderInCollection}</td>
+                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -300,15 +356,17 @@ export default class LayoutConfig extends React.Component {
                                                     <th>Loại</th>
                                                     <th>Hành động</th>
                                                     <th>Thứ tự</th>
+                                                    <th>Trạng thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList2 && onboardingList2.map((item, index) => (
-                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
-                                                        <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.valueAction}</td>
-                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
+                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
+                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
+                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='item-order-collection'>{item.fields.orderInCollection}</td>
+                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -331,15 +389,17 @@ export default class LayoutConfig extends React.Component {
                                                     <th>Loại</th>
                                                     <th>Hành động</th>
                                                     <th>Thứ tự</th>
+                                                    <th>Trạng thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList3 && onboardingList3.map((item, index) => (
-                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
+                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
-                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
+                                                        <td>{item.fields.orderInCollection}</td>
+                                                        <td className='col-auto'>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -362,15 +422,17 @@ export default class LayoutConfig extends React.Component {
                                                     <th>Loại</th>
                                                     <th>Hành động</th>
                                                     <th>Thứ tự</th>
+                                                    <th>Trạng thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList4 && onboardingList4.map((item, index) => (
-                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection}>
+                                                    <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
                                                         <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
                                                         <td>{item.fields.type_desc}</td>
                                                         <td>{item.fields.valueAction}</td>
-                                                        <td className='col-auto'>{item.fields.orderInCollection}</td>
+                                                        <td>{item.fields.orderInCollection}</td>
+                                                        <td className='col-auto'>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -473,6 +535,94 @@ export default class LayoutConfig extends React.Component {
                                                 </div>
                                                 <hr className="my-5" />   
                                                 <button className="btn btn-lg btn-block btn-primary mb-3" id="create-action">Lưu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/*  MODAL UPDATE ONBOARDING */}
+                                <div className="modal fade fixed-right" id="modalUpdateOnboarding" tabIndex="-1">
+                                    <div className="modal-dialog modal-dialog-vertical">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
+
+                                                <div className="header">
+                                                    <div className="header-body">
+                                                        <h1 className="header-title">Điều chỉnh thông tin hội nhập</h1>
+                                                        {/* <p className='text-muted'>Cung cấp các thông tin về nhân sự, để giúp việc quản lý được thực hiện tốt hơn</p> */}
+                                                    </div>
+                                                </div>
+
+                                                <div className="my-n3" id='onboarding-setup'>
+                                                    <div className="form-group">
+                                                        <label>Tiêu đề: </label>
+                                                        <input className="form-control required" id='onboarding-name-edit' data=''/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>Thứ tự: </label>
+                                                        <input className="form-control required" id='onboarding-order-edit' data=''/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>Loại: </label>
+                                                        <span className='hide required' id='onboarding-type-selected-edit' data=''></span>
+                                                        <Select
+                                                            className='form-control' 
+                                                            options={[{title:'Tự động hoàn thành',ID:1},{title:'Xác nhận', ID: 2}]} 
+                                                            labelField= 'title'
+                                                            valueField='ID'
+                                                            dropdownHandle='false'
+                                                            searchable='false'
+                                                            onChange={(valSelected) => {
+                                                                console.log('seleted: ',valSelected)
+                                                                $('#onboarding-type-selected-edit').attr('data',valSelected[0].ID)
+                                                                if (valSelected[0].ID === 2) $(`#form-value-action-edit`).hide()
+                                                                else $(`#form-value-action-edit`).show()
+                                                            }}
+                                                            onDropdownOpen={()=>{
+                                                                console.log('open dropdown')
+                                                                $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                            }}
+                                                            />   
+                                                    </div>
+
+                                                    <div className="form-group" id='form-value-action'>
+                                                        <label>Di chuyển đến đường link: </label>
+                                                        <input className="form-control required" id='onboarding-valueAction-edit' data='-'/>                                  
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>Nhóm: </label>
+                                                        <span className='hide required' id='onboarding-collection-selected-edit' data=''></span>
+                                                        <Select
+                                                            className='form-control' 
+                                                            options={[
+                                                                {collection_name:'HỆ THỐNG CABINFOOD',collection:1},
+                                                                {collection_name:'KÊNH BÁN HÀNG',collection:2},
+                                                                {collection_name:'QUY ĐỊNH',collection:3},
+                                                                {collection_name:'QUY TRÌNH',collection:4},
+                                                            ]} 
+                                                            labelField= 'collection_name'
+                                                            valueField='collection'
+                                                            dropdownHandle='false'
+                                                            searchable='false'
+                                                            onChange={(valSelected) => {
+                                                                console.log('seleted: ',valSelected)
+                                                                $('#onboarding-collection-selected-edit').attr('data',valSelected[0].collection)
+                                                                
+                                                                if (valSelected[0].ID === 2) $(`#form-value-action-edit`).hide()
+                                                                else $(`#form-value-action-edit`).show()
+                                                            }}
+                                                            onDropdownOpen={()=>{
+                                                                console.log('open dropdown')
+                                                                $('.react-dropdown-select-dropdown').css({'width': '100%'})
+                                                            }}
+                                                        />   
+                                                    </div>
+                                                </div>
+                                                <hr className="my-5" />   
+                                                <button className="btn btn-lg btn-block btn-primary mb-3" id="update-action">Lưu</button>
                                             </div>
                                         </div>
                                     </div>

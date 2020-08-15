@@ -37,6 +37,7 @@ export default function Dashboard () {
   const [onboardingGroup1, setOnboardingGroup1] = useState(null);
   const [onboardingGroup2, setOnboardingGroup2] = useState(null);
   const [onboardingGroup3, setOnboardingGroup3] = useState(null);
+  const [onboardingGroup4, setOnboardingGroup4] = useState(null);
 
   async function retrieveData(formular,tbName) {
     try {
@@ -136,6 +137,16 @@ export default function Dashboard () {
           .then(response=> {
             console.log('onboarding group 3: ',response);
             setOnboardingGroup3(response)
+          })     
+
+          retrieveData({
+            view: 'GroupByCollection4',
+            filterByFormula: `Brand = "${brandID}"`,
+            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+          },'Brand_Onboarding')
+          .then(response=> {
+            console.log('onboarding group 4: ',response);
+            setOnboardingGroup4(response)
           })     
 
           // ******************************************************
@@ -429,7 +440,10 @@ export default function Dashboard () {
               <div className="row" id='onboarding'>              
                 <div className="col-12 col-lg-12 col-xl-12">
                   <h6 className="header-pretitle col-12 head-block">HỘI NHẬP CÙNG CABINFOOD</h6>  
+                  
                   {/* GROUP BY COLLECTION 1 */}
+                  {onboardingGroup1  && onboardingGroup1.length > 0
+                  ? 
                   <div className="card">
                     <div className="card-header">
                       <h4 className="card-header-title">{onboardingGroup1 && onboardingGroup1[0].fields.collectionName}</h4>
@@ -458,8 +472,12 @@ export default function Dashboard () {
                       </div>
                     </div>
                   </div>
+                  : null
+                  }
 
                   {/* GROUP BY COLLECTION 2 */}
+                  {onboardingGroup2  && onboardingGroup2.length > 0
+                  ? 
                   <div className="card">
                     <div className="card-header">
                       <h4 className="card-header-title">{onboardingGroup2 && onboardingGroup2[0].fields.collectionName}</h4>
@@ -488,8 +506,12 @@ export default function Dashboard () {
                       </div>
                     </div>
                   </div>
+                  : null
+                  }
 
                   {/* GROUP BY COLLECTION 3 */}
+                  {onboardingGroup3  && onboardingGroup3.length > 0
+                  ? 
                   <div className="card">
                     <div className="card-header">
                       <h4 className="card-header-title">{onboardingGroup3 && onboardingGroup3[0].fields.collectionName}</h4>
@@ -518,6 +540,43 @@ export default function Dashboard () {
                       </div>
                     </div>
                   </div>
+                  : null
+                  }
+
+                  {/* GROUP BY COLLECTION 4 */}
+                  {onboardingGroup4  && onboardingGroup4.length > 0
+                  ? 
+                    <div className="card">
+                      <div className="card-header">
+                        <h4 className="card-header-title">{onboardingGroup4 && onboardingGroup4[0].fields.collectionName}</h4>
+                        <span className="badge badge-soft-secondary">{onboardingGroup4 && countCompleteOnBoarding(onboardingGroup4)} hạng mục hoàn thành</span>
+                      </div>
+                      <div className="card-body">
+                        <div className="checklist" tabIndex="0">
+                            { onboardingGroup4 && onboardingGroup4.length > 0 && onboardingGroup4.map((item,index) => (
+                              <div className = "custom-control custom-checkbox checklist-control" tabIndex="0" key={item.id}>
+                                {item.fields.status == true 
+                                ? <input className="custom-control-input" id="checklistTwo" type="checkbox" checked />
+                                : <input className="custom-control-input" id="checklistTwo" type="checkbox" />
+                                }
+                                <label className = "custom-control-label" ></label>
+                                <span className = "custom-control-caption">
+                                { item.fields.documentID
+                                ?  <Link href='/documents/[id]' as={`/documents/${item.fields.documentID}`}>
+                                    <a>{item.fields.onboardingTitle} <span className='fe fe-arrow-right mr-4'></span></a>
+                                    </Link>
+                                : item.fields.onboardingTitle
+                                }
+                                </span>                            
+                              </div>    
+                            ))
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  : null
+                  }
+                  
 
                 </div>
               </div>

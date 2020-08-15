@@ -125,8 +125,6 @@ export default class LayoutProduct extends React.Component {
 
         // _EDIT PRODUCT ON MODAL
         $(document).on('click', `.item-row` , function() {
-            console.log()
-
             // show modal
             if (!$('body').hasClass('modal-open')) {
                 $('#modalProductEdit').addClass('show');
