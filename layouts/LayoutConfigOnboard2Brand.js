@@ -181,8 +181,6 @@ export default class LayoutOnboard2Doc extends React.Component {
                 currentComponent.setState({isBusy: false})
             })
         })
-
-
     }
 
     render() {
@@ -291,6 +289,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                                 > {item.fields.isActive ? 'Ngưng kết nối' : 'Kết nối'} 
                                                                 </button>
                                                             </td>
+                                                            
                                                         </tr>
                                                     ))}
                                                 </tbody>
