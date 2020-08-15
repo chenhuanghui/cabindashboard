@@ -13,12 +13,10 @@ import NavBar from '../components/nav/nav_bar';
 // OTHERS LIBS
 import $, { data } from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
-import loadable from '@loadable/component';
 import Select from "react-dropdown-select"; 
 
 // ====================================
 // INIT GLOBAL VARIABLES
-const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 const AirtablePlus = require('airtable-plus');  
 const airtable = new AirtablePlus({
   baseID: 'appmREe03n1MQ6ydq',
@@ -55,6 +53,7 @@ async function updateData(rowID, data,tbName) {
     }
 }
 
+
 function checkValid(paneID) {
     console.log('check valid inputs')
     var isValid = true
@@ -86,7 +85,8 @@ export default class LayoutConfig extends React.Component {
             onboardingList2: [],
             onboardingList3: [],
             onboardingList4: [],
-            brandAvailable: []
+            brandAvailable: [],
+            isBusy : false,
         }
     }
 
@@ -105,7 +105,7 @@ export default class LayoutConfig extends React.Component {
         // _ GET ONBOARDING BY GROUP BY COLLECTION 1
         retrieveData({
             view: 'GroupByCollection1',
-            sort: [ {field: 'orderInCollection', direction: 'asc'},]
+            sort: [{field: 'orderInCollection', direction: 'asc'},]
         },'Onboarding')
         .then(result => {
             console.log('Onboarding:', result);
@@ -154,7 +154,6 @@ export default class LayoutConfig extends React.Component {
 
         // ===============================================
         // FRONT-END ENGAGEMENT
-
         $('input, textarea').keyup(function(event) {
             // skip for arrow keys
             if(event.which >= 37 && event.which <= 40) return;
@@ -242,23 +241,23 @@ export default class LayoutConfig extends React.Component {
         })
         
         // _SELECT ITEM-ROW
-        $(document).on('click', `.item-row` , function() {
+        $(document).on('click', `.item-title` , function() {
             // show modal
             if (!$('body').hasClass('modal-open')) {
                 $('#modalUpdateOnboarding').addClass('show');
                 $('.modal-backdrop').show()
             }
 
-            $('#modalUpdateOnboarding').attr('data',$(this).attr('data'))            
+            $('#modalUpdateOnboarding').attr('data',$(this).attr('data-id'))
             
-            $('#onboarding-name-edit').val($(this).find('.item-title').text())
-            $('#onboarding-name-edit').attr('data',($(this).find('.item-title').text()))
+            $('#onboarding-name-edit').val($(this).attr(`data-title`))
+            $('#onboarding-name-edit').attr('data',$(this).attr(`data-title`))
 
-            $('#onboarding-order-edit').val($(this).find('.item-order-collection').text())
-            $('#onboarding-order-edit').attr('data',$(this).find('.item-order-collection').text())
+            $('#onboarding-order-edit').val($(this).attr('data-order-collection'))
+            $('#onboarding-order-edit').attr('data',$(this).attr('data-order-collection'))
 
-            $('#onboarding-valueAction-edit').val($(this).find('.item-value-action').text())
-            $('#onboarding-valueAction-edit').attr('data',$(this).find('.item-value-action').text())                        
+            $('#onboarding-valueAction-edit').val($(this).attr(`data-value-action`))
+            $('#onboarding-valueAction-edit').attr('data',$(this).attr(`data-value-action`))                        
         });
 
         // _UPDATE ONBOARDING DATA
@@ -282,7 +281,6 @@ export default class LayoutConfig extends React.Component {
             },`OnBoarding`)
             .then(res => {
                 console.log('success', res)
-
             })
             .finally(()=>{
                 $('#modalUpdateOnboarding').removeClass('show')
@@ -293,6 +291,41 @@ export default class LayoutConfig extends React.Component {
                 location.reload()
             })
         })
+        
+        // _SYNCHRONIZE ONBOARDING ITEM TO ALL BRAND
+        $(document).on(`click`,`.action-sync`,function(){
+            if (currentComponent.state.isBusy === true) {
+                alert('Have a process was handling. Please wait for a moment.')
+                return;
+            }
+            
+            // add loading spinner icon
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
+
+            var curOnboardingID = $(this).attr(`data-id`)
+            var brandAvailableTemp = currentComponent.state.brandAvailable
+            currentComponent.setState({isBusy: true})
+            
+            brandAvailableTemp.forEach(async(item, index) => {
+                const res = await airtable.read({filterByFormula: `AND(Brand = "${item.ID}", Onboarding = "${curOnboardingID}" )`},{tableName:`Brand_Onboarding`});
+                console.log ('brandonboarding: ', res)
+                if (res.length === 0) {
+                    const resCreate = await airtable.create({
+                        Brand: [`${item.ID}`],
+                        Onboarding: [`${curOnboardingID}`],
+                        updatedBy: [`${cookies.userID}`]
+                    },`Brand_Onboarding`)
+                    console.log(`resCreate: `, resCreate)
+                } else {
+                    console.log('have already -> pass: ', res)
+                }
+
+                $('.spinner-grow').remove()
+                currentComponent.setState({isBusy: false})
+            })
+        })
+
+        
         
 
     }
@@ -351,20 +384,34 @@ export default class LayoutConfig extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>Hạng mục</th>
+                                                    <th>Mô tả</th>
                                                     <th>Loại</th>
-                                                    <th>Hành động</th>
-                                                    <th>Thứ tự</th>
-                                                    <th>Trạng thái</th>
+                                                    <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList1 && onboardingList1.map((item, index) => (
                                                     <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
-                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
-                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>
+                                                            <h4 className="font-weight-bold mb-1 item-title"
+                                                                data-id = {item.id}
+                                                                data-title = {item.fields.title}
+                                                                data-type-desc = {item.fields.type_desc}
+                                                                data-value-action = {item.fields.valueAction}
+                                                                data-order-collection = {item.fields.orderInCollection}
+                                                                data-item-status = {item.fields.status ? 'true' : 'false'}
+                                                            >{item.fields.title}</h4>
+                                                            <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
+                                                            </small>
+                                                        </td>
+                                                        <td className='col-auto'>
+                                                           <h5 className='font-weight-normal mb-1 item-type-desc'>{item.fields.type_desc}</h5>
+                                                           <small className='item-value-action text-muted'>{item.fields.valueAction}</small>
+                                                        </td>
                                                         <td className='item-order-collection'>{item.fields.orderInCollection}</td>
-                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
+                                                        <td><button className='btn btn-sm btn-white alert-success action-sync' data-id={item.id}>Đồng bộ</button></td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -384,20 +431,34 @@ export default class LayoutConfig extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>Hạng mục</th>
+                                                    <th>Mô tả</th>
                                                     <th>Loại</th>
-                                                    <th>Hành động</th>
-                                                    <th>Thứ tự</th>
-                                                    <th>Trạng thái</th>
+                                                    <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList2 && onboardingList2.map((item, index) => (
                                                     <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
-                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
-                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>
+                                                            <h4 className="font-weight-bold mb-1 item-title"
+                                                                data-id = {item.id}
+                                                                data-title = {item.fields.title}
+                                                                data-type-desc = {item.fields.type_desc}
+                                                                data-value-action = {item.fields.valueAction}
+                                                                data-order-collection = {item.fields.orderInCollection}
+                                                                data-item-status = {item.fields.status ? 'true' : 'false'}
+                                                            >{item.fields.title}</h4>
+                                                            <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
+                                                            </small>
+                                                        </td>
+                                                        <td className='col-auto'>
+                                                           <h5 className='font-weight-normal mb-1 item-type-desc'>{item.fields.type_desc}</h5>
+                                                           <small className='item-value-action text-muted'>{item.fields.valueAction}</small>
+                                                        </td>
                                                         <td className='item-order-collection'>{item.fields.orderInCollection}</td>
-                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
+                                                        <td><button className='btn btn-sm btn-white alert-success action-sync' data-id={item.id}>Đồng bộ</button></td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -417,20 +478,34 @@ export default class LayoutConfig extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>Hạng mục</th>
+                                                    <th>Mô tả</th>
                                                     <th>Loại</th>
-                                                    <th>Hành động</th>
-                                                    <th>Thứ tự</th>
-                                                    <th>Trạng thái</th>
+                                                    <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList3 && onboardingList3.map((item, index) => (
                                                     <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
-                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
-                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>
+                                                            <h4 className="font-weight-bold mb-1 item-title"
+                                                                data-id = {item.id}
+                                                                data-title = {item.fields.title}
+                                                                data-type-desc = {item.fields.type_desc}
+                                                                data-value-action = {item.fields.valueAction}
+                                                                data-order-collection = {item.fields.orderInCollection}
+                                                                data-item-status = {item.fields.status ? 'true' : 'false'}
+                                                            >{item.fields.title}</h4>
+                                                            <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
+                                                            </small>
+                                                        </td>
+                                                        <td className='col-auto'>
+                                                           <h5 className='font-weight-normal mb-1 item-type-desc'>{item.fields.type_desc}</h5>
+                                                           <small className='item-value-action text-muted'>{item.fields.valueAction}</small>
+                                                        </td>
                                                         <td className='item-order-collection'>{item.fields.orderInCollection}</td>
-                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
+                                                        <td><button className='btn btn-sm btn-white alert-success action-sync' data-id={item.id}>Đồng bộ</button></td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -450,20 +525,34 @@ export default class LayoutConfig extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>Hạng mục</th>
+                                                    <th>Mô tả</th>
                                                     <th>Loại</th>
-                                                    <th>Hành động</th>
-                                                    <th>Thứ tự</th>
-                                                    <th>Trạng thái</th>
+                                                    <th>Đồng bộ</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
                                                 { onboardingList4 && onboardingList4.map((item, index) => (
                                                     <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
-                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
-                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='col-auto'>
+                                                            <h4 className="font-weight-bold mb-1 item-title"
+                                                                data-id = {item.id}
+                                                                data-title = {item.fields.title}
+                                                                data-type-desc = {item.fields.type_desc}
+                                                                data-value-action = {item.fields.valueAction}
+                                                                data-order-collection = {item.fields.orderInCollection}
+                                                                data-item-status = {item.fields.status ? 'true' : 'false'}
+                                                            >{item.fields.title}</h4>
+                                                            <small className='item-status' data={item.fields.status ? 'true' : 'false'}>
+                                                                {item.fields.status ? <span className="text-success mr-2">●</span> : <span className="text-danger">●</span>}
+                                                                {item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}
+                                                            </small>
+                                                        </td>
+                                                        <td className='col-auto'>
+                                                           <h5 className='font-weight-normal mb-1 item-type-desc'>{item.fields.type_desc}</h5>
+                                                           <small className='item-value-action text-muted'>{item.fields.valueAction}</small>
+                                                        </td>
                                                         <td className='item-order-collection'>{item.fields.orderInCollection}</td>
-                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
+                                                        <td><button className='btn btn-sm btn-white alert-success action-sync' data-id={item.id}>Đồng bộ</button></td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -666,6 +755,10 @@ export default class LayoutConfig extends React.Component {
                 
                 <style jsx>{`
                     .dropdown-toggle {cursor: pointer}
+                    .item-title:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 `}</style>
             </div>
         )
