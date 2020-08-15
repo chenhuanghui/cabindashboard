@@ -86,7 +86,7 @@ export default class LayoutConfig extends React.Component {
             onboardingList2: [],
             onboardingList3: [],
             onboardingList4: [],
-
+            brandAvailable: []
         }
     }
 
@@ -142,6 +142,15 @@ export default class LayoutConfig extends React.Component {
             currentComponent.setState({onboardingList4:result})
         })
 
+        retrieveData({},'Brand')
+        .then(result => {
+            var temp = []
+            for(var i=0; i<result.length; i++) {
+                if(result[i].fields.status === true) temp.push(result[i].fields)
+            }
+            currentComponent.setState({brandAvailable: temp})
+            console.log('Brand:', currentComponent.state.brandAvailable);
+        })
 
         // ===============================================
         // FRONT-END ENGAGEMENT
@@ -201,7 +210,20 @@ export default class LayoutConfig extends React.Component {
                 orderInCollection: parseInt($(`#onboarding-order`).attr(`data`))
             },`OnBoarding`)
             .then(res=> {
-                console.log(`res: `, res)
+                console.log(`onboradingCreated: `, res)
+                var brandAvailableList = currentComponent.state.brandAvailable
+                console.log(`brandAvailableList: `, brandAvailableList)
+                
+                for (var i=0; i<brandAvailableList.length; i++) {
+                    createData({
+                        Brand: [brandAvailableList[i].ID],
+                        Onboarding: [res.id],
+                        status: true
+                    },`Brand_OnBoarding`)
+                    .then (brandOnboardingRes => {
+                        console.log('create success brand_onboarding: ', brandOnboardingRes)
+                    })
+                }
             })
             .finally(()=> {
                 $('#modalCreateOnboarding').removeClass('show')
@@ -209,7 +231,7 @@ export default class LayoutConfig extends React.Component {
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close finished')
-                location.reload()
+                // location.reload()
             })
         })
         
@@ -262,7 +284,7 @@ export default class LayoutConfig extends React.Component {
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close finished')
-                location.reload()
+                // location.reload()
             })
         })
         

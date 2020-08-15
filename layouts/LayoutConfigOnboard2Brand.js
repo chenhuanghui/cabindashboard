@@ -264,7 +264,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                             <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
                                                             <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <label className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</label>
+                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
                                                             </td>
                                                             <td>
                                                                 <button className='btn btn-sm btn-white action-link' 
@@ -306,7 +306,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                             <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
                                                             <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <label className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</label>
+                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
                                                             </td>
                                                             <td>
                                                                 <button className='btn btn-sm btn-white action-link' 
@@ -350,7 +350,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                             <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
                                                             <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <label className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</label>
+                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
                                                             </td>
                                                             <td>
                                                                 <button className='btn btn-sm btn-white action-link' 
@@ -394,7 +394,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                             <td className='col-auto'><h4 className="font-weight-normal mb-1" data={item.id}>{item.fields.onboardingTitle}</h4></td>
                                                             <td><span className="font-weight-normal mb-1" data={item.fields.Brand}>{item.fields.brandName}</span></td>
                                                             <td className='col-auto'>
-                                                                <label className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</label>
+                                                                <span className='label-status'>{item.fields.isActive ? 'Đang áp dụng' : 'Chưa áp dụng'}</span>
                                                             </td>
                                                             <td>
                                                                 <button className='btn btn-sm btn-white action-link' 
