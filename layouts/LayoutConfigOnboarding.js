@@ -395,11 +395,11 @@ export default class LayoutConfig extends React.Component {
                                             <tbody className="list">
                                                 { onboardingList3 && onboardingList3.map((item, index) => (
                                                     <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
-                                                        <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.valueAction}</td>
-                                                        <td>{item.fields.orderInCollection}</td>
-                                                        <td className='col-auto'>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
+                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
+                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='item-order-collection'>{item.fields.orderInCollection}</td>
+                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -428,11 +428,11 @@ export default class LayoutConfig extends React.Component {
                                             <tbody className="list">
                                                 { onboardingList4 && onboardingList4.map((item, index) => (
                                                     <tr key={index} className='item-row' collection-name={item.fields.collection_name} collection={item.fields.collection} data={item.id}>
-                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1">{item.fields.title}</h4></td>
-                                                        <td>{item.fields.type_desc}</td>
-                                                        <td>{item.fields.valueAction}</td>
-                                                        <td>{item.fields.orderInCollection}</td>
-                                                        <td className='col-auto'>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
+                                                        <td className='col-auto'><h4 className="font-weight-normal mb-1 item-title">{item.fields.title}</h4></td>
+                                                        <td className='item-type-desc'>{item.fields.type_desc}</td>
+                                                        <td className='item-value-action'>{item.fields.valueAction}</td>
+                                                        <td className='item-order-collection'>{item.fields.orderInCollection}</td>
+                                                        <td className='col-auto item-status' data={item.fields.status ? 'true' : 'false'}>{item.fields.status ? "Đang sử dụng" : 'Ngưng sử dụng'}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
