@@ -164,7 +164,12 @@ export default class LayoutStaffCheckin extends React.Component {
                                                     <tr className='item-row' key={index}>
                                                         <td className='col-auto'>
                                                             <h5>{new Date(item.fields.createAt).toDateString()}</h5>
-                                                            <small><span className="text-success mr-2">●</span>{item.fields.type_desc}</small>
+                                                            <small>
+                                                            {parseInt(item.fields.type) === 1
+                                                            ? <span className="text-warning mr-2">●</span>
+                                                            : <span className="text-success mr-2">●</span>
+                                                            }
+                                                            {item.fields.type_desc}</small>
                                                         </td>
                                                         
                                                         <td className='col-auto'>
