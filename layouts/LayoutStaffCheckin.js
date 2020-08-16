@@ -175,11 +175,12 @@ export default class LayoutStaffCheckin extends React.Component {
                                                             <img className='avatar-img rounded' src={item.fields.curPhoto[0].url} atl="Nguyễn Văn Ạ"/>
                                                         </td>
                                                         <td>
-                                                            {item.fields.type === 1
+                                                            {parseInt(item.fields.type) === 1
                                                             ? 
                                                                 <div>
                                                                     <h5><span className="text-warning mr-2">●</span>Chưa xác thực</h5>
-                                                                    <button className='btn btn-sm btn-white alert-success'>Xác thực</button>
+                                                                    <button className='btn btn-sm btn-white alert-success mr-3'>Chính xác</button>
+                                                                    <button className='btn btn-sm btn-white alert-danger'>Không chính xác</button>
                                                                 </div>                                                            
                                                             : <h5><span className="text-success mr-2">●</span>Đã xác thực</h5>
                                                             }
