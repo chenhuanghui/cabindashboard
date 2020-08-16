@@ -162,7 +162,13 @@ export default function LayoutDocumentDetail () {
                                                 <div className="list-group-item">
                                                     <div className="row align-items-center">
                                                         <div className="col"><h5 className="mb-0">Trạng thái</h5></div>
-                                                        <div className="col-auto"><small className="small"> <span className="text-success mr-2">●</span> Đang làm việc</small></div>
+                                                        
+                                                        <div className="col-auto">
+                                                            { staffData && staffData.fields.status === true
+                                                            ? <h5><span className="text-success mr-2">●</span>{ staffData && staffData.fields.statusValue}</h5>
+                                                            : <h5><span className="text-danger mr-2">●</span>{ staffData && staffData.fields.statusValue}</h5>
+                                                            }
+                                                        </div>
                                                     </div>
                                                 </div>
 
