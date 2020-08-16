@@ -98,7 +98,7 @@ export default class LayoutStaffCheckin extends React.Component {
 
         retrieveData({
             filterByFormula: `AND(brandID = "${cookies.brandID}")`,
-            sort: [ {field: 'checkinDate', direction: 'desc'},]
+            sort: [ {field: 'checkinDate', direction: 'desc'},{field: 'checkinTime', direction: 'desc'}]
         },'CheckInActivities')
         .then(result => {
             console.log('brand_staff:', result);
@@ -201,11 +201,11 @@ export default class LayoutStaffCheckin extends React.Component {
                                                             <small>{item.fields.staffIDValue}</small>
                                                         </td>
                                                         <td className='avatar avatar-xl'>
-                                                            <img className='avatar-img rounded' src={item.fields.curPhoto[0].url} atl="Nguyễn Văn Ạ"/>
+                                                            <img className='avatar-img rounded' src={item.fields.curPhoto[0].url} atl={item.fields.staffName}/>
                                                         </td>
                                                         <td>
                                                             {parseInt(item.fields.isConfirmed) === 0
-                                                            ? 
+                                                            ?
                                                                 <div>
                                                                     <h5><span className="text-warning mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
                                                                     <button className='btn btn-sm btn-white alert-success mr-3 action-confirm' data-id={item.id} data-confirm="1">Chính xác</button>
