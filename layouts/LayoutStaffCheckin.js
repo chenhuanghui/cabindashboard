@@ -198,7 +198,7 @@ export default class LayoutStaffCheckin extends React.Component {
                                                         
                                                         <td className='col-auto'>
                                                             <h4 className="font-weight-bold mb-1"> {item.fields.staffName}</h4>
-                                                            <small>{item.fields.staffID}</small>
+                                                            <small>{item.fields.staffIDValue}</small>
                                                         </td>
                                                         <td className='avatar avatar-xl'>
                                                             <img className='avatar-img rounded' src={item.fields.curPhoto[0].url} atl="Nguyễn Văn Ạ"/>
