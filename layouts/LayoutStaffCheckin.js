@@ -151,7 +151,7 @@ export default class LayoutStaffCheckin extends React.Component {
                                         <div className="row align-items-center">
                                             <div className="col">
                                                 <h6 className="header-pretitle">QUẢN LÝ</h6>
-                                                <h1 className="header-title">Check-in </h1>
+                                                <h1 className="header-title">Nhân sự </h1>
                                             </div>                                            
                                         </div> {/* row align-items-center */}
 
