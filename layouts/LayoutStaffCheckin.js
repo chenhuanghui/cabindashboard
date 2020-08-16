@@ -78,7 +78,8 @@ export default class LayoutStaffCheckin extends React.Component {
 
         this.state = {
             staffList: [],
-            checkinList : []
+            checkinList : [],
+            isBusy : false,
         }
     }
 
@@ -103,7 +104,30 @@ export default class LayoutStaffCheckin extends React.Component {
             console.log('brand_staff:', result);
             currentComponent.setState({checkinList: result})
         })
+        
+        // ===============================================
+        // FRONT-END ENGAGEMENT
 
+        $(document).on(`click`,`.action-confirm`, function(){
+            if (currentComponent.state.isBusy === true) {
+                alert('Have a process was handling. Please wait for a moment.')
+                return;
+            }
+            
+            // add loading spinner icon
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+            console.log($(this).attr(`data-confirm`))
+
+            updateData($(this).attr(`data-id`),{
+                isConfirmed: $(this).attr("data-confirm")
+            },`CheckInActivities`)
+            .then(res => {
+                console.log('update: ', res)
+                $('.spinner-grow').remove()
+                currentComponent.setState({isBusy: false})
+            })
+
+        })
     }
 
     render() {
@@ -163,7 +187,7 @@ export default class LayoutStaffCheckin extends React.Component {
                                                 {checkinList && checkinList.length > 0 && checkinList.map((item, index) => (
                                                     <tr className='item-row' key={index}>
                                                         <td className='col-auto'>
-                                                            <h5>{new Date(item.fields.createAt).toDateString()}</h5>
+                                                            <h5>{item.fields.checkinDate}, {item.fields.checkinTime}</h5>
                                                             <small>
                                                             {parseInt(item.fields.type) === 1
                                                             ? <span className="text-warning mr-2">●</span>
@@ -180,14 +204,16 @@ export default class LayoutStaffCheckin extends React.Component {
                                                             <img className='avatar-img rounded' src={item.fields.curPhoto[0].url} atl="Nguyễn Văn Ạ"/>
                                                         </td>
                                                         <td>
-                                                            {parseInt(item.fields.type) === 1
+                                                            {parseInt(item.fields.isConfirmed) === 0
                                                             ? 
                                                                 <div>
-                                                                    <h5><span className="text-warning mr-2">●</span>Chưa xác thực</h5>
-                                                                    <button className='btn btn-sm btn-white alert-success mr-3'>Chính xác</button>
-                                                                    <button className='btn btn-sm btn-white alert-danger'>Không chính xác</button>
+                                                                    <h5><span className="text-warning mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
+                                                                    <button className='btn btn-sm btn-white alert-success mr-3 action-confirm' data-id={item.id} data-confirm="1">Chính xác</button>
+                                                                    <button className='btn btn-sm btn-white alert-danger action-confirm' data-id={item.id} data-confirm="2">Không chính xác</button>
                                                                 </div>                                                            
-                                                            : <h5><span className="text-success mr-2">●</span>Đã xác thực</h5>
+                                                            : parseInt(item.fields.isConfirmed) === 1
+                                                            ? <h5><span className="text-success mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
+                                                            : <h5><span className="text-danger mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
                                                             }
                                                         </td>
                                                     </tr>
