@@ -227,7 +227,7 @@ export default function LayoutDocumentDetail () {
                                                             <h5 className="mb-0">Ngày làm việc gần nhất:</h5>
                                                         </div>
                                                         <div className="col-auto">
-                                                            <small className="small text-muted">{checkinList && checkinList[0].fields.checkinDate}</small>
+                                                            <small className="small text-muted">{checkinList && checkinList.length > 0 && checkinList[0].fields.checkinDate}</small>
                                                         </div>
                                                     </div>
                                                 </div>
