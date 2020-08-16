@@ -102,7 +102,7 @@ export default function LayoutDocumentDetail () {
         <div>
             <Head>
                 {/* <script src="../assets/js/theme.min.js"></script> */}
-                <title> Tài liệu | CabinFood Business</title>
+                <title> HUMAN INSIGHT | CabinFood Business</title>
             </Head>
 
             <NavBar />
