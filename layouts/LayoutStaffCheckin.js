@@ -90,7 +90,13 @@ export default class LayoutStaffCheckin extends React.Component {
         
         // ===============================================
         // CHECKING AUTHENTICATE
-        if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | !cookies.role) Router.push('/signin');
+        if (!cookies.isLoggedIn || !cookies.userID || !cookies.brandID || !cookies.role) {
+            destroyCookie(userID)
+            destroyCookie(isLoggedIn)
+            destroyCookie(brandID)
+            destroyCookie(role)
+            Router.push('/signin')
+        }
         console.log('current brandID:', cookies.brandID);
         
         // ===============================================
@@ -126,7 +132,6 @@ export default class LayoutStaffCheckin extends React.Component {
                 $('.spinner-grow').remove()
                 currentComponent.setState({isBusy: false})
             })
-
         })
     }
 

@@ -62,10 +62,11 @@ export default function LayoutDocumentDetail () {
     const [staffID, setStaffID] = useState(null);
     const [staffData, setStaffData] = useState(null);
     const [checkinList, setCheckinList] = useState(null);
+    const [isBusy, setBusy] = useState(null);
 
     useEffect(() => {
         // if not user --> redirect to Sign In page
-        if(!cookies.userID | !cookies.isLoggedIn | !cookies.brandID | !cookies.role) {
+        if(!cookies.userID || !cookies.isLoggedIn || !cookies.brandID || !cookies.role) {
             destroyCookie(userID)
             destroyCookie(isLoggedIn)
             destroyCookie(brandID)
@@ -79,6 +80,8 @@ export default function LayoutDocumentDetail () {
 
         // when docID was assigned successful retrieve data from Contenful
         if(staffID === router.query.id) {
+            // ===============================================
+            // RETRIEVE DATA FROM AIRTABLE
             retrieveData({filterByFormula: `ID = "${staffID}"`,},`Staff`)
             .then(res => {setStaffData(res[0])})
 
@@ -89,6 +92,30 @@ export default function LayoutDocumentDetail () {
             .then(result => {
                 console.log('brand_staff_checkinlist:', result);
                 setCheckinList(result)
+            })
+            
+            // ===============================================
+            // FRONT-END ENGAGEMENT
+            $(document).on(`click`,`.action-confirm`, function(){
+                if (isBusy === true) {
+                    alert('Have a process was handling. Please wait for a moment.')
+                    return;
+                }
+                
+                // add loading spinner icon
+                $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
+                console.log($(this).attr(`data-confirm`))
+                setBusy(true)
+                
+                updateData($(this).attr(`data-id`),{
+                    isConfirmed: $(this).attr("data-confirm")
+                },`CheckInActivities`)
+                .then(res => {
+                    console.log('update: ', res)
+                    $('.spinner-grow').remove()
+                    setBusy(false)
+                })
+    
             })
         }             
 
