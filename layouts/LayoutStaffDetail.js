@@ -106,12 +106,18 @@ export default function LayoutDocumentDetail () {
                 $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
                 console.log($(this).attr(`data-confirm`))
                 setBusy(true)
-                
+
                 updateData($(this).attr(`data-id`),{
                     isConfirmed: $(this).attr("data-confirm")
                 },`CheckInActivities`)
                 .then(res => {
                     console.log('update: ', res)
+                    $(this).parent().hide()
+
+                    if(res.fields.isConfirmed === 1)
+                        $(this).parent().parent().append(`<h5><span class="text-success mr-2 msg-success">●</span>${res.fields.isConfirmedDesc}</h5>`)
+                    else 
+                        $(this).parent().parent().append(`<h5><span class="text-danger mr-2 msg-danger">●</span>${res.fields.isConfirmedDesc}</h5>`)
                     $('.spinner-grow').remove()
                     setBusy(false)
                 })
@@ -307,17 +313,17 @@ export default function LayoutDocumentDetail () {
                                                     <td className='avatar avatar-xl'>
                                                         <img className='avatar-img rounded' src={item.fields.curPhoto[0].url} atl={item.fields.staffName}/>
                                                     </td>
-                                                    <td>
+                                                    <td className='status-notice'>
                                                         {parseInt(item.fields.isConfirmed) === 0 || !item.fields.isConfirmed
                                                         ?
-                                                            <div>
+                                                            <div className='action-form'>
                                                                 <h5><span className="text-warning mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
                                                                 <button className='btn btn-sm btn-white alert-success mr-3 action-confirm' data-id={item.id} data-confirm="1">Chính xác</button>
                                                                 <button className='btn btn-sm btn-white alert-danger action-confirm' data-id={item.id} data-confirm="2">Không chính xác</button>
                                                             </div>                                                            
                                                         : parseInt(item.fields.isConfirmed) === 1
-                                                        ? <h5><span className="text-success mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
-                                                        : <h5><span className="text-danger mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
+                                                        ? <h5><span className="text-success mr-2 msg-success">●</span>{item.fields.isConfirmedDesc}</h5>
+                                                        : <h5><span className="text-danger mr-2 msg-danger">●</span>{item.fields.isConfirmedDesc}</h5>
                                                         }
                                                     </td>
                                                 </tr>
@@ -335,5 +341,3 @@ export default function LayoutDocumentDetail () {
     )
 
 }
-
-// ====================================
