@@ -281,7 +281,7 @@ export default function LayoutDocumentDetail () {
                                                         <img className='avatar-img rounded' src={item.fields.curPhoto[0].url} atl={item.fields.staffName}/>
                                                     </td>
                                                     <td>
-                                                        {parseInt(item.fields.isConfirmed) === 0
+                                                        {parseInt(item.fields.isConfirmed) === 0 || !item.fields.isConfirmed
                                                         ?
                                                             <div>
                                                                 <h5><span className="text-warning mr-2">●</span>{item.fields.isConfirmedDesc}</h5>
