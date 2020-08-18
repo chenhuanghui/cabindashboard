@@ -129,6 +129,11 @@ export default class LayoutStaffCheckin extends React.Component {
             },`CheckInActivities`)
             .then(res => {
                 console.log('update: ', res)
+                $(this).parent().hide()
+                if(res.fields.isConfirmed === 1)
+                    $(this).parent().parent().append(`<h5><span class="text-success mr-2 msg-success">●</span>${res.fields.isConfirmedDesc}</h5>`)
+                else 
+                    $(this).parent().parent().append(`<h5><span class="text-danger mr-2 msg-danger">●</span>${res.fields.isConfirmedDesc}</h5>`)
                 $('.spinner-grow').remove()
                 currentComponent.setState({isBusy: false})
             })
@@ -151,32 +156,28 @@ export default class LayoutStaffCheckin extends React.Component {
                             <div className="col-12 col-lg-10 col-xl-8">
                                 
                                 <div className="header mt-md-5">
-                                    <div className="header-body">
-                                        
+                                    <div className="header-body">                                        
                                         <div className="row align-items-center">
                                             <div className="col">
                                                 <h6 className="header-pretitle">QUẢN LÝ</h6>
                                                 <h1 className="header-title">Nhân sự </h1>
                                             </div>                                            
-                                        </div> {/* row align-items-center */}
-
+                                        </div>
                                         <div className="row align-items-center">
                                             <div className="col">
                                                 <ul className="nav nav-tabs nav-overflow header-tabs">
                                                     <li className="nav-item"><Link href='/staffs'><a className="nav-link">Tất cả</a></Link></li>
                                                     <li className="nav-item"><Link href='/staffs/checkin'><a className="nav-link active">Check-in</a></Link></li>
-                                                    {/* <li className="nav-item"><a className="nav-link" href="#!">Xin nghỉ</a></li> */}
                                                 </ul>            
                                             </div>
-                                        </div> {/* row align-items-center */}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">Hoạt động check-in</h4>
-                                        {/* <button className="btn btn-sm btn-white btn-modal" id='add-product'>Thêm nhân sự</button>  */}
-                                    </div>{/* end card header */}
+                                    </div>
                                     
                                     <div className="table-responsive mb-0">
                                         <table className="table table-sm table-nowrap card-table table-hover">
@@ -188,7 +189,7 @@ export default class LayoutStaffCheckin extends React.Component {
                                                     <th>XÁC THỰC</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="list">{/* table item */} 
+                                            <tbody className="list">
                                                 {checkinList && checkinList.length > 0 && checkinList.map((item, index) => (
                                                     <tr className='item-row' key={index}>
                                                         <td className='col-auto'>
@@ -226,10 +227,7 @@ export default class LayoutStaffCheckin extends React.Component {
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-
-                                
-                                                                                                                                                                
+                                </div>                                                                                                                                
                             </div>
                         </div>
                     </div>

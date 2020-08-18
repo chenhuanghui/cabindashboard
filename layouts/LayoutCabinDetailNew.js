@@ -291,7 +291,6 @@ export default function LayoutCabinDetail () {
                                             <tr>
                                                 <th></th>
                                                 <th>KÊNH</th>
-                                                <th>TRẠNG THÁI</th>
                                                 <th>NGÀY HOẠT ĐỘNG</th>
                                                 <th>TÀI KHOẢN</th>
                                                 <th>CHI NHÁNH</th>
@@ -302,12 +301,20 @@ export default function LayoutCabinDetail () {
                                                 <tr key={index} className='item-row sell-channel-item' data={item.id}>
                                                     <td className="col-auto">
                                                         { item.fields.photo && item.fields.photo.length > 0
-                                                        ? <div className="avatar avatar-xs"><img src={item.fields.photo[0].url} alt={item.fields.sellChannelName} className="avatar-img rounded-circle"/></div>
+                                                        ? <div className="avatar"><img src={item.fields.photo[0].url} alt={item.fields.sellChannelName} className="avatar-img rounded"/></div>
                                                         : ''
                                                         }
                                                     </td>
-                                                    <td><h4 className="mb-1 sellChannelName">{item.fields.sellChannelName}</h4></td>
-                                                    <td><span className="mb-1 sellChannelValue" data={item.fields.status ? 'true' : 'false'}>{ item.fields.value}</span></td>
+                                                    <td>
+                                                        <h4 className="mb-1 sellChannelName">{item.fields.sellChannelName}</h4>
+                                                        <small className="mb-1 sellChannelValue" data={item.fields.status ? 'true' : 'false'}>
+                                                            { item.fields.status
+                                                            ? <span className="text-success mr-2">●</span>
+                                                            : <span className="text-danger mr-2">●</span>
+                                                            }
+                                                            { item.fields.value}
+                                                        </small>
+                                                    </td>
                                                     <td><span className="mb-1 sellChannelValue">{ new Date(item.fields.estStart).toDateString()}</span></td>
                                                     <td> <span className="mb-1 sellChannelAccount">{item.fields.sellChannelAccount}</span></td>
                                                     <td> <span className="mb-1 sellChannelCabinName">{item.fields.cabinName}</span></td>
