@@ -230,16 +230,14 @@ export default function Dashboard () {
             <div className="col-12 col-lg-10 col-xl-8">
               
               <div className="header">
-                <div className="container-fluid">
-                    <div className="header-body">
-                        <div className="row align-items-end">
-                          <div className="col">
-                                <h6 className="header-pretitle">NHÃN HIỆU</h6>
-                                <h1 className="header-title">{brand ? brand.brandName:''}</h1>
-                            </div>                            
-                        </div>
-                    </div>
-                </div>
+                  <div className="header-body">
+                      <div className="row align-items-end">
+                        <div className="col">
+                              <h6 className="header-pretitle">NHÃN HIỆU</h6>
+                              <h1 className="header-title">{brand ? brand.brandName:''}</h1>
+                          </div>                            
+                      </div>
+                  </div>
               </div>
 
               <div className="row">
