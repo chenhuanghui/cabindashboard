@@ -274,7 +274,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                                 <h4 className="font-weight-bold mb-1" data={item.id}>{item.fields.onboardingTitle}</h4>
                                                                 <small className='item-status' data={item.fields.isActive ? 'true' : 'false'}>
                                                                     {item.fields.isActive ? <span className="text-success mr-2">●</span> : <span className="text-danger mr-2">●</span>}
-                                                                    {item.fields.isActive ? "Đã liên kết" : 'Chưa liên kết'}
+                                                                    {item.fields.isActive ? "Đã kích hoạt" : 'Chưa kích hoạt'}
                                                                 </small>
                                                             </td>
                                                             <td>
@@ -286,7 +286,7 @@ export default class LayoutOnboard2Doc extends React.Component {
                                                                     data2={item.fields.Onboarding} 
                                                                     data3={item.id} 
                                                                     data4={item.fields.isActive ? 'activated' : 'inactivate'}
-                                                                > {item.fields.isActive ? 'Ngưng kết nối' : 'Kết nối'} 
+                                                                > {item.fields.isActive ? 'Ngưng kích hoạt' : 'Kích hoạt'} 
                                                                 </button>
                                                             </td>
                                                             
