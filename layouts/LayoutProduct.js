@@ -332,38 +332,36 @@ export default class LayoutProduct extends React.Component {
                                         <table className="table table-sm table-nowrap card-table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th></th>
-                                                    <th>TÊN</th>
-                                                    <th>TRẠNG THÁI</th>
-                                                    <th>GIÁ BÁN</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">TÊN</th>
+                                                    <th scope="col">GIÁ BÁN</th>
+                                                    <th scope="col">MÔ TẢ</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody className="list">{/* table item */} 
                                                 {data && data.length > 0 && data.map((item, index) => (
                                                     <tr key={index} className='item-row' data={item.fields.Product} item-index={index}>
-                                                        <td className="col-auto">
+                                                        <td className="col-auto" scope="row">
                                                             { item.fields.productImage && item.fields.productImage.length > 0
                                                             ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded product-image" data={item.fields.productImage[0].url} /></div>
                                                             : ''
-                                                            }
-                                                            
+                                                            }                                                            
                                                         </td>        
-                                                        <td className="col-md-2">
+                                                        <td className='col'>
                                                             <h4 className="font-weight-normal mb-1 item-name">{item.fields.productName}</h4>
-                                                            <small className="text-muted item-desc">{item.fields.productDesc}</small>
-                                                        </td>
-                                                        <td>
                                                             { item.fields.productStatus && item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
                                                             ? <span className="badge badge-success item-status" data='true'>Đang kinh doanh</span>
                                                             : <span className="badge badge-danger item-status" data='false'> Ngừng kinh doanh</span>
                                                             }
-                                                            
                                                         </td>
                                                         <td>
                                                             { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
                                                             ? <h4 className="font-weight-normal mb-1 item-price" data={item.fields.productPrice4Sell[0]}>{item.fields.productPrice4Sell[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
                                                             : ''
-                                                            }                                                        
+                                                            }                                                            
+                                                        </td>
+                                                        <td>
+                                                            <small className="text-muted item-desc">{item.fields.productDesc}</small>
                                                         </td>
                                                     </tr>        
                                                 ))}
@@ -448,7 +446,8 @@ export default class LayoutProduct extends React.Component {
                                                     </div>
                                                     <div className="form-group">
                                                         <label>Mô tả</label>
-                                                        <input className="form-control required" id='product-desc-edit' data=''/>
+                                                        {/* <input className="form-control required" id='product-desc-edit' data=''/> */}
+                                                        <textarea className="form-control required" data-toggle="autosize" rows="5" placeholder="Try typing something..." id='product-desc-edit' data=''></textarea>
                                                     </div>
                                                     <div className="form-group">
                                                         <label>Giá bán</label>
@@ -464,7 +463,7 @@ export default class LayoutProduct extends React.Component {
                                                             apikey={'A88NrCjOoTtq2X3RiYyvSz'}
                                                             customRender={({ onPick }) => (
                                                                 <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image-preview' data=''>
-                                                                    <button type="button" className="btn btn-primary mb-2 btn-sm" onClick={onPick}>Chọn file</button>
+                                                                    <button type="button" className="btn btn-outline-primary mb-2" onClick={onPick}>Chọn ảnh mới</button>
                                                                     <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
                                                                         <li className="list-group-item dz-processing dz-image-preview">
                                                                             <div className="row align-items-center thumbnail-preview-dropzone">
