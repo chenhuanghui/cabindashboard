@@ -145,6 +145,10 @@ export default class LayoutProduct extends React.Component {
             $('#product-price-edit').val($(this).find('.item-price').attr('data').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))    // product price
             $('#product-price-edit').attr('data',$(this).find('.item-price').attr('data'))    // product price
 
+            $('#product-image-preview').attr('data',$(this).find('.product-image').attr('data'))    // product image
+            $('#cur-product-image').attr('src',$(this).find('.product-image').attr('data'))
+            
+
             // if( $(`.item-status`).attr(data) === `true`) $('#product-status-edit').prop('checked', true)
             if ($(this).find('.item-status').attr('data') === `true`) $('#product-status-edit').prop('checked', true)
             
@@ -231,6 +235,9 @@ export default class LayoutProduct extends React.Component {
                 name: $('#product-name-edit').attr('data'),
                 desc: $('#product-desc-edit').attr('data'),
                 price4Sell: parseInt($('#product-price-edit').attr('data')),
+                images:[{
+                    url: $('#product-image-preview').attr('data')
+                }],
                 status: productStatusUpdate
             },`Product`)
             .then( res=> {
@@ -328,7 +335,6 @@ export default class LayoutProduct extends React.Component {
                                                     <th></th>
                                                     <th>TÊN</th>
                                                     <th>TRẠNG THÁI</th>
-                                                    <th>DANH MỤC</th>
                                                     <th>GIÁ BÁN</th>
                                                 </tr>
                                             </thead>
@@ -337,12 +343,12 @@ export default class LayoutProduct extends React.Component {
                                                     <tr key={index} className='item-row' data={item.fields.Product} item-index={index}>
                                                         <td className="col-auto">
                                                             { item.fields.productImage && item.fields.productImage.length > 0
-                                                            ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded"/></div>
+                                                            ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded product-image" data={item.fields.productImage[0].url} /></div>
                                                             : ''
                                                             }
                                                             
                                                         </td>        
-                                                        <td className="col-auto">
+                                                        <td className="col-md-2">
                                                             <h4 className="font-weight-normal mb-1 item-name">{item.fields.productName}</h4>
                                                             <small className="text-muted item-desc">{item.fields.productDesc}</small>
                                                         </td>
@@ -352,12 +358,6 @@ export default class LayoutProduct extends React.Component {
                                                             : <span className="badge badge-danger item-status" data='false'> Ngừng kinh doanh</span>
                                                             }
                                                             
-                                                        </td>
-                                                        <td> 
-                                                            { item.fields.productCategory && item.fields.productCategory.length > 0 
-                                                            ? <h4 className="font-weight-normal mb-1 item-cat" data={item.fields.productCategory[0]}>{item.fields.productCategory[0]}</h4>
-                                                            : ''
-                                                            }                                                        
                                                         </td>
                                                         <td>
                                                             { item.fields.productPrice4Sell && item.fields.productPrice4Sell.length > 0 
@@ -458,6 +458,54 @@ export default class LayoutProduct extends React.Component {
                                                         <label>Tình trạng kinh doanh</label>
                                                         <input type="checkbox" className='ml-3' id='product-status-edit' data=''/>
                                                     </div>
+                                                    <div className="form-group">
+                                                        <label>Hình ảnh sản phẩm</label>
+                                                        <ReactFilestack
+                                                            apikey={'A88NrCjOoTtq2X3RiYyvSz'}
+                                                            customRender={({ onPick }) => (
+                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone" id='product-image-preview' data=''>
+                                                                    <button type="button" className="btn btn-primary mb-2 btn-sm" onClick={onPick}>Chọn file</button>
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+                                                                        <li className="list-group-item dz-processing dz-image-preview">
+                                                                            <div className="row align-items-center thumbnail-preview-dropzone">
+                                                                                <div className="col-auto">
+                                                                                    <div className="avatar"><img className="avatar-img rounded product-image" id='cur-product-image' src="https://dl.airtable.com/.attachments/61b42a68b3a175385e9610f7e80675a6/e4647d40/hQ5EQDRdT5WAYCROI0Ku"/></div>
+                                                                                </div>
+                                                                                <div className="col ml-n3">
+                                                                                    <small className="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
+                                                                                </div>
+                                                                                <div className="col-auto"></div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                    {/* <div className="dz-default dz-message"> */}
+                                                                        
+                                                                    {/* </div> */}
+                                                                </div>
+                                                            )}
+                                                            onSuccess={(res) => {
+                                                                console.log('filestack:',res)
+                                                                $('#product-image-preview').attr('data',res.filesUploaded[0].url);
+                                                                $('#product-image-preview .dz-preview').html(
+                                                                    `<li class="list-group-item dz-processing dz-image-preview">
+                                                                        <div class="row align-items-center thumbnail-preview-dropzone" style="flex-wrap: initial !important; overflow:hidden">
+                                                                            <div class="col-auto">
+                                                                                <div class="avatar">
+                                                                                <img class="avatar-img rounded" src="${res.filesUploaded[0].url}"/>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col ml-n3">
+                                                                                <h4 class="mb-1" data-dz-name="">${res.filesUploaded[0].filename}</h4>
+                                                                                <small class="text-muted" data-dz-size=""><strong>53.2</strong> KB</small>
+                                                                            </div>
+                                                                            <div class="col-auto"></div>
+                                                                        </div>
+                                                                    </li>`
+                                                                    )
+                                                                console.log('add file url to element:', $('#product-image-preview').attr('data'))
+                                                            }}
+                                                        />                                                    
+                                                    </div>             
                                                 </div>
                                                     
                                                 <hr className="my-5" />                                  
