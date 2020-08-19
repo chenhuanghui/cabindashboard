@@ -80,7 +80,8 @@ export default class LayoutProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            isBusy : false,
         }
     }
 
@@ -175,6 +176,11 @@ export default class LayoutProduct extends React.Component {
         
         // _CREATE PRODUCT
         $(document).on('click', '#product-create', function() {
+            if (currentComponent.state.isBusy === true) {
+                alert('Have a process was handling. Please wait for a moment.')
+                return;
+            }
+
             // add loading spinner icon
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
             
@@ -186,6 +192,7 @@ export default class LayoutProduct extends React.Component {
 
             // If all input required valid
             // Create Product -> Link to Brand_Product -> Insert new success record to table
+            currentComponent.setState({isBusy: true})
             createData({
                 name: $('#product-name').attr('data'),
                 desc: $('#product-desc').attr('data'),
@@ -216,10 +223,17 @@ export default class LayoutProduct extends React.Component {
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close finished')
+                // location.reload();
+                currentComponent.setState({isBusy: false})
             })
         })
 
         $(document).on('click', '#product-update', function() {
+            if (currentComponent.state.isBusy === true) {
+                alert('Have a process was handling. Please wait for a moment.')
+                return;
+            }
+
             // add loading spinner icon
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)            
             
@@ -228,9 +242,10 @@ export default class LayoutProduct extends React.Component {
                 $('.spinner-grow').remove();
                 return;
             }
-
+            
+            currentComponent.setState({isBusy: true})
             var productStatusUpdate = !$('#product-status-edit:checked').val() ? false : true
-
+            
             updateData($('#modalProductEdit').attr('data'), {
                 name: $('#product-name-edit').attr('data'),
                 desc: $('#product-desc-edit').attr('data'),
@@ -260,6 +275,7 @@ export default class LayoutProduct extends React.Component {
                 $('.spinner-grow').remove()
                 console.log('modal close update finished')
                 location.reload();
+                currentComponent.setState({isBusy: false})
             })
         })
         
