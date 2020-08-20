@@ -214,17 +214,17 @@ export default class LayoutProduct extends React.Component {
                         var temp = currentComponent.state.data
                         temp.push(brandProductRes)
                         currentComponent.setState({data:temp})
-                    })                    
+                    })
+                    .finally( () => {
+                        $('#modalProductCreate').removeClass('show')
+                        $('body').removeClass('modal-open')
+                        $('.modal-backdrop').hide()
+                        $('.spinner-grow').remove()
+                        console.log('modal close finished')
+                        // location.reload();
+                        currentComponent.setState({isBusy: false})
+                    })
                 }   
-            })
-            .finally( () => {
-                $('#modalProductCreate').removeClass('show')
-                $('body').removeClass('modal-open')
-                $('.modal-backdrop').hide()
-                $('.spinner-grow').remove()
-                console.log('modal close finished')
-                // location.reload();
-                currentComponent.setState({isBusy: false})
             })
         })
 
