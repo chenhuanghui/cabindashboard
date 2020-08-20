@@ -94,7 +94,8 @@ export default class LayoutStaff extends React.Component {
         
         // ===============================================
         // RETRIEVE DATA FROM AIRTABLE
-
+        
+        // _GET ALL STAFF BY BRAND ID
         retrieveData({
             filterByFormula: `Brand = "${cookies.brandID}"`,
         },'Brand_Staff')
@@ -103,7 +104,8 @@ export default class LayoutStaff extends React.Component {
             currentComponent.setState({data:result})
         })
 
-        // Retrieve Cabin belong to Brand
+        // _GET ALL CABIN  WAS ASSIGEND TO BRAND ID
+        // this data was used for dropdown list of cabin availabe of brand
         retrieveData({filterByFormula: `BrandID = "${cookies.brandID}"`},'Brand_Cabin')
         .then(cabinRes => {
             var tempTitle = []
@@ -168,8 +170,6 @@ export default class LayoutStaff extends React.Component {
             }
 
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
-
-
             // 1. CREATE STAFF ON DATABASE
             createData({
                 name: $('#staff-name').attr('data'),
@@ -191,7 +191,7 @@ export default class LayoutStaff extends React.Component {
                         Cabin: [`${$('#cabin-assigned').attr('data')}`]                  
                     },'Brand_Staff')
                     .then(brandStaffRes => {
-                        // 4. ADD RECORD TO STATE VARIABLE
+                        // _SHOW STAFF ON LIST OF VIEW
                         var temp = currentComponent.state.data
                         temp.push(brandStaffRes)
                         currentComponent.setState({data:temp})
@@ -211,20 +211,22 @@ export default class LayoutStaff extends React.Component {
                             temp = brandCabinRes[0].fields.StaffList
                             console.log('temp:', temp)
                         }                                                
+                        
                         // insert record staff was added recently to temp stafflist
                         tempStaffList.push(staffRes.id)                        
-                        // do update data
+                        
+                        // action update data
                         updateData(brandCabinRes[0].id,{StaffList:tempStaffList},'Brand_Cabin')
+                        .finally( () => {
+                            $('#modalStaffCreate').removeClass('show')
+                            $('body').removeClass('modal-open')
+                            $('.modal-backdrop').hide()
+                            $('.spinner-grow').remove()
+                            console.log('modal close finished')                    
+                        })
                     })                    
                     
                 }                
-            })
-            .finally( () => {
-                $('#modalStaffCreate').removeClass('show')
-                $('body').removeClass('modal-open')
-                $('.modal-backdrop').hide()
-                $('.spinner-grow').remove()
-                console.log('modal close finished')                    
             })
         })
 
