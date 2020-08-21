@@ -242,41 +242,36 @@ export default class LayoutProduct extends React.Component {
                 $('.spinner-grow').remove();
                 return;
             }
-            
+            var imageUpdateUrl = $('#product-image-preview').attr('data')
+            console.log('image update 2: ', imageUpdateUrl)
+
+            console.log('image update 1: ', $('#product-image-preview').attr('data'))
+           
             currentComponent.setState({isBusy: true})
             var productStatusUpdate = !$('#product-status-edit:checked').val() ? false : true
             
+
             updateData($('#modalProductEdit').attr('data'), {
                 name: $('#product-name-edit').attr('data'),
                 desc: $('#product-desc-edit').attr('data'),
                 price4Sell: parseInt($('#product-price-edit').attr('data')),
                 images:[{
-                    url: $('#product-image-preview').attr('data')
+                    url: imageUpdateUrl
                 }],
                 status: productStatusUpdate
             },`Product`)
             .then( res=> {
-                // console.log('res product update: ', res)
+                console.log('res product update: ', res)
                 
-                // var temp = currentComponent.state.data
-                // console.log('asfdasdf: ',temp[$(`#modalProductEdit`).attr(`item-index`)])
-                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productName`] = res.fields.name
-                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productDesc`] = res.fields.desc
-                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productPrice4Sell`] = res.fields.price4Sell
-                // temp[$(`#modalProductEdit`).attr(`item-index`)][`productStatus`] = res.fields.status
-                // currentComponent.setState({data:temp})
-
-                // console.log('new update: ', currentComponent.state.data)
-            })
-            .finally(() => {
-                $('#modalProductEdit').removeClass('show')
+                // $('#modalProductEdit').removeClass('show')
                 $('body').removeClass('modal-open')
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
                 console.log('modal close update finished')
-                location.reload();
+                // location.reload();
                 currentComponent.setState({isBusy: false})
             })
+            .finally(() => {console.log('update finished')})
         })
         
         // AUTO INSERT COMMAS ON EACH THOUSAND
@@ -348,22 +343,22 @@ export default class LayoutProduct extends React.Component {
                                         <table className="table table-sm table-nowrap card-table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">TÊN</th>
-                                                    <th scope="col">GIÁ BÁN</th>
+                                                    <th scope="col" className='col-auto'></th>
+                                                    <th scope="col" >TÊN</th>
+                                                    <th scope="col" >GIÁ BÁN</th>
                                                     <th scope="col">MÔ TẢ</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody className="list">{/* table item */} 
                                                 {data && data.length > 0 && data.map((item, index) => (
                                                     <tr key={index} className='item-row' data={item.fields.Product} item-index={index}>
-                                                        <td className="col-auto" scope="row">
+                                                        <td className='col-auto' scope="row">
                                                             { item.fields.productImage && item.fields.productImage.length > 0
                                                             ? <div className="avatar"><img src={item.fields.productImage[0].url} alt={item.fields.productName} className="avatar-img rounded product-image" data={item.fields.productImage[0].url} /></div>
                                                             : ''
                                                             }                                                            
                                                         </td>        
-                                                        <td className='col'>
+                                                        <td>
                                                             <h4 className="font-weight-normal mb-1 item-name">{item.fields.productName}</h4>
                                                             { item.fields.productStatus && item.fields.productStatus.length > 0 && item.fields.productStatus[0] === true
                                                             ? <span className="badge badge-success item-status" data='true'>Đang kinh doanh</span>
