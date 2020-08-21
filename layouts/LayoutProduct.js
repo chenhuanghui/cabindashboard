@@ -263,7 +263,7 @@ export default class LayoutProduct extends React.Component {
             .then( res=> {
                 console.log('res product update: ', res)
                 
-                // $('#modalProductEdit').removeClass('show')
+                $('#modalProductEdit').removeClass('show')
                 $('body').removeClass('modal-open')
                 $('.modal-backdrop').hide()
                 $('.spinner-grow').remove()
