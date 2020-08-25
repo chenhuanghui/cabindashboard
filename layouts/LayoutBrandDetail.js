@@ -346,7 +346,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700">{item.fields.setup_desc} </p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
@@ -397,7 +397,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -445,7 +445,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -493,7 +493,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -541,7 +541,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -589,7 +589,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -637,7 +637,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -685,7 +685,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -733,7 +733,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
@@ -781,7 +781,7 @@ export default function LayoutCabinDetail () {
                                                             {item.fields.setup_name}
                                                             <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                         </h5>
-                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        {item.fields.setup_desc ? <p className="small text-gray-700 mb-1">{item.fields.setup_desc} </p> : null}
                                                         <small className="text-muted">
                                                             Hoàn thành trước:                                                        
                                                             <DatePickerCustom> 
