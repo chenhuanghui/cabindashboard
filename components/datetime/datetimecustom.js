@@ -30,12 +30,23 @@ export default class DateTimeCustom extends React.Component {
     componentDidMount() {
         let currentComponent = this
         currentComponent.setState({startDate:new Date()})
-        console.log("update init:____", currentComponent.state.startDate)
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        let curDate = new Date(this.props.children.props.date)
+        let prevDate = new Date(prevState.startDate)
+        
+        if((prevDate.getDate() !== curDate.getDate()) || (prevDate.getMonth() !== curDate.getMonth()) ) {
+            console.log("detect UPDATE.........")            
+            this.setStartDate(curDate)
+        }
+        
     }
 
     setStartDate(date) {
         let currentComponent = this
-        currentComponent.setState({startDate:date})
+        let newDate = new Date(date)
+        currentComponent.setState({startDate:newDate})
     }
 
     updateDueDate(recID, date) {
@@ -50,6 +61,9 @@ export default class DateTimeCustom extends React.Component {
                 <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-duedate ml-2" onClick={onClick} data={value}></span>
                 <style jsx>{`
                     .updated{ text-decoration: underline}
+                    .btn-control:hover {
+                        cursor: pointer
+                    }
                 `}</style>
             </div>
         )
@@ -64,9 +78,7 @@ export default class DateTimeCustom extends React.Component {
                     customInput={<DatePickerCustomEdit />}
                     onChange={date => {
                         console.log("selecteddate: ", date)
-                        this.setStartDate(date)
-                        console.log("brandid: ", this.props.children.props.brand_id)
-                        console.log("setupid: ", this.props.children.props.setup_id)
+                        this.setStartDate(date)                        
                         this.updateDueDate(this.props.children.props.record_id, date)
                     }}
                 />

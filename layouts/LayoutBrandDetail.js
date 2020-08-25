@@ -338,12 +338,10 @@ export default function LayoutCabinDetail () {
                                                     <p className="small text-gray-700">{item.fields.setup_desc} </p>
                                                     
                                                     <small className="text-muted">
-                                                        Hoàn thành trước: 
-                                                        
+                                                        Hoàn thành trước:                                                        
                                                         <DatePickerCustom> 
-                                                            <span className="hide" setup_id={item.fields.Setup[0]} brand_id={brandID} record_id={item.id}>{item.id}</span>
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
-                                                        {/* <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-duedate ml-2" setup-id={item.fields.setup_id}></span> */}
                                                     </small>
                                                     
                                                     
@@ -387,7 +385,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -422,7 +425,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -457,7 +465,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -492,7 +505,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -527,7 +545,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -562,7 +585,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -597,7 +625,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -632,7 +665,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
@@ -667,7 +705,12 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">{item.fields.setup_name}</h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước:                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                        </DatePickerCustom>
+                                                    </small>
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
