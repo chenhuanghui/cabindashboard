@@ -46,13 +46,63 @@ async function updateData(rowID, data,tbName) {
     }
 }
 
+async function createData(formular,tbName) {
+    try {
+      const res = await airtable.create(formular,{tableName:tbName});
+      return res
+    } catch(e) {
+      console.error(e);
+    }
+}
+
+function syncBrandSetup(brandID,colID) {
+    (async () => {
+        try {
+            // retrieve all setup list by collection_id
+            const setupRes = await airtable.read({
+                filterByFormula: `collection_id = "${colID}"`,
+            },{tableName:"Setup"});
+            console.log("setup list col = ", colID, setupRes)
+            await setupRes.forEach(async(setupItem,index) => {
+                const brandSetupRes = await airtable.read({
+                    filterByFormula: `AND(Brand="${brandID}", Setup="${setupItem.id}")`,
+                    maxRecords: 1
+                },{tableName:"Brand_Setup"});
+                
+                if (brandSetupRes.length === 0) {
+                    const createRes = await airtable.create({
+                        Brand: [`${brandID}`],
+                        Setup: [`${setupItem.id}`],
+                        duedate: new Date().toDateString()
+                    },{tableName:"Brand_Setup"})
+                    console.log("create Res_____",createRes)
+                } else {
+                    console.log("NON create" )
+                }
+            });
+        }
+        catch(e) {
+            console.error(e);
+        }
+    })()
+}
+
 export default function LayoutCabinDetail () {
     const router = useRouter();
     const cookies = parseCookies();
     const [brandID, setBrandID] = useState(null);
     const [brand, setBrand] = useState(null)
     const [setupCollection1, setSetupCollection1] = useState([])
-    
+    const [setupCollection2, setSetupCollection2] = useState([])
+    const [setupCollection3, setSetupCollection3] = useState([])
+    const [setupCollection4, setSetupCollection4] = useState([])
+    const [setupCollection5, setSetupCollection5] = useState([])
+    const [setupCollection6, setSetupCollection6] = useState([])
+    const [setupCollection7, setSetupCollection7] = useState([])
+    const [setupCollection8, setSetupCollection8] = useState([])
+    const [setupCollection9, setSetupCollection9] = useState([])
+    const [setupCollection10, setSetupCollection10] = useState([])
+    const [isBusy, setBusy] = useState(false)
 
     useEffect(() => {        
         // if not user --> redirect to Sign In page
@@ -87,6 +137,107 @@ export default function LayoutCabinDetail () {
             .then(res => {
                 console.log('collection1: ', res)
                 setSetupCollection1(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection2',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection2: ', res)
+                setSetupCollection2(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection3',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection3: ', res)
+                setSetupCollection3(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection4',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection4: ', res)
+                setSetupCollection4(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection5',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection5: ', res)
+                setSetupCollection5(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection6',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection6: ', res)
+                setSetupCollection6(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection7',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection7: ', res)
+                setSetupCollection7(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection8',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection8: ', res)
+                setSetupCollection8(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection9',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection9: ', res)
+                setSetupCollection9(res)
+            })
+
+            retrieveData({
+                view: 'GroupByCollection10',
+                filterByFormula: `Brand = "${brandID}"`,
+                sort: [ {field: 'duedate', direction: 'asc'},]
+            },`Brand_Setup`)
+            .then(res => {
+                console.log('collection10: ', res)
+                setSetupCollection10(res)
+            })
+
+            $(document).on("click",".sync", function(){
+                if (isBusy === true) {
+                    alert('he thong dang xu ly, xin vui long doi')
+                    return;
+                }
+                setBusy(true)            
+                var col_id = $(this).attr("collection_id")
+                console.log("col_id: ", col_id)
+                syncBrandSetup(brandID, col_id)
             })
 
         }             
@@ -147,10 +298,14 @@ export default function LayoutCabinDetail () {
                         <div className="card">
                             <div className="card-header">
                                 <h4 className="card-header-title">{setupCollection1 && setupCollection1.length>0 && setupCollection1[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="1">Đồng bộ</button>
+                                : null
+                                }
                             </div>
                             <div className="card-body">
                                 <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection1.map((item, index) => (
+                                    {setupCollection1 && setupCollection1.length > 0 && setupCollection1.map((item, index) => (
                                         <div className="list-group-item" key={index}>
                                             <div className="row">
                                                 <div className="col-auto">
@@ -179,142 +334,34 @@ export default function LayoutCabinDetail () {
 
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="card-header-title">Đăng ký thông tin với CabinFood</h4>
-                                {/* <a className="small" href="#!">View all</a> */}
+                                <h4 className="card-header-title">{setupCollection2 && setupCollection2.length>0 && setupCollection2[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1  
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="2">Đồng bộ</button>
+                                : null
+                                }
                             </div>
                             <div className="card-body">
                                 <div className="list-group list-group-flush list-group-activity my-n3">
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                    {setupCollection2 && setupCollection2.length > 0 && setupCollection2.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Tên thương hiệu</h5>
-                                                <small className="text-muted">Hoàn thành trước: 28/08/2020</small>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-success">Đã xác nhận</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Cung cấp logo</h5>
-                                                <p className="small text-gray-700 mb-0">Chọn thay đổi logo</p>
-                                                <small className="text-muted">Hoàn thành trước: 28/08/2020</small>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-warning">Đợi xác nhận</small> 
-                                                </p>
-                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Loại món ăn/thức uống</h5>
-                                                <p className="small text-gray-700 mb-0">Cơm, Bánh mì hay trà sữa...</p>
-                                                <small className="text-muted">Hoàn thành trước: 28/08/2020</small>
-                                                <p className="text-muted small">Trạng thái:
-                                                    <small className="badge badge-pill badge-warning">Đợi xác nhận</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Cung cấp danh sách món ăn / thức uống</h5>
-                                                <small className="text-muted">Hoàn thành trước: 30/08/2020</small>
-                                                <p className="text-muted small">Trạng thái:
-                                                    <small className="badge badge-pill badge-warning">Đợi xác nhận</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1"> Xác nhận giá bán </h5>
-                                                <p className="small text-gray-700 mb-0">Khoảng giá có bao gồm chiết khấu của kênh bán hàng hay chưa, có cần CabinFood tư vấn không?</p>
-                                                <small className="text-muted">Hoàn thành trước: 28/08/2020</small>
-                                                <p className="text-muted small">Trạng thái:
-                                                    <small className="badge badge-pill badge-warning">Đợi xác nhận</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1"> Nơi sản xuất </h5>
-                                                <p className="small text-gray-700 mb-0">Cung cấp thông tin nơi sản xuất, và các chứng chỉ về VSATP</p>
-                                                <small className="text-muted">Hoàn thành trước: 28/08/2020</small>
-                                                <p className="text-muted small">Trạng thái:
-                                                    <small className="badge badge-pill badge-warning">Đợi xác nhận</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1"> Đầu mối liên hệ </h5>
-                                                <p className="small text-gray-700 mb-0">Thông tin liên lạc (Họ tên, chức vụ, điện thoại, email, địa chỉ liên lạc)</p>
-                                                <small className="text-muted">Hoàn thành trước: 28/08/2020</small>
-                                                <p className="text-muted small">Trạng thái:
-                                                    <small className="badge badge-pill badge-warning">Đợi xác nhận</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    ))}
                                 </div>
                             </div>
                         </div> 
@@ -322,45 +369,34 @@ export default function LayoutCabinDetail () {
 
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="card-header-title">Tài khoản hệ thống CabinFood</h4>
-                                {/* <a className="small" href="#!">View all</a> */}
+                                <h4 className="card-header-title">{setupCollection3 && setupCollection3.length>0 && setupCollection3[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="3">Đồng bộ</button>
+                                : null
+                                }
                             </div>
                             <div className="card-body">
                                 <div className="list-group list-group-flush list-group-activity my-n3">
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                    {setupCollection3 && setupCollection3.length > 0 && setupCollection3.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Cung cấp thông tin tài khoản</h5>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-success">Đã hoàn thành</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Kiểm tra và cập nhật thông tin hoàn thiện</h5>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-success">Đã xác nhận</small> 
-                                                </p>
-                                            </div>
                                         </div>
-                                    </div>
-
+                                    ))}
                                 </div>
                             </div>
                         </div> 
@@ -368,46 +404,34 @@ export default function LayoutCabinDetail () {
 
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="card-header-title">Nhận bàn giao Cabin</h4>
-                                {/* <a className="small" href="#!">View all</a> */}
+                                <h4 className="card-header-title">{setupCollection4 && setupCollection4.length>0 && setupCollection4[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="4">Đồng bộ</button>
+                                : null
+                                }
                             </div>
                             <div className="card-body">
                                 <div className="list-group list-group-flush list-group-activity my-n3">
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                    {setupCollection4 && setupCollection4.length > 0 && setupCollection4.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Thời điểm bàn giao cabin cho nhãn hàng</h5>
-                                                <p className="small text-gray-700 mb-0">10:30, ngày 29/08/2020</p>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Ký xác nhận biên bản bàn giao</h5>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
-                                            </div>
                                         </div>
-                                    </div>
-
+                                    ))}
                                 </div>
                             </div>
                         </div> 
@@ -415,62 +439,34 @@ export default function LayoutCabinDetail () {
 
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="card-header-title">Hình ảnh sản phẩm, menu</h4>
-                                {/* <a className="small" href="#!">View all</a> */}
+                                <h4 className="card-header-title">{setupCollection5 && setupCollection5.length>0 && setupCollection5[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="5">Đồng bộ</button>
+                                : null
+                                }
                             </div>
                             <div className="card-body">
                                 <div className="list-group list-group-flush list-group-activity my-n3">
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                    {setupCollection5 && setupCollection5.length > 0 && setupCollection5.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Xác nhận danh sách món - giá bán</h5>
-                                                <p className="small text-gray-700 mb-0">10:30, ngày 29/08/2020</p>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Thời điểm chụp ảnh sản phẩm</h5>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
-                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Nhận hình ảnh sản phẩm</h5>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </div> 
@@ -478,62 +474,174 @@ export default function LayoutCabinDetail () {
 
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="card-header-title">Đăng ký kênh bán hàng app Food delivery</h4>
-                                {/* <a className="small" href="#!">View all</a> */}
+                                <h4 className="card-header-title">{setupCollection6 && setupCollection6.length>0 && setupCollection6[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="6">Đồng bộ</button>
+                                : null
+                                }
                             </div>
                             <div className="card-body">
                                 <div className="list-group list-group-flush list-group-activity my-n3">
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                    {setupCollection6 && setupCollection6.length > 0 && setupCollection6.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Thông tin HĐ với app trước đây nếu có (Kênh - số HĐ - mức chiết khấu - người liên hệ)</h5>
-                                                <p className="small text-gray-700 mb-0">10:30, ngày 29/08/2020</p>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div> 
+                        {/* end .card */}
 
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                        <div className="card">
+                            <div className="card-header">
+                                <h4 className="card-header-title">{setupCollection7 && setupCollection7.length>0 && setupCollection7[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="7">Đồng bộ</button>
+                                : null
+                                }
+                            </div>
+                            <div className="card-body">
+                                <div className="list-group list-group-flush list-group-activity my-n3">
+                                    {setupCollection7 && setupCollection7.length > 0 && setupCollection7.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Thời điểm chụp ảnh sản phẩm</h5>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div> 
+                        {/* end .card */}
 
-                                    <div className="list-group-item">
-                                        <div className="row">
-                                            <div className="col-auto">
-                                                <div className="avatar avatar-sm">
-                                                    <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                        <div className="card">
+                            <div className="card-header">
+                                <h4 className="card-header-title">{setupCollection8 && setupCollection8.length>0 && setupCollection8[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="8">Đồng bộ</button>
+                                : null
+                                }
+                            </div>
+                            <div className="card-body">
+                                <div className="list-group list-group-flush list-group-activity my-n3">
+                                    {setupCollection8 && setupCollection8.length > 0 && setupCollection8.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col ml-n2">
-                                                <h5 className="mb-1">Nhận hình ảnh sản phẩm</h5>
-                                                <p className="text-muted small">Trạng thái: 
-                                                    <small className="badge badge-pill badge-secondary">Đợi thực hiện</small> 
-                                                </p>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div> 
+                        {/* end .card */}
+
+                        <div className="card">
+                            <div className="card-header">
+                                <h4 className="card-header-title">{setupCollection9 && setupCollection9.length>0 && setupCollection9[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="9">Đồng bộ</button>
+                                : null
+                                }
+                            </div>
+                            <div className="card-body">
+                                <div className="list-group list-group-flush list-group-activity my-n3">
+                                    {setupCollection9 && setupCollection9.length > 0 && setupCollection9.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div> 
+                        {/* end .card */}
+
+                        <div className="card">
+                            <div className="card-header">
+                                <h4 className="card-header-title">{setupCollection10 && setupCollection10.length>0 && setupCollection10[0].fields.collection_name}</h4>
+                                {parseInt(cookies.role) === 1 
+                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="10">Đồng bộ</button>
+                                : null
+                                }
+                            </div>
+                            <div className="card-body">
+                                <div className="list-group list-group-flush list-group-activity my-n3">
+                                    {setupCollection10 && setupCollection10.length > 0 && setupCollection10.map((item, index) => (
+                                        <div className="list-group-item" key={index}>
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="avatar avatar-sm">
+                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col ml-n2">
+                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <p className="text-muted small">Trạng thái: 
+                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div> 
