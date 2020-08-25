@@ -132,7 +132,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection1',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection1: ', res)
@@ -142,7 +142,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection2',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection2: ', res)
@@ -152,7 +152,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection3',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection3: ', res)
@@ -162,7 +162,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection4',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection4: ', res)
@@ -172,7 +172,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection5',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection5: ', res)
@@ -182,7 +182,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection6',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection6: ', res)
@@ -192,7 +192,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection7',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection7: ', res)
@@ -202,7 +202,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection8',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection8: ', res)
@@ -212,7 +212,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection9',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection9: ', res)
@@ -222,7 +222,7 @@ export default function LayoutCabinDetail () {
             retrieveData({
                 view: 'GroupByCollection10',
                 filterByFormula: `Brand = "${brandID}"`,
-                sort: [ {field: 'duedate', direction: 'asc'},]
+                sort: [ {field: 'order', direction: 'asc'},]
             },`Brand_Setup`)
             .then(res => {
                 console.log('collection10: ', res)
@@ -264,8 +264,7 @@ export default function LayoutCabinDetail () {
                                         {brand && brand.fields && brand.fields.logo
                                         ? <img src={brand.fields.logo[0].url} alt={brand && brand.fields.brandName} className="avatar-img rounded border border-4 border-body"/>
                                         : <img src="/assets/img/avatars/teams/team-logo-1.jpg" alt={brand && brand.fields.brandName} className="avatar-img rounded border border-4 border-body"/>
-                                        }
-                                        
+                                        }  
                                     </div>
                                 </div>
                                 <div className="col mb-3 ml-n3 ml-md-n2">
@@ -321,6 +320,9 @@ export default function LayoutCabinDetail () {
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
+                                                    <div className="btn-action">
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
