@@ -274,533 +274,539 @@ export default function LayoutCabinDetail () {
             <NavBar />
 
             <div className="main-content">
+                
                 {/* _start header */}
                 <div className="header">
                     <img src="/assets/img/covers/team-cover.jpg" className="header-img-top" alt="..."/>
                     <div className="container-fluid">
-                        <div className="header-body mt-n5 mt-md-n6">
-                            <div className="row align-items-end">
-                                <div className="col-auto">
-                                    <div className="avatar avatar-xxl header-avatar-top">
-                                        {brand && brand.fields && brand.fields.logo
-                                        ? <img src={brand.fields.logo[0].url} alt={brand && brand.fields.brandName} className="avatar-img rounded border border-4 border-body"/>
-                                        : <img src="/assets/img/avatars/teams/team-logo-1.jpg" alt={brand && brand.fields.brandName} className="avatar-img rounded border border-4 border-body"/>
-                                        }  
+                        <div className="row justify-content-center">
+                            <div className="col-12 col-lg-10 col-xl-8">
+                                <div className="header-body mt-n5 mt-md-n6">
+                                    <div className="row align-items-end">
+                                        <div className="col-auto">
+                                            <div className="avatar avatar-xxl header-avatar-top">
+                                                {brand && brand.fields && brand.fields.logo
+                                                ? <img src={brand.fields.logo[0].url} alt={brand && brand.fields.brandName} className="avatar-img rounded border border-4 border-body"/>
+                                                : <img src="/assets/img/avatars/teams/team-logo-1.jpg" alt={brand && brand.fields.brandName} className="avatar-img rounded border border-4 border-body"/>
+                                                }  
+                                            </div>
+                                        </div>
+                                        <div className="col mb-3 ml-n3 ml-md-n2">
+                                            <h6 className="header-pretitle">Brand</h6>
+                                            <h1 className="header-title">{brand && brand.fields && brand.fields.brandName}</h1>
+                                        </div>
+                                        <div className="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
+                                            <a href="#!" className="btn btn-primary d-block d-md-inline-block lift">Update logo</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col mb-3 ml-n3 ml-md-n2">
-                                    <h6 className="header-pretitle">Brand</h6>
-                                    <h1 className="header-title">{brand && brand.fields && brand.fields.brandName}</h1>
-                                </div>
-                                <div className="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
-                                    <a href="#!" className="btn btn-primary d-block d-md-inline-block lift">Update logo</a>
+
+                                    {/* <div className="row align-items-center">
+                                        <div className="col">
+                                            <ul className="nav nav-tabs nav-overflow header-tabs">
+                                                <li className="nav-item"> <a href="team-overview.html" className="nav-link ">Overview</a></li>
+                                                <li className="nav-item"> <a href="team-projects.html" className="nav-link">Projects</a></li>
+                                                <li className="nav-item"> <a href="team-members.html" className="nav-link ">Members</a></li>
+                                                <li className="nav-item"> <a href="#!" className="nav-link active">Settings</a></li>
+                                            </ul>
+                                        </div>
+                                    </div> */}
                                 </div>
                             </div>
-
-                            {/* <div className="row align-items-center">
-                                <div className="col">
-                                    <ul className="nav nav-tabs nav-overflow header-tabs">
-                                        <li className="nav-item"> <a href="team-overview.html" className="nav-link ">Overview</a></li>
-                                        <li className="nav-item"> <a href="team-projects.html" className="nav-link">Projects</a></li>
-                                        <li className="nav-item"> <a href="team-members.html" className="nav-link ">Members</a></li>
-                                        <li className="nav-item"> <a href="#!" className="nav-link active">Settings</a></li>
-                                    </ul>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </div>
                 {/* _end header */}
+                
 
                 {/* _start container */}
                 <div className="container-fluid">
-                    <div className="col-12 col-xl-8">                    
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection1 && setupCollection1.length>0 && setupCollection1[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="1">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection1 && setupCollection1.length > 0 && setupCollection1.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-lg-10 col-xl-8">
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection1 && setupCollection1.length>0 && setupCollection1[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="1">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection1 && setupCollection1.length > 0 && setupCollection1.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700">{item.fields.setup_desc} </p>
+                                                        
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700">{item.fields.setup_desc} </p>
-                                                    
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                    
+                                        ))}
+                                        
 
+                                    </div>
                                 </div>
-                            </div>
-                        </div>  
-                        {/* end .card */}
+                            </div>  
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection2 && setupCollection2.length>0 && setupCollection2[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1  
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="2">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection2 && setupCollection2.length > 0 && setupCollection2.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection2 && setupCollection2.length>0 && setupCollection2[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1  
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="2">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection2 && setupCollection2.length > 0 && setupCollection2.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection3 && setupCollection3.length>0 && setupCollection3[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="3">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection3 && setupCollection3.length > 0 && setupCollection3.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection3 && setupCollection3.length>0 && setupCollection3[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="3">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection3 && setupCollection3.length > 0 && setupCollection3.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection4 && setupCollection4.length>0 && setupCollection4[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="4">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection4 && setupCollection4.length > 0 && setupCollection4.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection4 && setupCollection4.length>0 && setupCollection4[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="4">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection4 && setupCollection4.length > 0 && setupCollection4.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection5 && setupCollection5.length>0 && setupCollection5[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="5">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection5 && setupCollection5.length > 0 && setupCollection5.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection5 && setupCollection5.length>0 && setupCollection5[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="5">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection5 && setupCollection5.length > 0 && setupCollection5.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection6 && setupCollection6.length>0 && setupCollection6[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="6">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection6 && setupCollection6.length > 0 && setupCollection6.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection6 && setupCollection6.length>0 && setupCollection6[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="6">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection6 && setupCollection6.length > 0 && setupCollection6.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection7 && setupCollection7.length>0 && setupCollection7[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="7">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection7 && setupCollection7.length > 0 && setupCollection7.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection7 && setupCollection7.length>0 && setupCollection7[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="7">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection7 && setupCollection7.length > 0 && setupCollection7.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection8 && setupCollection8.length>0 && setupCollection8[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="8">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection8 && setupCollection8.length > 0 && setupCollection8.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection8 && setupCollection8.length>0 && setupCollection8[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="8">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection8 && setupCollection8.length > 0 && setupCollection8.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection9 && setupCollection9.length>0 && setupCollection9[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="9">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection9 && setupCollection9.length > 0 && setupCollection9.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection9 && setupCollection9.length>0 && setupCollection9[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="9">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection9 && setupCollection9.length > 0 && setupCollection9.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-header-title">{setupCollection10 && setupCollection10.length>0 && setupCollection10[0].fields.collection_name}</h4>
-                                {parseInt(cookies.role) === 1 
-                                ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="10">Đồng bộ</button>
-                                : null
-                                }
-                            </div>
-                            <div className="card-body">
-                                <div className="list-group list-group-flush list-group-activity my-n3">
-                                    {setupCollection10 && setupCollection10.length > 0 && setupCollection10.map((item, index) => (
-                                        <div className="list-group-item" key={index}>
-                                            <div className="row">
-                                                <div className="col-auto">
-                                                    <div className="avatar avatar-sm">
-                                                        <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-header-title">{setupCollection10 && setupCollection10.length>0 && setupCollection10[0].fields.collection_name}</h4>
+                                    {parseInt(cookies.role) === 1 
+                                    ? <button type="button" className="small sync btn btn-sm btn-outline-primary mb-2" collection_id="10">Đồng bộ</button>
+                                    : null
+                                    }
+                                </div>
+                                <div className="card-body">
+                                    <div className="list-group list-group-flush list-group-activity my-n3">
+                                        {setupCollection10 && setupCollection10.length > 0 && setupCollection10.map((item, index) => (
+                                            <div className="list-group-item" key={index}>
+                                                <div className="row">
+                                                    <div className="col-auto">
+                                                        <div className="avatar avatar-sm">
+                                                            <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"> <i className="fe fe-mail"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1">
+                                                            {item.fields.setup_name}
+                                                            <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        </h5>
+                                                        <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
+                                                        <small className="text-muted">
+                                                            Hoàn thành trước:                                                        
+                                                            <DatePickerCustom> 
+                                                                <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
+                                                            </DatePickerCustom>
+                                                        </small>
+
+                                                        <div className="text-muted small mt-2">
+                                                            Trạng thái: 
+                                                            <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                            <SelectStatusBrandSetup>
+                                                                <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                            </SelectStatusBrandSetup>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col ml-n2">
-                                                    <h5 className="mb-1">
-                                                        {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
-                                                    </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">
-                                                        Hoàn thành trước:                                                        
-                                                        <DatePickerCustom> 
-                                                            <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
-                                                        </DatePickerCustom>
-                                                    </small>
-
-                                                    <div className="text-muted small mt-2">
-                                                        Trạng thái: 
-                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
-                                                        <SelectStatusBrandSetup>
-                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
-                                                        </SelectStatusBrandSetup>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                        {/* end .card */}
+                            </div> 
+                            {/* end .card */}
 
-                        
+                        </div>
                     </div>
-                    <div className="col-12 col-xl-4"></div>
                 </div>
                 {/* _end container */}
                 <ModalUpdateTitleSetup/>
