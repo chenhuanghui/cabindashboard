@@ -384,7 +384,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -429,7 +432,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -474,7 +480,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -519,7 +528,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -564,7 +576,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -609,7 +624,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -654,7 +672,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -699,7 +720,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
@@ -744,7 +768,10 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
                                                     <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
                                                     <small className="text-muted">
                                                         Hoàn thành trước:                                                        
