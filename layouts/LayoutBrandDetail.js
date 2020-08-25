@@ -277,7 +277,7 @@ export default function LayoutCabinDetail () {
                                 </div>
                             </div>
 
-                            <div className="row align-items-center">
+                            {/* <div className="row align-items-center">
                                 <div className="col">
                                     <ul className="nav nav-tabs nav-overflow header-tabs">
                                         <li className="nav-item"> <a href="team-overview.html" className="nav-link ">Overview</a></li>
@@ -286,7 +286,7 @@ export default function LayoutCabinDetail () {
                                         <li className="nav-item"> <a href="#!" className="nav-link active">Settings</a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
