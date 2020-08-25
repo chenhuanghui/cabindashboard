@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import { Router } from 'next/router';
 const AirtablePlus = require('airtable-plus');  
 
 // ====================================
@@ -77,7 +78,8 @@ export default class ModalUpdateTitleSetup extends React.Component {
                 $('.modal-backdrop').hide();
                 $('.spinner-grow').remove()
                 console.log('modal close finished');
-            })            
+                location.reload()
+            })
         })
         
     }
