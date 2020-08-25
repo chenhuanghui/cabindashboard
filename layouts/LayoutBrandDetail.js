@@ -229,6 +229,13 @@ export default function LayoutCabinDetail () {
                 setSetupCollection10(res)
             })
 
+            // FRONTEND ENGAGEMENT
+            $(document).ready(function(){
+                if(parseInt(cookies.role) <= 2) {
+                    $(".btn-control").hide()
+                }
+            })
+
             $(document).on("click",".sync", function(){
                 if (isBusy === true) {
                     alert('he thong dang xu ly, xin vui long doi')
@@ -238,6 +245,14 @@ export default function LayoutCabinDetail () {
                 var col_id = $(this).attr("collection_id")
                 console.log("col_id: ", col_id)
                 syncBrandSetup(brandID, col_id)
+            })
+
+            $(document).on("click",".btn-control-edit", function(){
+                alert($(this).attr("setup-id"))
+            })
+
+            $(document).on("click",".btn-control-cfm", function(){
+                alert($(this).attr("id"))
             })
 
         }             
@@ -314,14 +329,23 @@ export default function LayoutCabinDetail () {
                                                     </div>
                                                 </div>
                                                 <div className="col ml-n2">
-                                                    <h5 className="mb-1">{item.fields.setup_name}</h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc}</p>
-                                                    <small className="text-muted">Hoàn thành trước: {new Date(item.fields.duedate).toDateString()}</small>
+                                                    <h5 className="mb-1">
+                                                        {item.fields.setup_name}
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </h5>
+                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc} </p>
+                                                    
+                                                    <small className="text-muted">
+                                                        Hoàn thành trước: {new Date(item.fields.duedate).toDateString()} 
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-duedate ml-2" setup-id={item.fields.setup_id}></span>
+                                                    </small>
+                                                    
                                                     <p className="text-muted small">Trạng thái: 
                                                         <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
+                                                    
                                                     <div className="btn-action">
-
+                                                        <button type="button" className="btn btn-sm btn-primary btn-control btn-control-cfm" collection_id="1" id={item.id}>Xác nhận</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -656,7 +680,11 @@ export default function LayoutCabinDetail () {
                 {/* _end container */}
                 
             </div>
-
+            <style jsx>{`
+            .btn-control:hover {
+                cursor: pointer
+            }
+            `}</style>
         </div>
     )
 
