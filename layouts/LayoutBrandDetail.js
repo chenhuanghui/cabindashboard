@@ -9,13 +9,15 @@ import Link from 'next/link';
 // ====================================
 // COMPONENTS
 import NavBar from '../components/nav/nav_bar';
-
+import DatePickerCustom from '../components/datetime/datetimecustom'
 // ====================================
 // OTHERS LIBS
 import $ from 'jquery'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { Line } from 'react-chartjs-2';
 import Flatpickr from "react-flatpickr";
+import DatePicker from "react-datepicker";
+
 const AirtablePlus = require('airtable-plus');  
 
 // ====================================
@@ -248,11 +250,11 @@ export default function LayoutCabinDetail () {
             })
 
             $(document).on("click",".btn-control-edit", function(){
-                alert($(this).attr("setup-id"))
+                // alert($(this).attr("setup-id"))
             })
 
             $(document).on("click",".btn-control-cfm", function(){
-                alert($(this).attr("id"))
+                // alert($(this).attr("id"))
             })
 
         }             
@@ -333,15 +335,20 @@ export default function LayoutCabinDetail () {
                                                         {item.fields.setup_name}
                                                         <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
                                                     </h5>
-                                                    <p className="small text-gray-700 mb-0">{item.fields.setup_desc} </p>
+                                                    <p className="small text-gray-700">{item.fields.setup_desc} </p>
                                                     
                                                     <small className="text-muted">
-                                                        Hoàn thành trước: {new Date(item.fields.duedate).toDateString()} 
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-duedate ml-2" setup-id={item.fields.setup_id}></span>
+                                                        Hoàn thành trước: 
+                                                        
+                                                        <DatePickerCustom> 
+                                                            <span className="hide" setup_id={item.fields.Setup[0]} brand_id={brandID} record_id={item.id}>{item.id}</span>
+                                                        </DatePickerCustom>
+                                                        {/* <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-duedate ml-2" setup-id={item.fields.setup_id}></span> */}
                                                     </small>
                                                     
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
+                                                    
+                                                    <p className="text-muted small mt-2">Trạng thái: 
+                                                        <small className={`ml-2 badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
                                                     </p>
                                                     
                                                     <div className="btn-action">
