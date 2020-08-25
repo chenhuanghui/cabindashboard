@@ -10,6 +10,7 @@ import Link from 'next/link';
 // COMPONENTS
 import NavBar from '../components/nav/nav_bar';
 import DatePickerCustom from '../components/datetime/datetimecustom'
+import SelectStatusBrandSetup from '../components/select/selectstatusbrandsetup'
 // ====================================
 // OTHERS LIBS
 import $ from 'jquery'
@@ -75,6 +76,7 @@ function syncBrandSetup(brandID,colID) {
                     const createRes = await airtable.create({
                         Brand: [`${brandID}`],
                         Setup: [`${setupItem.id}`],
+                        status: 0,
                         duedate: new Date().toDateString()
                     },{tableName:"Brand_Setup"})
                     console.log("create Res_____",createRes)
@@ -343,14 +345,13 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    
-                                                    
-                                                    <p className="text-muted small mt-2">Trạng thái: 
-                                                        <small className={`ml-2 badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
-                                                    
-                                                    <div className="btn-action">
-                                                        <button type="button" className="btn btn-sm btn-primary btn-control btn-control-cfm" collection_id="1" id={item.id}>Xác nhận</button>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
                                                     </div>
                                                 </div>
                                             </div>
@@ -391,9 +392,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -431,9 +437,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -471,9 +482,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -511,9 +527,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -551,9 +572,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -591,9 +617,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -631,9 +662,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -671,9 +707,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -711,9 +752,14 @@ export default function LayoutCabinDetail () {
                                                             <span className="hide" record_id={item.id} date={new Date(item.fields.duedate)}></span>
                                                         </DatePickerCustom>
                                                     </small>
-                                                    <p className="text-muted small">Trạng thái: 
-                                                        <small className={`badge badge-pill ${item.fields.status === 0 ? "badge-secondary":item.fields.status === 0 ? "badge-success" : "badge-warning"}`}>{item.fields.status_desc}</small>  
-                                                    </p>
+
+                                                    <div className="text-muted small mt-2">
+                                                        Trạng thái: 
+                                                        <span className={`ml-2  ${item.fields.status === 0 ? "text-primary" : item.fields.status === 1 ? "text-warning" : item.fields.status === 2 ? "text-success" : "text-danger"}`}>●</span>
+                                                        <SelectStatusBrandSetup>
+                                                            <span className="hide" record_id={item.id} selected_value={item.fields.status}></span>
+                                                        </SelectStatusBrandSetup>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
