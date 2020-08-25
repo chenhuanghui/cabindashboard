@@ -11,6 +11,7 @@ import Link from 'next/link';
 import NavBar from '../components/nav/nav_bar';
 import DatePickerCustom from '../components/datetime/datetimecustom'
 import SelectStatusBrandSetup from '../components/select/selectstatusbrandsetup'
+import ModalUpdateTitleSetup from '../components/modal/modal_update_title_setup'
 // ====================================
 // OTHERS LIBS
 import $ from 'jquery'
@@ -245,9 +246,10 @@ export default function LayoutCabinDetail () {
                     alert('he thong dang xu ly, xin vui long doi')
                     return;
                 }
-                setBusy(true)            
+                setBusy(true)
                 var col_id = $(this).attr("collection_id")
                 console.log("col_id: ", col_id)
+                $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
                 syncBrandSetup(brandID, col_id)
             })
 
@@ -335,7 +337,7 @@ export default function LayoutCabinDetail () {
                                                 <div className="col ml-n2">
                                                     <h5 className="mb-1">
                                                         {item.fields.setup_name}
-                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id}></span>
+                                                        <span className="fe fe-edit mr-4 small btn-control btn-control-edit btn-control-edit-setup-title ml-2" setup-id={item.fields.setup_id} value={item.fields.setup_name}></span>
                                                     </h5>
                                                     <p className="small text-gray-700">{item.fields.setup_desc} </p>
                                                     
@@ -801,7 +803,7 @@ export default function LayoutCabinDetail () {
                     <div className="col-12 col-xl-4"></div>
                 </div>
                 {/* _end container */}
-                
+                <ModalUpdateTitleSetup/>
             </div>
             <style jsx>{`
             .btn-control:hover {
