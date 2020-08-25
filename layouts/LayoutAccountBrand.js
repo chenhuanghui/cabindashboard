@@ -59,6 +59,7 @@ export default class LayoutAccountBrand extends React.Component {
             }
             Promise.all(promises)
             .then(brandListRes => {
+                console.log(brandListRes)
                 currentComponent.setState({brandList:brandListRes})
             })
         })
@@ -146,7 +147,10 @@ export default class LayoutAccountBrand extends React.Component {
                                                             }
                                                         </td>        
                                                         <td className="col-8">
-                                                            <h4 className="mb-1">{brandList[index][0].fields.brandName}</h4>
+                                                            <Link href="/brands/[id]" as={`/brands/${item[0].id}`}>
+                                                                <a className="mb-1"><h4>{brandList[index][0].fields.brandName}</h4></a>
+                                                            </Link>
+                                                            
                                                             <small className="text-muted"> {brandList[index][0].fields.ownerEmail}</small>
                                                         </td>
                                                         <td className='col-3'>
