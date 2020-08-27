@@ -4,7 +4,9 @@
         "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "@contentful_space_id",
         "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "@contentful_access_token",
         "AIR_TABLE_BASE_ID":"@air_table_base_id",
-        "AIR_TABLE_API_KEY":"@air_table_api_key"
+        "AIR_TABLE_API_KEY":"@air_table_api_key",
+        "AIR_TABLE_BASE_ID_STATION":"@air_table_base_id_station",
+        "AIR_TABLE_API_KEY_STATION":"@air_table_api_key_station"
       }
     }
   }
