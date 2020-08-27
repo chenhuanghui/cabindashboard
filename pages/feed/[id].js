@@ -46,7 +46,7 @@ function LayoutFeedByStation ({stationPost}) {
 
     useEffect(() => {        
         // if not user --> redirect to Sign In page
-        if(!cookies.userID | !cookies.isLoggedIn | !cookies.stationID | !cookies.role) {
+        if(!cookies.userID || !cookies.isLoggedIn || !cookies.stationID || !cookies.role) {
             destroyCookie(userID)
             destroyCookie(isLoggedIn)
             destroyCookie(stationID)
