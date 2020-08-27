@@ -12,8 +12,16 @@ const cookies = parseCookies();
 const ReactFilestack = loadable(() => import('filestack-react'), { ssr: false });
 
 // FUNCTIONS GLOBAL
+async function retrieveData(formular,tbName) {
+    try {
+      const readRes = await airtable.read(formular,{tableName:tbName});
+      return readRes
+    } catch(e) {
+      console.error(e);
+    }
+}
 
-async function createPost(content, imagesURL) {
+async function createPost(brandFeedID, content, imagesURL) {
     try {
         const createPost = await airtable.create({
             content: content,
@@ -23,14 +31,14 @@ async function createPost(content, imagesURL) {
         },{tableName:"Post"});
         console.log('create result:', createPost)
         
-        const createStationPost = await airtable.create({
-            Station: [`${cookies.stationID}`],
+        const createBrandPost = await airtable.create({
+            Brand: [`${brandFeedID}`],
             Post: [`${createPost.id}`]            
-        },{tableName:"StationPost"});
-        console.log("StationPost: ", createStationPost)
+        },{tableName:"BrandPost"});
+        console.log("createBrandPost: ", createBrandPost)
 
         const createPostAccount = await airtable.create({
-            Account: [`${cookies.userID}`],
+            Account: [`${cookies.userFeedID}`],
             Post: [`${createPost.id}`]            
         },{tableName:"PostAccount"});
         console.log("PostAccount: ", createPostAccount)
@@ -63,14 +71,20 @@ export default class PostInput extends React.Component {
                 imageURL = $('.file-upload-show').attr("data")
                 console.log("imageURL: ", imageURL)
             }
-            createPost($("#post-content").val(), imageURL)
-            .then(res => {
-                console.log(res)
-                $(".spinner-grow").remove()
-                location.reload()
-            })
-            
 
+            console.log("brandidfeed:__", cookies.brandID)
+            retrieveData({
+                filterByFormula:`brandBusinessID="${cookies.brandID}"`
+            },"Brand")
+            .then(res => {
+                console.log("res:___", res[0])
+                createPost(res[0].id, $("#post-content").val(), imageURL)
+                .then(res => {
+                    console.log(res)
+                    $(".spinner-grow").remove()
+                    location.reload()
+                })
+            })
         })
     }
 

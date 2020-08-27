@@ -148,8 +148,11 @@ export default class NavBar extends React.Component {
             {/* menu group block */}
             <ul className="navbar-nav">
               <li className="nav-item">
+                <Link href={`/feed/${brand.ID}`}>
+                  <a className="nav-link active"><i className="fe fe-wind"></i> New Feed</a>
+                </Link>
                 <Link href="/">
-                  <a className="nav-link active"><i className="fe fe-home"></i> Tổng quan</a>
+                  <a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a>
                 </Link>
                 <Link href="/products">
                   <a className="nav-link"><i className="fe fe-file"></i> Sản phẩm</a>

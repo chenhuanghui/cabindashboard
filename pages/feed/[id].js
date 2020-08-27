@@ -57,8 +57,7 @@ function LayoutFeedByStation ({stationPost}) {
         // ===============================================
         setStationID(router.query.id)
         console.log('router 1: ',router)
-        console.log('router id 1: ',router.query.id)
-
+        console.log('router id 1: ',router.query.id)        
     },[sID])
 
     return (
@@ -73,9 +72,12 @@ function LayoutFeedByStation ({stationPost}) {
                             </PostInput>
                             
                             {stationPost && stationPost.map((item, index) => (
-                                <PostShow key={index}>
-                                    <span className="hide" postID={item.fields.Post[0]}></span>
-                                </PostShow>
+                                item.fields.Post
+                                ? 
+                                    <PostShow key={index}>
+                                        <span className="hide" postID={item.fields.Post[0]}></span>
+                                    </PostShow>
+                                : null
                             ))}
                         </div>
                     </div>
@@ -90,9 +92,10 @@ LayoutFeedByStation.getInitialProps = async ({query}) => {
     // console.log("______ welcome: ", cookies.stationID)
     
     const readRes = await airtable.read({
-        filterByFormula: `Brand = "${query.id}"`,
+        filterByFormula: `brandBusinessID = "${query.id}"`,
         sort: [ {field: 'posCreatedAt', direction: 'desc'},]
     },{tableName:"BrandPost"});
+    console.log("stationPost: _____", readRes)
     return { stationPost: readRes }
     
 

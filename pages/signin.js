@@ -35,6 +35,7 @@ export default class Signin extends React.Component {
         // reset all cookies
         destroyCookie(null,'isLoggedIn',{path:'/'})
         destroyCookie(null,'userID',{path:'/'})
+        destroyCookie(null,'userFeedID',{path:'/'})
         destroyCookie(null,'brandID',{path:'/'})
         destroyCookie(null,'role',{path:'/'})
         // ========================
@@ -56,6 +57,8 @@ export default class Signin extends React.Component {
                         
                         setCookie(null, 'isLoggedIn', true, {maxAge: 30 * 24 * 60 * 60,path: '/',})
                         setCookie(null, 'userID',result[0].fields.ID , {maxAge: 30 * 24 * 60 * 60,path: '/',})
+                        setCookie(null, 'avatar',result[0].fields.avatar ? result[0].fields.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg" , {maxAge: 30 * 24 * 60 * 60,path: '/',})
+                        setCookie(null, 'userFeedID',result[0].fields.accountIDFeed , {maxAge: 30 * 24 * 60 * 60,path: '/',})
                         setCookie(null,'brandID', result[0].fields.brandID[0], {maxAge: 30 * 24 * 60 * 60,path:'/'})
                         setCookie(null,'role', result[0].fields.roleValue, {maxAge: 30 * 24 * 60 * 60,path:'/'})
 

@@ -68,14 +68,15 @@ export default class CommentShow extends React.Component {
         super(props);
 
         this.state = {
+            avatar : null
         }
     }
     componentDidMount() {
+        let currentComponent = this
         console.log("_______ comment post id:",this.props.children.props.post)
-
-        // $(document).on('click','.btn-action-comment', function(){
-            
-        // })
+        console.log("avatar: ", cookies.avatar)
+        currentComponent.setState({avatar: cookies.avatar})
+        
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -84,13 +85,14 @@ export default class CommentShow extends React.Component {
 
     render() {        
         const curPID = this.props.children.props.post
+        const {avatar} = this.state
         return (
             <div id={curPID}>
                 {this.props.children}       
                 <div className="row">
                     <div className="col-auto">
                         <div className="avatar avatar-sm">
-                            <img src="/assets/img/avatars/profiles/avatar-1.jpg" alt="..." className="avatar-img rounded-circle"/>
+                            <img src={avatar} alt="..." className="avatar-img rounded-circle"/>
                         </div>
                     </div>
                     <div className="col ml-n2">
