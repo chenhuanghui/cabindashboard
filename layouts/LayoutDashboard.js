@@ -52,7 +52,7 @@ export default function Dashboard () {
     // ===============================================
     // CHECKING AUTHENTICATE
     const cookies = parseCookies()
-    if (!cookies.isLoggedIn | !cookies.userID | !cookies.brandID | !cookies.role) Router.push('/signin');
+    if (!cookies.isLoggedIn || !cookies.userID || !cookies.brandID || !cookies.role) Router.push('/signin');
     
     // ===============================================
     setBrandID(router.query.id);

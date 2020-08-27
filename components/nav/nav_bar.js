@@ -155,7 +155,7 @@ export default class NavBar extends React.Component {
                 <Link href="/feed/[id]" as = {`/feed/${cookies.brandID}`}>
                   <a className="nav-link active"><i className="fe fe-wind"></i> New Feed</a>
                 </Link>
-                <Link href="/">
+                <Link href="/overview/[id]" as = {`/overview/${cookies.brandID}`}>
                   <a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a>
                 </Link>
                 <Link href="/products">
