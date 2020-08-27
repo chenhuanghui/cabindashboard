@@ -22,7 +22,7 @@ export default class LayoutIndex extends React.Component {
     componentDidMount() {
         const cookies = parseCookies()
         if(cookies.userID && cookies.isLoggedIn && cookies.brandID) {
-            Router.push(`/overview/${cookies.brandID}`)
+            Router.push(`/feed/${cookies.brandID}`)
         } else Router.push('/signin')                
     }
 

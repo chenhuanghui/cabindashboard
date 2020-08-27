@@ -39,8 +39,11 @@ export default class NavBar extends React.Component {
         filterByFormula:`ID="${cookies.userID}"`
       },'Account')
       .then (result => {
-        console.log('account data:',parseInt(result[0].fields.roleValue));
-        if(result && result.length > 0) currentComponent.setState({data:result[0].fields})
+        if (result.length > 0) {
+          console.log('account data:',parseInt(result[0].fields.roleValue));
+          currentComponent.setState({data:result[0].fields})
+        }
+        
       })
       
       retrieveData({
@@ -92,6 +95,7 @@ export default class NavBar extends React.Component {
 
   render () {
     const {data, brand} = this.state;
+    const cookies = parseCookies()
     return (
       <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
         <div className="container-fluid">
@@ -121,7 +125,7 @@ export default class NavBar extends React.Component {
               </a>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon"> 
                 {data && data.brandName && data.brandName.map((b,index) => (
-                  <Link href="/overview/{ID}" as={`/overview/${data.brandID[index]}`} key={b.toString()}>
+                  <Link href="/feed/[ID]" as={`/feed/${data.brandID[index]}`} key={b.toString()}>
                     <a className="dropdown-item">{b}</a>
                   </Link>
                 ))}
@@ -148,7 +152,7 @@ export default class NavBar extends React.Component {
             {/* menu group block */}
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link href={`/feed/${brand.ID}`}>
+                <Link href="/feed/[id]" as = {`/feed/${cookies.brandID}`}>
                   <a className="nav-link active"><i className="fe fe-wind"></i> New Feed</a>
                 </Link>
                 <Link href="/">
@@ -196,7 +200,7 @@ export default class NavBar extends React.Component {
                 {/* Menu */}
                 <div className="dropdown-menu" aria-labelledby="sidebarIconCopy">
                   {data && data.brandName && data.brandName.map((b,index) => (
-                    <Link href="/overview/{ID}" as={`/overview/${data.brandID[index]}`} key={b.toString()}>
+                    <Link href="/feed/[ID]" as={`/feed/${data.brandID[index]}`} key={b.toString()}>
                       <a className="dropdown-item">{b}</a>
                     </Link>
                   ))}

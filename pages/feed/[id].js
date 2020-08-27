@@ -57,7 +57,17 @@ function LayoutFeedByStation ({stationPost}) {
         // ===============================================
         setStationID(router.query.id)
         console.log('router 1: ',router)
-        console.log('router id 1: ',router.query.id)        
+        console.log('router id 1: ',router.query.id)
+
+        if (router.query.id === sID) {
+            // save current brandID to cookie
+            setCookie(null,'brandID', sID, {
+                maxAge: 30 * 24 * 60 * 60,
+                path:'/'
+            })
+            // =======================================
+        }
+        
     },[sID])
 
     return (
@@ -95,7 +105,7 @@ LayoutFeedByStation.getInitialProps = async ({query}) => {
         filterByFormula: `brandBusinessID = "${query.id}"`,
         sort: [ {field: 'posCreatedAt', direction: 'desc'},]
     },{tableName:"BrandPost"});
-    console.log("stationPost: _____", readRes)
+    console.log("BrandPost: _____", readRes)
     return { stationPost: readRes }
     
 
