@@ -139,10 +139,10 @@ function NavBar () {
             {/* menu group block */}
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link href="/feed/[id]" as = {`/feed/${cookies.brandID}`}>
+                <Link href="/feed/[id]" as = {`/feed/${sID}`}>
                   <a className="nav-link active"><i className="fe fe-wind"></i> New Feed</a>
                 </Link>
-                <Link href="/overview/[id]" as = {`/overview/${cookies.brandID}`}>
+                <Link href="/overview/[id]" as = {`/overview/${sID}`}>
                   <a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a>
                 </Link>
                 <Link href="/products">
@@ -200,7 +200,7 @@ function NavBar () {
                   <hr className="dropdown-divider" />
                   <Link href="/account" ><a className="dropdown-item">Tài khoản</a></Link>
                   <Link href="#" ><a className="dropdown-item">Hóa đơn</a></Link>
-                  { data && data.roleValue && parseInt(data.roleValue)<=2
+                  { data && data.roleValue && parseInt(data.roleValue) <= 2
                   ? <Link href="/config" ><a className="dropdown-item">Thiết lập</a></Link>                
                   : ''
                   }
