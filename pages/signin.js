@@ -62,8 +62,8 @@ export default class Signin extends React.Component {
                         setCookie(null,'brandID', result[0].fields.brandID[0], {maxAge: 30 * 24 * 60 * 60,path:'/'})
                         setCookie(null,'role', result[0].fields.roleValue, {maxAge: 30 * 24 * 60 * 60,path:'/'})
 
-                        Router.push(`/overview/${result[0].fields.brandID[0]}`)
-                        // Router.push(`/feed/${result[0].fields.brandID[0]}`)
+                        // Router.push(`/overview/${result[0].fields.brandID[0]}`)
+                        Router.push(`/feed/${result[0].fields.brandID[0]}`)
                     } else {
                         $('#notice').removeClass('hide').addClass('show')   
                         $('.spinner-grow').remove()
