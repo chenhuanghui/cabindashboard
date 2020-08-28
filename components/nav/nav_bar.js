@@ -139,10 +139,10 @@ function NavBar () {
             {/* menu group block */}
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link href="/feed/[id]" as = {`/feed/${sID}`}>
+                <Link href="/feed/[id]" as = {`/feed/${cookies.brandID}`}>
                   <a className="nav-link active"><i className="fe fe-wind"></i> New Feed</a>
                 </Link>
-                <Link href="/overview/[id]" as = {`/overview/${sID}`}>
+                <Link href="/overview/[id]" as = {`/overview/${cookies.brandID}`}>
                   <a className="nav-link"><i className="fe fe-home"></i> Tổng quan</a>
                 </Link>
                 <Link href="/products">
