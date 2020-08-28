@@ -69,12 +69,36 @@ function CreateCommentRequest(postID) {
         if (res.length > 0 ) {
             createCommentDatabase(res[0].id, postID, comment, imageURL)
             .then(res => {
-                console.log("res :", res)
-                if (res === 1) {
-                    $(`#${postID}`).find(".comment").val('')
-                    $(`#${postID}`).find(`.file-upload-show`).html('')
-                    $(`.spinner-grow`).remove()
-                }
+                console.log("comment was created :", res)
+                $(`#${postID}`).find(".comment").val('')
+                $(`#${postID}`).find(`.file-upload-show`).html('')
+                $(`.spinner-grow`).remove()
+
+                var htmlbuilder = `
+                <div class="comment mb-3 comment-show">
+                    <div class="row">
+                        <div class="col-auto">
+                            <a class="avatar avatar-sm" href="#">
+                                <img src=${res.fields.commentByAvatar[0].url} alt=${res.fields.commentByName} class="avatar-img rounded-circle"/>
+                            </a>
+                        </div>
+                        <div class="col ml-n2">
+                            <div class="comment-body">
+                                <div class="row">
+                                    <div class="col"><h5 class="comment-title">${res.fields.commentByName}</h5></div>
+                                    <div class="col-auto">
+                                        <time class="comment-time">${new Date(res.fields.createAt).toLocaleTimeString()}, ${new Date(res.fields.createAt).toLocaleDateString()}</time>
+                                    </div>
+                                </div>
+                                <p class="comment-text">${res.fields.comment}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `
+                console.log("html builder:", htmlbuilder)
+                $(`#comment-block-${postID}`).append(htmlbuilder)
+                console.log($(`#comment-block-${postID}`))
             })
         }
         
