@@ -36,7 +36,7 @@ async function createCommentDatabase(userID, postid, content, imagesURL) {
         },{tableName:"PostComment"});
         console.log("PostComment: ", createPostComment)
 
-        return 1
+        return createComment
     }
     catch(e) {
         console.error(e);

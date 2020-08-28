@@ -47,24 +47,22 @@ function LayoutFeedByStation ({stationPost}) {
     useEffect(() => {        
         // if not user --> redirect to Sign In page
         if(!cookies.userID || !cookies.isLoggedIn || !cookies.brandID || !cookies.role) {
-            destroyCookie(userID)
-            destroyCookie(isLoggedIn)
-            destroyCookie(brandID)
-            destroyCookie(role)
             Router.push('/signin')
         }
         
         // ===============================================
+        console.log('before setstation: ',router.query.id)
         setStationID(router.query.id)
-        console.log('router 1: ',router)
-        console.log('router id 1: ',router.query.id)
+        console.log('after id 1: ',router.query.id)
 
         if (router.query.id === sID) {
+            
             // save current brandID to cookie
             setCookie(null,'brandID', sID, {
                 maxAge: 30 * 24 * 60 * 60,
                 path:'/'
             })
+            console.log('set cookies brand id: ',cookies.brandID)
             // =======================================
         }
         
