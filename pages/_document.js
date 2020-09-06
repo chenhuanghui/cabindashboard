@@ -14,13 +14,13 @@ class MyDocument extends Document {
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta name="description" content="CabinFood for Business" />
 
-            <link rel="stylesheet" href="../assets/css/theme.min.css"></link>
-            <link rel="stylesheet" href="../assets/css/style.css"></link>
+            {/* <link rel="stylesheet" href="../assets/css/theme.min.css"></link> */}
+            {/* <link rel="stylesheet" href="../assets/css/style.css"></link> */}
 
             {/* <link rel="stylesheet" href="../assets/libs/highlightjs/styles/vs2015.css"></link> */}
-            <link rel="stylesheet" href="../assets/css/flatpickr.min.css"></link>
+            {/* <link rel="stylesheet" href="../assets/css/flatpickr.min.css"></link> */}
             {/* <link rel="stylesheet" href="../assets/libs/quill/dist/quill.core.css"></link> */}
-            <link rel="stylesheet" href="../assets/fonts/feather/feather.css"></link>
+            {/* <link rel="stylesheet" href="../assets/fonts/feather/feather.css"></link> */}
 
             {/* <script src="../assets/libs/jquery/dist/jquery.min.js"></script> */}
             {/* <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script> */}
