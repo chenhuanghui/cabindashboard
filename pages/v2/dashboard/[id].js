@@ -104,9 +104,6 @@ export default class LayoutDashboard extends React.Component {
                                 <div className="row">
                                     <div className="col-12 col-lg-6">
                                         <div className="card">
-                                            <div className="card-header">
-                                                <h4 className="card-header-title">Thông tin</h4>
-                                            </div>
                                             <div className="card-body">
                                                 <div className="list-group list-group-flush my-n3">
                                                     <div className="list-group-item">
@@ -125,6 +122,16 @@ export default class LayoutDashboard extends React.Component {
                                                             </div>                                                                                               
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header">
+                                                <h4 className="card-header-title">Dịch vụ hỗ trợ</h4>
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="list-group list-group-flush my-n3">
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
                                                             <div className="col-auto">
@@ -137,7 +144,7 @@ export default class LayoutDashboard extends React.Component {
                                                                 <p className="card-text small text-muted">Có ngay bộ hình ảnh sản phẩm chuyên nghiệp</p>
                                                             </div>        
                                                             <div className="col-auto">
-                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Đặt dịch vụ</button>
+                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
                                                             </div>                                                    
                                                         </div>
                                                     </div>
@@ -153,7 +160,7 @@ export default class LayoutDashboard extends React.Component {
                                                                 <p className="card-text small text-muted">Grab, Now, Baemin, Loship, GoJek</p>
                                                             </div>        
                                                             <div className="col-auto">
-                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Đặt dịch vụ</button>
+                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
                                                             </div>                                                    
                                                         </div>
                                                     </div>
@@ -169,7 +176,7 @@ export default class LayoutDashboard extends React.Component {
                                                                 <p className="card-text small text-muted">Sở hữu kênh bán hàng hiện đại của ngay trong 1 phút.</p>
                                                             </div>        
                                                             <div className="col-auto">
-                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Đặt dịch vụ</button>
+                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
                                                             </div>                                                    
                                                         </div>
                                                     </div>
@@ -299,15 +306,6 @@ export default class LayoutDashboard extends React.Component {
                                 <hr class="my-5"/>
                                 <div className="row">
                                     <div className="col-12 col-lg-6">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Thêm người dùng</h3>
-                                                <p class="card-text">Thêm tài khoản cùng quản lý hệ thống, giúp việc cập nhật thông tin dễ dàng và linh động hơn.</p>
-                                                <a href="#" class="btn btn-primary">Thêm tài khoản</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-12 col-lg-6">
                                         <div className="card">
                                             <div className="card-header">
                                                 <h3 class="card-title">Thông tin giờ làm việc</h3>
@@ -356,6 +354,15 @@ export default class LayoutDashboard extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Thêm người dùng</h3>
+                                                <p class="card-text">Thêm tài khoản cùng quản lý hệ thống, giúp việc cập nhật thông tin dễ dàng và linh động hơn.</p>
+                                                <a href="#" class="btn btn-primary">Thêm tài khoản</a>
                                             </div>
                                         </div>
                                     </div>
