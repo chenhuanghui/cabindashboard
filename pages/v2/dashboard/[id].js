@@ -118,7 +118,7 @@ export default class LayoutDashboard extends React.Component {
                                                             </div>
                                                             <div className="col ml-n2">
                                                                 <h5 className="mb-1"><a href="project-overview.html">Nhận Cabin</a></h5>
-                                                                <p className="card-text small text-muted"><time datetime="2018-05-24">10h, 01/09/2020</time></p>
+                                                                <p className="card-text small text-muted">10h, 01/09/2020</p>
                                                             </div>                 
                                                             <div className="col-auto">
                                                                 <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Xác nhận</button>
@@ -134,6 +134,7 @@ export default class LayoutDashboard extends React.Component {
                                                             </div>
                                                             <div className="col ml-n2">
                                                                 <h5 className="mb-1"><a href="project-overview.html">Chụp ảnh sản phẩm</a></h5>
+                                                                <p className="card-text small text-muted">Có ngay bộ hình ảnh sản phẩm chuyên nghiệp</p>
                                                             </div>        
                                                             <div className="col-auto">
                                                                 <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Đặt dịch vụ</button>
@@ -241,7 +242,8 @@ export default class LayoutDashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
+                                
+                                <hr class="my-5"/>
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">Quản lý sản phẩm</h4>
@@ -288,6 +290,71 @@ export default class LayoutDashboard extends React.Component {
                                                 <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
                                                 <div className="dz-default dz-message">
                                                     <button className="dz-button" type="button">Drop files here to upload</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-5"/>
+                                <div className="row">
+                                    <div className="col-12 col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Thêm người dùng</h3>
+                                                <p class="card-text">Thêm tài khoản cùng quản lý hệ thống, giúp việc cập nhật thông tin dễ dàng và linh động hơn.</p>
+                                                <a href="#" class="btn btn-primary">Thêm tài khoản</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card">
+                                            <div className="card-header">
+                                                <h3 class="card-title">Thông tin giờ làm việc</h3>
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="list-group list-group-flush my-n3">
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 2</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 3</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 4</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 5</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 6</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 7</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div><div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Chủ nhật</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
