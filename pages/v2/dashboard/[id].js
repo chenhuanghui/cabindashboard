@@ -75,9 +75,9 @@ export default class LayoutDashboard extends React.Component {
                                         <div className="row justify-content-center">
                                             <div className="col-12 col-md-10 col-xl-8">
                                                 <img src="/assets/img/illustrations/happiness.svg" alt="..." className="img-fluid mt-n5 mb-4" style={{maxWidth: "272px"}}/>
-                                                <h2>We released 2008 new versions of our theme to make the world a better place.</h2>
-                                                <p className="text-muted">This is a true story and totally not made up. This is going to be better in the long run but for now this is the way it is.</p>
-                                                <a href="#!" className="btn btn-primary lift">Try it for free</a>
+                                                <h2>Chào mừng bạn đã tham gia cùng CabinFood.</h2>
+                                                <p className="text-muted">Thân tặng bạn gói tài trợ truyền thông trị giá 2.000.000đ khi tham gia vào chuỗi hoạt động khai trương cửa hàng thúc đẩy doanh số delivery .</p>
+                                                <a href="#!" className="btn btn-primary lift">Nhận ưu đãi ngay</a>
                                             </div>
                                         </div> 
                                     </div>
