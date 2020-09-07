@@ -59,11 +59,8 @@ export default class NavBarNew extends React.Component {
                     </button>
 
                     {/* logo */}
-                    <div className="navbar-brand">
-                        { this.props.brand && this.props.brand.logo
-                        ? <img src={this.props.brand.logo[0].url} className="navbar-brand-img mx-auto" />
-                        : <img src="/assets/img/logo.png" className="navbar-brand-img mx-auto" />
-                        }
+                    <div className="navbar-brand text-left">
+                        <h1 className="brand_name mb-0">{this.props.brand_name}</h1>
                     </div>
                 
                     {/* menu user xs */}
@@ -128,6 +125,22 @@ export default class NavBarNew extends React.Component {
                 </div>
                 <style jsx>{`
                 .logout{cursor: pointer;}
+                .navbar-brand {
+                    white-space: normal !important;
+                }
+                @media (max-width: 768px) {
+                    .navbar-brand {
+                        max-width: 80%;
+                    }
+                    .navbar-brand .brand_name{
+                        overflow-wrap: break-word;
+                        text-align: center;
+                        font-size: 100%
+                    }   
+                }
+                .brand_name {
+                    overflow-wrap: break-word
+                }
             `}</style>
             </nav>
 

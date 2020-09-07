@@ -60,6 +60,7 @@ export default class LayoutDashboard extends React.Component {
 
                 <NavBar 
                     brand_id={this.props.brand.fields.ID}
+                    brand_name={this.props.brand.fields.name}
                     // user_id={cookies.userID}
                     // avatar = {user && user.avatar ? user.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg"}
                 />
