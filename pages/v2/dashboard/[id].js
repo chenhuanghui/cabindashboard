@@ -85,8 +85,8 @@ export default class LayoutDashboard extends React.Component {
 
                                 <div className="card bg-light border">
                                     <div className="card-body">
-                                        <p className="mb-2">Hoàn thành cung cấp thông tin</p>
-                                        <p className="small text-muted mb-2"> Có một hồ sơ hoàn chỉnh sẽ giúp rút ngắn thời gian hoàn thành đăng ký các kênh bán hàng delivery</p>
+                                        <h4 className="mb-2">Hoàn thành cung cấp thông tin</h4>
+                                        <p className="small text-muted mb-2"> Với một hồ sơ hoàn chỉnh, sẽ giúp rút ngắn thời gian hoàn thành đăng ký các kênh bán hàng delivery và hiển thị tốt hơn trên hệ thống tìm kiếm của Google</p>
                                     </div>
                                 </div>
 
