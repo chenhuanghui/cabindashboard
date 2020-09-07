@@ -83,10 +83,11 @@ export default class NavBarNew extends React.Component {
                         {/* menu group block */}
                         <ul className="navbar-nav">
                             <li className="nav-item">                                
-                                <Link href="#"><a className="nav-link active"><i className="fe fe-wind"></i> Home</a></Link>                                
-                                <Link href="#"><a className="nav-link"><i className="fe fe-home"></i> Post</a></Link>
-                                <Link href="#"><a className="nav-link"><i className="fe fe-monitor"></i> Info</a></Link>
-                                <Link href="#"><a className="nav-link"><i className="fe fe-monitor"></i> User</a></Link>
+                                <Link href="#"><a className="nav-link active"><i className="fe fe-home"></i> Trang chủ</a></Link>                                
+                                <Link href="#"><a className="nav-link"><i className="fe fe-feather"></i> Bài viết</a></Link>                                
+                                <Link href="#"><a className="nav-link"><i className="fe fe-calendar"></i> Thông tin</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-package"></i> Sản phẩm</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-users"></i> Người dùng</a></Link>
                             </li>
 
                         </ul>
