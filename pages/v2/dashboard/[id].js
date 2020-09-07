@@ -127,65 +127,6 @@ export default class LayoutDashboard extends React.Component {
                                         </div>
 
                                         <div className="card">
-                                            <div className="card-header">
-                                                <h4 className="card-header-title">Dịch vụ hỗ trợ</h4>
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="list-group list-group-flush my-n3">
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col-auto">
-                                                                <a href="project-overview.html" className="avatar avatar-xs">
-                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col ml-n2">
-                                                                <h5 className="mb-1"><a href="project-overview.html">Chụp ảnh sản phẩm</a></h5>
-                                                                <p className="card-text small text-muted">Có ngay bộ hình ảnh sản phẩm chuyên nghiệp</p>
-                                                            </div>        
-                                                            <div className="col-auto">
-                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
-                                                            </div>                                                    
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col-auto">
-                                                                <a href="project-overview.html" className="avatar avatar-xs">
-                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col ml-n2">
-                                                                <h5 className="mb-1"><a href="project-overview.html">Đăng ký kênh bán hàng</a></h5>
-                                                                <p className="card-text small text-muted">Grab, Now, Baemin, Loship, GoJek</p>
-                                                            </div>        
-                                                            <div className="col-auto">
-                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
-                                                            </div>                                                    
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col-auto">
-                                                                <a href="project-overview.html" className="avatar avatar-xs">
-                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col ml-n2">
-                                                                <h5 className="mb-1"><a href="project-overview.html">Website bán hàng</a></h5>
-                                                                <p className="card-text small text-muted">Sở hữu kênh bán hàng hiện đại của ngay trong 1 phút.</p>
-                                                            </div>        
-                                                            <div className="col-auto">
-                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
-                                                            </div>                                                    
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-12 col-lg-6">
-                                        <div className="card">
                                             <div className="card-body">
                                                 <div className="list-group list-group-flush my-n3">
                                                     <div className="list-group-item">
@@ -248,6 +189,119 @@ export default class LayoutDashboard extends React.Component {
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card">
+                                            <div className="card-header">
+                                                <h3 class="card-title">Thông tin giờ làm việc</h3>
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="list-group list-group-flush my-n3">
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 2</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 3</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 4</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 5</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 6</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Thứ 7</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div><div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Chủ nhật</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-5"/>
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4 className="card-header-title">Dịch vụ hỗ trợ</h4>
+                                    </div>
+                                    <div className="card-body">
+                                        <div className="list-group list-group-flush my-n3">
+                                            <div className="list-group-item">
+                                                <div className="row align-items-center">
+                                                    <div className="col-auto">
+                                                        <a href="project-overview.html" className="avatar avatar-xs">
+                                                            <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
+                                                        </a>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1"><a href="project-overview.html">Chụp ảnh sản phẩm</a></h5>
+                                                        <p className="card-text small text-muted">Có ngay bộ hình ảnh sản phẩm chuyên nghiệp</p>
+                                                    </div>        
+                                                    <div className="col-auto">
+                                                        <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <div className="list-group-item">
+                                                <div className="row align-items-center">
+                                                    <div className="col-auto">
+                                                        <a href="project-overview.html" className="avatar avatar-xs">
+                                                            <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
+                                                        </a>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1"><a href="project-overview.html">Đăng ký kênh bán hàng</a></h5>
+                                                        <p className="card-text small text-muted">Grab, Now, Baemin, Loship, GoJek</p>
+                                                    </div>        
+                                                    <div className="col-auto">
+                                                        <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <div className="list-group-item">
+                                                <div className="row align-items-center">
+                                                    <div className="col-auto">
+                                                        <a href="project-overview.html" className="avatar avatar-xs">
+                                                            <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
+                                                        </a>
+                                                    </div>
+                                                    <div className="col ml-n2">
+                                                        <h5 className="mb-1"><a href="project-overview.html">Website bán hàng</a></h5>
+                                                        <p className="card-text small text-muted">Sở hữu kênh bán hàng hiện đại của ngay trong 1 phút.</p>
+                                                    </div>        
+                                                    <div className="col-auto">
+                                                        <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                                 <hr class="my-5"/>
@@ -303,66 +357,55 @@ export default class LayoutDashboard extends React.Component {
                                     </div>
                                 </div>
                                 
+                                
+
                                 <hr class="my-5"/>
                                 <div className="row">
-                                    <div className="col-12 col-lg-6">
-                                        <div className="card">
-                                            <div className="card-header">
-                                                <h3 class="card-title">Thông tin giờ làm việc</h3>
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="list-group list-group-flush my-n3">
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 2</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 3</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 4</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 5</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 6</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 7</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
-                                                        </div>
-                                                    </div><div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Chủ nhật</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">07h - 21h</small></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div className="col-12 col-lg-6">
                                         <div class="card">
                                             <div class="card-body">
                                                 <h3 class="card-title">Thêm người dùng</h3>
-                                                <p class="card-text">Thêm tài khoản cùng quản lý hệ thống, giúp việc cập nhật thông tin dễ dàng và linh động hơn.</p>
+                                                <p class="card-text small">Thêm tài khoản cùng quản lý hệ thống, giúp việc cập nhật thông tin dễ dàng và linh động hơn.</p>
                                                 <a href="#" class="btn btn-primary">Thêm tài khoản</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Nội quy</h3>
+                                                <p class="card-text small">Nắm rõ các quy định khi làm việc tại trạm kinh doanh, sẽ giúp việc vận hành trong quá trình làm việc được diễn ra thuận lợi nhất.</p>
+                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Phần mềm NowMerchant</h3>
+                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Phần mềm GrabMerchant</h3>
+                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Phần mềm Loship-Chủ cửa hàng</h3>
+                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Phần mềm Baemin Merchant</h3>
+                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
                                             </div>
                                         </div>
                                     </div>
