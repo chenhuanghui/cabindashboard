@@ -27,11 +27,16 @@ export default class NavBarNew extends React.Component {
     }
 
     componentDidMount() {    
+
+        // set active nav item
+        $(this.props.active_nav_item).addClass('active')
+
         //toggle main menu xs
         $('.navbar-toggler').click(function(){
             if (!$('.navbar-collapse').hasClass('show')) $('.navbar-collapse').addClass('show')
             else $('.navbar-collapse').removeClass('show')
         })
+
         //toggle account menu xs
         $('.navbar-user').click(function(){
             if (!$('.dropdown').hasClass('show')) {
@@ -41,12 +46,17 @@ export default class NavBarNew extends React.Component {
                 $('.dropdown').removeClass('show')
                 $('.dropdown-menu-right').removeClass('show')
             }
-        })        
+        })    
+            
         // logout
         $('.logout').click(function(){
             destroyCookie(null, 'isLoggedIn', {path:'/'})
             Router.push(`v2/signin`)
-        })    
+        })
+    }
+
+    componentDidUpdate (prevProps, prevState) {
+        
     }
 
     render() {
@@ -83,16 +93,28 @@ export default class NavBarNew extends React.Component {
                         {/* menu group block */}
                         <ul className="navbar-nav">
                             <li className="nav-item">                                
-                                <Link href="#"><a className="nav-link active"><i className="fe fe-home"></i> Trang chủ</a></Link>                                
-                                <Link href="#"><a className="nav-link"><i className="fe fe-feather"></i> Bài viết</a></Link>                                
-                                <Link href="#"><a className="nav-link"><i className="fe fe-calendar"></i> Thông tin</a></Link>
+                                <Link href="#"><a className="nav-link" id="home"><i className="fe fe-home"></i> Trang chủ</a></Link>                                
+                                <Link href="#"><a className="nav-link" id="feed"><i className="fe fe-feather"></i> Bài viết</a></Link>                                
+                                <Link href="#"><a className="nav-link" id="info"><i className="fe fe-calendar"></i> Thông tin</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-cpu"></i> Trạm kinh doanh</a></Link>
                                 <Link href="#"><a className="nav-link"><i className="fe fe-package"></i> Sản phẩm</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-compass"></i> Dịch vụ</a></Link>
                                 <Link href="#"><a className="nav-link"><i className="fe fe-users"></i> Người dùng</a></Link>
                             </li>
-
                         </ul>
-
                         <hr className="navbar-divider my-3" />
+                        <h6 className="navbar-heading">Hệ thống hỗ trợ</h6>
+                        <ul className="navbar-nav">
+                            <li className="nav-item">                                
+                                <Link href="#"><a className="nav-link"><i className="fe fe-aperture"></i> Supply</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-github"></i> HRM</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-user-check"></i> CRM</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-server"></i>CabinPOS</a></Link>                                
+                                <Link href="#"><a className="nav-link"><i className="fe fe-globe"></i> CabinEat</a></Link>
+                                <Link href="#"><a className="nav-link"><i className="fe fe-cloud-drizzle"></i> TableEat</a></Link>
+                            </li>
+                        </ul>
+                        
                         <div className="mt-auto"></div>
 
                         <div className="navbar-user d-none d-md-flex" id="sidebarUser">

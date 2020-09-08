@@ -59,6 +59,7 @@ export default class LayoutDashboard extends React.Component {
                 </Head>
 
                 <NavBar 
+                    active_nav_item = "#home"
                     brand_id={this.props.brand.fields.ID}
                     brand_name={this.props.brand.fields.name}
                     // user_id={cookies.userID}
@@ -157,7 +158,7 @@ export default class LayoutDashboard extends React.Component {
                                     </div>
                                 </div>
 
-                                <hr class="my-5"/>
+                                <hr className="my-5"/>
 
                                 <div className="card bg-light border">
                                     <div className="card-body">
@@ -269,7 +270,7 @@ export default class LayoutDashboard extends React.Component {
                                     <div className="col-12 col-lg-6">
                                         <div className="card">
                                             <div className="card-header">
-                                                <h3 class="card-title">Thông tin giờ làm việc</h3>
+                                                <h3 className="card-title">Thông tin giờ làm việc</h3>
                                             </div>
                                             <div className="card-body">
                                                 <div className="list-group list-group-flush my-n3">
@@ -321,7 +322,7 @@ export default class LayoutDashboard extends React.Component {
                                     </div>
                                 </div>
                                 
-                                <hr class="my-5"/>
+                                <hr className="my-5"/>
                                 <div className="card">
                                     <div className="card-header">
                                         <h4 className="card-header-title">Quản lý sản phẩm</h4>
@@ -334,7 +335,7 @@ export default class LayoutDashboard extends React.Component {
                                                     <th> <a href="#" className="text-muted list-sort" data-sort="products-product">Sản phẩm</a></th>
                                                     <th> <a href="#" className="text-muted list-sort" data-sort="products-stock">Trạng thái</a></th>
                                                     <th> <a href="#" className="text-muted list-sort" data-sort="products-price">Giá</a></th>
-                                                    <th colspan="2"> <a href="#" className="text-muted list-sort" data-sort="products-sales">Danh mục</a></th>
+                                                    <th colSpan="2"> <a href="#" className="text-muted list-sort" data-sort="products-sales">Danh mục</a></th>
                                                 </tr>
                                             </thead>
                                             <tbody className="list">
@@ -376,53 +377,53 @@ export default class LayoutDashboard extends React.Component {
                                 
                                 
 
-                                <hr class="my-5"/>
+                                <hr className="my-5"/>
                                 <div className="row">
                                     <div className="col-12 col-lg-6">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Thêm người dùng</h3>
-                                                <p class="card-text small">Thêm tài khoản cùng quản lý hệ thống, giúp việc cập nhật thông tin dễ dàng và linh động hơn.</p>
-                                                <a href="#" class="btn btn-primary">Thêm tài khoản</a>
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h3 className="card-title">Thêm người dùng</h3>
+                                                <p className="card-text small">Thêm tài khoản cùng quản lý hệ thống, giúp việc cập nhật thông tin dễ dàng và linh động hơn.</p>
+                                                <a href="#" className="btn btn-primary">Thêm tài khoản</a>
                                             </div>
                                         </div>
 
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Nội quy</h3>
-                                                <p class="card-text small">Nắm rõ các quy định khi làm việc tại trạm kinh doanh, sẽ giúp việc vận hành trong quá trình làm việc được diễn ra thuận lợi nhất.</p>
-                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h3 className="card-title">Nội quy</h3>
+                                                <p className="card-text small">Nắm rõ các quy định khi làm việc tại trạm kinh doanh, sẽ giúp việc vận hành trong quá trình làm việc được diễn ra thuận lợi nhất.</p>
+                                                <a href="#" className="btn btn-primary">Xem thông tin</a>
                                             </div>
                                         </div>
                                         
                                     </div>
                                     <div className="col-12 col-lg-6">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Phần mềm NowMerchant</h3>
-                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
-                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h3 className="card-title">Phần mềm NowMerchant</h3>
+                                                <p className="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" className="btn btn-primary">Xem thông tin</a>
                                             </div>
                                         </div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Phần mềm GrabMerchant</h3>
-                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
-                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h3 className="card-title">Phần mềm GrabMerchant</h3>
+                                                <p className="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" className="btn btn-primary">Xem thông tin</a>
                                             </div>
                                         </div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Phần mềm Loship-Chủ cửa hàng</h3>
-                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
-                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h3 className="card-title">Phần mềm Loship-Chủ cửa hàng</h3>
+                                                <p className="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" className="btn btn-primary">Xem thông tin</a>
                                             </div>
                                         </div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Phần mềm Baemin Merchant</h3>
-                                                <p class="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
-                                                <a href="#" class="btn btn-primary">Xem thông tin</a>
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h3 className="card-title">Phần mềm Baemin Merchant</h3>
+                                                <p className="card-text small">Hướng dẫn sử dụng sẽ giúp bạn hiểu rõ phần mềm sẽ giúp bạn dễ dàng quản lý và chủ động hơn trong công việc.</p>
+                                                <a href="#" className="btn btn-primary">Xem thông tin</a>
                                             </div>
                                         </div>
                                     </div>
