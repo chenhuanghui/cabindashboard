@@ -130,8 +130,8 @@ export default class LayoutDashboard extends React.Component {
                                                         </a>
                                                     </div>
                                                     <div className="col ml-n2">
-                                                        <h5 className="mb-1"><a href="project-overview.html">Website bán hàng</a></h5>
-                                                        <p className="card-text small text-muted">Sở hữu kênh bán hàng hiện đại của ngay trong 1 phút.</p>
+                                                        <h5 className="mb-1"><a href="project-overview.html">Xây dựng hệ thống sản phẩm</a></h5>
+                                                        <p className="card-text small text-muted">Tư vấn thiết lập các sản phẩm trong menu nhằm đảm bảo hiệu quả bán hàng cao nhất.</p>
                                                     </div>        
                                                     <div className="col-auto">
                                                         <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
@@ -146,8 +146,8 @@ export default class LayoutDashboard extends React.Component {
                                                         </a>
                                                     </div>
                                                     <div className="col ml-n2">
-                                                        <h5 className="mb-1"><a href="project-overview.html">Hệ thống cung ứng</a></h5>
-                                                        <p className="card-text small text-muted">Kết nối trực tiếp với nhà cung cấp các mặt hàng bạn cần trong kinh doanh với giá tốt nhất.</p>
+                                                        <h5 className="mb-1"><a href="project-overview.html">Hoạt động truyền thông</a></h5>
+                                                        <p className="card-text small text-muted">Tối đa hóa hiệu quả hoạt động bán hàng trên các kênh delivery.</p>
                                                     </div>        
                                                     <div className="col-auto">
                                                         <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
