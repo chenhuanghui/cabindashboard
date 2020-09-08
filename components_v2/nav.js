@@ -78,7 +78,7 @@ export default class NavBarNew extends React.Component {
                         <div className="dropdown">
                         <a href="#" id="sidebarIcon" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div className="avatar avatar-sm avatar-online">
-                                <img src={this.props.avatar} className="avatar-img rounded-circle" alt="..."/>
+                                <img src="/assets/img/avatars/projects/project-1.jpg" className="avatar-img rounded-circle" alt="..."/>
                             </div>
                         </a>
 
@@ -126,7 +126,7 @@ export default class NavBarNew extends React.Component {
                             <div className="dropup">
                                 <a href="#" id="sidebarIconCopy" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div className="avatar avatar-sm avatar-online">
-                                        <img src={this.props.avatar} className="avatar-img rounded-circle" alt="..."/>
+                                        <img src="/assets/img/avatars/projects/project-1.jpg" className="avatar-img rounded-circle" alt="..."/>
                                     </div>
                                 </a>
                                 {/* Menu */}
