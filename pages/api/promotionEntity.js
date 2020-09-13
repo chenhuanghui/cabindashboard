@@ -4,7 +4,7 @@ const airtableBRAND = new AirtablePlus({
     apiKey: process.env.AIR_TABLE_API_KEY,
 });
 
-class BrandPromotionEntity {
+class PromotionEntity {
     helloWorld = () => {
         console.log("helloworld")
     }
@@ -26,4 +26,4 @@ class BrandPromotionEntity {
     }
 }
 
-module.exports = BrandPromotionEntity;
+module.exports = PromotionEntity;
