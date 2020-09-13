@@ -4,64 +4,48 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
 import $, { data } from 'jquery'
 import NavBar from "../../../components_v2/nav"
-// ====================================
-// GLOBAL FUNCTIONS
 
-const AirtablePlus = require('airtable-plus');  
-const airtableFEED = new AirtablePlus({
-    baseID: process.env.AIR_TABLE_BASE_ID_FEED,
-    apiKey: process.env.AIR_TABLE_API_KEY,
-});
-const airtableUSER = new AirtablePlus({
-    baseID: process.env.AIR_TABLE_BASE_ID_USER,
-    apiKey: process.env.AIR_TABLE_API_KEY,
-});
-const airtableSOPERATION = new AirtablePlus({
-    baseID: process.env.AIR_TABLE_BASE_ID_SOPERATION,
-    apiKey: process.env.AIR_TABLE_API_KEY,
-});
+const BrandEntity = require("../../api/brandEntity")
+const brandObject = new BrandEntity()
 
-const airtableBRAND = new AirtablePlus({
-    baseID: process.env.AIR_TABLE_BASE_ID_BRAND,
-    apiKey: process.env.AIR_TABLE_API_KEY,
-});
+const BrandPromotionEntity = require("../../api/brandPromotionEntity")
+const brandPromotionObject = new BrandPromotionEntity()
 
 export default class LayoutDashboard extends React.Component {
-    static async getInitialProps({query}) {
-        console.log("______ initialprops:", query.id)    
-        
-        const brandData = await airtableBRAND.read({
-            filterByFormula: `ID = "${query.id}"`,
-            maxRecords: 1
-        },{tableName:"Brand"});
-        console.log("brand information: ", brandData)    
-        
-        return { brand: brandData[0]}
+    
+    static async getInitialProps({query}) {        
+        const res = await brandObject.getBrandByID(query.id)
+        return {brand: res}        
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
+            promotion : []
         }
     }
 
-    componentDidMount() {
-        
-
+    componentDidMount() {        
+        let currentComponent = this
+        brandObject.helloWorld()
+        brandPromotionObject.getActivePromotionByBrandID(10001).then(res=> {
+            currentComponent.setState({promotion: res})
+        })
     }
 
     render() {
+        const {promotion} = this.state
         return (
             <>
                 <Head>
-                    <title>  {this.props.brand.fields.name} | Dashboard</title>
+                    <title>  {this.props.brand.name} | Dashboard</title>
                 </Head>
 
                 <NavBar 
                     active_nav_item = "#home"
-                    brand_id={this.props.brand.fields.ID}
-                    brand_name={this.props.brand.fields.name}
+                    brand_id={this.props.brand.ID}
+                    brand_name={this.props.brand.name}
                     // user_id={cookies.userID}
                     // avatar = {user && user.avatar ? user.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg"}
                 />
@@ -75,83 +59,152 @@ export default class LayoutDashboard extends React.Component {
                                     <div className="card-body text-center">
                                         <div className="row justify-content-center">
                                             <div className="col-12 col-md-10 col-xl-8">
-                                                <img src="/assets/img/illustrations/happiness.svg" alt="..." className="img-fluid mt-n5 mb-4" style={{maxWidth: "272px"}}/>
-                                                <h2>Chào mừng bạn đã tham gia cùng CabinFood.</h2>
-                                                <p className="text-muted">Thân tặng bạn gói tài trợ truyền thông trị giá 2.000.000đ khi tham gia vào chuỗi hoạt động khai trương cửa hàng thúc đẩy doanh số delivery .</p>
+                                                <img src={promotion.promotionAttachments} alt="..." className="img-fluid mt-n5 mb-4" style={{maxWidth: "272px"}}/>
+                                                <h2>{promotion.promotionName}</h2>
+                                                <p className="text-muted">{promotion.promotionDesc}</p>
                                                 <a href="#!" className="btn btn-primary lift">Nhận ưu đãi ngay</a>
                                             </div>
                                         </div> 
                                     </div>
                                 </div>
 
-                                <div className="card">
-                                    <div className="card-header">
-                                        <h4 className="card-header-title">Dịch vụ hỗ trợ</h4>
+                                <div className="row">
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card">
+                                            <div className="card-header">
+                                                <h4 className="card-header-title">Dịch vụ hỗ trợ</h4>
+                                            </div>
+                                            <div className="card-body">
+                                                <div className="list-group list-group-flush my-n3">
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col-auto">
+                                                                <a href="project-overview.html" className="avatar avatar-xs">
+                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col ml-n2">
+                                                                <h5 className="mb-1"><a href="project-overview.html">Chụp ảnh sản phẩm</a></h5>
+                                                                <p className="card-text small text-muted">Có ngay bộ hình ảnh sản phẩm chuyên nghiệp</p>
+                                                            </div>        
+                                                            <div className="col-auto">
+                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
+                                                            </div>                                                    
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col-auto">
+                                                                <a href="project-overview.html" className="avatar avatar-xs">
+                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col ml-n2">
+                                                                <h5 className="mb-1"><a href="project-overview.html">Đăng ký kênh bán hàng</a></h5>
+                                                                <p className="card-text small text-muted">Grab, Now, Baemin, Loship, GoJek</p>
+                                                            </div>        
+                                                            <div className="col-auto">
+                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
+                                                            </div>                                                    
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col-auto">
+                                                                <a href="project-overview.html" className="avatar avatar-xs">
+                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col ml-n2">
+                                                                <h5 className="mb-1"><a href="project-overview.html">Xây dựng hệ thống sản phẩm</a></h5>
+                                                                <p className="card-text small text-muted">Tư vấn thiết lập các sản phẩm trong menu nhằm đảm bảo hiệu quả bán hàng cao nhất.</p>
+                                                            </div>        
+                                                            <div className="col-auto">
+                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
+                                                            </div>                                                    
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col-auto">
+                                                                <a href="project-overview.html" className="avatar avatar-xs">
+                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
+                                                                </a>
+                                                            </div>
+                                                            <div className="col ml-n2">
+                                                                <h5 className="mb-1"><a href="project-overview.html">Hoạt động truyền thông</a></h5>
+                                                                <p className="card-text small text-muted">Tối đa hóa hiệu quả hoạt động bán hàng trên các kênh delivery.</p>
+                                                            </div>        
+                                                            <div className="col-auto">
+                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
+                                                            </div>                                                    
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="card-body">
-                                        <div className="list-group list-group-flush my-n3">
-                                            <div className="list-group-item">
-                                                <div className="row align-items-center">
-                                                    <div className="col-auto">
-                                                        <a href="project-overview.html" className="avatar avatar-xs">
-                                                            <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                        </a>
-                                                    </div>
-                                                    <div className="col ml-n2">
-                                                        <h5 className="mb-1"><a href="project-overview.html">Chụp ảnh sản phẩm</a></h5>
-                                                        <p className="card-text small text-muted">Có ngay bộ hình ảnh sản phẩm chuyên nghiệp</p>
-                                                    </div>        
-                                                    <div className="col-auto">
-                                                        <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
-                                                    </div>                                                    
-                                                </div>
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card">
+                                            <div className="card-header">
+                                                <h4 className="card-header-title">Lịch trình làm việc</h4>
                                             </div>
-                                            <div className="list-group-item">
-                                                <div className="row align-items-center">
-                                                    <div className="col-auto">
-                                                        <a href="project-overview.html" className="avatar avatar-xs">
-                                                            <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                        </a>
+                                            <div className="card-body">
+                                                <div className="list-group list-group-flush list-group-activity my-n3">
+                                                    <div className="list-group-item">
+                                                        <div className="row">
+                                                            <div className="col-auto">
+                                                                <div className="avatar avatar-sm">
+                                                                <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
+                                                                    <i className="fe fe-mail"></i>
+                                                                </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div className="col ml-n2">
+                                                                <h5 className="mb-1">Launchday 1.4.0 update email sent</h5>
+                                                                <p className="small text-gray-700 mb-0">Sent to all 1,851 subscribers over a 24 hour period</p>
+                                                                <p className="text-muted small">2m ago</p>
+                                                                <button className="btn btn-primary btn-sm">Xác nhận</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="col ml-n2">
-                                                        <h5 className="mb-1"><a href="project-overview.html">Đăng ký kênh bán hàng</a></h5>
-                                                        <p className="card-text small text-muted">Grab, Now, Baemin, Loship, GoJek</p>
-                                                    </div>        
-                                                    <div className="col-auto">
-                                                        <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
-                                                    </div>                                                    
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item">
-                                                <div className="row align-items-center">
-                                                    <div className="col-auto">
-                                                        <a href="project-overview.html" className="avatar avatar-xs">
-                                                            <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                        </a>
+                                                    <div className="list-group-item">
+                                                        <div className="row">
+                                                            <div className="col-auto">
+                                                                <div className="avatar avatar-sm">
+                                                                <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
+                                                                    <i className="fe fe-mail"></i>
+                                                                </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div className="col ml-n2">
+                                                                <h5 className="mb-1">Launchday 1.4.0 update email sent</h5>
+                                                                <p className="small text-gray-700 mb-0">Sent to all 1,851 subscribers over a 24 hour period</p>
+                                                                <p className="text-muted small">2m ago</p>
+                                                                <button className="btn btn-primary btn-sm">Xác nhận</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="col ml-n2">
-                                                        <h5 className="mb-1"><a href="project-overview.html">Xây dựng hệ thống sản phẩm</a></h5>
-                                                        <p className="card-text small text-muted">Tư vấn thiết lập các sản phẩm trong menu nhằm đảm bảo hiệu quả bán hàng cao nhất.</p>
-                                                    </div>        
-                                                    <div className="col-auto">
-                                                        <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
-                                                    </div>                                                    
-                                                </div>
-                                            </div>
-                                            <div className="list-group-item">
-                                                <div className="row align-items-center">
-                                                    <div className="col-auto">
-                                                        <a href="project-overview.html" className="avatar avatar-xs">
-                                                            <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                        </a>
+                                                    <div className="list-group-item">
+                                                        <div className="row">
+                                                            <div className="col-auto">
+                                                                <div className="avatar avatar-sm">
+                                                                <div className="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
+                                                                    <i className="fe fe-mail"></i>
+                                                                </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div className="col ml-n2">
+                                                                <h5 className="mb-1">Launchday 1.4.0 update email sent</h5>
+                                                                <p className="small text-gray-700 mb-0">Sent to all 1,851 subscribers over a 24 hour period</p>
+                                                                <p className="text-muted small">2m ago</p>
+                                                                <button className="btn btn-primary btn-sm">Xác nhận</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="col ml-n2">
-                                                        <h5 className="mb-1"><a href="project-overview.html">Hoạt động truyền thông</a></h5>
-                                                        <p className="card-text small text-muted">Tối đa hóa hiệu quả hoạt động bán hàng trên các kênh delivery.</p>
-                                                    </div>        
-                                                    <div className="col-auto">
-                                                        <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Quan tâm</button>
-                                                    </div>                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -173,36 +226,13 @@ export default class LayoutDashboard extends React.Component {
                                             <img src="/assets/img/avatars/teams/team-logo-1.jpg" alt="" className="avatar-img rounded"/>
                                         </div>
 
-                                        <h2 className="mb-3">{this.props.brand.fields.name}</h2>
+                                        <h2 className="mb-3">{this.props.brand.name}</h2>
                                         <p className="card-text text-muted">Launchday is a SaaS website builder with a focus on quality, easy to build product sites.</p>
                                     </div>
                                 </div>
                                 
                                 <div className="row">
-                                    <div className="col-12 col-lg-6">
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <div className="list-group list-group-flush my-n3">
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col-auto">
-                                                                <a href="project-overview.html" className="avatar avatar-xs">
-                                                                    <img src="/assets/img/avatars/projects/project-1.jpg" alt="..." className="avatar-img rounded"/>
-                                                                </a>
-                                                            </div>
-                                                            <div className="col ml-n2">
-                                                                <h5 className="mb-1"><a href="project-overview.html">Nhận Cabin</a></h5>
-                                                                <p className="card-text small text-muted">10h, 01/09/2020</p>
-                                                            </div>                 
-                                                            <div className="col-auto">
-                                                                <button type="button" className="btn btn-sm btn-white d-block d-md-inline-block lift"> Xác nhận</button>
-                                                            </div>                                                                                               
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                    <div className="col-12 col-lg-6">                                        
                                         <div className="card">
                                             <div className="card-body">
                                                 <div className="list-group list-group-flush my-n3">
@@ -428,7 +458,6 @@ export default class LayoutDashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
