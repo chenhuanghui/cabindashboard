@@ -15,14 +15,15 @@ class PromotionEntity {
             maxRecords: 1
         },{tableName:"Brand_Promotion"});
         console.log("Brand_Promotion: ", res)    
-        
-        var temp = res[0].fields
-        if (res[0].fields.promotionAttachments) {
-            temp.promotionAttachments = res[0].fields.promotionAttachments[0].url
+        if (res.length > 0) {
+            var temp = res[0].fields
+            if (res[0].fields.promotionAttachments) {
+                temp.promotionAttachments = res[0].fields.promotionAttachments[0].url
+            }
+            
+            return temp
         }
-        
-
-        return temp
+        return null
     }
 }
 

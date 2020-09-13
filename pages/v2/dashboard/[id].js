@@ -28,9 +28,9 @@ export default class LayoutDashboard extends React.Component {
         super(props);
 
         this.state = {
-            promotion : [],
-            incubator : [],
-            milestone : []
+            promotion : null,
+            incubator : null,
+            milestone : null
 
         }
     }
@@ -74,8 +74,8 @@ export default class LayoutDashboard extends React.Component {
                     <div className="container-fluid">
                         <div className="row mt-4 mt-md-5 justify-content-center">
                             <div className="col-12 col-lg-10 col-xl-8">                                
-                                
-                                <div className="card">
+                                {promotion 
+                                ? <div className="card">
                                     <div className="card-body text-center">
                                         <div className="row justify-content-center">
                                             <div className="col-12 col-md-10 col-xl-8">
@@ -87,6 +87,10 @@ export default class LayoutDashboard extends React.Component {
                                         </div> 
                                     </div>
                                 </div>
+                                : null
+
+                                }
+                                
 
                                 <div className="row">
                                     <div className="col-12 col-lg-6">
@@ -96,7 +100,7 @@ export default class LayoutDashboard extends React.Component {
                                             </div>
                                             <div className="card-body">
                                                 <div className="list-group list-group-flush my-n3">
-                                                    {incubator.map((item, index)=> (
+                                                    {incubator && incubator.map((item, index)=> (
                                                         <div className="list-group-item" key={index}>
                                                             <div className="row align-items-center">
                                                                 <div className="col-auto">
@@ -126,7 +130,7 @@ export default class LayoutDashboard extends React.Component {
                                             </div>
                                             <div className="card-body">
                                                 <div className="list-group list-group-flush list-group-activity my-n3">
-                                                    {milestone.map((item, index)=> (
+                                                    {milestone && milestone.map((item, index)=> (
                                                         <div className="list-group-item" key={index}>
                                                             <div className="row">
                                                                 <div className="col-auto">
