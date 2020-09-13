@@ -31,21 +31,25 @@ export default class LayoutDashboard extends React.Component {
             promotion : [],
             incubator : [],
             milestone : []
+
         }
     }
 
     componentDidMount() {        
         let currentComponent = this
-        brandObject.helloWorld()
-        brandPromotionObject.getActivePromotionByBrandID(10001).then(res=> {
+        
+        brandPromotionObject.getActivePromotionByBrandID(this.props.brand.ID)
+        .then(res=> {
             currentComponent.setState({promotion: res})
         })
 
-        incubatorObject.getActiveService().then(res=> {
+        incubatorObject.getActiveService()
+        .then(res=> {
             currentComponent.setState({incubator: res})
         })
 
-        milestoneObject.getActiveMilestoneByBrandID(10001).then(res=> {
+        milestoneObject.getActiveMilestoneByBrandID(this.props.brand.ID)
+        .then(res=> {
             currentComponent.setState({milestone: res})
         })
     }
