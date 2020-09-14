@@ -187,7 +187,7 @@ export default class LayoutDashboard extends React.Component {
                                         </div>
 
                                         <h2 className="mb-3">{this.props.brand.name}</h2>
-                                        <p className="card-text text-muted">Launchday is a SaaS website builder with a focus on quality, easy to build product sites.</p>
+                                        <p className="card-text text-muted">{this.props.brand.intro}</p>
                                     </div>
                                 </div>
                                 
