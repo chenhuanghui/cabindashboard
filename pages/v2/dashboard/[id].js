@@ -20,6 +20,9 @@ const milestoneObject = new MilestoneEntity()
 const WorkingHoursEntity = require("../../api/workinghoursEntity")
 const workingHoursObject = new WorkingHoursEntity()
 
+const OwnerEntity = require("../../api/ownerEntity")
+const ownerObject = new OwnerEntity()
+
 export default class LayoutDashboard extends React.Component {
     
     static async getInitialProps({query}) {        
@@ -34,7 +37,8 @@ export default class LayoutDashboard extends React.Component {
             promotion : null,
             incubator : null,
             milestone : null,
-            workingHours : null
+            workingHours : null,
+            owner : []
         }
     }
 
@@ -60,10 +64,15 @@ export default class LayoutDashboard extends React.Component {
         .then(res=>{
             currentComponent.setState({workingHours: res})
         })
+
+        ownerObject.getOwnerByBrandID(this.props.brand.ID)
+        .then(res=>{
+            currentComponent.setState({owner: res})
+        })
     }
 
     render() {
-        const {promotion, incubator, milestone, workingHours} = this.state
+        const {promotion, incubator, milestone, workingHours, owner} = this.state
         return (
             <>
                 <Head>
@@ -269,25 +278,25 @@ export default class LayoutDashboard extends React.Component {
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
                                                             <div className="col"><h5 className="mb-0">Đại diện</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">Nguyễn Văn A</small></div>
+                                                            <div className="col-auto"><small className="text-muted">{owner.ownerName}</small></div>
                                                         </div>
                                                     </div>
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
                                                             <div className="col"><h5 className="mb-0">Số điện thoại liên hệ</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">0909090909</small></div>
+                                                            <div className="col-auto"><small className="text-muted">{owner.ownerTel}</small></div>
                                                         </div>
                                                     </div>
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
                                                             <div className="col"><h5 className="mb-0">CMND/CCCD</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">0909090909</small></div>
+                                                            <div className="col-auto"><small className="text-muted">{owner.ownerID}</small></div>
                                                         </div>
                                                     </div>
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Ngày cấp</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">11/11/2011</small></div>
+                                                            <div className="col"><h5 className="mb-0">Ngày sinh</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">{owner.ownerDOB}</small></div>
                                                         </div>
                                                     </div>
                                                     <div className="list-group-item">
@@ -295,13 +304,13 @@ export default class LayoutDashboard extends React.Component {
                                                             <div className="col"><h5 className="mb-0">CMND/CCCD</h5></div>
                                                             
                                                             <div className="col">
-                                                                <div class="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone">
-                                                                    <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                                    <div class="dz-default dz-message"><button class="dz-button" type="button">Mặt trước</button></div>
+                                                                <div className="dropzone dropzone-multiple dz-clickable" data-toggle="dropzone">
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                                    <div className="dz-default dz-message"><button className="dz-button" type="button">Mặt trước</button></div>
                                                                 </div>
-                                                                <div class="dropzone dropzone-multiple dz-clickable mt-3" data-toggle="dropzone">
-                                                                    <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
-                                                                    <div class="dz-default dz-message"><button class="dz-button" type="button">Mặt sau</button></div>
+                                                                <div className="dropzone dropzone-multiple dz-clickable mt-3" data-toggle="dropzone">
+                                                                    <ul className="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"></ul>
+                                                                    <div className="dz-default dz-message"><button className="dz-button" type="button">Mặt sau</button></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -316,19 +325,25 @@ export default class LayoutDashboard extends React.Component {
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
                                                             <div className="col"><h5 className="mb-0">Tên ngân hàng</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">ACB</small></div>
+                                                            <div className="col-auto"><small className="text-muted">{this.props.brand.bankName}</small></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="list-group-item">
+                                                        <div className="row align-items-center">
+                                                            <div className="col"><h5 className="mb-0">Chi nhánh</h5></div>
+                                                            <div className="col-auto"><small className="text-muted">{this.props.brand.bankBranch}</small></div>
                                                         </div>
                                                     </div>
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
                                                             <div className="col"><h5 className="mb-0">Chủ tài khoản</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">Nguyễn Văn A</small></div>
+                                                            <div className="col-auto"><small className="text-muted">{this.props.brand.bankAcc}</small></div>
                                                         </div>
                                                     </div>
                                                     <div className="list-group-item">
                                                         <div className="row align-items-center">
                                                             <div className="col"><h5 className="mb-0">Số tài khoản</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">123123123</small></div>
+                                                            <div className="col-auto"><small className="text-muted">{this.props.brand.bankNo}</small></div>
                                                         </div>
                                                     </div>
                                                     
