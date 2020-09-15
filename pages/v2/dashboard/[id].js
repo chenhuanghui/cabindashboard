@@ -1,26 +1,25 @@
 import React from 'react';
 import Head from 'next/head'
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
 import $, { data } from 'jquery'
 import NavBar from "../../../components_v2/nav"
 
-const BrandEntity = require("../../api/brandEntity")
+const BrandEntity = require("../../../entity/BrandEntity")
 const brandObject = new BrandEntity()
 
-const BrandPromotionEntity = require("../../api/promotionEntity")
+const BrandPromotionEntity = require("../../../entity/PromotionEntity")
 const brandPromotionObject = new BrandPromotionEntity()
 
-const IncubatorEntity = require("../../api/incubatorEntity")
+const IncubatorEntity = require("../../../entity/IncubatorEntity")
 const incubatorObject = new IncubatorEntity()
 
-const MilestoneEntity = require("../../api/milestoneEntity")
+const MilestoneEntity = require("../../../entity/MilestoneEntity")
 const milestoneObject = new MilestoneEntity()
 
-const WorkingHoursEntity = require("../../api/workinghoursEntity")
+const WorkingHoursEntity = require("../../../entity/WorkinghoursEntity")
 const workingHoursObject = new WorkingHoursEntity()
 
-const OwnerEntity = require("../../api/ownerEntity")
+const OwnerEntity = require("../../../entity/OwnerEntity")
 const ownerObject = new OwnerEntity()
 
 export default class LayoutDashboard extends React.Component {
@@ -42,33 +41,24 @@ export default class LayoutDashboard extends React.Component {
         }
     }
 
-    componentDidMount() {        
+    async componentDidMount() {        
         let currentComponent = this
         
-        brandPromotionObject.getActivePromotionByBrandID(this.props.brand.ID)
-        .then(res=> {
-            currentComponent.setState({promotion: res})
-        })
+        const promotion = await brandPromotionObject.getActivePromotionByBrandID(this.props.brand.ID)        
+        currentComponent.setState({promotion: promotion})
+        
 
-        incubatorObject.getActiveService()
-        .then(res=> {
-            currentComponent.setState({incubator: res})
-        })
+        const incubator = await incubatorObject.getActiveService()
+        currentComponent.setState({incubator: incubator})
 
-        milestoneObject.getActiveMilestoneByBrandID(this.props.brand.ID)
-        .then(res=> {
-            currentComponent.setState({milestone: res})
-        })
+        const milestone = await milestoneObject.getActiveMilestoneByBrandID(this.props.brand.ID)
+        currentComponent.setState({milestone: milestone})
 
-        workingHoursObject.getWorkingHoursByBrandID(this.props.brand.ID)
-        .then(res=>{
-            currentComponent.setState({workingHours: res})
-        })
+        const workingHours = workingHoursObject.getWorkingHoursByBrandID(this.props.brand.ID)
+        currentComponent.setState({workingHours: workingHours})
 
-        ownerObject.getOwnerByBrandID(this.props.brand.ID)
-        .then(res=>{
-            currentComponent.setState({owner: res})
-        })
+        const owner = await ownerObject.getOwnerByBrandID(this.props.brand.ID)
+        currentComponent.setState({owner: owner})
     }
 
     render() {
