@@ -18,6 +18,7 @@
     "contentful": "^7.14.6",
     "filestack-react": "^3.2.1",
     "jquery": "^3.5.1",
+    "loadable": "^1.0.0",
     "next": "9.4.4",
     "nookies": "^2.3.2",
     "react": "16.13.1",
