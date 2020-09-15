@@ -19,6 +19,15 @@ class BrandEntity {
         
         return user[0].fields
     }
+
+    getUserByEmail = async(email)=> {        
+        const user = await airtableUSER.read({
+            filterByFormula: `email = "${email}"`,
+            maxRecords: 1
+        },{tableName:"User"});
+        
+        return user[0].fields
+    }
 }
 
 module.exports = BrandEntity;
