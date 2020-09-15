@@ -6,6 +6,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 import NavBar from "../../../../components_v2/nav"
 import PostInput from "../../../../components_v2/post/post-input"
+import PostShow from "../../../../components_v2/post/post-show"
 
 const BrandEntity = require("../../../../entity/BrandEntity")
 const brandObject = new BrandEntity()
@@ -13,13 +14,17 @@ const brandObject = new BrandEntity()
 const UserEntity = require("../../../../entity/UserEntity")
 const userObject = new UserEntity()
 
+const FeedEntity = require("../../../../entity/FeedEntity")
+const feedObject = new FeedEntity()
+
 const cookies = parseCookies()
 export default class LayoutInfo extends React.Component {
     
     static async getInitialProps({query}) {        
         console.log("query id:", query.id)
         const res = await brandObject.getBrandByID(query.id)
-        return {brand: res}        
+        const feed = await feedObject.getFeedByID(query.id)
+        return {brand: res, feed: feed}        
     }
 
     constructor(props) {
@@ -35,6 +40,8 @@ export default class LayoutInfo extends React.Component {
 
         const user = await userObject.getUserByID(cookies.userID)
         currentComponent.setState({user: user})
+
+        
     }
 
     render() {
@@ -61,6 +68,22 @@ export default class LayoutInfo extends React.Component {
                                     brand = {this.props.brand}
                                     user = {user}
                                 />
+
+                                {this.props.feed && this.props.feed.map((item, index)=> (
+                                    <PostShow key={index}
+                                        post_id = {item.ID}
+                                        content = {item.content}
+                                        attachments = {item.attachments}
+                                        created_at = {item.createdAt}
+                                        author_name = {item.userName}
+                                        author_avatar = {item.userAvatar}
+                                        author_id = {item.userID}
+                                        like = {item.like}
+                                        dislike = {item.dislike}
+                                        user = {user}
+                                        post_rec_id = {item.recID}
+                                    />
+                                ))}
                                 
                             </div>
                         </div>

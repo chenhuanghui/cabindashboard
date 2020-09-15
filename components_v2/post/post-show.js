@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
-import CommentShow from '../../component/commentsver2/comment-show'
-import CommentInput from '../../component/commentsver2/comment-input'
-import { Slide } from 'react-slideshow-image';
-import { post } from 'jquery';
-import ImageGallery from 'react-image-gallery';
+// import CommentShow from '../../component/commentsver2/comment-show'
+// import CommentInput from '../../component/commentsver2/comment-input'
 
 const AirtablePlus = require('airtable-plus');  
 const airtableFEED = new AirtablePlus({
@@ -168,23 +165,7 @@ export default class PostShow extends React.Component {
 
     render() {        
         const {author_id, post_id, comments, like, dislike, attachments} = this.state
-        const slideProperties = {
-            arrows: false,
-            infinite: false,
-            autoplay:false,
-            indicators: true
-        }
-
-        const imageGalleryConfig = {
-            showIndex : true,
-            showBullets: true,
-            showPlayButton: false,
-            showNav: false,
-            showThumbnails: false
-        }
-        
-      
-
+    
         return (
             <>
                 {this.props.children}
@@ -219,18 +200,7 @@ export default class PostShow extends React.Component {
                                 id={`post-show-content-${post_id}`} 
                                 dangerouslySetInnerHTML={{__html:this.props.content.replace(/\n/g, "<br />")}}></p>
                         }
-                        {/* {attachments.length > 0
-                        ?
-                            <div className="row">
-                                <div className="col mb-3">
-                                    <ImageGallery  {...imageGalleryConfig}
-                                        className="img-fluid rounded"
-                                        items={attachments}
-                                    />
-                                </div>                            
-                            </div>
-                        : null
-                        } */}
+
                         {this.props.attachments && this.props.attachments.length > 0
                         ? 
                             <div className="container no-scrollbar mb-3">
@@ -271,7 +241,7 @@ export default class PostShow extends React.Component {
                         </div>
 
                         <hr className='dropdown-divider'/>
-                        <div id={`comment-block-${post_id}`}>
+                        {/* <div id={`comment-block-${post_id}`}>
                             {comments && comments.map((item, index) => (
                                 <CommentShow key={index}
                                 comment_id = {item.fields.ID}
@@ -290,7 +260,7 @@ export default class PostShow extends React.Component {
                         <CommentInput
                             post_id= {post_id}
                             user = {this.props.user}
-                        />
+                        /> */}
                     </div>
                 </div>  
                 <style jsx>{`

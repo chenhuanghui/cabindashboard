@@ -103,20 +103,6 @@ export default class PostInput extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        let prevUser = prevState.user
-        let curUser = this.props.user
-        let prevBrand = prevState.brand
-        let curBrand = this.props.brand
-
-        if (prevUser !== curUser) {
-            console.log("user UPDATED____", prevUser,'-->', curUser)
-            this.setState({user:curUser})
-        }
-
-        if (prevBrand !== curBrand) {
-            console.log("brand UPDATED____", prevBrand,'-->', curBrand)
-            this.setState({brand:curBrand})
-        }
     }
 
     addAttachment = (file) => {
