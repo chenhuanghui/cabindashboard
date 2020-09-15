@@ -2,29 +2,30 @@ import React from 'react';
 import Head from 'next/head'
 import Link from 'next/link';
 import $, { data } from 'jquery'
-import NavBar from "../../../components_v2/nav"
+import NavBar from "../../../../components_v2/nav"
 
-const BrandEntity = require("../../../entity/BrandEntity")
+const BrandEntity = require("../../../../entity/BrandEntity")
 const brandObject = new BrandEntity()
 
-const BrandPromotionEntity = require("../../../entity/PromotionEntity")
+const BrandPromotionEntity = require("../../../../entity/PromotionEntity")
 const brandPromotionObject = new BrandPromotionEntity()
 
-const IncubatorEntity = require("../../../entity/IncubatorEntity")
+const IncubatorEntity = require("../../../../entity/IncubatorEntity")
 const incubatorObject = new IncubatorEntity()
 
-const MilestoneEntity = require("../../../entity/MilestoneEntity")
+const MilestoneEntity = require("../../../../entity/MilestoneEntity")
 const milestoneObject = new MilestoneEntity()
 
-const WorkingHoursEntity = require("../../../entity/WorkinghoursEntity")
+const WorkingHoursEntity = require("../../../../entity/WorkinghoursEntity")
 const workingHoursObject = new WorkingHoursEntity()
 
-const OwnerEntity = require("../../../entity/OwnerEntity")
+const OwnerEntity = require("../../../../entity/OwnerEntity")
 const ownerObject = new OwnerEntity()
 
 export default class LayoutDashboard extends React.Component {
     
     static async getInitialProps({query}) {        
+        console.log("query id:", query.id)
         const res = await brandObject.getBrandByID(query.id)
         return {brand: res}        
     }
@@ -47,7 +48,6 @@ export default class LayoutDashboard extends React.Component {
         const promotion = await brandPromotionObject.getActivePromotionByBrandID(this.props.brand.ID)        
         currentComponent.setState({promotion: promotion})
         
-
         const incubator = await incubatorObject.getActiveService()
         currentComponent.setState({incubator: incubator})
 

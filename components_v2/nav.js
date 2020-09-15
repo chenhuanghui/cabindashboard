@@ -102,7 +102,7 @@ export default class NavBarNew extends React.Component {
                                         <Link href="#"><a className="nav-link" id="home"><i className="fe fe-home"></i> Trang chủ</a></Link>                                
                                         <Link href="#"><a className="nav-link" id="feed"><i className="fe fe-feather"></i> Bài viết</a></Link>                                
                                         <Link href="#"><a className="nav-link" id="info"><i className="fe fe-calendar"></i> Thông tin</a></Link>
-                                        <Link href="#"><a className="nav-link" id="station"><i className="fe fe-cpu"></i> Trạm kinh doanh</a></Link>
+                                        <Link href="#"><a className="nav-link" id="station"><i className="fe fe-cpu"></i> Cửa hàng</a></Link>
                                         <Link href="#"><a className="nav-link" id="product"><i className="fe fe-package"></i> Sản phẩm</a></Link>
                                         <Link href="#"><a className="nav-link" id="service"><i className="fe fe-compass"></i> Dịch vụ</a></Link>
                                         <Link href="#"><a className="nav-link" id="user"><i className="fe fe-users"></i> Người dùng</a></Link>
