@@ -13,7 +13,8 @@ class FeedEntity {
         console.log("______ get brand by ID = ", id)    
         
         const feed = await airtableFEED.read({
-            filterByFormula: `brandID = "${id}"`
+            filterByFormula: `brandID = "${id}"`,
+            sort: [ {field: 'createdAt', direction: 'desc'},]
         },{tableName:"Post"});
         console.log("brand information: ", feed)    
         
