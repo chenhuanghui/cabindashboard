@@ -100,13 +100,13 @@ export default class NavBarNew extends React.Component {
                             <>
                                 <ul className="navbar-nav">
                                     <li className="nav-item">                                
-                                        <Link href="/v2/brands/[id]/dashboard" as={`/v2/brands/${'biz10001'}/dashboard`}><a className="nav-link" id="home"><i className="fe fe-home"></i> Trang chủ</a></Link>                                
-                                        <Link href="/v2/brands/[id]/feed" as={`/v2/brands/${'biz10001'}/feed`}><a className="nav-link" id="feed"><i className="fe fe-feather"></i> Bài viết</a></Link>                                
-                                        <Link href="/v2/brands/[id]/info" as={`/v2/brands/${'biz10001'}/info`}><a className="nav-link" id="info"><i className="fe fe-calendar"></i> Thông tin</a></Link>
-                                        <Link href="#"><a className="nav-link" id="station"><i className="fe fe-cpu"></i> Cửa hàng</a></Link>
-                                        <Link href="#"><a className="nav-link" id="product"><i className="fe fe-package"></i> Sản phẩm</a></Link>
-                                        <Link href="#"><a className="nav-link" id="service"><i className="fe fe-compass"></i> Dịch vụ</a></Link>
-                                        <Link href="#"><a className="nav-link" id="user"><i className="fe fe-users"></i> Người dùng</a></Link>
+                                        <Link href="/v2/brands/[id]/dashboard" as={`/v2/brands/${this.props.brand_id}/dashboard`}><a className="nav-link" id="dashboard"><i className="fe fe-home"></i> Trang chủ</a></Link>                                
+                                        <Link href="/v2/brands/[id]/feed" as={`/v2/brands/${this.props.brand_id}/feed`}><a className="nav-link" id="feed"><i className="fe fe-feather"></i> Bài viết</a></Link>                                
+                                        <Link href="/v2/brands/[id]/info" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="info"><i className="fe fe-calendar"></i> Thông tin</a></Link>
+                                        <Link href="/v2/brands/[id]/store" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="store"><i className="fe fe-cpu"></i> Cửa hàng</a></Link>
+                                        <Link href="/v2/brands/[id]/products" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="product"><i className="fe fe-package"></i> Sản phẩm</a></Link>
+                                        <Link href="/v2/brands/[id]/services" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="service"><i className="fe fe-compass"></i> Dịch vụ</a></Link>
+                                        <Link href="/v2/brands/[id]/users" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="user"><i className="fe fe-users"></i> Người dùng</a></Link>
                                     </li>
                                 </ul>
                                 <hr className="navbar-divider my-3" />

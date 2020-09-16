@@ -53,7 +53,7 @@ export default class LayoutInfo extends React.Component {
                 </Head>
 
                 <NavBar 
-                    active_nav_item = "#home"
+                    active_nav_item = "#feed"
                     brand_id={this.props.brand.ID}
                     brand_name={this.props.brand.name}
                     // user_id={cookies.userID}

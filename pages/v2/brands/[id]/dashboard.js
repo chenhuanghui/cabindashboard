@@ -70,7 +70,7 @@ export default class LayoutDashboard extends React.Component {
                 </Head>
 
                 <NavBar 
-                    active_nav_item = "#home"
+                    active_nav_item = "#dashboard"
                     brand_id={this.props.brand.ID}
                     brand_name={this.props.brand.name}
                     // user_id={cookies.userID}
