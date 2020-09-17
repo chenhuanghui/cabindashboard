@@ -4,30 +4,23 @@ import Router from 'next/router';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link'
 
-const AirtablePlus = require('airtable-plus');  
-const airtableFEED = new AirtablePlus({
-    baseID: process.env.AIR_TABLE_BASE_ID_FEED,
-    apiKey: process.env.AIR_TABLE_API_KEY,
-});
-const airtableUSER = new AirtablePlus({
-    baseID: process.env.AIR_TABLE_BASE_ID_USER,
-    apiKey: process.env.AIR_TABLE_API_KEY,
-});
-const airtableSOPERATION = new AirtablePlus({
-    baseID: process.env.AIR_TABLE_BASE_ID_SOPERATION,
-    apiKey: process.env.AIR_TABLE_API_KEY,
-});
+const UserEntity = require("../entity/UserEntity")
+const userObject = new UserEntity()
+
 const cookies = parseCookies()
 
 export default class NavBarNew extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            account:[]
+            user:[]
         }
     }
 
-    componentDidMount() {    
+    async componentDidMount() {    
+        let currentComponent = this
+        const user = await userObject.getUserByID(cookies.userID)
+        currentComponent.setState({user: user})
 
         // set active nav item
         $(this.props.active_nav_item).addClass('active')
@@ -62,6 +55,7 @@ export default class NavBarNew extends React.Component {
     }
 
     render() {
+        const {user} = this.state
         return(
             <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
                 <div className="container-fluid">
@@ -137,7 +131,7 @@ export default class NavBarNew extends React.Component {
                             <div className="dropup">
                                 <a href="#" id="sidebarIconCopy" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div className="avatar avatar-sm avatar-online">
-                                        <img src={this.props.avatar} className="avatar-img rounded-circle" alt={this.props.user_name}/>
+                                        <img src={user.avatar ? user.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg"} className="avatar-img rounded-circle" alt={user.name}/>
                                     </div>
                                 </a>
                                 {/* Menu */}

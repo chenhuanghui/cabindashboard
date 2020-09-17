@@ -56,9 +56,6 @@ export default class LayoutInfo extends React.Component {
                     active_nav_item = "#feed"
                     brand_id={this.props.brand.ID}
                     brand_name={this.props.brand.name}
-                    user_id={user.ID}
-                    user_name={user.name}
-                    avatar = {user && user.avatar ? user.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg"}
                 />
 
                 <div className="main-content">
