@@ -32,6 +32,17 @@ class BrandEntity {
         
         return brandData[0].fields
     }
+
+    getFirstBrandByUserID = async(uID) => {
+        const brandData = await airtableBRAND.read({
+            filterByFormula: `userID = "${uID}"`,
+            maxRecords: 1
+        },{tableName:"Brand_User"});
+        
+        console.log("Brand_User information: ", brandData)      
+        if (brandData.length > 0) return brandData[0].fields
+        return []
+    }
 }
 
 module.exports = BrandEntity;

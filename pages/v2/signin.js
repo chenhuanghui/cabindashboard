@@ -6,6 +6,9 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 const UserEntity = require("../../entity/UserEntity")
 const userObject = new UserEntity()
 
+const BrandEntity = require("../../entity/BrandEntity")
+const brandObject = new BrandEntity()
+
 
 export default class Signin extends React.Component {
     constructor(props){
@@ -32,21 +35,23 @@ export default class Signin extends React.Component {
         $('#tryToLoggin').click(async function (){
             $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)        
 
-            const user = await userObject.getUserByEmail($('#username').val())
-
-            if (user) {
+            const user = await userObject.getUserByEmail($('#username').val())            
+            if (user ) {
                 if ($('#password').val() === user.password) {
+                    const brand = await brandObject.getFirstBrandByUserID(user.ID)            
+                    console.log("brand by user id: ", brand)
+
                     $('#notice').removeClass('show').addClass('hide')
                     
                     setCookie(null, 'isLoggedIn', true, {maxAge: 30 * 24 * 60 * 60,path: '/',})
                     setCookie(null, 'userID',user.ID , {maxAge: 30 * 24 * 60 * 60,path: '/',})
                     // setCookie(null, 'avatar',user.avatar ? result[0].fields.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg" , {maxAge: 30 * 24 * 60 * 60,path: '/',})
-                    setCookie(null,'brandID', 'biz100001', {maxAge: 30 * 24 * 60 * 60,path:'/'})
+                    setCookie(null,'brandID', brand.brandID, {maxAge: 30 * 24 * 60 * 60,path:'/'})
 
                     // Router.push(`/overview/${result[0].fields.brandID[0]}`)
                     
                     console.log('.... success');
-                    Router.push(`/v2/brands/${`biz10001`}/dashboard`)
+                    Router.push(`/v2/brands/${brand.brandID}/dashboard`)
                 } else {
                     $('#notice').removeClass('hide').addClass('show')   
                     $('.spinner-grow').remove()
