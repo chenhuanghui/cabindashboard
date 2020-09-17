@@ -16,8 +16,8 @@ class BrandEntity {
             filterByFormula: `ID = "${id}"`,
             maxRecords: 1
         },{tableName:"User"});
-        
-        return user[0].fields
+        if (user.length > 0) return user[0].fields
+        else return []
     }
 
     getUserByEmail = async(email)=> {        

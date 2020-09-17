@@ -7,9 +7,6 @@ import NavBar from "../../../../components_v2/nav"
 const BrandEntity = require("../../../../entity/BrandEntity")
 const brandObject = new BrandEntity()
 
-const WorkingHoursEntity = require("../../../../entity/WorkinghoursEntity")
-const workingHoursObject = new WorkingHoursEntity()
-
 const OwnerEntity = require("../../../../entity/OwnerEntity")
 const ownerObject = new OwnerEntity()
 
@@ -35,9 +32,6 @@ export default class LayoutInfo extends React.Component {
 
     async componentDidMount() {        
         let currentComponent = this        
-
-        const workingHours = await workingHoursObject.getWorkingHoursByBrandID(this.props.brand.ID)
-        currentComponent.setState({workingHours: workingHours})
 
         const owner = await ownerObject.getOwnerByBrandID(this.props.brand.ID)
         currentComponent.setState({owner: owner})
@@ -107,59 +101,7 @@ export default class LayoutInfo extends React.Component {
                                                     </div>                                                    
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div className="card">
-                                            <div className="card-header">
-                                                <h3 className="card-title">Thông tin giờ làm việc</h3>
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="list-group list-group-flush my-n3">
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 2</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">{workingHours && workingHours.Mon}</small></div>
-                                                        </div>
-                                                    </div>        
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 3</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">{workingHours && workingHours.Tue}</small></div>
-                                                        </div>
-                                                    </div>        
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 4</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">{workingHours && workingHours.Wed}</small></div>
-                                                        </div>
-                                                    </div>        
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 5</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">{workingHours && workingHours.Thu}</small></div>
-                                                        </div>
-                                                    </div>        
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 6</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">{workingHours && workingHours.Fri}</small></div>
-                                                        </div>
-                                                    </div>        
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Thứ 7</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">{workingHours && workingHours.Sat}</small></div>
-                                                        </div>
-                                                    </div>        
-                                                    <div className="list-group-item">
-                                                        <div className="row align-items-center">
-                                                            <div className="col"><h5 className="mb-0">Chủ nhật</h5></div>
-                                                            <div className="col-auto"><small className="text-muted">{workingHours && workingHours.Sun}</small></div>
-                                                        </div>
-                                                    </div>        
-                                                </div>
-                                            </div>
-                                        </div>                                        
+                                        </div>                                                                           
                                     </div>
                                     
                                     <div className="col-12 col-lg-6">

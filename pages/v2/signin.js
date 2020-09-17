@@ -30,39 +30,10 @@ export default class Signin extends React.Component {
 
         let currentComponent = this;        
         $('#tryToLoggin').click(async function (){
-            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)
-            
-            // retrieveData({
-            //     view: 'Grid view',
-            //     filterByFormula:`email="${$('#username').val()}"`
-            // },'Account')
-            // .then(result => {
-            //     console.log(result);
-            //     if (result.length > 0) {
-            //         if ($('#password').val() === result[0].fields.password) {
-            //             $('#notice').removeClass('show').addClass('hide')
-            //             console.log('.... success');
-                        
-            //             setCookie(null, 'isLoggedIn', true, {maxAge: 30 * 24 * 60 * 60,path: '/',})
-            //             setCookie(null, 'userID',result[0].fields.ID , {maxAge: 30 * 24 * 60 * 60,path: '/',})
-            //             setCookie(null, 'avatar',result[0].fields.avatar ? result[0].fields.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg" , {maxAge: 30 * 24 * 60 * 60,path: '/',})
-            //             setCookie(null, 'userFeedID',result[0].fields.accountIDFeed , {maxAge: 30 * 24 * 60 * 60,path: '/',})
-            //             setCookie(null,'brandID', result[0].fields.brandID[0], {maxAge: 30 * 24 * 60 * 60,path:'/'})
-            //             setCookie(null,'role', result[0].fields.roleValue, {maxAge: 30 * 24 * 60 * 60,path:'/'})
-
-            //             // Router.push(`/overview/${result[0].fields.brandID[0]}`)
-            //             Router.push(`/feed/${result[0].fields.brandID[0]}`)
-            //         } else {
-            //             $('#notice').removeClass('hide').addClass('show')   
-            //             $('.spinner-grow').remove()
-            //         }
-            //     } else {
-            //         $('#notice').removeClass('hide').addClass('show')
-            //         $('.spinner-grow').remove()
-            //     }
-            // })
+            $(this).append(`<div class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only">Loading...</span></div>`)        
 
             const user = await userObject.getUserByEmail($('#username').val())
+
             if (user) {
                 if ($('#password').val() === user.password) {
                     $('#notice').removeClass('show').addClass('hide')

@@ -37,10 +37,10 @@ export default class LayoutInfo extends React.Component {
 
     async componentDidMount() {        
         let currentComponent = this
-
+        console.log("user cookies id: ", cookies.userID)
         const user = await userObject.getUserByID(cookies.userID)
         currentComponent.setState({user: user})
-
+        console.log("user: ", user)
         
     }
 
@@ -56,8 +56,9 @@ export default class LayoutInfo extends React.Component {
                     active_nav_item = "#feed"
                     brand_id={this.props.brand.ID}
                     brand_name={this.props.brand.name}
-                    // user_id={cookies.userID}
-                    // avatar = {user && user.avatar ? user.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg"}
+                    user_id={user.ID}
+                    user_name={user.name}
+                    avatar = {user && user.avatar ? user.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg"}
                 />
 
                 <div className="main-content">

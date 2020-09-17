@@ -52,7 +52,7 @@ export default class NavBarNew extends React.Component {
         // logout
         $('.logout').click(function(){
             destroyCookie(null, 'isLoggedIn', {path:'/'})
-            Router.push(`v2/signin`)
+            Router.push(`/v2/signin`)
         })
 
     }
@@ -103,10 +103,10 @@ export default class NavBarNew extends React.Component {
                                         <Link href="/v2/brands/[id]/dashboard" as={`/v2/brands/${this.props.brand_id}/dashboard`}><a className="nav-link" id="dashboard"><i className="fe fe-home"></i> Trang chủ</a></Link>                                
                                         <Link href="/v2/brands/[id]/feed" as={`/v2/brands/${this.props.brand_id}/feed`}><a className="nav-link" id="feed"><i className="fe fe-feather"></i> Bài viết</a></Link>                                
                                         <Link href="/v2/brands/[id]/info" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="info"><i className="fe fe-calendar"></i> Thông tin</a></Link>
-                                        <Link href="/v2/brands/[id]/store" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="store"><i className="fe fe-cpu"></i> Cửa hàng</a></Link>
-                                        <Link href="/v2/brands/[id]/products" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="product"><i className="fe fe-package"></i> Sản phẩm</a></Link>
-                                        <Link href="/v2/brands/[id]/services" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="service"><i className="fe fe-compass"></i> Dịch vụ</a></Link>
-                                        <Link href="/v2/brands/[id]/users" as={`/v2/brands/${this.props.brand_id}/info`}><a className="nav-link" id="user"><i className="fe fe-users"></i> Người dùng</a></Link>
+                                        <Link href="/v2/brands/[id]/stores" as={`/v2/brands/${this.props.brand_id}/stores`}><a className="nav-link" id="stores"><i className="fe fe-cpu"></i> Cửa hàng</a></Link>
+                                        <Link href="/v2/brands/[id]/products" as={`/v2/brands/${this.props.brand_id}/products`}><a className="nav-link" id="products"><i className="fe fe-package"></i> Sản phẩm</a></Link>
+                                        <Link href="/v2/brands/[id]/services" as={`/v2/brands/${this.props.brand_id}/services`}><a className="nav-link" id="services"><i className="fe fe-compass"></i> Dịch vụ</a></Link>
+                                        <Link href="/v2/brands/[id]/users" as={`/v2/brands/${this.props.brand_id}/users`}><a className="nav-link" id="users"><i className="fe fe-users"></i> Người dùng</a></Link>
                                     </li>
                                 </ul>
                                 <hr className="navbar-divider my-3" />
@@ -137,7 +137,7 @@ export default class NavBarNew extends React.Component {
                             <div className="dropup">
                                 <a href="#" id="sidebarIconCopy" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div className="avatar avatar-sm avatar-online">
-                                        <img src="/assets/img/avatars/projects/project-1.jpg" className="avatar-img rounded-circle" alt="..."/>
+                                        <img src={this.props.avatar} className="avatar-img rounded-circle" alt={this.props.user_name}/>
                                     </div>
                                 </a>
                                 {/* Menu */}
