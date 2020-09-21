@@ -73,8 +73,6 @@ export default class LayoutDashboard extends React.Component {
                     active_nav_item = "#dashboard"
                     brand_id={this.props.brand.ID}
                     brand_name={this.props.brand.name}
-                    // user_id={cookies.userID}
-                    // avatar = {user && user.avatar ? user.avatar[0].url : "../assets/img/avatars/profiles/avatar-1.jpg"}
                 />
 
                 <div className="main-content">
