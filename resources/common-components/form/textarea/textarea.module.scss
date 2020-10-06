@@ -1,0 +1,12 @@
+@import "../../../../styles/common.module.scss";
+
+.textarea {
+  background: #ffffff;
+  border: 1px solid #e3ebf6;
+  border-radius: 6px;
+  @extend .formControlFocus;
+
+  &:focus {
+    // border-color: #e3ebf6;
+  }
+}

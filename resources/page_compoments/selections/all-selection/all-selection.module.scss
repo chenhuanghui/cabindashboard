@@ -1,0 +1,29 @@
+.addPanel {
+  width: 100%;
+  position: sticky;
+  bottom: 0px;
+  padding: 20px 0px 38px;
+  border-top: 1px solid #e3ebf6;
+  background: #fff;
+
+  .addProductButton {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    color: #2c7be5;
+    cursor: pointer;
+  }
+
+  .addCategoryForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .buttons {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

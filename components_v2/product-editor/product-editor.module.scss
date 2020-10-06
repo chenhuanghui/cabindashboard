@@ -1,0 +1,46 @@
+.label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #12263f;
+  margin-bottom: 5px;
+}
+
+.smallText {
+  font-weight: 600;
+  font-size: 12px;
+  color: #6e84a3;
+}
+
+.imageUploader {
+  justify-content: stretch;
+  flex-wrap: unset;
+
+  .imagePicker {
+    margin-left: 14px;
+  }
+
+  @media screen and (max-width: 576px) {
+    // height: 50%;
+    .imagePreview {
+      width: 50%;
+      height: 190px;
+    }
+
+    .imagePicker {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 577px) {
+    // justify-content: stretch;
+
+    .imagePreview {
+      width: 190px;
+      height: 190px;
+    }
+
+    .imagePicker {
+      width: 100%;
+    }
+  }
+}

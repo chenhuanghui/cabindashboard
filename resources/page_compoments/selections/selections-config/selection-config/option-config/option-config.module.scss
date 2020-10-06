@@ -1,0 +1,26 @@
+.optionNameTextStyle {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600 !important;
+  font-size: 13px;
+  line-height: 16px;
+  color: #1f2d3d;
+}
+
+.optionName {
+  width: 150px;
+  @extend .optionNameTextStyle;
+
+  .optionNameInput {
+    padding: 0px 0px;
+    width: 100% !important;
+    height: 20px !important;
+    border: none;
+    @extend .optionNameTextStyle;
+  }
+
+  .optionNameText {
+    font-weight: 600 !important;
+    color: #1f2d3d !important;
+  }
+}

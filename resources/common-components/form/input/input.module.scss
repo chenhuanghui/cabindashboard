@@ -1,0 +1,14 @@
+@import "../../../../styles/common.module.scss";
+
+.input {
+  background: #ffffff;
+  border: 1px solid #e3ebf6;
+  border-radius: 6px;
+  outline: none;
+  @extend .formControlFocus;
+
+  &:focus {
+    // outline: none;
+    // border-color: #e3ebf6;
+  }
+}

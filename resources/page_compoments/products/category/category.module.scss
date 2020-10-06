@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  // padding-bottom: 20px;
+  border-bottom: 1px solid #e3ebf6;
+  transition: 0.3s ease;
+
+  .title {
+    margin-bottom: 25px;
+
+    .titleViewer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: Work Sans;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 23px;
+      color: #1f2d3d;
+
+      .moreIcon {
+        cursor: pointer;
+        color: #95aac9;
+      }
+    }
+  }
+
+  .addProduct {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    color: #2c7be5;
+    cursor: pointer;
+
+    .addProductIcon {
+      margin-right: 6px;
+    }
+  }
+}

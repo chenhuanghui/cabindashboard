@@ -1,0 +1,24 @@
+.container {
+}
+
+.addCategoryPanel {
+  // position: fixed;
+  // bottom: 0px;
+  padding: 20px 0px 38px;
+  border-top: 1px solid #e3ebf6;
+
+  .addProductButton {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    color: #2c7be5;
+    cursor: pointer;
+  }
+}
+
+.content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

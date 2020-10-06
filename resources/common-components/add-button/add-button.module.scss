@@ -1,0 +1,10 @@
+@import "../../../styles/common.module.scss";
+
+.addButton {
+  width: fit-content;
+  font-weight: bold;
+  font-size: 14px;
+  color: #2c7be5;
+  cursor: pointer;
+  @extend .disableUserSelect;
+}

@@ -1,0 +1,12 @@
+.container {
+  max-width: 342px;
+  max-height: 190px;
+  border: 1px dashed #d2ddec;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #f9fbfd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

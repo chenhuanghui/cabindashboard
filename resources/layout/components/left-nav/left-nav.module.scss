@@ -1,0 +1,47 @@
+.cfCeAvatarImage {
+  // mask-image: unset;
+}
+
+.cfCeAddAppIcon {
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.active {
+  color: #12263f;
+}
+
+// .navBar {
+//   width: 250px;
+//   background: #ffffff;
+//   box-shadow: 1px 0px 0px #edf2f9;
+//   border: none;
+// }
+
+// .navItem {
+//   padding: 0px 20.5px 0px 26px;
+//   font-weight: 500;
+//   font-size: 14px;
+//   color: #6e84a3;
+
+//   .navItemIcon {
+//     // margin-right: 12px;
+//   }
+
+//   &.active {
+//     position: relative;
+
+//     &:after {
+//       content: "";
+//       display: block;
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       height: 100%;
+//     }
+//   }
+// }

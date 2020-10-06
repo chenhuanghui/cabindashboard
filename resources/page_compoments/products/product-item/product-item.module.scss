@@ -1,0 +1,130 @@
+.wrapper {
+  &:not(:last-child) {
+    margin-bottom: 10px !important;
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  // padding: 16px;
+  cursor: pointer !important;
+  // background: #fff;
+  // border-radius: 10px;
+  // border: 1px solid #e3ebf6;
+
+  .imageAndName {
+    display: flex;
+    align-items: center;
+
+    .image {
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      margin-right: 20px;
+    }
+
+    .name {
+      width: 159px;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      color: #12263f;
+    }
+  }
+
+  .description {
+    width: 185px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    color: #6e84a3;
+  }
+
+  .priceAndEnable {
+    .price {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #000;
+
+      .priceIcon {
+        margin-right: 7.2px;
+        color: #95aac9;
+      }
+    }
+
+    .linkSelection {
+      min-height: 18px;
+      padding: 3px 11.69px;
+      background: rgba(44, 123, 229, 0.1);
+      border-radius: 3px;
+      font-family: Work Sans;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 12px;
+      color: #2c7be5;
+      cursor: pointer;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .imageAndName {
+      width: 100%;
+    }
+
+    .description {
+      margin-top: 5px;
+      width: 100%;
+      display: none;
+    }
+
+    .priceAndEnable {
+      margin-top: 5px;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 577px) and (max-width: 991px) {
+    .imageAndName {
+      width: 100%;
+    }
+
+    .description {
+      width: 100%;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .priceAndEnable {
+      margin-top: 5px;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .imageAndName {
+      width: calc(100% - 30% - 200px);
+    }
+
+    .description {
+      width: 20%;
+    }
+
+    .priceAndEnable {
+      justify-content: space-between;
+      width: 200px;
+    }
+  }
+}

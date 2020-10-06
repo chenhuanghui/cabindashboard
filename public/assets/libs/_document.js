@@ -13,10 +13,6 @@ class MyDocument extends Document {
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta name="description" content="CabinFood for Business" />
-            {/* <link
-            href="https://fonts.googleapis.com/css2?family=Inter&family=Work+Sans&display=swap"
-            rel="stylesheet"
-          ></link> */}
 
             {/* <link rel="stylesheet" href="../assets/css/theme.min.css"></link> */}
             {/* <link rel="stylesheet" href="../assets/css/style.css"></link> */}
@@ -42,11 +38,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
           <div className="modal-backdrop fade show"></div>
-          <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
-          <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-          <script src="/assets/libs/@shopify/draggable/lib/es5/draggable.bundle.legacy.js"></script>
           <script src="/assets/libs/filestack/filestack.min.js"></script>
-          <script src="/assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         </body>
       </Html>
     )

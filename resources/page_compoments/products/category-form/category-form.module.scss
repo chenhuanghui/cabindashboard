@@ -1,0 +1,35 @@
+.addCategoryForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  .buttons {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.inputContainer {
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 577px) {
+    width: calc(100% - 110px);
+    margin-right: 10px;
+  }
+}
+
+.util {
+  justify-content: space-between;
+
+  @media screen and (max-width: 576px) {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  @media screen and (min-width: 577px) {
+    width: 100px;
+  }
+}

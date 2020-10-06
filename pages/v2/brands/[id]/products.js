@@ -3,11 +3,18 @@ import Head from 'next/head'
 import Link from 'next/link';
 import $, { data } from 'jquery'
 import NavBar from "../../../../components_v2/nav"
+import ModalCreateProduct from "../../../../components_v2/modalCreateProduct"
+import BubbleModal from '../../../../components_v2/modal/bubble-modal';
+import EditProductDialog from '../../../../resources/page_compoments/products/edit-product-dialog';
+// import {Input} from 'react-bootstrap';
+import ShowProduct from '../../../../components_v2/products/showProduct'
+import AddProduct from '../../../../components_v2/products/addProduct'
 
 const BrandEntity = require("../../../../entity/BrandEntity")
 const brandObject = new BrandEntity()
 
 export default class LayoutInfo extends React.Component {
+
     
     static async getInitialProps({query}) {        
         console.log("query id:", query.id)
@@ -19,7 +26,7 @@ export default class LayoutInfo extends React.Component {
         super(props);
 
         this.state = {
-
+            openModal: false
         }
     }
 
@@ -29,15 +36,31 @@ export default class LayoutInfo extends React.Component {
             $("#showAddCategory").show()
             $("#showAddProduct input").focus()
         })
+        
         $("#btnAddCategoryCancel").click(function(){
             $("#showAddCategory").hide()
         })
 
-        $(".btnAddProduct").click(function(){
-            let catID = $(this).attr("data")
-            $(catID).find(".showAddProduct").show()
-            $(catID).find(".showAddProduct input:first").focus()
-        })
+        // $(".btnAddProduct").click(function(){
+        //     let catID = $(this).attr("data")
+        //     $(catID).find(".showAddProduct").show()
+        //     $(catID).find(".showAddProduct input:first").focus()
+        // })
+    }
+
+    showEditModal = () => {
+        $("body").addClass("modal-open")
+        $(".modal-backdrop").show()
+        this.setState({openModal: true})
+    }
+
+    showAddProduct = () => {
+        console.log(this)
+        let catID = $(this).attr("data")
+        console.log("add product of cat: ", catID)
+
+        $(catID).find(".showAddProduct").show()
+        $(catID).find(".showAddProduct input:first").focus()
     }
 
     render() {
@@ -96,7 +119,7 @@ export default class LayoutInfo extends React.Component {
                                                         </a>
                                                     </div>
                                                     <div className="col-2">
-                                                        <h5 className="mb-1 text-focus">Coldbrew cam vàng thơm ngon khó cưỡng</h5>
+                                                        <h5 className="mb-1 text-focus" onClick={this.showEditModal}>Coldbrew cam vàng thơm ngon khó cưỡng</h5>
                                                     </div>
                                                     <div className="col-4">
                                                         <p className="mb-1 text-muted small text-center">Sự kết hợp vừa quen vừa lạ giữa cà phê ngâm lạnh (100% Arabica Cầu...</p>
@@ -127,7 +150,7 @@ export default class LayoutInfo extends React.Component {
                                                         </a>
                                                     </div>
                                                     <div className="col-2">
-                                                        <h5 className="mb-1 text-focus">Coldbrew cam vàng thơm ngon khó cưỡng</h5>
+                                                        <h5 className="mb-1 text-focus" onClick={this.showEditModal}>Coldbrew cam vàng thơm ngon khó cưỡng</h5>
                                                     </div>
                                                     <div className="col-4">
                                                         <p className="mb-1 text-muted small text-center">Sự kết hợp vừa quen vừa lạ giữa cà phê ngâm lạnh (100% Arabica Cầu...</p>
@@ -146,32 +169,20 @@ export default class LayoutInfo extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                
 
+                                <ShowProduct 
+                                    image = "/assets/img/avatars/profiles/avatar-1.jpg"
+                                    name = "Coldbrew cam vàng thơm ngon khó cưỡng"
+                                    desc = "Sự kết hợp vừa quen vừa lạ giữa cà phê ngâm lạnh (100% Arabica Cầu"
+                                    price = "140.000"
+                                />
 
-                                <h4 className="text text-primary my-5"><a href="#" className="btnAddProduct" data="#catname">+ Thêm sản phẩm mới</a></h4>
-                                <div className="card showAddProduct" style={{display: "none"}}>
-                                    <div className="row py-2" style={{position: "relative"}}>                                            
-                                        <div className="col-8">
-                                            <input type="text" className="form-control form-control-flush ml-4" placeholder="Thêm sản phẩm mới"/>
-                                        </div>
-                                        <div className="col-auto py-n4">
-                                            <p className="mb-1 small text-center text-muted">
-                                                <div className="input-group input-group-flush">
-                                                    <div className="input-group-prepend">
-                                                        <span className="input-group-text"><i className="fe fe-tag"></i></span>
-                                                    </div>
-                                                    <input className="form-control list-search" placeholder="0.000 đ"/>
-                                                </div>
-                                            </p>
-                                        </div>
-                                        <div className="col-auto py-2" style={{position:"absolute", right: "10px"}}>
-                                            <button className="btn btn-white mr-3 btn-sm" id="btnAddCategoryCancel"> Hủy</button>
-                                            <button className="btn btn-primary btn-sm" id="btnAddCategoryCreate"> Tạo</button>
-                                        </div>
-                                        
-                                    </div>                                        
-                                </div>
+                                <h4 className="text text-primary my-5">
+                                    <a href="#" className="btnAddProduct" data=".catname" onClick={this.showAddProduct}>+ Thêm sản phẩm mới</a>
+                                </h4>
+                                <AddProduct 
+                                    className = "catname"
+                                />
                             </div>
                             
                         </div>
@@ -197,7 +208,16 @@ export default class LayoutInfo extends React.Component {
                             </div>
                         </div>
                     </div>
+                    
+                    {this.state.openModal 
+                    ? <ModalCreateProduct 
+                        onClosed = {()=> {
+                            this.state.setState({openModal: false})
+                        }}
+                    />
+                    : null}
                 </div>
+                
             </>
         )
     }
