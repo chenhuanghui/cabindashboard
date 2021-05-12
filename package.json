@@ -15,7 +15,7 @@
     "airtable-plus": "^1.0.4",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "contentful": "^7.14.6",
     "filestack-react": "^3.2.1",
     "jquery": "^3.5.1",
